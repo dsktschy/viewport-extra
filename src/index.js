@@ -58,9 +58,9 @@
   // Use innerWidth and innerHeight instead of screen.width and screen.height
   // Because innerWidth and innerHeight are always current width and height
   ViewportExtra.createContent = function (_this, _window) {
-    var width, height, initialScale, initialScaleWidth, initialScaleHeight, content
+    var width, height, initialScale, initialScaleWidth, initialScaleHeight, contents
     width = height = initialScale = initialScaleWidth = initialScaleHeight = ''
-    content = []
+    contents = []
     if (_this.minWidth != null && _this.minWidth === _this.maxWidth) {
       width = 'width=' + _this.minWidth
       initialScaleWidth = 'initial-scale=' + _window.innerWidth / _this.minWidth
@@ -85,10 +85,10 @@
     if (_this.scaleOrigin === 'height' && initialScaleHeight) {
       initialScale = initialScaleHeight
     }
-    for (let value of [ width, height, initialScale ]) {
-      if (value) content.push(value)
-    }
-    return content.join(',')
+    [ width, height, initialScale ].forEach(value => {
+      if (value) contents.push(value)
+    })
+    return contents.join(',')
   }
 
   ViewportExtra.createElement = function () {
