@@ -4,7 +4,8 @@
   "description": "Enable to set min-width and max-width to viewport",
   "main": "src/index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "minify": "terser src/index.js -o dist/viewport-extra.min.js -m -c"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
   },
   "homepage": "https://github.com/dsktschy/viewport-extra#readme",
   "devDependencies": {
-    "jest": "^24.0.0"
+    "jest": "^24.0.0",
+    "terser": "^3.14.1"
   }
 }
