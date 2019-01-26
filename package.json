@@ -25,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/dsktschy/viewport-extra/issues"
   },
-  "homepage": "https://github.com/dsktschy/viewport-extra#readme"
+  "homepage": "https://github.com/dsktschy/viewport-extra#readme",
+  "devDependencies": {
+    "jest": "^24.0.0"
+  }
 }
