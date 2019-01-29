@@ -3,12 +3,16 @@
 Viewport Extra enables to set min-width and max-width for viewport.  
 If you set 360 to min-width, Viewport Extra will overwrite content attribute in meta tag of viewport, in device whose screen width is less than 360px (e.g. iPhone SE).
 
+## CDN
+
+https://cdn.jsdelivr.net/npm/viewport-extra/dist/viewport-extra.min.js
+
 ## Usage
 
 ```html
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script src="path/to/viewport-extra.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/viewport-extra/dist/viewport-extra.min.js"></script>
 
 <!-- Require to put just after meta tag of viewport -->
 <script>
