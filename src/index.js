@@ -17,9 +17,7 @@
 
   ViewportExtra = function (options) {
     // Properties that is null are not be applied
-    this.minWidth = this.maxWidth = this.minHeight = this.maxHeight = null
-    // Which of width and height fit to the screen
-    this.scaleOrigin = 'width'
+    this.minWidth = this.maxWidth = null
     // Single numelic argument is used as minWidth
     if (typeof options === 'number') {
       this.minWidth = options
@@ -27,18 +25,10 @@
     } else if (typeof options === 'object') {
       if (typeof options.minWidth === 'number') this.minWidth = options.minWidth
       if (typeof options.maxWidth === 'number') this.maxWidth = options.maxWidth
-      if (typeof options.minHeight === 'number') this.minHeight = options.minHeight
-      if (typeof options.maxHeight === 'number') this.maxHeight = options.maxHeight
-      if (options.scaleOrigin === 'height') this.scaleOrigin = 'height'
       // Invalid combination of properties
       if (typeof this.minWidth === 'number' && typeof this.maxWidth === 'number') {
         if (this.minWidth > this.maxWidth) {
-          throw new Error('ViewportExtra requires that minWidth is less than maxWidth')
-        }
-      }
-      if (typeof this.minHeight === 'number' && typeof this.maxHeight === 'number') {
-        if (this.minHeight > this.maxHeight) {
-          throw new Error('ViewportExtra requires that minHeight is less than maxHeight')
+          throw new Error('ViewportExtra requires that maxWidth is not less than minWidth')
         }
       }
     // Invalid argument types
@@ -55,37 +45,22 @@
   }
 
   // Static method to enable to test
-  // Use innerWidth and innerHeight instead of screen.width and screen.height
-  // Because innerWidth and innerHeight are always current width and height
+  // Use innerWidth instead of screen.width, because innerWidth are always current width
   ViewportExtra.createContent = function (_this, _window) {
-    var width, height, initialScale, initialScaleWidth, initialScaleHeight, contents
-    width = height = initialScale = initialScaleWidth = initialScaleHeight = ''
+    var width, initialScale, contents
+    width = initialScale = ''
     contents = []
     if (_this.minWidth != null && _this.minWidth === _this.maxWidth) {
       width = 'width=' + _this.minWidth
-      initialScaleWidth = 'initial-scale=' + _window.innerWidth / _this.minWidth
+      initialScale = 'initial-scale=' + _window.innerWidth / _this.minWidth
     } else if (_this.minWidth != null && _window.innerWidth < _this.minWidth) {
       width = 'width=' + _this.minWidth
-      initialScaleWidth = 'initial-scale=' + _window.innerWidth / _this.minWidth
+      initialScale = 'initial-scale=' + _window.innerWidth / _this.minWidth
     } else if (_this.maxWidth != null && _window.innerWidth > _this.maxWidth) {
       width = 'width=' + _this.maxWidth
-      initialScaleWidth = 'initial-scale=' + _window.innerWidth / _this.maxWidth
+      initialScale = 'initial-scale=' + _window.innerWidth / _this.maxWidth
     }
-    if (_this.minHeight != null && _this.minHeight === _this.maxHeight) {
-      height = 'height=' + _this.minHeight
-      initialScaleHeight = 'initial-scale=' + _window.innerHeight / _this.minHeight
-    } else if (_this.minHeight != null && _window.innerHeight < _this.minHeight) {
-      height = 'height=' + _this.minHeight
-      initialScaleHeight = 'initial-scale=' + _window.innerHeight / _this.minHeight
-    } else if (_this.maxHeight != null && _window.innerHeight > _this.maxHeight) {
-      height = 'height=' + _this.maxHeight
-      initialScaleHeight = 'initial-scale=' + _window.innerHeight / _this.maxHeight
-    }
-    initialScale = initialScaleWidth
-    if (_this.scaleOrigin === 'height' && initialScaleHeight) {
-      initialScale = initialScaleHeight
-    }
-    [ width, height, initialScale ].forEach(value => {
+    [ width, initialScale ].forEach(value => {
       if (value) contents.push(value)
     })
     return contents.join(',')
