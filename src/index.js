@@ -60,7 +60,7 @@
       width = 'width=' + _this.maxWidth
       initialScale = 'initial-scale=' + _window.innerWidth / _this.maxWidth
     }
-    [ width, initialScale ].forEach(value => {
+    [ width, initialScale ].forEach(function (value) {
       if (value) contents.push(value)
     })
     return contents.join(',')
