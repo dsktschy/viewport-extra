@@ -39,7 +39,7 @@
   }
 
   ViewportExtra.prototype.applyToElement = function () {
-    if (window == null) return
+    if (typeof window === 'undefined') return
     var content = ViewportExtra.createContent(this, window)
     if (content) ViewportExtra.element.setAttribute('content', content)
   }
@@ -76,7 +76,7 @@
 
   // Static property because viewport element is always only one
   ViewportExtra.element = (function () {
-    if (window == null) return null
+    if (typeof window === 'undefined') return null
     return (
       document.querySelector('[name="viewport"]') ||
       ViewportExtra.createElement()
