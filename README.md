@@ -1,4 +1,4 @@
-# Viewport Extra
+# Viewport Extra [![](https://data.jsdelivr.com/v1/package/npm/viewport-extra/badge)](https://www.jsdelivr.com/package/npm/viewport-extra)
 
 Viewport Extra enables to set min-width and max-width for viewport.  
 If you set 360 to min-width, Viewport Extra will overwrite content attribute in meta tag of viewport, in device whose screen width is less than 360px (e.g. iPhone SE).
