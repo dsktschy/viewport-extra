@@ -5,14 +5,14 @@ If you set 360 to min-width, Viewport Extra will overwrite content attribute in 
 
 ## CDN
 
-https://cdn.jsdelivr.net/npm/viewport-extra@1.0.3/dist/viewport-extra.min.js
+https://cdn.jsdelivr.net/npm/viewport-extra@1.0.4/dist/viewport-extra.min.js
 
 ## Usage
 
 ```html
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script src="https://cdn.jsdelivr.net/npm/viewport-extra@1.0.3/dist/viewport-extra.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/viewport-extra@1.0.4/dist/viewport-extra.min.js"></script>
 
 <!-- Require to put just after meta tag of viewport -->
 <script>
