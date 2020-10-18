@@ -45,20 +45,20 @@
   }
 
   // Static method to enable to test
-  // Use innerWidth instead of screen.width, because innerWidth are always current width
   ViewportExtra.createContent = function (_this, _window) {
-    var width, initialScale, contents
+    var width, initialScale, contents, documentWidth
     width = initialScale = ''
     contents = []
+    documentWidth = _window.document.documentElement.clientWidth
     if (_this.minWidth != null && _this.minWidth === _this.maxWidth) {
       width = 'width=' + _this.minWidth
-      initialScale = 'initial-scale=' + _window.innerWidth / _this.minWidth
-    } else if (_this.minWidth != null && _window.innerWidth < _this.minWidth) {
+      initialScale = 'initial-scale=' + documentWidth / _this.minWidth
+    } else if (_this.minWidth != null && documentWidth < _this.minWidth) {
       width = 'width=' + _this.minWidth
-      initialScale = 'initial-scale=' + _window.innerWidth / _this.minWidth
-    } else if (_this.maxWidth != null && _window.innerWidth > _this.maxWidth) {
+      initialScale = 'initial-scale=' + documentWidth / _this.minWidth
+    } else if (_this.maxWidth != null && documentWidth > _this.maxWidth) {
       width = 'width=' + _this.maxWidth
-      initialScale = 'initial-scale=' + _window.innerWidth / _this.maxWidth
+      initialScale = 'initial-scale=' + documentWidth / _this.maxWidth
     }
     [ width, initialScale ].forEach(function (value) {
       if (value) contents.push(value)
