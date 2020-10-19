@@ -11,7 +11,7 @@ For example, on devices with a display width of less than 375px (e.g. iPhone SE 
 ```html
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<script src="https://cdn.jsdelivr.net/npm/viewport-extra@1.1.0/dist/viewport-extra.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/viewport-extra@1.1.1/dist/viewport-extra.min.js"></script>
 
 <script>
   new ViewportExtra({ minWidth: 375, maxWidth: 414 })
