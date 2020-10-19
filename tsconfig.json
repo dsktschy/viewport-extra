@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "lib": ["es2020", "dom"],
+    "strict": true,
+    "sourceMap": true,
+    "moduleResolution": "node"
+  },
+  "exclude": ["node_modules"],
+  "include": ["**/*.ts"]
+}

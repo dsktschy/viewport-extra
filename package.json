@@ -2,10 +2,13 @@
   "name": "viewport-extra",
   "version": "1.1.1",
   "description": "Enable to set min-width and max-width to viewport",
-  "main": "src/index.js",
+  "module": "dist/esnext/index.js",
+  "main": "dist/commonjs/index.js",
+  "browser": "dist/umd/index.min.js",
+  "types": "types/index.d.ts",
   "scripts": {
     "test": "jest",
-    "minify": "terser src/index.js -o dist/viewport-extra.min.js -m -c"
+    "build": "tsc --module umd --target es5 --outDir dist/umd && tsc --module commonjs --target esnext --outDir dist/commonjs && tsc --module esnext --target esnext --outDir dist/esnext && terser dist/umd/index.js -o dist/umd/index.min.js -m -c"
   },
   "repository": {
     "type": "git",
@@ -29,6 +32,7 @@
   "homepage": "https://github.com/dsktschy/viewport-extra#readme",
   "devDependencies": {
     "jest": "^24.0.0",
-    "terser": "^3.14.1"
+    "terser": "^3.14.1",
+    "typescript": "^4.0.3"
   }
 }
