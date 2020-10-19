@@ -50,7 +50,7 @@ new ViewportExtra(375)
  *
  * No operation
  * on iPhone >= 6 and iPhone 5/5s/SE(1st generation) in landscape mode
- * <meta name="viewport" content="width=375,initial-scale=0.8533333333333334">
+ * <meta name="viewport" content="width=device-width,initial-scale=1">
  */
 new ViewportExtra(375)
 
