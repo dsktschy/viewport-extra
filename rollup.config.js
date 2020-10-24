@@ -36,6 +36,10 @@ export default [
         plugins: [terser()]
       }
     ],
-    plugins: [eslint(), typescript(), json()]
+    plugins: [
+      eslint(), // eslint-disable-line @typescript-eslint/no-unsafe-call
+      typescript(),
+      json()
+    ]
   }
 ]

@@ -8,5 +8,5 @@
     "resolveJsonModule": true
   },
   "exclude": ["node_modules"],
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "**/*.js", "**/.*.js"]
 }
