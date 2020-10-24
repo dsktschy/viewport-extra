@@ -15,12 +15,11 @@ module.exports = {
     sourceType: 'module',
     project: './tsconfig.json'
   },
-  plugins: [
-    '@typescript-eslint'
-  ],
+  plugins: ['@typescript-eslint'],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    '@typescript-eslint/no-unused-vars': process.env.NODE_ENV === 'production' ? 2 : 1
+    '@typescript-eslint/no-unused-vars':
+      process.env.NODE_ENV === 'production' ? 2 : 1
   }
 }

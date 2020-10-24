@@ -33,15 +33,9 @@ export default [
         exports: 'named',
         sourcemap: false,
         name: 'ViewportExtra',
-        plugins: [
-          terser()
-        ]
+        plugins: [terser()]
       }
     ],
-    plugins: [
-      eslint(),
-      typescript(),
-      json()
-    ]
+    plugins: [eslint(), typescript(), json()]
   }
 ]

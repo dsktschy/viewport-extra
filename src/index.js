@@ -1,16 +1,16 @@
 // https://github.com/umdjs/umd/blob/master/templates/returnExports.js
-(function (root, factory) {
+;(function (root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD
-    define([], factory);
+    define([], factory)
   } else if (typeof module === 'object' && module.exports) {
     // Node
-    module.exports = factory();
+    module.exports = factory()
   } else {
     // Browser globals
-    root.ViewportExtra = factory();
+    root.ViewportExtra = factory()
   }
-}(typeof self !== 'undefined' ? self : this, function () {
+})(typeof self !== 'undefined' ? self : this, function () {
   'use strict'
 
   var ViewportExtra
@@ -21,19 +21,26 @@
     // Single numelic argument is used as minWidth
     if (typeof options === 'number') {
       this.minWidth = options
-    // Object argument can set values to all properties
+      // Object argument can set values to all properties
     } else if (typeof options === 'object') {
       if (typeof options.minWidth === 'number') this.minWidth = options.minWidth
       if (typeof options.maxWidth === 'number') this.maxWidth = options.maxWidth
       // Invalid combination of properties
-      if (typeof this.minWidth === 'number' && typeof this.maxWidth === 'number') {
+      if (
+        typeof this.minWidth === 'number' &&
+        typeof this.maxWidth === 'number'
+      ) {
         if (this.minWidth > this.maxWidth) {
-          throw new Error('ViewportExtra requires that maxWidth is not less than minWidth')
+          throw new Error(
+            'ViewportExtra requires that maxWidth is not less than minWidth'
+          )
         }
       }
-    // Invalid argument types
+      // Invalid argument types
     } else {
-      throw new Error('ViewportExtra requires an argument that is number or object')
+      throw new Error(
+        'ViewportExtra requires an argument that is number or object'
+      )
     }
     this.applyToElement()
   }
@@ -60,7 +67,7 @@
       width = 'width=' + _this.maxWidth
       initialScale = 'initial-scale=' + documentWidth / _this.maxWidth
     }
-    [ width, initialScale ].forEach(function (value) {
+    ;[width, initialScale].forEach(function (value) {
       if (value) contents.push(value)
     })
     return contents.join(',')
@@ -84,4 +91,4 @@
   })()
 
   return ViewportExtra
-}));
+})

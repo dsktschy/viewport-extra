@@ -9,7 +9,7 @@ For example, on devices with a display width of less than 375px (e.g. iPhone SE 
 ### CDN
 
 ```html
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
 <script src="https://cdn.jsdelivr.net/npm/viewport-extra@1.1.1/dist/viewport-extra.min.js"></script>
 
@@ -28,7 +28,7 @@ npm i viewport-extra
 ```
 
 ```html
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 ```
 
 ```js
@@ -85,8 +85,8 @@ new ViewportExtra({ minWidth: null, maxWidth: 320 })
 
 ## Note
 
-* Of course, it works on Android devices as well.
+- Of course, it works on Android devices as well.
 
-* Rotating the screen (switching between portrait and landscape mode) does not rewrite the content attribute of the viewport meta element.
+- Rotating the screen (switching between portrait and landscape mode) does not rewrite the content attribute of the viewport meta element.
 
-* If using NPM and worried about the delay in applying, switch to using CDN.
+- If using NPM and worried about the delay in applying, switch to using CDN.
