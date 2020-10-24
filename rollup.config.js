@@ -1,6 +1,7 @@
 import typescript from '@rollup/plugin-typescript'
 import json from '@rollup/plugin-json'
 import { terser } from 'rollup-plugin-terser'
+import { eslint } from 'rollup-plugin-eslint'
 import { module, main, browser } from './package.json'
 
 export default [
@@ -38,6 +39,7 @@ export default [
       }
     ],
     plugins: [
+      eslint(),
       typescript(),
       json()
     ]
