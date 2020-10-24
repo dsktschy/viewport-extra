@@ -1,4 +1,5 @@
-import rollupPluginTypescript from '@rollup/plugin-typescript'
+import typescript from '@rollup/plugin-typescript'
+import json from '@rollup/plugin-json'
 import { terser } from 'rollup-plugin-terser'
 import { module, main, browser } from './package.json'
 
@@ -9,29 +10,36 @@ export default [
       {
         file: module,
         format: 'es',
+        exports: 'named',
         sourcemap: true
       },
       {
         file: main,
         format: 'cjs',
+        exports: 'named',
         sourcemap: true
       },
       {
         file: browser.replace('.min', ''),
         format: 'iife',
-        sourcemap: true
+        exports: 'named',
+        sourcemap: true,
+        name: 'ViewportExtra'
       },
       {
         file: browser,
         format: 'iife',
+        exports: 'named',
         sourcemap: false,
+        name: 'ViewportExtra',
         plugins: [
           terser()
         ]
       }
     ],
     plugins: [
-      rollupPluginTypescript()
+      typescript(),
+      json()
     ]
   }
 ]

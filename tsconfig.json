@@ -4,7 +4,8 @@
     "target": "esnext",
     "lib": ["es2020", "dom"],
     "strict": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "resolveJsonModule": true
   },
   "exclude": ["node_modules"],
   "include": ["**/*.ts"]
