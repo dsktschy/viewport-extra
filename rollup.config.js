@@ -1,8 +1,10 @@
 import typescript from '@rollup/plugin-typescript'
+import del from 'rollup-plugin-delete'
 import json from '@rollup/plugin-json'
 import { terser } from 'rollup-plugin-terser'
 import { eslint } from 'rollup-plugin-eslint'
-import { module, main, browser } from './package.json'
+import globby from 'globby'
+import { module, main, browser, jest } from './package.json'
 
 export default [
   {
@@ -37,6 +39,22 @@ export default [
       }
     ],
     plugins: [
+      del({ targets: [`${module}/..`, `${main}/..`, `${browser}/..`] }),
+      eslint(), // eslint-disable-line @typescript-eslint/no-unsafe-call
+      typescript(),
+      json()
+    ]
+  },
+  {
+    input: globby.sync('src/**/*.test.ts'),
+    output: jest.roots.map(root => ({
+      dir: root,
+      format: 'cjs',
+      exports: 'named',
+      sourcemap: true
+    })),
+    plugins: [
+      del({ targets: jest.roots }),
       eslint(), // eslint-disable-line @typescript-eslint/no-unsafe-call
       typescript(),
       json()
