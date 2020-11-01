@@ -1,63 +1,69 @@
-import typescript from '@rollup/plugin-typescript'
-import del from 'rollup-plugin-delete'
-import json from '@rollup/plugin-json'
-import { terser } from 'rollup-plugin-terser'
-import { eslint } from 'rollup-plugin-eslint'
+import rollupPluginTypescript from '@rollup/plugin-typescript'
+import rollupPluginDelete from 'rollup-plugin-delete'
+import rollupPluginJson from '@rollup/plugin-json'
+import { terser as rollupPluginTerser } from 'rollup-plugin-terser'
+import { eslint as rollupPluginEslint } from 'rollup-plugin-eslint'
 import globby from 'globby'
-import { module, main, browser, jest } from './package.json'
+import * as packageJson from './package.json'
 
 export default [
   {
     input: 'src/index.ts',
     output: [
       {
-        file: module,
+        file: packageJson.module,
         format: 'es',
         exports: 'named',
         sourcemap: true
       },
       {
-        file: main,
+        file: packageJson.main,
         format: 'cjs',
         exports: 'named',
         sourcemap: true
       },
       {
-        file: browser.replace('.min', ''),
+        file: packageJson.browser.replace('.min', ''),
         format: 'iife',
         exports: 'named',
         sourcemap: true,
         name: 'ViewportExtra'
       },
       {
-        file: browser,
+        file: packageJson.browser,
         format: 'iife',
         exports: 'named',
         sourcemap: false,
         name: 'ViewportExtra',
-        plugins: [terser()]
+        plugins: [rollupPluginTerser()]
       }
     ],
     plugins: [
-      del({ targets: [`${module}/..`, `${main}/..`, `${browser}/..`] }),
-      eslint(), // eslint-disable-line @typescript-eslint/no-unsafe-call
-      typescript(),
-      json()
+      rollupPluginDelete({
+        targets: [
+          `${packageJson.module}/..`,
+          `${packageJson.main}/..`,
+          `${packageJson.browser}/..`
+        ]
+      }),
+      rollupPluginEslint(), // eslint-disable-line @typescript-eslint/no-unsafe-call
+      rollupPluginTypescript(),
+      rollupPluginJson()
     ]
   },
   {
     input: globby.sync('src/**/*.test.ts'),
-    output: jest.roots.map(root => ({
+    output: packageJson.jest.roots.map(root => ({
       dir: root,
       format: 'cjs',
       exports: 'named',
       sourcemap: true
     })),
     plugins: [
-      del({ targets: jest.roots }),
-      eslint(), // eslint-disable-line @typescript-eslint/no-unsafe-call
-      typescript(),
-      json()
+      rollupPluginDelete({ targets: packageJson.jest.roots }),
+      rollupPluginEslint(), // eslint-disable-line @typescript-eslint/no-unsafe-call
+      rollupPluginTypescript(),
+      rollupPluginJson()
     ]
   }
 ]

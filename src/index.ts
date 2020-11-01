@@ -1,7 +1,7 @@
-import { version } from '../package.json'
+import * as packageJson from '../package.json'
 
 const ViewportExtra = {
-  version
+  version: packageJson.version
 }
 
 export default ViewportExtra
