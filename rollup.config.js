@@ -2,7 +2,7 @@ import rollupPluginTypescript from '@rollup/plugin-typescript'
 import rollupPluginDelete from 'rollup-plugin-delete'
 import rollupPluginJson from '@rollup/plugin-json'
 import { terser as rollupPluginTerser } from 'rollup-plugin-terser'
-import { eslint as rollupPluginEslint } from 'rollup-plugin-eslint'
+import rollupPluginEslint from '@rbnlffl/rollup-plugin-eslint'
 import globby from 'globby'
 import * as packageJson from './package.json'
 
@@ -46,7 +46,7 @@ export default [
           `${packageJson.browser}/..`
         ]
       }),
-      rollupPluginEslint(), // eslint-disable-line @typescript-eslint/no-unsafe-call
+      rollupPluginEslint(),
       rollupPluginTypescript(),
       rollupPluginJson()
     ]
@@ -61,7 +61,7 @@ export default [
     })),
     plugins: [
       rollupPluginDelete({ targets: packageJson.jest.roots }),
-      rollupPluginEslint(), // eslint-disable-line @typescript-eslint/no-unsafe-call
+      rollupPluginEslint(),
       rollupPluginTypescript(),
       rollupPluginJson()
     ]
