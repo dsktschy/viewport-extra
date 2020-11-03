@@ -1,5 +1,7 @@
 import ViewportExtra from './index'
 
-test('exported object contains version property', () => {
-  expect(typeof ViewportExtra.version === 'string').toBe(true)
+describe('about src/index.ts', () => {
+  test('exported class contains version property', () => {
+    expect(typeof ViewportExtra.version === 'string').toBe(true)
+  })
 })
