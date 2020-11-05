@@ -4,15 +4,13 @@ export interface ContentMap {
   [key: string]: string
 }
 
-export const stringifyContentMap = (contentMap: ContentMap): ContentString => {
+export const stringify = (contentMap: ContentMap): ContentString => {
   return Object.entries(contentMap)
     .map(([key, value]) => `${key}=${value}`)
     .join(',')
 }
 
-export const isValidAsViewportExtraContentMap = (
-  contentMap: ContentMap
-): boolean => {
+export const validateExtraProperties = (contentMap: ContentMap): boolean => {
   // Not numeric string
   const minWidthDefined = contentMap['min-width'] != null
   const numericMinWidth = +contentMap['min-width']

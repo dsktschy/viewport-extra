@@ -1,5 +1,5 @@
 import { ContentMap } from './ContentMap'
-import { parseContentString } from './ContentString'
+import { parse } from './ContentString'
 
 export const getViewportContentMap = (
   htmlMetaElement: HTMLMetaElement
@@ -8,7 +8,7 @@ export const getViewportContentMap = (
   if (name !== 'viewport' && name !== 'viewport-extra') return {}
 
   const contentString = htmlMetaElement.getAttribute('content') || ''
-  const contentMap = parseContentString(contentString)
+  const contentMap = parse(contentString)
   const filteredContentMap: ContentMap = {}
   for (const [key, value] of Object.entries(contentMap)) {
     if (key === 'min-width' || key === 'max-width') continue
@@ -27,7 +27,7 @@ export const getViewportExtraContentMap = (
   else return {}
 
   const contentString = htmlMetaElement.getAttribute(attributeName) || ''
-  const contentMap = parseContentString(contentString)
+  const contentMap = parse(contentString)
   const filteredContentMap: ContentMap = {}
   for (const [key, value] of Object.entries(contentMap)) {
     if (key !== 'min-width' && key !== 'max-width') continue
