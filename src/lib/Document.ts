@@ -19,3 +19,7 @@ export const getViewportExtraElement = (
 ): HTMLMetaElement | null => {
   return document.querySelector<HTMLMetaElement>('meta[name="viewport-extra"]')
 }
+
+export const getClientWidth = (document: Document): number => {
+  return document.documentElement.clientWidth
+}
