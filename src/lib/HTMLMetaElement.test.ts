@@ -1,6 +1,7 @@
 import {
   createViewportContentMap,
-  createViewportExtraContentMap
+  createViewportExtraContentMap,
+  applyContentMap
 } from './HTMLMetaElement'
 
 describe('about src/lib/HTMLMetaElement.ts', () => {
@@ -99,5 +100,29 @@ describe('about src/lib/HTMLMetaElement.ts', () => {
       charsetElement
     )
     expect(viewportExtraContentMap).toStrictEqual({})
+  })
+
+  test('applyContentMap applys ContentMap to meta[name="viewport"] element', () => {
+    applyContentMap(viewportElement, { width: '375' })
+    const contentString = viewportElement.getAttribute('content')
+    expect(contentString).toBe('width=375')
+  })
+
+  test('applyContentMap does not apply ContentMap to meta[name="viewport-extra"] element', () => {
+    applyContentMap(viewportExtraElement, { width: '375' })
+    const contentString = viewportExtraElement.getAttribute('content')
+    expect(contentString).not.toBe('width=375')
+  })
+
+  test('applyContentMap does not apply ContentMap to meta[name="description"] element', () => {
+    applyContentMap(descriptionElement, { width: '375' })
+    const contentString = descriptionElement.getAttribute('content')
+    expect(contentString).not.toBe('width=375')
+  })
+
+  test('applyContentMap does not apply ContentMap to meta[charset="utf-8"] element', () => {
+    applyContentMap(charsetElement, { width: '375' })
+    const contentString = charsetElement.getAttribute('content')
+    expect(contentString).not.toBe('width=375')
   })
 })

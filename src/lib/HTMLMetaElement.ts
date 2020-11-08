@@ -1,4 +1,4 @@
-import { ContentMap } from './ContentMap'
+import { ContentMap, stringify } from './ContentMap'
 import { parse } from './ContentString'
 
 export const createViewportContentMap = (
@@ -34,4 +34,16 @@ export const createViewportExtraContentMap = (
     filteredContentMap[key] = value
   }
   return filteredContentMap
+}
+
+export const applyContentMap = (
+  htmlMetaElement: HTMLMetaElement,
+  contentMap: ContentMap
+): HTMLMetaElement => {
+  const name = htmlMetaElement.getAttribute('name') || ''
+  if (name !== 'viewport') return htmlMetaElement
+
+  const contentString = stringify(contentMap)
+  htmlMetaElement.setAttribute('content', contentString)
+  return htmlMetaElement
 }
