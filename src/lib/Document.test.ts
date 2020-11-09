@@ -1,15 +1,11 @@
 import { ensureViewportElement } from './Document'
 
 describe('about src/lib/Document.ts', () => {
-  test('whether to append viewport meta element if it is not in document', () => {
-    const resultList: boolean[] = []
-    const selector = 'meta[name="viewport"]'
-    let viewportElement: HTMLMetaElement | null = null
-    viewportElement = document.head.querySelector<HTMLMetaElement>(selector)
-    resultList[0] = viewportElement === null
+  test('ensureViewportElement appends viewport meta element if it is not in document', () => {
     ensureViewportElement(document)
-    viewportElement = document.head.querySelector<HTMLMetaElement>(selector)
-    resultList[1] = viewportElement !== null
-    expect(resultList.every(result => result)).toBe(true)
+    const viewportElement = document.head.querySelector<HTMLMetaElement>(
+      'meta[name="viewport"]'
+    )
+    expect(viewportElement).not.toBeNull()
   })
 })
