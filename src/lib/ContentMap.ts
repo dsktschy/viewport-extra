@@ -32,7 +32,7 @@ export const initializeViewportExtraProps = (
   ...forcedViewportExtraProps
 })
 
-export const createAppliedContentMap = (
+export const applyViewportExtraPropsToViewportProps = (
   viewportContentMap: ContentMap,
   viewportExtraContentMap: ContentMap,
   documentClientWidth: number
