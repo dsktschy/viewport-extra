@@ -72,8 +72,9 @@ export const applyViewportExtraPropsToViewportProps = (
   return contentMap
 }
 
-export const stringify = (contentMap: ContentMap): ContentString => {
-  return Object.entries(contentMap)
-    .map(([key, value]) => `${key}=${value}`)
+export const stringify = (contentMap: ContentMap): ContentString =>
+  Object.keys(contentMap)
+    // For testing
+    .sort()
+    .map(key => `${key}=${contentMap[key]}`)
     .join(',')
-}

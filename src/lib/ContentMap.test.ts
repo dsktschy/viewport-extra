@@ -418,6 +418,6 @@ describe('about src/lib/ContentMap.ts', () => {
       width: 'device-width',
       'initial-width': '1'
     })
-    expect(contentString).toBe('width=device-width,initial-width=1')
+    expect(contentString).toBe('initial-width=1,width=device-width')
   })
 })
