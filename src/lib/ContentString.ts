@@ -7,7 +7,11 @@ export const parse = (contentString: ContentString): ContentMap => {
   const contentMap: ContentMap = {}
   for (const content of contentList) {
     const [key, value] = content.split('=')
-    contentMap[key] = value
+    const trimmedKey = key.trim()
+    if (!trimmedKey) continue
+    const trimmedValue = value.trim()
+    if (!trimmedValue) continue
+    contentMap[trimmedKey] = trimmedValue
   }
   return contentMap
 }
