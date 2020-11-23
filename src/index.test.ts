@@ -157,4 +157,39 @@ describe('about src/index.ts', () => {
     const bindedSetOptions = setOptions.bind(null, {})
     expect(bindedSetOptions).toThrowError(NoOptionsError)
   })
+
+  test('restore updates viewport meta element to original state', async () => {
+    const minWidth = 375
+    const maxWidth = 414
+    const documentClientWidth = 320
+    Object.defineProperty(document.documentElement, 'clientWidth', {
+      value: documentClientWidth,
+      writable: true
+    })
+    document.head.innerHTML = ''
+    const createdViewportElement = document.createElement('meta')
+    createdViewportElement.setAttribute('name', 'viewport')
+    createdViewportElement.setAttribute(
+      'content',
+      'width=device-width,initial-scale=1,invalid=true'
+    )
+    createdViewportElement.setAttribute(
+      'data-extra-content',
+      `min-width=${minWidth},max-width=${maxWidth}`
+    )
+    document.head.appendChild(createdViewportElement)
+    // Run module again
+    jest.resetModules()
+    const { restore } = await import('./index')
+    restore()
+    const selectedViewportElement = document.head.querySelector(
+      'meta[name="viewport"]'
+    )
+    const viewportContentString = selectedViewportElement?.getAttribute(
+      'content'
+    )
+    expect(viewportContentString).toBe(
+      'initial-scale=1,invalid=true,width=device-width'
+    )
+  })
 })

@@ -21,6 +21,7 @@ let viewportElement: HTMLMetaElement | null = null
 let viewportExtraElement: HTMLMetaElement | null = null
 let viewportContentMap: ContentMap = initializeViewportProps({})
 let viewportExtraContentMap: ContentMap = initializeViewportExtraProps({})
+let originalViewportContentMap: ContentMap = {}
 
 if (typeof window !== 'undefined') {
   viewportElement = ensureViewportElement(document)
@@ -33,6 +34,7 @@ if (typeof window !== 'undefined') {
     ...viewportExtraContentMap,
     ...createViewportExtraContentMap(viewportElement)
   }
+  originalViewportContentMap = { ...viewportContentMap }
   if (viewportExtraElement) {
     viewportContentMap = {
       ...viewportContentMap,
@@ -68,6 +70,11 @@ export const setOptions = (maybeOptions: unknown): void => {
     getClientWidth(document)
   )
   applyContentMap(viewportElement, viewportContentMap)
+}
+
+export const restore = (): void => {
+  if (!viewportElement) return
+  applyContentMap(viewportElement, originalViewportContentMap)
 }
 
 export const version = packageJson.version
