@@ -42,7 +42,7 @@ describe('about src/lib/HTMLMetaElement.ts', () => {
     'width=0,initial-scale=10,min-width=0,max-width=9999'
   )
 
-  test('createViewportContentMap returns correct ContentMap with meta[name="viewport"] element', () => {
+  test('`createViewportContentMap` returns correct ContentMap with meta[name="viewport"] element', () => {
     const viewportContentMap = createViewportContentMap(viewportElement)
     expect(viewportContentMap).toStrictEqual({
       width: 'device-width',
@@ -50,7 +50,7 @@ describe('about src/lib/HTMLMetaElement.ts', () => {
     })
   })
 
-  test('createViewportContentMap returns correct ContentMap with meta[name="viewport-extra"] element', () => {
+  test('`createViewportContentMap` returns correct ContentMap with meta[name="viewport-extra"] element', () => {
     const viewportContentMap = createViewportContentMap(viewportExtraElement)
     expect(viewportContentMap).toStrictEqual({
       width: 'device-width',
@@ -58,17 +58,17 @@ describe('about src/lib/HTMLMetaElement.ts', () => {
     })
   })
 
-  test('createViewportContentMap returns empty ContentMap with meta element that has name attribute whose value is neither viewport or viewport-extra', () => {
+  test('`createViewportContentMap` returns empty ContentMap with meta element that has name attribute whose value is neither viewport or viewport-extra', () => {
     const viewportContentMap = createViewportContentMap(descriptionElement)
     expect(viewportContentMap).toStrictEqual({})
   })
 
-  test('createViewportContentMap returns empty ContentMap with meta element that is neither meta[name="viewport"] or meta[name="viewport-extra"]', () => {
+  test('`createViewportContentMap` returns empty ContentMap with meta element that is neither meta[name="viewport"] or meta[name="viewport-extra"]', () => {
     const viewportContentMap = createViewportContentMap(charsetElement)
     expect(viewportContentMap).toStrictEqual({})
   })
 
-  test('createViewportExtraContentMap returns correct ContentMap with meta[name="viewport"] element', () => {
+  test('`createViewportExtraContentMap` returns correct ContentMap with meta[name="viewport"] element', () => {
     const viewportExtraContentMap = createViewportExtraContentMap(
       viewportElement
     )
@@ -78,7 +78,7 @@ describe('about src/lib/HTMLMetaElement.ts', () => {
     })
   })
 
-  test('createViewportExtraContentMap returns correct ContentMap with meta[name="viewport-extra"] element', () => {
+  test('`createViewportExtraContentMap` returns correct ContentMap with meta[name="viewport-extra"] element', () => {
     const viewportExtraContentMap = createViewportExtraContentMap(
       viewportExtraElement
     )
@@ -88,39 +88,39 @@ describe('about src/lib/HTMLMetaElement.ts', () => {
     })
   })
 
-  test('createViewportExtraContentMap returns empty ContentMap with meta element that has name attribute whose value is neither viewport or viewport-extra', () => {
+  test('`createViewportExtraContentMap` returns empty ContentMap with meta element that has name attribute whose value is neither viewport or viewport-extra', () => {
     const viewportExtraContentMap = createViewportExtraContentMap(
       descriptionElement
     )
     expect(viewportExtraContentMap).toStrictEqual({})
   })
 
-  test('createViewportExtraContentMap returns empty ContentMap with meta element that is neither meta[name="viewport"] or meta[name="viewport-extra"]', () => {
+  test('`createViewportExtraContentMap` returns empty ContentMap with meta element that is neither meta[name="viewport"] or meta[name="viewport-extra"]', () => {
     const viewportExtraContentMap = createViewportExtraContentMap(
       charsetElement
     )
     expect(viewportExtraContentMap).toStrictEqual({})
   })
 
-  test('applyContentMap applys ContentMap to meta[name="viewport"] element', () => {
+  test('`applyContentMap` applys ContentMap to meta[name="viewport"] element', () => {
     applyContentMap(viewportElement, { width: '375' })
     const contentString = viewportElement.getAttribute('content')
     expect(contentString).toBe('width=375')
   })
 
-  test('applyContentMap does not apply ContentMap to meta[name="viewport-extra"] element', () => {
+  test('`applyContentMap` does not apply ContentMap to meta[name="viewport-extra"] element', () => {
     applyContentMap(viewportExtraElement, { width: '375' })
     const contentString = viewportExtraElement.getAttribute('content')
     expect(contentString).not.toBe('width=375')
   })
 
-  test('applyContentMap does not apply ContentMap to meta[name="description"] element', () => {
+  test('`applyContentMap` does not apply ContentMap to meta[name="description"] element', () => {
     applyContentMap(descriptionElement, { width: '375' })
     const contentString = descriptionElement.getAttribute('content')
     expect(contentString).not.toBe('width=375')
   })
 
-  test('applyContentMap does not apply ContentMap to meta[charset="utf-8"] element', () => {
+  test('`applyContentMap` does not apply ContentMap to meta[charset="utf-8"] element', () => {
     applyContentMap(charsetElement, { width: '375' })
     const contentString = charsetElement.getAttribute('content')
     expect(contentString).not.toBe('width=375')

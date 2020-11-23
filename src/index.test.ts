@@ -1,5 +1,5 @@
 describe('about src/index.ts', () => {
-  test('importing as ES module in document that has no viewport meta element', async () => {
+  test('activation by importing module in document that has no viewport meta element', async () => {
     const documentClientWidth = 320
     Object.defineProperty(document.documentElement, 'clientWidth', {
       value: documentClientWidth,
@@ -18,7 +18,7 @@ describe('about src/index.ts', () => {
     expect(viewportContentString).toBe('initial-scale=1,width=device-width')
   })
 
-  test('importing as ES module in document that has <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=375,max-width=414">, and 320px width', async () => {
+  test('activation by importing module in document that has <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=375,max-width=414">, and 320px width', async () => {
     const minWidth = 375
     const maxWidth = 414
     const documentClientWidth = 320
@@ -52,7 +52,7 @@ describe('about src/index.ts', () => {
     )
   })
 
-  test('importing as ES module in document that has <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=375,max-width=414">, and 320px width', async () => {
+  test('activation by importing module in document that has <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=375,max-width=414">, and 320px width', async () => {
     const minWidth = 375
     const maxWidth = 414
     const documentClientWidth = 320
@@ -82,7 +82,7 @@ describe('about src/index.ts', () => {
     )
   })
 
-  test('importing as ES module in document that has <meta name="viewport" content="width=device-width,initial-scale=1">, <meta name="viewport-extra" content="min-width=375,max-width=414">, and 320px width', async () => {
+  test('activation by importing module in document that has <meta name="viewport" content="width=device-width,initial-scale=1">, <meta name="viewport-extra" content="min-width=375,max-width=414">, and 320px width', async () => {
     const minWidth = 375
     const maxWidth = 414
     const documentClientWidth = 320
@@ -119,7 +119,7 @@ describe('about src/index.ts', () => {
     )
   })
 
-  test('setOptions sets correct content attribute with valid options', async () => {
+  test('`setOptions` sets correct content attribute with valid options', async () => {
     const minWidth = 375
     const maxWidth = 414
     const documentClientWidth = 320
@@ -143,7 +143,7 @@ describe('about src/index.ts', () => {
     )
   })
 
-  test('setOptions throws error with invalid options', async () => {
+  test('`setOptions` throws error with invalid options', async () => {
     const documentClientWidth = 320
     Object.defineProperty(document.documentElement, 'clientWidth', {
       value: documentClientWidth,
@@ -158,7 +158,7 @@ describe('about src/index.ts', () => {
     expect(bindedSetOptions).toThrowError(NoOptionsError)
   })
 
-  test('restore updates viewport meta element to original state', async () => {
+  test('`restore` updates viewport meta element to original state', async () => {
     const minWidth = 375
     const maxWidth = 414
     const documentClientWidth = 320

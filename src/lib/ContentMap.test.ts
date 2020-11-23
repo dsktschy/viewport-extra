@@ -18,7 +18,7 @@ import {
 } from './Error'
 
 describe('about src/lib/ContentMap.ts', () => {
-  test('initializeViewportProps applys initial props', () => {
+  test('`initializeViewportProps` applys initial props', () => {
     const viewportContentMap = initializeViewportProps({})
     expect(viewportContentMap).toStrictEqual({
       ...defaultViewportProps,
@@ -26,7 +26,7 @@ describe('about src/lib/ContentMap.ts', () => {
     })
   })
 
-  test('initializeViewportProps overrides forced props and input props overrides default props', () => {
+  test('`initializeViewportProps` overrides forced props and input props overrides default props', () => {
     const inputViewportContentMap: ContentMap = {
       ...defaultViewportProps,
       ...forcedViewportProps
@@ -42,7 +42,7 @@ describe('about src/lib/ContentMap.ts', () => {
     expect(viewportContentMap).toStrictEqual(expectedViewportContentMap)
   })
 
-  test('initializeViewportExtraProps applys initial props', () => {
+  test('`initializeViewportExtraProps` applys initial props', () => {
     const viewportExtraContentMap = initializeViewportExtraProps({})
     expect(viewportExtraContentMap).toStrictEqual({
       ...defaultViewportExtraProps,
@@ -50,7 +50,7 @@ describe('about src/lib/ContentMap.ts', () => {
     })
   })
 
-  test('initializeViewportExtraProps overrides forced props and input props overrides default props', () => {
+  test('`initializeViewportExtraProps` overrides forced props and input props overrides default props', () => {
     const inputViewportExtraContentMap: ContentMap = {
       ...defaultViewportExtraProps,
       ...forcedViewportExtraProps
@@ -70,7 +70,7 @@ describe('about src/lib/ContentMap.ts', () => {
     )
   })
 
-  test('applyViewportExtraPropsToViewportProps throws error when receiving initial-scale that is not numeric string', () => {
+  test('`applyViewportExtraPropsToViewportProps` throws error when receiving initial-scale that is not numeric string', () => {
     const viewportContentMap = {
       width: 'device-width',
       'initial-scale': 'foobar'
@@ -91,7 +91,7 @@ describe('about src/lib/ContentMap.ts', () => {
     )
   })
 
-  test('applyViewportExtraPropsToViewportProps throws error when not receiving min-width and max-width', () => {
+  test('`applyViewportExtraPropsToViewportProps` throws error when not receiving min-width and max-width', () => {
     const viewportContentMap = {
       width: 'device-width',
       'initial-scale': '1'
@@ -109,7 +109,7 @@ describe('about src/lib/ContentMap.ts', () => {
     )
   })
 
-  test('applyViewportExtraPropsToViewportProps throws error when receiving min-width that is not numeric string', () => {
+  test('`applyViewportExtraPropsToViewportProps` throws error when receiving min-width that is not numeric string', () => {
     const viewportContentMap = {
       width: 'device-width',
       'initial-scale': '1'
@@ -130,7 +130,7 @@ describe('about src/lib/ContentMap.ts', () => {
     )
   })
 
-  test('applyViewportExtraPropsToViewportProps throws error when receiving max-width that is not numeric string', () => {
+  test('`applyViewportExtraPropsToViewportProps` throws error when receiving max-width that is not numeric string', () => {
     const viewportContentMap = {
       width: 'device-width',
       'initial-scale': '1'
@@ -151,7 +151,7 @@ describe('about src/lib/ContentMap.ts', () => {
     )
   })
 
-  test('applyViewportExtraPropsToViewportProps throws error when receiving max-width that is less than min-width', () => {
+  test('`applyViewportExtraPropsToViewportProps` throws error when receiving max-width that is less than min-width', () => {
     const viewportContentMap = {
       width: 'device-width',
       'initial-scale': '1'
@@ -172,7 +172,7 @@ describe('about src/lib/ContentMap.ts', () => {
     )
   })
 
-  test('applyViewportExtraPropsToViewportProps with following params. initial-scale: 1, min-width: 375, documentClientWidth: 374', () => {
+  test('`applyViewportExtraPropsToViewportProps` with following params. initial-scale: 1, min-width: 375, documentClientWidth: 374', () => {
     const initialScale = '1'
     const minWidth = '375'
     const viewportContentMap = {
@@ -194,7 +194,7 @@ describe('about src/lib/ContentMap.ts', () => {
     })
   })
 
-  test('applyViewportExtraPropsToViewportProps with following params. initial-scale: 1, min-width: 375, documentClientWidth: 375', () => {
+  test('`applyViewportExtraPropsToViewportProps` with following params. initial-scale: 1, min-width: 375, documentClientWidth: 375', () => {
     const initialScale = '1'
     const minWidth = '375'
     const viewportContentMap = {
@@ -213,7 +213,7 @@ describe('about src/lib/ContentMap.ts', () => {
     expect(contentMap).toStrictEqual(viewportContentMap)
   })
 
-  test('applyViewportExtraPropsToViewportProps with following params. initial-scale: 1, max-width: 414, documentClientWidth: 414', () => {
+  test('`applyViewportExtraPropsToViewportProps` with following params. initial-scale: 1, max-width: 414, documentClientWidth: 414', () => {
     const initialScale = '1'
     const maxWidth = '414'
     const viewportContentMap = {
@@ -232,7 +232,7 @@ describe('about src/lib/ContentMap.ts', () => {
     expect(contentMap).toStrictEqual(viewportContentMap)
   })
 
-  test('applyViewportExtraPropsToViewportProps with following params. initial-scale: 1, max-width: 414, documentClientWidth: 415', () => {
+  test('`applyViewportExtraPropsToViewportProps` with following params. initial-scale: 1, max-width: 414, documentClientWidth: 415', () => {
     const initialScale = '1'
     const maxWidth = '414'
     const viewportContentMap = {
@@ -254,7 +254,7 @@ describe('about src/lib/ContentMap.ts', () => {
     })
   })
 
-  test('applyViewportExtraPropsToViewportProps with following params. initial-scale: 1, min-width: 375, max-width: 414, documentClientWidth: 374', () => {
+  test('`applyViewportExtraPropsToViewportProps` with following params. initial-scale: 1, min-width: 375, max-width: 414, documentClientWidth: 374', () => {
     const initialScale = '1'
     const minWidth = '375'
     const maxWidth = '414'
@@ -278,7 +278,7 @@ describe('about src/lib/ContentMap.ts', () => {
     })
   })
 
-  test('applyViewportExtraPropsToViewportProps with following params. initial-scale: 1, min-width: 375, max-width: 414, documentClientWidth: 375', () => {
+  test('`applyViewportExtraPropsToViewportProps` with following params. initial-scale: 1, min-width: 375, max-width: 414, documentClientWidth: 375', () => {
     const initialScale = '1'
     const minWidth = '375'
     const maxWidth = '414'
@@ -299,7 +299,7 @@ describe('about src/lib/ContentMap.ts', () => {
     expect(contentMap).toStrictEqual(viewportContentMap)
   })
 
-  test('applyViewportExtraPropsToViewportProps with following params. initial-scale: 1, min-width: 375, max-width: 414, documentClientWidth: 414', () => {
+  test('`applyViewportExtraPropsToViewportProps` with following params. initial-scale: 1, min-width: 375, max-width: 414, documentClientWidth: 414', () => {
     const initialScale = '1'
     const minWidth = '375'
     const maxWidth = '414'
@@ -320,7 +320,7 @@ describe('about src/lib/ContentMap.ts', () => {
     expect(contentMap).toStrictEqual(viewportContentMap)
   })
 
-  test('applyViewportExtraPropsToViewportProps with following params. initial-scale: 1, min-width: 375, max-width: 414, documentClientWidth: 415', () => {
+  test('`applyViewportExtraPropsToViewportProps` with following params. initial-scale: 1, min-width: 375, max-width: 414, documentClientWidth: 415', () => {
     const initialScale = '1'
     const minWidth = '375'
     const maxWidth = '414'
@@ -344,7 +344,7 @@ describe('about src/lib/ContentMap.ts', () => {
     })
   })
 
-  test('applyViewportExtraPropsToViewportProps with following params. initial-scale: 1, min-width: 390, max-width: 390, documentClientWidth: 389', () => {
+  test('`applyViewportExtraPropsToViewportProps` with following params. initial-scale: 1, min-width: 390, max-width: 390, documentClientWidth: 389', () => {
     const initialScale = '1'
     const minWidth = '390'
     const maxWidth = '390'
@@ -368,7 +368,7 @@ describe('about src/lib/ContentMap.ts', () => {
     })
   })
 
-  test('applyViewportExtraPropsToViewportProps with following params. initial-scale: 1, min-width: 390, max-width: 390, documentClientWidth: 390', () => {
+  test('`applyViewportExtraPropsToViewportProps` with following params. initial-scale: 1, min-width: 390, max-width: 390, documentClientWidth: 390', () => {
     const initialScale = '1'
     const minWidth = '390'
     const maxWidth = '390'
@@ -389,7 +389,7 @@ describe('about src/lib/ContentMap.ts', () => {
     expect(contentMap).toStrictEqual(viewportContentMap)
   })
 
-  test('applyViewportExtraPropsToViewportProps with following params. initial-scale: 1, min-width: 390, max-width: 390, documentClientWidth: 391', () => {
+  test('`applyViewportExtraPropsToViewportProps` with following params. initial-scale: 1, min-width: 390, max-width: 390, documentClientWidth: 391', () => {
     const initialScale = '1'
     const minWidth = '390'
     const maxWidth = '390'
@@ -413,7 +413,7 @@ describe('about src/lib/ContentMap.ts', () => {
     })
   })
 
-  test('stringify', () => {
+  test('`stringify` converts ContentMap to ContentString correctly', () => {
     const contentString = stringify({
       width: 'device-width',
       'initial-width': '1'
