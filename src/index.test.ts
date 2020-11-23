@@ -118,4 +118,43 @@ describe('about src/index.ts', () => {
       `initial-scale=${documentClientWidth / minWidth},width=${minWidth}`
     )
   })
+
+  test('setOptions sets correct content attribute with valid options', async () => {
+    const minWidth = 375
+    const maxWidth = 414
+    const documentClientWidth = 320
+    Object.defineProperty(document.documentElement, 'clientWidth', {
+      value: documentClientWidth,
+      writable: true
+    })
+    document.head.innerHTML = ''
+    // Run module again
+    jest.resetModules()
+    const { setOptions } = await import('./index')
+    setOptions({ minWidth, maxWidth })
+    const selectedViewportElement = document.head.querySelector(
+      'meta[name="viewport"]'
+    )
+    const viewportContentString = selectedViewportElement?.getAttribute(
+      'content'
+    )
+    expect(viewportContentString).toBe(
+      `initial-scale=${documentClientWidth / minWidth},width=${minWidth}`
+    )
+  })
+
+  test('setOptions throws error with invalid options', async () => {
+    const documentClientWidth = 320
+    Object.defineProperty(document.documentElement, 'clientWidth', {
+      value: documentClientWidth,
+      writable: true
+    })
+    document.head.innerHTML = ''
+    // Run module again
+    jest.resetModules()
+    const { setOptions } = await import('./index')
+    const { NoOptionsError } = await import('./lib/Error')
+    const bindedSetOptions = setOptions.bind(null, {})
+    expect(bindedSetOptions).toThrowError(NoOptionsError)
+  })
 })

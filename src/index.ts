@@ -15,6 +15,7 @@ import {
   createViewportExtraContentMap,
   applyContentMap
 } from './lib/HTMLMetaElement'
+import { isOptions, parse } from './lib/Options'
 
 let viewportElement: HTMLMetaElement | null = null
 let viewportExtraElement: HTMLMetaElement | null = null
@@ -22,10 +23,8 @@ let viewportContentMap: ContentMap = initializeViewportProps({})
 let viewportExtraContentMap: ContentMap = initializeViewportExtraProps({})
 
 if (typeof window !== 'undefined') {
-  // Keep elements
   viewportElement = ensureViewportElement(document)
   viewportExtraElement = getViewportExtraElement(document)
-  // Keep attributes
   viewportContentMap = {
     ...viewportContentMap,
     ...createViewportContentMap(viewportElement)
@@ -44,7 +43,6 @@ if (typeof window !== 'undefined') {
       ...createViewportExtraContentMap(viewportExtraElement)
     }
   }
-  // Apply viewportExtraContentMap to viewportContentMap
   try {
     viewportContentMap = applyViewportExtraPropsToViewportProps(
       viewportContentMap,
@@ -54,7 +52,21 @@ if (typeof window !== 'undefined') {
   } catch (error) {
     // Avoid throwing when initial running
   }
-  // Apply viewportContentMap to viewportElement
+  applyContentMap(viewportElement, viewportContentMap)
+}
+
+export const setOptions = (maybeOptions: unknown): void => {
+  if (!viewportElement) return
+  if (isOptions(maybeOptions))
+    viewportExtraContentMap = {
+      ...viewportExtraContentMap,
+      ...parse(maybeOptions)
+    }
+  viewportContentMap = applyViewportExtraPropsToViewportProps(
+    viewportContentMap,
+    viewportExtraContentMap,
+    getClientWidth(document)
+  )
   applyContentMap(viewportElement, viewportContentMap)
 }
 
