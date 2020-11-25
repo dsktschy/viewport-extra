@@ -31,7 +31,8 @@ describe('about src/lib/ContentMap.ts', () => {
       ...defaultViewportProps,
       ...forcedViewportProps
     }
-    for (const [key, value] of Object.entries(inputViewportContentMap)) {
+    for (const key of Object.keys(inputViewportContentMap)) {
+      const value = inputViewportContentMap[key]
       inputViewportContentMap[key] = `${value}foobar`
     }
     const expectedViewportContentMap: ContentMap = forcedViewportProps
@@ -55,7 +56,8 @@ describe('about src/lib/ContentMap.ts', () => {
       ...defaultViewportExtraProps,
       ...forcedViewportExtraProps
     }
-    for (const [key, value] of Object.entries(inputViewportExtraContentMap)) {
+    for (const key of Object.keys(inputViewportExtraContentMap)) {
+      const value = inputViewportExtraContentMap[key]
       inputViewportExtraContentMap[key] = `${value}foobar`
     }
     const expectedViewportExtraContentMap: ContentMap = forcedViewportExtraProps

@@ -10,9 +10,9 @@ export const createViewportContentMap = (
   const contentString = htmlMetaElement.getAttribute('content') || ''
   const contentMap = parse(contentString)
   const filteredContentMap: ContentMap = {}
-  for (const [key, value] of Object.entries(contentMap)) {
+  for (const key of Object.keys(contentMap)) {
     if (key === 'min-width' || key === 'max-width') continue
-    filteredContentMap[key] = value
+    filteredContentMap[key] = contentMap[key]
   }
   return filteredContentMap
 }
@@ -29,9 +29,9 @@ export const createViewportExtraContentMap = (
   const contentString = htmlMetaElement.getAttribute(attributeName) || ''
   const contentMap = parse(contentString)
   const filteredContentMap: ContentMap = {}
-  for (const [key, value] of Object.entries(contentMap)) {
+  for (const key of Object.keys(contentMap)) {
     if (key !== 'min-width' && key !== 'max-width') continue
-    filteredContentMap[key] = value
+    filteredContentMap[key] = contentMap[key]
   }
   return filteredContentMap
 }

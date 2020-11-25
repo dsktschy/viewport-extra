@@ -28,7 +28,19 @@ export default [
         exports: 'named',
         sourcemap: true,
         outro
-      },
+      }
+    ],
+    plugins: [
+      rollupPluginDelete({
+        targets: [`${packageJson.module}/..`, `${packageJson.main}/..`]
+      }),
+      rollupPluginTypescript({ target: 'esnext' }),
+      rollupPluginJson()
+    ]
+  },
+  {
+    input: 'src/index.ts',
+    output: [
       {
         file: packageJson.browser.replace('.min', ''),
         format: 'iife',
@@ -48,14 +60,8 @@ export default [
       }
     ],
     plugins: [
-      rollupPluginDelete({
-        targets: [
-          `${packageJson.module}/..`,
-          `${packageJson.main}/..`,
-          `${packageJson.browser}/..`
-        ]
-      }),
-      rollupPluginTypescript(),
+      rollupPluginDelete({ targets: `${packageJson.browser}/..` }),
+      rollupPluginTypescript({ target: 'es5' }),
       rollupPluginJson()
     ]
   },
@@ -69,7 +75,7 @@ export default [
     })),
     plugins: [
       rollupPluginDelete({ targets: packageJson.jest.roots }),
-      rollupPluginTypescript(),
+      rollupPluginTypescript({ target: 'esnext' }),
       rollupPluginJson()
     ]
   }

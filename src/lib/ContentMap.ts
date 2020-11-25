@@ -39,7 +39,7 @@ export const applyViewportExtraPropsToViewportProps = (
 ): ContentMap => {
   const initialScaleNumber = +viewportContentMap['initial-scale']
   // Nonnumeric string
-  if (Number.isNaN(initialScaleNumber)) throw new NonnumericInitialScaleError()
+  if (isNaN(initialScaleNumber)) throw new NonnumericInitialScaleError()
 
   const minWidthDefined = viewportExtraContentMap['min-width'] != null
   const maxWidthDefined = viewportExtraContentMap['max-width'] != null
@@ -49,9 +49,9 @@ export const applyViewportExtraPropsToViewportProps = (
   const minWidthNumber = +viewportExtraContentMap['min-width']
   const maxWidthNumber = +viewportExtraContentMap['max-width']
   // Nonnumeric string
-  if (minWidthDefined && Number.isNaN(minWidthNumber))
+  if (minWidthDefined && isNaN(minWidthNumber))
     throw new NonnumericMinWidthError()
-  if (maxWidthDefined && Number.isNaN(maxWidthNumber))
+  if (maxWidthDefined && isNaN(maxWidthNumber))
     throw new NonnumericMaxWidthError()
   // mix-width > max-width
   if (minWidthNumber > maxWidthNumber) throw new ReversedOptionsError()
