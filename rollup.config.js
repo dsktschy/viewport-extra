@@ -5,6 +5,13 @@ import { terser as rollupPluginTerser } from 'rollup-plugin-terser'
 import globby from 'globby'
 import * as packageJson from './package.json'
 
+const outro =
+  // To export class constructor without default key
+  // https://github.com/rollup/rollup/issues/1961#issuecomment-534977678
+  'exports = exports.default;\n' +
+  // To handle with types in test
+  'exports.default = exports;'
+
 export default [
   {
     input: 'src/index.ts',
@@ -19,14 +26,16 @@ export default [
         file: packageJson.main,
         format: 'cjs',
         exports: 'named',
-        sourcemap: true
+        sourcemap: true,
+        outro
       },
       {
         file: packageJson.browser.replace('.min', ''),
         format: 'iife',
         exports: 'named',
         sourcemap: true,
-        name: 'ViewportExtra'
+        name: 'ViewportExtra',
+        outro
       },
       {
         file: packageJson.browser,
@@ -34,6 +43,7 @@ export default [
         exports: 'named',
         sourcemap: false,
         name: 'ViewportExtra',
+        outro,
         plugins: [rollupPluginTerser()]
       }
     ],

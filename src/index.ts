@@ -79,7 +79,11 @@ export const restore = (): void => {
 
 export const version = packageJson.version
 
-const ViewportExtra = {
-  version: packageJson.version
+export default class ViewportExtra {
+  constructor(maybeOptions: unknown) {
+    setOptions(maybeOptions)
+  }
+  static setOptions = setOptions
+  static restore = restore
+  static version = version
 }
-export default ViewportExtra

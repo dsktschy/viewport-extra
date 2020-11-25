@@ -192,4 +192,43 @@ describe('about src/index.ts', () => {
       'initial-scale=1,invalid=true,width=device-width'
     )
   })
+
+  test('constructor of `ViewportExtra` class sets correct content attribute with valid options', async () => {
+    const minWidth = 375
+    const maxWidth = 414
+    const documentClientWidth = 320
+    Object.defineProperty(document.documentElement, 'clientWidth', {
+      value: documentClientWidth,
+      writable: true
+    })
+    document.head.innerHTML = ''
+    // Run module again
+    jest.resetModules()
+    const { default: ViewportExtra } = await import('./index')
+    new ViewportExtra({ minWidth, maxWidth })
+    const selectedViewportElement = document.head.querySelector(
+      'meta[name="viewport"]'
+    )
+    const viewportContentString = selectedViewportElement?.getAttribute(
+      'content'
+    )
+    expect(viewportContentString).toBe(
+      `initial-scale=${documentClientWidth / minWidth},width=${minWidth}`
+    )
+  })
+
+  test('constructor of `ViewportExtra` class throws error with invalid options', async () => {
+    const documentClientWidth = 320
+    Object.defineProperty(document.documentElement, 'clientWidth', {
+      value: documentClientWidth,
+      writable: true
+    })
+    document.head.innerHTML = ''
+    // Run module again
+    jest.resetModules()
+    const { default: ViewportExtra } = await import('./index')
+    const { NoOptionsError } = await import('./lib/Error')
+    const createViewportExtraInstance = () => new ViewportExtra({})
+    expect(createViewportExtraInstance).toThrowError(NoOptionsError)
+  })
 })
