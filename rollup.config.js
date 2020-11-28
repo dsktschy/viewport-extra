@@ -5,12 +5,23 @@ import { terser as rollupPluginTerser } from 'rollup-plugin-terser'
 import globby from 'globby'
 import * as packageJson from './package.json'
 
+// Copyright
+const banner =
+  '/*!\n' +
+  ` * Viewport Extra v${packageJson.version}\n` +
+  ' * (c) dsktschy\n' +
+  ' * Released under the MIT License.\n' +
+  ' */'
+
 const outro =
   // To export class constructor without default key
   // https://github.com/rollup/rollup/issues/1961#issuecomment-534977678
   'exports = exports.default;\n' +
   // To handle with types in test
   'exports.default = exports;'
+
+// Global variable name for iife
+const name = 'ViewportExtra'
 
 export default [
   {
@@ -20,13 +31,15 @@ export default [
         file: packageJson.module,
         format: 'es',
         exports: 'named',
-        sourcemap: true
+        sourcemap: true,
+        banner
       },
       {
         file: packageJson.main,
         format: 'cjs',
         exports: 'named',
         sourcemap: true,
+        banner,
         outro
       }
     ],
@@ -46,22 +59,24 @@ export default [
         format: 'iife',
         exports: 'named',
         sourcemap: true,
-        name: 'ViewportExtra',
-        outro
+        banner,
+        outro,
+        name
       },
       {
         file: packageJson.browser,
         format: 'iife',
         exports: 'named',
         sourcemap: false,
-        name: 'ViewportExtra',
         outro,
+        name,
         plugins: [
           rollupPluginTerser({
             format: {
               // Copyright of tslib is not required
               // https://github.com/microsoft/tslib/pull/96
-              comments: false
+              comments: false,
+              preamble: banner
             }
           })
         ]
