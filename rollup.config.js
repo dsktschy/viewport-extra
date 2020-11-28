@@ -56,7 +56,15 @@ export default [
         sourcemap: false,
         name: 'ViewportExtra',
         outro,
-        plugins: [rollupPluginTerser()]
+        plugins: [
+          rollupPluginTerser({
+            format: {
+              // Copyright of tslib is not required
+              // https://github.com/microsoft/tslib/pull/96
+              comments: false
+            }
+          })
+        ]
       }
     ],
     plugins: [
