@@ -8,14 +8,14 @@ import {
   initializeViewportExtraProps,
   stringify,
   applyViewportExtraPropsToViewportProps
-} from './ContentMap'
+} from '../../src/lib/ContentMap'
 import {
   NonnumericInitialScaleError,
   NoOptionsError,
   NonnumericMinWidthError,
   NonnumericMaxWidthError,
   ReversedOptionsError
-} from './Error'
+} from '../../src/lib/Error'
 
 describe('about src/lib/ContentMap.ts', () => {
   test('`initializeViewportProps` applys initial props', () => {

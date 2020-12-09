@@ -1,4 +1,4 @@
-import { parse } from './ContentString'
+import { parse } from '../../src/lib/ContentString'
 
 describe('about src/lib/ContentString.ts', () => {
   test('`parse` converts ContentString to ContentMap correctly', () => {

@@ -2,7 +2,7 @@ import {
   createViewportContentMap,
   createViewportExtraContentMap,
   applyContentMap
-} from './HTMLMetaElement'
+} from '../../src/lib/HTMLMetaElement'
 
 describe('about src/lib/HTMLMetaElement.ts', () => {
   const viewportElement = document.createElement('meta')

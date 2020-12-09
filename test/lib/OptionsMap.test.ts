@@ -1,4 +1,4 @@
-import { isOptionsMap } from './OptionsMap'
+import { isOptionsMap } from '../../src/lib/OptionsMap'
 
 describe('about src/lib/OptionsMap.ts', () => {
   test('`isOptionsMap` determines object including only minWidth to be OptionsMap', () => {

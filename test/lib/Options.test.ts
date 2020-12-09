@@ -1,4 +1,4 @@
-import { isOptions, parse } from './Options'
+import { isOptions, parse } from '../../src/lib/Options'
 
 describe('about src/lib/Options.ts', () => {
   test('`isOptions` determines number to be Options', () => {

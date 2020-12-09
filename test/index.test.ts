@@ -8,7 +8,7 @@ describe('about src/index.ts', () => {
     document.head.innerHTML = ''
     // Run module again
     jest.resetModules()
-    await import('./index')
+    await import('../src/index')
     const selectedViewportElement = document.head.querySelector(
       'meta[name="viewport"]'
     )
@@ -40,7 +40,7 @@ describe('about src/index.ts', () => {
     document.head.appendChild(createdViewportElement)
     // Run module again
     jest.resetModules()
-    await import('./index')
+    await import('../src/index')
     const selectedViewportElement = document.head.querySelector(
       'meta[name="viewport"]'
     )
@@ -70,7 +70,7 @@ describe('about src/index.ts', () => {
     document.head.appendChild(createdViewportExtraElement)
     // Run module again
     jest.resetModules()
-    await import('./index')
+    await import('../src/index')
     const selectedViewportElement = document.head.querySelector(
       'meta[name="viewport"]'
     )
@@ -107,7 +107,7 @@ describe('about src/index.ts', () => {
     document.head.appendChild(createdViewportExtraElement)
     // Run module again
     jest.resetModules()
-    await import('./index')
+    await import('../src/index')
     const selectedViewportElement = document.head.querySelector(
       'meta[name="viewport"]'
     )
@@ -130,7 +130,7 @@ describe('about src/index.ts', () => {
     document.head.innerHTML = ''
     // Run module again
     jest.resetModules()
-    const { setOptions } = await import('./index')
+    const { setOptions } = await import('../src/index')
     setOptions({ minWidth, maxWidth })
     const selectedViewportElement = document.head.querySelector(
       'meta[name="viewport"]'
@@ -152,8 +152,8 @@ describe('about src/index.ts', () => {
     document.head.innerHTML = ''
     // Run module again
     jest.resetModules()
-    const { setOptions } = await import('./index')
-    const { NoOptionsError } = await import('./lib/Error')
+    const { setOptions } = await import('../src/index')
+    const { NoOptionsError } = await import('../src/lib/Error')
     const bindedSetOptions = setOptions.bind(null, {})
     expect(bindedSetOptions).toThrowError(NoOptionsError)
   })
@@ -180,7 +180,7 @@ describe('about src/index.ts', () => {
     document.head.appendChild(createdViewportElement)
     // Run module again
     jest.resetModules()
-    const { restore } = await import('./index')
+    const { restore } = await import('../src/index')
     restore()
     const selectedViewportElement = document.head.querySelector(
       'meta[name="viewport"]'
@@ -204,7 +204,7 @@ describe('about src/index.ts', () => {
     document.head.innerHTML = ''
     // Run module again
     jest.resetModules()
-    const { default: ViewportExtra } = await import('./index')
+    const { default: ViewportExtra } = await import('../src/index')
     new ViewportExtra({ minWidth, maxWidth })
     const selectedViewportElement = document.head.querySelector(
       'meta[name="viewport"]'
@@ -226,8 +226,8 @@ describe('about src/index.ts', () => {
     document.head.innerHTML = ''
     // Run module again
     jest.resetModules()
-    const { default: ViewportExtra } = await import('./index')
-    const { NoOptionsError } = await import('./lib/Error')
+    const { default: ViewportExtra } = await import('../src/index')
+    const { NoOptionsError } = await import('../src/lib/Error')
     const createViewportExtraInstance = () => new ViewportExtra({})
     expect(createViewportExtraInstance).toThrowError(NoOptionsError)
   })

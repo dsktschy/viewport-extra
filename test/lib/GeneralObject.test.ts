@@ -1,4 +1,4 @@
-import { isGeneralObject } from './GeneralObject'
+import { isGeneralObject } from '../../src/lib/GeneralObject'
 
 describe('about src/lib/GeneralObject.ts', () => {
   test('`isGeneralObject` determines object including props to be GeneralObject', () => {
