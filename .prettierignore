@@ -1,8 +1,9 @@
-node_modules/
-dist/
-types/
 .types/
-package-lock.json
+dist/
+node_modules/
+types/
 .gitignore
 .npmignore
 .prettierignore
+LICENSE.txt
+package-lock.json
