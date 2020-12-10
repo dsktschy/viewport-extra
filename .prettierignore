@@ -1,5 +1,7 @@
 node_modules/
 dist/
+types/
+.types/
 package-lock.json
 .gitignore
 .npmignore
