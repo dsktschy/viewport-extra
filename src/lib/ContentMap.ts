@@ -11,8 +11,10 @@ export interface ContentMap {
   [key: string]: string
 }
 
-export const defaultViewportProps = { 'initial-scale': '1' }
-export const forcedViewportProps = { width: 'device-width' }
+const defaultInitialScale = '1'
+const forcedWidth = 'device-width'
+export const defaultViewportProps = { 'initial-scale': defaultInitialScale }
+export const forcedViewportProps = { width: forcedWidth }
 export const defaultViewportExtraProps = {}
 export const forcedViewportExtraProps = {}
 
@@ -35,9 +37,10 @@ export const initializeViewportExtraProps = (
 export const applyViewportExtraPropsToViewportProps = (
   viewportContentMap: ContentMap,
   viewportExtraContentMap: ContentMap,
+  originalViewportContentMap: ContentMap,
   documentClientWidth: number
 ): ContentMap => {
-  const initialScaleNumber = +viewportContentMap['initial-scale']
+  const initialScaleNumber = +originalViewportContentMap['initial-scale']
   // Nonnumeric string
   if (isNaN(initialScaleNumber)) throw new NonnumericInitialScaleError()
 
@@ -68,6 +71,9 @@ export const applyViewportExtraPropsToViewportProps = (
     contentMap['initial-scale'] = `${
       (documentClientWidth / maxWidthNumber) * initialScaleNumber
     }`
+  } else {
+    contentMap.width = forcedWidth
+    contentMap['initial-scale'] = `${initialScaleNumber}`
   }
   return contentMap
 }
