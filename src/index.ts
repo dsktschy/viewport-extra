@@ -24,7 +24,7 @@ let viewportExtraContentMap: ContentMap = initializeViewportExtraProps({})
 let originalViewportContentMap: ContentMap = { ...viewportContentMap }
 
 if (typeof window !== 'undefined') {
-  viewportElement = ensureViewportElement(document)
+  viewportElement = ensureViewportElement(document, viewportContentMap)
   viewportExtraElement = getViewportExtraElement(document)
   viewportContentMap = {
     ...viewportContentMap,

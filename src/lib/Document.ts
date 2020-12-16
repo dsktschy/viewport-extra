@@ -1,14 +1,16 @@
-export const ensureViewportElement = (document: Document): HTMLMetaElement => {
+import { ContentMap, stringify } from './ContentMap'
+
+export const ensureViewportElement = (
+  document: Document,
+  defaultContentMap: ContentMap
+): HTMLMetaElement => {
   let viewportElement = document.querySelector<HTMLMetaElement>(
     'meta[name="viewport"]'
   )
   if (!viewportElement) {
     viewportElement = document.createElement('meta')
     viewportElement.setAttribute('name', 'viewport')
-    viewportElement.setAttribute(
-      'content',
-      'width=device-width,initial-scale=1'
-    )
+    viewportElement.setAttribute('content', stringify(defaultContentMap))
     document.head.appendChild(viewportElement)
   }
   return viewportElement
