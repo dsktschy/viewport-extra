@@ -1,6 +1,6 @@
 .types/
 .vscode/
-dist/!__test__/
+dist/__test__/
 node_modules/
 src/
 test/
