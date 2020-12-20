@@ -4,7 +4,7 @@
   "description": "Enable to set min-width and max-width to viewport",
   "module": "dist/es/index.js",
   "main": "dist/cjs/index.js",
-  "browser": "dist/iife/viewport-extra.min.js",
+  "browser": "dist/es/index.js",
   "types": "types/index.d.ts",
   "jest": {
     "roots": [
