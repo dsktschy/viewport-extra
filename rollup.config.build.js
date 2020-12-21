@@ -55,7 +55,7 @@ export default [
     input: 'src/index.ts',
     output: [
       {
-        file: packageJson.browser.replace('.min', ''),
+        file: packageJson.jsdelivr.replace('.min', ''),
         format: 'iife',
         exports: 'named',
         sourcemap: true,
@@ -64,7 +64,7 @@ export default [
         name
       },
       {
-        file: packageJson.browser,
+        file: packageJson.jsdelivr,
         format: 'iife',
         exports: 'named',
         sourcemap: false,
@@ -83,7 +83,7 @@ export default [
       }
     ],
     plugins: [
-      rollupPluginDelete({ targets: `${packageJson.browser}/..` }),
+      rollupPluginDelete({ targets: `${packageJson.jsdelivr}/..` }),
       rollupPluginTypescript({ target: 'es5' }),
       rollupPluginJson()
     ]
