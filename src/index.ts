@@ -1,91 +1,47 @@
-import * as packageJson from '../package.json'
-import {
-  ensureViewportElement,
-  getViewportExtraElement,
-  getClientWidth
-} from './lib/Document'
-import {
-  ContentMap,
-  initializeViewportProps,
-  initializeViewportExtraProps,
-  applyViewportExtraPropsToViewportProps
-} from './lib/ContentMap'
-import {
-  createViewportContentMap,
-  createViewportExtraContentMap,
-  applyContentMap
-} from './lib/HTMLMetaElement'
-import { isOptions, parse } from './lib/Options'
+import { version as _version } from '../package.json'
+import { getHTMLMetaElement, getClientWidth } from './lib/Document'
+import { createPartialContent, applyContent } from './lib/HTMLMetaElement'
+import { Content, create } from './lib/Content'
 
 let viewportElement: HTMLMetaElement | null = null
 let viewportExtraElement: HTMLMetaElement | null = null
-let viewportContentMap: ContentMap = initializeViewportProps({})
-let viewportExtraContentMap: ContentMap = initializeViewportExtraProps({})
-let originalViewportContentMap: ContentMap = { ...viewportContentMap }
+let content: Content = create({})
 
-if (typeof window !== 'undefined') {
-  viewportElement = ensureViewportElement(document, viewportContentMap)
-  viewportExtraElement = getViewportExtraElement(document)
-  viewportContentMap = {
-    ...viewportContentMap,
-    ...createViewportContentMap(viewportElement)
+if (document) {
+  viewportElement = getHTMLMetaElement(document, 'viewport', true)
+  viewportExtraElement = getHTMLMetaElement(document, 'viewport-extra', false)
+
+  // Create content object in advance
+  // before default content is applied to viewport meta element
+  const partialContent = {
+    ...createPartialContent(viewportElement),
+    ...createPartialContent(viewportExtraElement)
   }
-  viewportExtraContentMap = {
-    ...viewportExtraContentMap,
-    ...createViewportExtraContentMap(viewportElement)
-  }
-  originalViewportContentMap = { ...viewportContentMap }
-  if (viewportExtraElement) {
-    viewportContentMap = {
-      ...viewportContentMap,
-      ...createViewportContentMap(viewportExtraElement)
-    }
-    viewportExtraContentMap = {
-      ...viewportExtraContentMap,
-      ...createViewportExtraContentMap(viewportExtraElement)
-    }
-  }
-  try {
-    viewportContentMap = applyViewportExtraPropsToViewportProps(
-      viewportContentMap,
-      viewportExtraContentMap,
-      originalViewportContentMap,
-      getClientWidth(document)
-    )
-  } catch (error) {
-    // Avoid throwing when initial running
-  }
-  applyContentMap(viewportElement, viewportContentMap)
+
+  // Apply default content to viewport meta element
+  // in order to calcurate correct value by getClientWidth
+  // even if viewport meta element has no content attribute
+  applyContent(viewportElement, content, 0)
+
+  content = create(partialContent)
+  applyContent(viewportElement, content, getClientWidth(document))
 }
 
-export const setOptions = (maybeOptions: unknown): void => {
+export const setContent = (partialContent: Partial<Content>): void => {
+  content = create({ ...content, ...partialContent })
   if (!viewportElement) return
-  if (isOptions(maybeOptions))
-    viewportExtraContentMap = {
-      ...viewportExtraContentMap,
-      ...parse(maybeOptions)
-    }
-  viewportContentMap = applyViewportExtraPropsToViewportProps(
-    viewportContentMap,
-    viewportExtraContentMap,
-    originalViewportContentMap,
-    getClientWidth(document)
-  )
-  applyContentMap(viewportElement, viewportContentMap)
+  applyContent(viewportElement, content, getClientWidth(document))
 }
 
-export const restore = (): void => {
-  if (!viewportElement) return
-  applyContentMap(viewportElement, originalViewportContentMap)
-}
+export const getContent = (): Content => content
 
-export const version = packageJson.version
+export const version = _version
 
 export default class ViewportExtra {
-  constructor(maybeOptions: unknown) {
-    setOptions(maybeOptions)
+  constructor(partialContent: Partial<Content>) {
+    setContent(partialContent)
   }
-  static setOptions = setOptions
-  static restore = restore
+  static setContent = setContent
+  static getContent = getContent
   static version = version
 }

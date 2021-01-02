@@ -1,49 +1,64 @@
-import { ContentMap, stringify } from './ContentMap'
-import { parse } from './ContentString'
+import { Content } from './Content'
+import { camelize, kebabize } from './string'
 
-export const createViewportContentMap = (
+export const createPartialContent = (
   htmlMetaElement: HTMLMetaElement
-): ContentMap => {
-  const name = htmlMetaElement.getAttribute('name') || ''
-  if (name !== 'viewport' && name !== 'viewport-extra') return {}
-
-  const contentString = htmlMetaElement.getAttribute('content') || ''
-  const contentMap = parse(contentString)
-  const filteredContentMap: ContentMap = {}
-  for (const key of Object.keys(contentMap)) {
-    if (key === 'min-width' || key === 'max-width') continue
-    filteredContentMap[key] = contentMap[key]
+): Partial<Content> => {
+  const contentAttributeValue = htmlMetaElement.getAttribute('content') || ''
+  const dataExtraContentAttributeValue =
+    htmlMetaElement.getAttribute('data-extra-content') || ''
+  const equalSeparatedContentList = [
+    ...contentAttributeValue.split(','),
+    ...dataExtraContentAttributeValue.split(',')
+  ]
+  const partialContent: Partial<Content> = {}
+  for (const equalSeparatedContent of equalSeparatedContentList) {
+    const [key, value] = equalSeparatedContent.split('=')
+    // If empty string is splitted, key will be empty string
+    const trimmedKey = key.trim()
+    if (!trimmedKey) continue
+    // If empty string is splitted, value will be undefined
+    const trimmedValue = value ? value.trim() : ''
+    if (!trimmedValue) continue
+    partialContent[camelize(trimmedKey)] = isNaN(+trimmedValue)
+      ? trimmedValue
+      : +trimmedValue
   }
-  return filteredContentMap
+  return partialContent
 }
 
-export const createViewportExtraContentMap = (
-  htmlMetaElement: HTMLMetaElement
-): ContentMap => {
-  const name = htmlMetaElement.getAttribute('name') || ''
-  let attributeName = ''
-  if (name === 'viewport') attributeName = 'data-extra-content'
-  else if (name === 'viewport-extra') attributeName = 'content'
-  else return {}
-
-  const contentString = htmlMetaElement.getAttribute(attributeName) || ''
-  const contentMap = parse(contentString)
-  const filteredContentMap: ContentMap = {}
-  for (const key of Object.keys(contentMap)) {
-    if (key !== 'min-width' && key !== 'max-width') continue
-    filteredContentMap[key] = contentMap[key]
-  }
-  return filteredContentMap
-}
-
-export const applyContentMap = (
+export const applyContent = (
   htmlMetaElement: HTMLMetaElement,
-  contentMap: ContentMap
-): HTMLMetaElement => {
-  const name = htmlMetaElement.getAttribute('name') || ''
-  if (name !== 'viewport') return htmlMetaElement
-
-  const contentString = stringify(contentMap)
-  htmlMetaElement.setAttribute('content', contentString)
-  return htmlMetaElement
+  content: Content,
+  documentClientWidth: number
+): void => {
+  // Calcurate width and initial-scale
+  const { width, initialScale } = content
+  const { minWidth, maxWidth, ...omittedContent } = content
+  if (minWidth > maxWidth) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      'Viewport Extra received minWidth that is greater than maxWidth, so they are ignored.'
+    )
+  } else if (typeof width === 'number') {
+    // eslint-disable-next-line no-console
+    console.warn(
+      'Viewport Extra received fixed width, so minWidth and maxWidth are ignored.'
+    )
+  } else if (documentClientWidth < minWidth) {
+    omittedContent.width = minWidth
+    omittedContent.initialScale =
+      (documentClientWidth / minWidth) * initialScale
+  } else if (documentClientWidth > maxWidth) {
+    omittedContent.width = maxWidth
+    omittedContent.initialScale =
+      (documentClientWidth / maxWidth) * initialScale
+  }
+  // Stringify Content
+  const contentAttributeValue = Object.keys(omittedContent)
+    .map(key => `${kebabize(key)}=${omittedContent[key]}`)
+    .sort() // For testing
+    .join(',')
+  // Apply to HTMLMetaElement
+  htmlMetaElement.setAttribute('content', contentAttributeValue)
 }

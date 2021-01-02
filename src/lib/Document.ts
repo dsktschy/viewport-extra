@@ -1,25 +1,16 @@
-import { ContentMap, stringify } from './ContentMap'
-
-export const ensureViewportElement = (
+export const getHTMLMetaElement = (
   document: Document,
-  defaultContentMap: ContentMap
+  name: string,
+  ensuring: boolean
 ): HTMLMetaElement => {
-  let viewportElement = document.querySelector<HTMLMetaElement>(
-    'meta[name="viewport"]'
-  )
-  if (!viewportElement) {
-    viewportElement = document.createElement('meta')
-    viewportElement.setAttribute('name', 'viewport')
-    viewportElement.setAttribute('content', stringify(defaultContentMap))
-    document.head.appendChild(viewportElement)
+  const selector = `meta[name="${name}"]`
+  let htmlMetaElement = document.querySelector<HTMLMetaElement>(selector)
+  if (!htmlMetaElement) {
+    htmlMetaElement = document.createElement('meta')
+    htmlMetaElement.setAttribute('name', name)
+    if (ensuring) document.head.appendChild(htmlMetaElement)
   }
-  return viewportElement
-}
-
-export const getViewportExtraElement = (
-  document: Document
-): HTMLMetaElement | null => {
-  return document.querySelector<HTMLMetaElement>('meta[name="viewport-extra"]')
+  return htmlMetaElement
 }
 
 export const getClientWidth = (document: Document): number => {
