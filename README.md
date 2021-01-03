@@ -85,11 +85,11 @@ On iPhone 12 Pro Max in portrait mode
 ```
 
 ```js
-import { setOptions } from 'viewport-extra'
+import { setContent } from 'viewport-extra'
 
 /* Define `isMobilePhone` variable to detect mobile phone here */
 
-setOptions({ minWidth: isMobilePhone ? 375 : 1280 })
+setContent({ minWidth: isMobilePhone ? 375 : 1280 })
 ```
 
 The page will be scaled down on mobile phone screens that display as width of less than 375px, and on tablet screens that display as width of less than 1280px. No operations will be run on mobile phone screens that display as width of 375px or more, and on tablet screens that display as width of 1280px or more. This setting will output the following viewport meta elements.
@@ -116,16 +116,16 @@ On iPad Pro 12.9" in landscape mode
 ```
 
 ```js
-import { setOptions } from 'viewport-extra'
+import { setContent } from 'viewport-extra'
 
 window.addEventListener('click', () => {
-  setOptions({ minWidth: 375 })
+  setContent({ minWidth: 375 })
 })
 ```
 
 The page will be scale according to viewport size when clicked.
 
-Note: If you want to re-scale when switching between portrait and landscape modes, you need to run `setOptions` at a time when you can be sure of getting the viewport size after the switch. However, it seems that such timing has not yet been discovered. [https://stackoverflow.com/questions/12452349](https://stackoverflow.com/questions/12452349)
+Note: If you want to re-scale when switching between portrait and landscape modes, you need to run `setContent` at a time when you can be sure of getting the viewport size after the switch. However, it seems that such timing has not yet been discovered. [https://stackoverflow.com/questions/12452349](https://stackoverflow.com/questions/12452349)
 
 ## Various usages
 
@@ -194,8 +194,8 @@ import 'viewport-extra'
 ```
 
 ```js
-import { setOptions } from 'viewport-extra'
-setOptions({ minWidth: 375, maxWidth: 414 })
+import { setContent } from 'viewport-extra'
+setContent({ minWidth: 375, maxWidth: 414 })
 ```
 
 ### [Deprecated] Same usage as v1 using CDN
