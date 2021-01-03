@@ -1,4 +1,3 @@
-import { version as _version } from '../package.json'
 import { getHTMLMetaElement, getClientWidth } from './lib/Document'
 import { createPartialContent, applyContent } from './lib/HTMLMetaElement'
 import { Content, create } from './lib/Content'
@@ -35,13 +34,10 @@ export const setContent = (partialContent: Partial<Content>): void => {
 
 export const getContent = (): Content => content
 
-export const version = _version
-
 export default class ViewportExtra {
   constructor(partialContent: Partial<Content>) {
     setContent(partialContent)
   }
   static setContent = setContent
   static getContent = getContent
-  static version = version
 }

@@ -1,6 +1,5 @@
 import rollupPluginTypescript from '@rollup/plugin-typescript'
 import rollupPluginDelete from 'rollup-plugin-delete'
-import rollupPluginJson from '@rollup/plugin-json'
 import { terser as rollupPluginTerser } from 'rollup-plugin-terser'
 import globby from 'globby'
 import * as packageJson from './package.json'
@@ -47,8 +46,7 @@ export default [
       rollupPluginDelete({
         targets: [`${packageJson.module}/..`, `${packageJson.main}/..`]
       }),
-      rollupPluginTypescript({ target: 'esnext' }),
-      rollupPluginJson()
+      rollupPluginTypescript({ target: 'esnext' })
     ]
   },
   {
@@ -84,8 +82,7 @@ export default [
     ],
     plugins: [
       rollupPluginDelete({ targets: `${packageJson.jsdelivr}/..` }),
-      rollupPluginTypescript({ target: 'es5' }),
-      rollupPluginJson()
+      rollupPluginTypescript({ target: 'es5' })
     ]
   },
   {
@@ -98,8 +95,7 @@ export default [
     })),
     plugins: [
       rollupPluginDelete({ targets: packageJson.jest.roots }),
-      rollupPluginTypescript({ target: 'esnext' }),
-      rollupPluginJson()
+      rollupPluginTypescript({ target: 'esnext' })
     ]
   }
 ]

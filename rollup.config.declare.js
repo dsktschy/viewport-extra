@@ -3,7 +3,7 @@ import rollupPluginDelete from 'rollup-plugin-delete'
 import * as packageJson from './package.json'
 
 export default {
-  input: '.types/src/index.d.ts',
+  input: '.types/index.d.ts',
   output: [
     {
       file: packageJson.types,
