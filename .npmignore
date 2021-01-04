@@ -1,2 +1,15 @@
+.types/
+.vscode/
+dist/__test__/
+node_modules/
+src/
+test/
+.eslintrc.js
+.gitignore
+.npmignore
+.prettierignore
+.prettierrc
 package-lock.json
-**/*.test.js
+rollup.config.build.js
+rollup.config.declare.js
+tsconfig.json
