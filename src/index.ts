@@ -34,6 +34,7 @@ export const setContent = (partialContent: Partial<Content>): void => {
 
 export const getContent = (): Content => content
 
+// For compatibility with v1
 export default class ViewportExtra {
   constructor(partialContent: Partial<Content>) {
     setContent(partialContent)
