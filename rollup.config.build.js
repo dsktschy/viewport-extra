@@ -46,7 +46,7 @@ export default [
       rollupPluginDelete({
         targets: [`${packageJson.module}/..`, `${packageJson.main}/..`]
       }),
-      rollupPluginTypescript({ target: 'esnext' })
+      rollupPluginTypescript({ target: 'es5' })
     ]
   },
   {
@@ -94,7 +94,7 @@ export default [
     })),
     plugins: [
       rollupPluginDelete({ targets: packageJson.jest.roots }),
-      rollupPluginTypescript({ target: 'esnext' })
+      rollupPluginTypescript({ target: 'es2020' })
     ]
   }
 ]
