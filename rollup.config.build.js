@@ -30,14 +30,14 @@ export default [
         file: packageJson.module,
         format: 'es',
         exports: 'named',
-        sourcemap: true,
+        sourcemap: 'hidden',
         banner
       },
       {
         file: packageJson.main,
         format: 'cjs',
         exports: 'named',
-        sourcemap: true,
+        sourcemap: 'hidden',
         banner,
         outro
       }
@@ -56,7 +56,7 @@ export default [
         file: packageJson.jsdelivr.replace('.min', ''),
         format: 'iife',
         exports: 'named',
-        sourcemap: true,
+        sourcemap: false,
         banner,
         outro,
         name
@@ -65,7 +65,7 @@ export default [
         file: packageJson.jsdelivr,
         format: 'iife',
         exports: 'named',
-        sourcemap: false,
+        sourcemap: 'hidden',
         outro,
         name,
         plugins: [
@@ -90,8 +90,7 @@ export default [
     output: packageJson.jest.roots.map(root => ({
       dir: root,
       format: 'cjs',
-      exports: 'named',
-      sourcemap: true
+      exports: 'named'
     })),
     plugins: [
       rollupPluginDelete({ targets: packageJson.jest.roots }),
