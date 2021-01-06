@@ -204,7 +204,8 @@ setContent({ minWidth: 375, maxWidth: 414 })
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <script src="https://cdn.jsdelivr.net/npm/viewport-extra@2.0.0/dist/iife/viewport-extra.min.js"></script>
 <script>
-  new ViewportExtra({ minWidth: 375, maxWidth: 414 })
+  // Shorthand if maxWidth is not required
+  new ViewportExtra(375)
 </script>
 ```
 
@@ -218,7 +219,8 @@ Note: Don't set async attribute of script element so that ViewportExtra object d
 
 ```js
 import ViewportExtra from 'viewport-extra'
-new ViewportExtra({ minWidth: 375, maxWidth: 414 })
+// Shorthand if maxWidth is not required
+new ViewportExtra(375)
 ```
 
 ## Note

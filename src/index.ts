@@ -1,6 +1,6 @@
 import { getHTMLMetaElement, getClientWidth } from './lib/Document'
 import { createPartialContent, applyContent } from './lib/HTMLMetaElement'
-import { Content, create } from './lib/Content'
+import { Content, ContentMinWidth, create } from './lib/Content'
 
 let viewportElement: HTMLMetaElement | null = null
 let viewportExtraElement: HTMLMetaElement | null = null
@@ -36,7 +36,13 @@ export const getContent = (): Content => content
 
 // For compatibility with v1
 export default class ViewportExtra {
-  constructor(partialContent: Partial<Content>) {
+  constructor(
+    partialContentOrContentMinWidth: Partial<Content> | ContentMinWidth
+  ) {
+    const partialContent =
+      typeof partialContentOrContentMinWidth === 'number'
+        ? { minWidth: partialContentOrContentMinWidth }
+        : partialContentOrContentMinWidth
     setContent(partialContent)
   }
   static setContent = setContent
