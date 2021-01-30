@@ -1,9 +1,9 @@
 .types/
 .vscode/
-dist/__test__/
+dist/tests/
 node_modules/
 src/
-test/
+tests/
 .eslintrc.js
 .gitignore
 .npmignore

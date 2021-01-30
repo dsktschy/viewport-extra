@@ -10,7 +10,7 @@
   "types": "types/index.d.ts",
   "jest": {
     "roots": [
-      "dist/__test__/"
+      "dist/tests/"
     ]
   },
   "scripts": {

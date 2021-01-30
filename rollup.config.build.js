@@ -86,7 +86,7 @@ export default [
     ]
   },
   {
-    input: globby.sync('test/**/*.test.ts'),
+    input: globby.sync('tests/**/*.test.ts'),
     output: packageJson.jest.roots.map(root => ({
       dir: root,
       format: 'cjs',
