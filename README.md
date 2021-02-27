@@ -19,7 +19,7 @@ For example, on devices with a display width of less than 375px (e.g. iPhone SE 
 ></script>
 ```
 
-### NPM
+### npm
 
 ```bash
 npm i viewport-extra
@@ -144,7 +144,7 @@ Note: If you want to re-scale when switching between portrait and landscape mode
 
 Note: Don't forget async attribute of script element not to block rendering.
 
-### Viewport extra meta element and NPM
+### Viewport extra meta element and npm
 
 ```html
 <meta
@@ -173,7 +173,7 @@ import 'viewport-extra'
 
 Note: Don't forget async attribute of script element not to block rendering.
 
-### Viewport meta element and NPM
+### Viewport meta element and npm
 
 ```html
 <meta
@@ -211,7 +211,7 @@ setContent({ minWidth: 375, maxWidth: 414 })
 
 Note: Don't set async attribute of script element so that ViewportExtra object does not become undefined.
 
-### [Deprecated] Same usage as v1 using NPM
+### [Deprecated] Same usage as v1 using npm
 
 ```html
 <meta name="viewport" content="width=device-width,initial-scale=1" />
