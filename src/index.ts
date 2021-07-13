@@ -6,7 +6,7 @@ let viewportElement: HTMLMetaElement | null = null
 let viewportExtraElement: HTMLMetaElement | null = null
 let content: Content = create({})
 
-if (document) {
+if (typeof document !== 'undefined') {
   viewportElement = getHTMLMetaElement(document, 'viewport', true)
   viewportExtraElement = getHTMLMetaElement(document, 'viewport-extra', false)
 
