@@ -384,4 +384,45 @@ describe('about src/index.ts', () => {
       maxWidth
     })
   })
+
+  test('whether `updateReference` updates reference to viewport meta element', async () => {
+    const width = 'device-width'
+    const initialScale = 1
+    const minWidth = 375
+    const maxWidth = 414
+    // Set clientWidth to document
+    const documentClientWidth = 320
+    Object.defineProperty(document.documentElement, 'clientWidth', {
+      value: documentClientWidth,
+      writable: true
+    })
+    // Reset and prepare document
+    document.head.innerHTML = ''
+    const firstViewportElement = document.createElement('meta')
+    firstViewportElement.setAttribute('name', 'viewport')
+    firstViewportElement.setAttribute(
+      'content',
+      `width=${width},initial-scale=${initialScale}`
+    )
+    document.head.appendChild(firstViewportElement)
+    // Run module again
+    jest.resetModules()
+    const { updateReference, setContent } = await import('../src/index')
+    document.head.removeChild(firstViewportElement)
+    const secondViewportElement = document.createElement('meta')
+    secondViewportElement.setAttribute('name', 'viewport')
+    secondViewportElement.setAttribute(
+      'content',
+      `width=${width},initial-scale=${initialScale}`
+    )
+    document.head.appendChild(secondViewportElement)
+    updateReference()
+    setContent({ width, initialScale, minWidth, maxWidth })
+    const contentAttributeValue = secondViewportElement.getAttribute('content')
+    expect(contentAttributeValue).toBe(
+      `initial-scale=${
+        (documentClientWidth / minWidth) * initialScale
+      },width=${minWidth}`
+    )
+  })
 })

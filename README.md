@@ -14,7 +14,7 @@ For example, on devices with a display width of less than 375px (e.g. iPhone SE 
   content="width=device-width,initial-scale=1,min-width=375"
 />
 <script
-  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.0.2/dist/iife/viewport-extra.min.js"
+  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.0-alpha.0/dist/iife/viewport-extra.min.js"
   async
 ></script>
 ```
@@ -137,7 +137,7 @@ Note: If you want to re-scale when switching between portrait and landscape mode
   content="width=device-width,initial-scale=1,min-width=375,max-width=414"
 />
 <script
-  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.0.2/dist/iife/viewport-extra.min.js"
+  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.0-alpha.0/dist/iife/viewport-extra.min.js"
   async
 ></script>
 ```
@@ -166,7 +166,7 @@ import 'viewport-extra'
   data-extra-content="min-width=375,max-width=414"
 />
 <script
-  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.0.2/dist/iife/viewport-extra.min.js"
+  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.0-alpha.0/dist/iife/viewport-extra.min.js"
   async
 ></script>
 ```
@@ -202,7 +202,7 @@ setContent({ minWidth: 375, maxWidth: 414 })
 
 ```html
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<script src="https://cdn.jsdelivr.net/npm/viewport-extra@2.0.2/dist/iife/viewport-extra.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.0-alpha.0/dist/iife/viewport-extra.min.js"></script>
 <script>
   // Shorthand if maxWidth is not required
   new ViewportExtra(375)

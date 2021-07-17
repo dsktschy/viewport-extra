@@ -34,6 +34,10 @@ export const setContent = (partialContent: Partial<Content>): void => {
 
 export const getContent = (): Content => content
 
+export const updateReference = (): void => {
+  viewportElement = getHTMLMetaElement(document, 'viewport', true)
+}
+
 // For compatibility with v1
 export default class ViewportExtra {
   constructor(
@@ -47,4 +51,5 @@ export default class ViewportExtra {
   }
   static setContent = setContent
   static getContent = getContent
+  static updateReference = updateReference
 }
