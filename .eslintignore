@@ -1,0 +1,6 @@
+.types/
+.vscode/
+dist/
+examples/
+node_modules/
+types/

@@ -21,15 +21,6 @@
     "declare": "rm -rf .types && tsc src/index.ts --declaration --emitDeclarationOnly --outDir .types --resolveJsonModule && rollup --config rollup.config.declare.js --environment NODE_ENV:production && rm -rf .types",
     "dev": "npm run watch"
   },
-  "lint-staged": {
-    "!(*.{ts,js})": [
-      "prettier -w"
-    ],
-    "*.{ts,js}": [
-      "eslint --max-warnings=0",
-      "prettier -w"
-    ]
-  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged && npm run build && npm run test"

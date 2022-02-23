@@ -1,9 +1,11 @@
 .types/
 .vscode/
 dist/tests/
+examples/
 node_modules/
 src/
 tests/
+.eslintignore
 .eslintrc.js
 .gitignore
 .npmignore

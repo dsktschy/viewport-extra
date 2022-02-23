@@ -1,9 +1,12 @@
 .types/
 dist/
+examples/
 node_modules/
 types/
+.eslintignore
 .gitignore
 .npmignore
 .prettierignore
+.prettierrc
 LICENSE.txt
 package-lock.json
