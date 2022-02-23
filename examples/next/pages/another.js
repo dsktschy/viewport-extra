@@ -1,12 +1,12 @@
 import Link from 'next/link'
 
-export default function Index() {
+export default function Another() {
   return (
     <div className="page">
-      <h1>Index Page</h1>
+      <h1>Another Page</h1>
       <p>-------------- 414px wide text --------------</p>
-      <Link href="/another">
-        <a>Go to another page</a>
+      <Link href="/">
+        <a>Go to index page</a>
       </Link>
     </div>
   )

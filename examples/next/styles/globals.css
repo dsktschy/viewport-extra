@@ -1,16 +1,28 @@
-html,
-body {
+* {
+  box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-size: inherit;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  letter-spacing: 0;
 }
 
 a {
   color: inherit;
-  text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 414px;
+  height: 100vh;
+  padding: 40px 0;
+  font-size: 24px;
+  background-color: steelblue;
+  color: white;
 }
