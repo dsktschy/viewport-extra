@@ -1,0 +1,28 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-size: inherit;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  letter-spacing: 0;
+}
+
+a {
+  color: inherit;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 414px;
+  height: 100vh;
+  padding: 40px 0;
+  font-size: 24px;
+  background-color: steelblue;
+  color: white;
+}
