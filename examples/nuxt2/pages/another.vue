@@ -1,13 +1,13 @@
 <template>
   <div class="page">
-    <h1>Index Page</h1>
+    <h1>Another Page</h1>
     <p>-------------- 414px wide text --------------</p>
-    <NuxtLink to="/another">Go to another page</NuxtLink>
+    <NuxtLink to="/">Go to index page</NuxtLink>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'IndexPage'
+  name: 'AnotherPage'
 }
 </script>
