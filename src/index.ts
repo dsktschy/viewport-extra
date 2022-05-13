@@ -18,7 +18,7 @@ if (typeof document !== 'undefined') {
   }
 
   // Apply default content to viewport meta element
-  // in order to calcurate correct value by getClientWidth
+  // in order to calculate correct value by getClientWidth
   // even if viewport meta element has no content attribute
   applyContent(viewportElement, content, 0)
 
