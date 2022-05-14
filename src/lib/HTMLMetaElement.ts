@@ -32,7 +32,7 @@ export const applyContent = (
   content: Content,
   documentClientWidth: number
 ): void => {
-  // Calcurate width and initial-scale
+  // Calculate width and initial-scale
   const { width, initialScale } = content
   const { minWidth, maxWidth, ...omittedContent } = content
   if (minWidth > maxWidth) {
