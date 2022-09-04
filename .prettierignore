@@ -5,6 +5,7 @@ node_modules/
 types/
 .eslintignore
 .gitignore
+.node-version
 .npmignore
 .prettierignore
 .prettierrc
