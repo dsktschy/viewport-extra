@@ -35,6 +35,7 @@ export const setContent = (partialContent: Partial<Content>): void => {
 export const getContent = (): Content => content
 
 export const updateReference = (): void => {
+  if (typeof document === 'undefined') return
   viewportElement = getHTMLMetaElement(document, 'viewport', true)
 }
 
