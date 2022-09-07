@@ -6,7 +6,7 @@ let viewportElement: HTMLMetaElement | null = null
 let viewportExtraElement: HTMLMetaElement | null = null
 let content: Content = create({})
 
-if (typeof document !== 'undefined') {
+if (typeof window !== 'undefined') {
   viewportElement = getHTMLMetaElement(document, 'viewport', true)
   viewportExtraElement = getHTMLMetaElement(document, 'viewport-extra', false)
 
@@ -27,15 +27,15 @@ if (typeof document !== 'undefined') {
 }
 
 export const setContent = (partialContent: Partial<Content>): void => {
+  if (typeof window === 'undefined' || !viewportElement) return
   content = create({ ...content, ...partialContent })
-  if (!viewportElement) return
   applyContent(viewportElement, content, getClientWidth(document))
 }
 
 export const getContent = (): Content => content
 
 export const updateReference = (): void => {
-  if (typeof document === 'undefined') return
+  if (typeof window === 'undefined') return
   viewportElement = getHTMLMetaElement(document, 'viewport', true)
 }
 
