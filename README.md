@@ -4,15 +4,11 @@ Viewport Extra enables to set min-width and max-width of viewport, by overriding
 
 For example, on devices with a display width of less than 375px (e.g. iPhone SE 1st Gen), if a page with a width of 375px or more is displayed, there will usually be horizontal scrolling. In such a case, you can set the min-width of viewport to 375px with Viewport Extra, which will scale the page down to fit perfectly into the 375px display width and remove horizontal scrolling.
 
-## Quick Start
+## Installation
 
 ### CDN
 
 ```html
-<meta
-  name="viewport-extra"
-  content="width=device-width,initial-scale=1,min-width=375"
-/>
 <script
   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.1/dist/iife/viewport-extra.min.js"
   async
@@ -21,15 +17,8 @@ For example, on devices with a display width of less than 375px (e.g. iPhone SE 
 
 ### npm
 
-```bash
-npm i viewport-extra
-```
-
-```html
-<meta
-  name="viewport-extra"
-  content="width=device-width,initial-scale=1,min-width=375"
-/>
+```sh
+$ npm install viewport-extra
 ```
 
 ```js
@@ -45,6 +34,10 @@ import 'viewport-extra'
   name="viewport-extra"
   content="width=device-width,initial-scale=1,min-width=375"
 />
+<script
+  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.1/dist/iife/viewport-extra.min.js"
+  async
+></script>
 ```
 
 The page will be scaled down on screens that display as width of less than 375px. No operations will be run on screens that display as width of 375px or more. This setting will output the following viewport meta elements.
@@ -65,6 +58,10 @@ On iPhone >= 6 / iPhone SE(2nd Gen) / Galaxy S20 Ultra / tablets, in portrait mo
   name="viewport-extra"
   content="width=device-width,initial-scale=1,max-width=320"
 />
+<script
+  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.1/dist/iife/viewport-extra.min.js"
+  async
+></script>
 ```
 
 The page will be scaled up on screens that display as width of more than 320px. No operations will be run on screens that display as width of 320px or less. This setting will output the following viewport meta elements.
@@ -81,7 +78,10 @@ On iPhone 12 Pro Max in portrait mode
 ### Scale down on mobile phone screens < 375px wide, and on tablet screens < 1280px wide
 
 ```html
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1"
+/>
 ```
 
 ```js
@@ -110,8 +110,9 @@ On iPad Pro 12.9" in landscape mode
 
 ```html
 <meta
-  name="viewport-extra"
-  content="width=device-width,initial-scale=1,min-width=375"
+  name="viewport"
+  content="width=device-width,initial-scale=1"
+  data-extra-content="min-width=375"
 />
 ```
 
@@ -129,7 +130,11 @@ Note: If you want to re-scale when switching between portrait and landscape mode
 
 ## Various usages
 
-### Viewport extra meta element and CDN
+### meta[name="viewport-extra"] element and CDN
+
+This is the simplest usage.
+
+Note: Don't forget async attribute of script element not to block rendering.
 
 ```html
 <meta
@@ -142,28 +147,20 @@ Note: If you want to re-scale when switching between portrait and landscape mode
 ></script>
 ```
 
+### meta[name="viewport"] element, meta[name="viewport-extra"] element, and CDN
+
+By using meta[name="viewport"] element together, the change in display before and after viewport-extra is reduced. Use if you are concerned about flickering when running viewport-extra.
+
 Note: Don't forget async attribute of script element not to block rendering.
-
-### Viewport extra meta element and npm
-
-```html
-<meta
-  name="viewport-extra"
-  content="width=device-width,initial-scale=1,min-width=375,max-width=414"
-/>
-```
-
-```js
-import 'viewport-extra'
-```
-
-### Viewport meta element and CDN
 
 ```html
 <meta
   name="viewport"
   content="width=device-width,initial-scale=1"
-  data-extra-content="min-width=375,max-width=414"
+/>
+<meta
+  name="viewport-extra"
+  content="min-width=375,max-width=414"
 />
 <script
   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.1/dist/iife/viewport-extra.min.js"
@@ -171,9 +168,9 @@ import 'viewport-extra'
 ></script>
 ```
 
-Note: Don't forget async attribute of script element not to block rendering.
+### meta[name="viewport"] element and npm
 
-### Viewport meta element and npm
+It is also possible to set using only meta[name="viewport"] element. This usage has the effect of reducing the change in display before and after viewport-extra, too.
 
 ```html
 <meta
@@ -189,36 +186,55 @@ import 'viewport-extra'
 
 ### Programmatic usage
 
+It is also possible to import setContent function from the package.
+
 ```html
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1"
+/>
 ```
 
 ```js
 import { setContent } from 'viewport-extra'
+
 setContent({ minWidth: 375, maxWidth: 414 })
 ```
 
 ### [Deprecated] Same usage as v1 using CDN
 
+The v1 usage also works, but it is deprecated as it may become invalid in the next version or later.
+
+Note: Don't set async attribute of script element so that ViewportExtra object does not become undefined.
+
 ```html
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<script src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.1/dist/iife/viewport-extra.min.js"></script>
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1"
+/>
+<script
+  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.1/dist/iife/viewport-extra.min.js"
+></script>
 <script>
   // Shorthand if maxWidth is not required
   new ViewportExtra(375)
 </script>
 ```
 
-Note: Don't set async attribute of script element so that ViewportExtra object does not become undefined.
-
 ### [Deprecated] Same usage as v1 using npm
 
+The v1 usage also works, but it is deprecated as it may become invalid in the next version or later.
+
 ```html
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1"
+/>
 ```
 
 ```js
 import ViewportExtra from 'viewport-extra'
+
 // Shorthand if maxWidth is not required
 new ViewportExtra(375)
 ```
