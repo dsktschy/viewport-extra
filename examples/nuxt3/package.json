@@ -11,6 +11,6 @@
     "nuxt": "3.0.0-rc.9"
   },
   "dependencies": {
-    "viewport-extra": "^2.1.2"
+    "viewport-extra": "^2.1.3"
   }
 }
