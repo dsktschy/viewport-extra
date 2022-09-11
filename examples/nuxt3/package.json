@@ -1,12 +1,14 @@
 {
   "private": true,
   "scripts": {
-    "dev": "nuxi dev",
-    "build": "nuxi build",
-    "start": "node .output/server/index.mjs"
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "nuxt3": "latest"
+    "nuxt": "3.0.0-rc.9"
   },
   "dependencies": {
     "viewport-extra": "^2.1.1"
