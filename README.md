@@ -10,7 +10,7 @@ For example, on devices with a display width of less than 375px (e.g. iPhone SE 
 
 ```html
 <script
-  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.3/dist/iife/viewport-extra.min.js"
+  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.4/dist/iife/viewport-extra.min.js"
   async
 ></script>
 ```
@@ -35,7 +35,7 @@ import 'viewport-extra'
   content="width=device-width,initial-scale=1,min-width=375"
 />
 <script
-  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.3/dist/iife/viewport-extra.min.js"
+  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.4/dist/iife/viewport-extra.min.js"
   async
 ></script>
 ```
@@ -59,7 +59,7 @@ On iPhone >= 6 / iPhone SE(2nd Gen) / Galaxy S20 Ultra / tablets, in portrait mo
   content="width=device-width,initial-scale=1,max-width=320"
 />
 <script
-  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.3/dist/iife/viewport-extra.min.js"
+  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.4/dist/iife/viewport-extra.min.js"
   async
 ></script>
 ```
@@ -142,7 +142,7 @@ Note: Don't forget async attribute of script element not to block rendering.
   content="width=device-width,initial-scale=1,min-width=375,max-width=414"
 />
 <script
-  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.3/dist/iife/viewport-extra.min.js"
+  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.4/dist/iife/viewport-extra.min.js"
   async
 ></script>
 ```
@@ -163,7 +163,7 @@ Note: Don't forget async attribute of script element not to block rendering.
   content="min-width=375,max-width=414"
 />
 <script
-  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.3/dist/iife/viewport-extra.min.js"
+  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.4/dist/iife/viewport-extra.min.js"
   async
 ></script>
 ```
@@ -213,7 +213,7 @@ Note: Don't set async attribute of script element so that ViewportExtra object d
   content="width=device-width,initial-scale=1"
 />
 <script
-  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.3/dist/iife/viewport-extra.min.js"
+  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.4/dist/iife/viewport-extra.min.js"
 ></script>
 <script>
   // Shorthand if maxWidth is not required
