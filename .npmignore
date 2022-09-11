@@ -9,6 +9,7 @@ tests/
 .eslintignore
 .eslintrc.js
 .gitignore
+.lintstagedrc.js
 .node-version
 .npmignore
 .prettierignore
