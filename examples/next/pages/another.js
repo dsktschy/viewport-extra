@@ -5,9 +5,7 @@ export default function Another() {
     <div className="page">
       <h1>Another Page</h1>
       <p>-------------- 414px wide text --------------</p>
-      <Link href="/">
-        <a>Go to index page</a>
-      </Link>
+      <Link href="/">Go to index page</Link>
     </div>
   )
 }

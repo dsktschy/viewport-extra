@@ -5,9 +5,7 @@ export default function Index() {
     <div className="page">
       <h1>Index Page</h1>
       <p>-------------- 414px wide text --------------</p>
-      <Link href="/another">
-        <a>Go to another page</a>
-      </Link>
+      <Link href="/another">Go to another page</Link>
     </div>
   )
 }
