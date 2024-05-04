@@ -4,7 +4,23 @@ Viewport Extra enables to set min-width and max-width of viewport, by overriding
 
 For example, on devices with a display width of less than 375px (e.g. iPhone SE 1st Gen), if a page with a width of 375px or more is displayed, there will usually be horizontal scrolling. In such a case, you can set the min-width of viewport to 375px with Viewport Extra, which will scale the page down to fit perfectly into the 375px display width and remove horizontal scrolling.
 
-## Installation
+## Getting Started
+
+Put `meta[name="viewport-extra"]` element instead of `meta[name="viewport"]` element.
+```html
+<meta
+  name="viewport-extra"
+  content="width=device-width,initial-scale=1,min-width=375"
+/>
+```
+
+Be sure to include `text-size-adjust: 100%;` for `body` element in your style.
+```css
+body {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+```
 
 ### CDN
 
@@ -15,7 +31,7 @@ For example, on devices with a display width of less than 375px (e.g. iPhone SE 
 ></script>
 ```
 
-### npm
+### Package Managers
 
 ```sh
 $ npm install viewport-extra
