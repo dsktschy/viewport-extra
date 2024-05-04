@@ -50,10 +50,6 @@ import 'viewport-extra'
   name="viewport-extra"
   content="width=device-width,initial-scale=1,min-width=375"
 />
-<script
-  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.4/dist/iife/viewport-extra.min.js"
-  async
-></script>
 ```
 
 The page will be scaled down on screens that display as width of less than 375px. No operations will be run on screens that display as width of 375px or more. This setting will output the following viewport meta elements.
@@ -74,10 +70,6 @@ On iPhone >= 6 / iPhone SE(2nd Gen) / Galaxy S20 Ultra / tablets, in portrait mo
   name="viewport-extra"
   content="width=device-width,initial-scale=1,max-width=320"
 />
-<script
-  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.4/dist/iife/viewport-extra.min.js"
-  async
-></script>
 ```
 
 The page will be scaled up on screens that display as width of more than 320px. No operations will be run on screens that display as width of 320px or less. This setting will output the following viewport meta elements.
@@ -122,71 +114,11 @@ On iPad Pro 12.9" in portrait mode
 On iPad Pro 12.9" in landscape mode  
 `<meta name="viewport" content="width=device-width,initial-scale=1" />`
 
-### Re-scale when some event occurs
+## Various Usages
 
-```html
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1"
-  data-extra-content="min-width=375"
-/>
-```
+See also [examples](https://github.com/dsktschy/viewport-extra/tree/master/examples).
 
-```js
-import { setContent } from 'viewport-extra'
-
-window.addEventListener('click', () => {
-  setContent({ minWidth: 375 })
-})
-```
-
-The page will be scale according to viewport size when clicked.
-
-Note: If you want to re-scale when switching between portrait and landscape modes, you need to run `setContent` at a time when you can be sure of getting the viewport size after the switch. However, it seems that such timing has not yet been discovered. [https://stackoverflow.com/questions/12452349](https://stackoverflow.com/questions/12452349)
-
-## Various usages
-
-### meta[name="viewport-extra"] element and CDN
-
-This is the simplest usage.
-
-Note: Don't forget async attribute of script element not to block rendering.
-
-```html
-<meta
-  name="viewport-extra"
-  content="width=device-width,initial-scale=1,min-width=375,max-width=414"
-/>
-<script
-  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.4/dist/iife/viewport-extra.min.js"
-  async
-></script>
-```
-
-### meta[name="viewport"] element, meta[name="viewport-extra"] element, and CDN
-
-By using meta[name="viewport"] element together, the change in display before and after viewport-extra is reduced. Use if you are concerned about flickering when running viewport-extra.
-
-Note: Don't forget async attribute of script element not to block rendering.
-
-```html
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1"
-/>
-<meta
-  name="viewport-extra"
-  content="min-width=375,max-width=414"
-/>
-<script
-  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.4/dist/iife/viewport-extra.min.js"
-  async
-></script>
-```
-
-### meta[name="viewport"] element and npm
-
-It is also possible to set using only meta[name="viewport"] element. This usage has the effect of reducing the change in display before and after viewport-extra, too.
+### Only `meta[name="viewport"]` element
 
 ```html
 <meta
@@ -196,71 +128,28 @@ It is also possible to set using only meta[name="viewport"] element. This usage 
 />
 ```
 
-```js
-import 'viewport-extra'
-```
-
-### Programmatic usage
-
-It is also possible to import setContent function from the package.
+### `meta[name="viewport"]` and `meta[name="viewport-extra"]` elements
 
 ```html
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1"
-/>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="viewport-extra" content="min-width=375,max-width=414" />
 ```
 
-```js
-import { setContent } from 'viewport-extra'
-
-setContent({ minWidth: 375, maxWidth: 414 })
-```
-
-### [Deprecated] Same usage as v1 using CDN
-
-The v1 usage also works, but it is deprecated as it may become invalid in the next version or later.
-
-Note: Don't set async attribute of script element so that ViewportExtra object does not become undefined.
+### [Deprecated] Same usage as v1
 
 ```html
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1"
-/>
-<script
-  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.4/dist/iife/viewport-extra.min.js"
-></script>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<script src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.4/dist/iife/viewport-extra.min.js" ></script>
 <script>
   // Shorthand if maxWidth is not required
   new ViewportExtra(375)
 </script>
 ```
 
-### [Deprecated] Same usage as v1 using npm
+## Notes
 
-The v1 usage also works, but it is deprecated as it may become invalid in the next version or later.
+- Note that `meta[name="viewport"]` element only has effect in mobile browsers.
 
-```html
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1"
-/>
-```
-
-```js
-import ViewportExtra from 'viewport-extra'
-
-// Shorthand if maxWidth is not required
-new ViewportExtra(375)
-```
-
-## Note
-
-- Viewport Extra supports only clients that support the viewport meta element. Note that the viewport meta element is only supported by mobile browsers.
-
-- Unless you write code for it, Viewport Extra will not re-scale when switching between portrait and landscape modes. [Re-scale when some event occurs](#re-scale-when-some-event-occurs)
-
-- If worried about the delay in applying, use CDN with script element has async attribute.
+- Viewport Extra will not rescale when switching between portrait and landscape modes. If needed, use `setContent()` as an event handler. See also [Stack Overflow](https://stackoverflow.com/questions/12452349).
 
 - Viewport Extra v2 does not support AMD. If it is needed use v1.
