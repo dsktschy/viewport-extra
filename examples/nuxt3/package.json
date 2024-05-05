@@ -1,5 +1,7 @@
 {
+  "name": "viewport-extra-nuxt3-example",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -7,10 +9,10 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
-  "devDependencies": {
-    "nuxt": "^3.0.0"
-  },
   "dependencies": {
-    "viewport-extra": "^2.1.4"
+    "nuxt": "^3.11.2",
+    "viewport-extra": "^2.1.4",
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.0"
   }
 }

@@ -1,9 +1,5 @@
 <template>
   <Head>
-    <!-- An ineffective element to disable overriding on page transition -->
-    <!-- Therefore don't set content attribute -->
-    <Meta name="viewport" />
-
     <!-- Google Fonts -->
     <Link
       rel="preconnect"
@@ -25,10 +21,9 @@
 </template>
 
 <script setup>
-import { setContent, updateReference } from 'viewport-extra'
+import { setContent } from 'viewport-extra'
 
 onMounted(() => {
-  updateReference()
   setContent({ minWidth: 414 })
 })
 </script>
