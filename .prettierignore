@@ -1,15 +1,2 @@
-.husky/
-.types/
-dist/
 examples/
-node_modules/
-types/
-.eslintignore
-.gitignore
-.node-version
-.npmignore
-.prettierignore
-.prettierrc
-LICENSE.txt
 package-lock.json
-README.md

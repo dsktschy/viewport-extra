@@ -17,13 +17,13 @@ const removeIgnoredFiles = async files => {
 
 module.exports = {
   '!(*.{ts,js})': async files => {
-    return [`prettier -w ${files.join(' ')}`]
+    return [`prettier -w --ignore-unknown ${files.join(' ')}`]
   },
   '*.{ts,js}': async files => {
     const filesToLint = await removeIgnoredFiles(files)
     return [
       `eslint --max-warnings=0 ${filesToLint}`,
-      `prettier -w ${files.join(' ')}`
+      `prettier -w --ignore-unknown ${files.join(' ')}`
     ]
   }
 }

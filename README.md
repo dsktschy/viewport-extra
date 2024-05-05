@@ -7,6 +7,7 @@ For example, on devices with a display width of less than 375px (e.g. iPhone SE 
 ## Getting Started
 
 Put `meta[name="viewport-extra"]` element instead of `meta[name="viewport"]` element.
+
 ```html
 <meta
   name="viewport-extra"
@@ -15,6 +16,7 @@ Put `meta[name="viewport-extra"]` element instead of `meta[name="viewport"]` ele
 ```
 
 Be sure to include `text-size-adjust: 100%;` for `body` element in your style.
+
 ```css
 body {
   -webkit-text-size-adjust: 100%;
@@ -86,10 +88,7 @@ On iPhone 12 Pro Max in portrait mode
 ### Scale down on mobile phone screens < 375px wide, and on tablet screens < 1280px wide
 
 ```html
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1"
-/>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 ```
 
 ```js
@@ -139,7 +138,7 @@ See also [examples](https://github.com/dsktschy/viewport-extra/tree/master/examp
 
 ```html
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<script src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.4/dist/iife/viewport-extra.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.4/dist/iife/viewport-extra.min.js"></script>
 <script>
   // Shorthand if maxWidth is not required
   new ViewportExtra(375)
