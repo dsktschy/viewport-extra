@@ -8,9 +8,10 @@ export default defineNuxtConfig({
       meta: [
         {
           name: 'description',
-          content: 'This example shows how to use Viewport Extra in Nuxt.js v3 application.'
-        },
-      ],
+          content:
+            'This example shows how to use Viewport Extra in Nuxt.js v3 application.'
+        }
+      ]
     }
-  },
+  }
 })

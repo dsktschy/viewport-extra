@@ -1,10 +1,7 @@
 <template>
   <Head>
     <!-- Google Fonts -->
-    <Link
-      rel="preconnect"
-      href="https://fonts.googleapis.com"
-    />
+    <Link rel="preconnect" href="https://fonts.googleapis.com" />
     <Link
       rel="preconnect"
       href="https://fonts.gstatic.com"
@@ -17,7 +14,7 @@
   </Head>
 
   <!-- eslint-disable-next-line vue/no-multiple-template-root -->
-  <NuxtPage/>
+  <NuxtPage />
 </template>
 
 <script setup>

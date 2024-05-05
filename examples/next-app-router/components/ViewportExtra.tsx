@@ -6,10 +6,7 @@ import { usePathname } from 'next/navigation'
 const ViewportExtra: FunctionComponent<{
   minWidth?: number
   maxWidth?: number
-}> = ({
-  minWidth,
-  maxWidth,
-}) => {
+}> = ({ minWidth, maxWidth }) => {
   const pathname = usePathname()
 
   const previousPathname = useRef('')

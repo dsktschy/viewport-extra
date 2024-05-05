@@ -1,6 +1,6 @@
 import '../styles/globals.css'
 import { useEffect, type FunctionComponent } from 'react'
-import type { AppProps } from "next/app";
+import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { setContent, updateReference } from 'viewport-extra'
 
