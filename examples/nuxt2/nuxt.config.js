@@ -4,7 +4,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'nuxt2',
+    title: 'Nuxt2 Example',
     htmlAttrs: {
       lang: 'en'
     },
@@ -12,7 +12,11 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { name: 'viewport-extra', content: 'min-width=414' },
-      { hid: 'description', name: 'description', content: '' },
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'This example shows how to use Viewport Extra in Nuxt.js v2 application.'
+      },
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [

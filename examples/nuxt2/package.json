@@ -1,6 +1,5 @@
 {
-  "name": "nuxt2",
-  "version": "1.0.0",
+  "name": "viewport-extra-nuxt2-example",
   "private": true,
   "scripts": {
     "dev": "nuxt",
@@ -9,12 +8,11 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "core-js": "^3.19.3",
-    "nuxt": "^2.15.8",
+    "core-js": "^3.37.0",
+    "nuxt": "^2.17.3",
     "viewport-extra": "^2.1.4",
-    "vue": "^2.6.14",
-    "vue-server-renderer": "^2.6.14",
-    "vue-template-compiler": "^2.6.14",
-    "webpack": "^4.46.0"
+    "vue": "^2.7.16",
+    "vue-server-renderer": "^2.7.16",
+    "vue-template-compiler": "^2.7.16"
   }
 }
