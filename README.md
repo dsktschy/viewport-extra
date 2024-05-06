@@ -6,22 +6,11 @@ For example, on devices with a display width of less than 375px (e.g. iPhone SE 
 
 ## Getting Started
 
-Put `meta[name="viewport-extra"]` element instead of `meta[name="viewport"]` element.
-
 ```html
 <meta
   name="viewport-extra"
   content="width=device-width,initial-scale=1,min-width=375"
 />
-```
-
-Be sure to include `text-size-adjust: 100%;` for `body` element in your style.
-
-```css
-body {
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
-}
 ```
 
 ### CDN
@@ -150,5 +139,7 @@ See also [examples](https://github.com/dsktschy/viewport-extra/tree/master/examp
 - Note that `meta[name="viewport"]` element only has effect in mobile browsers.
 
 - Viewport Extra will not rescale when switching between portrait and landscape modes. If needed, use `setContent()` as an event handler. See also [Stack Overflow](https://stackoverflow.com/questions/12452349).
+
+- For devices with small display widths, it is recommended to set `body { -webkit-text-size-adjust: 100%; }` in your style. It prevents unintended text size adjustments by browsers. See also [the issue](https://github.com/dsktschy/viewport-extra/issues/17).
 
 - Viewport Extra v2 does not support AMD. If it is needed use v1.
