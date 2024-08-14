@@ -22,6 +22,10 @@ const outro =
 // Global variable name for iife
 const name = 'ViewportExtra'
 
+// Exit on error if not watching
+// https://github.com/rollup/plugins/issues/258#issuecomment-848402026
+const noEmitOnError = !process.env.ROLLUP_WATCH
+
 export default [
   {
     input: 'src/index.ts',
@@ -46,7 +50,7 @@ export default [
       rollupPluginDelete({
         targets: [`${packageJson.module}/..`, `${packageJson.main}/..`]
       }),
-      rollupPluginTypescript({ target: 'es5' })
+      rollupPluginTypescript({ target: 'es5', noEmitOnError })
     ]
   },
   {
@@ -82,7 +86,7 @@ export default [
     ],
     plugins: [
       rollupPluginDelete({ targets: `${packageJson.jsdelivr}/..` }),
-      rollupPluginTypescript({ target: 'es5' })
+      rollupPluginTypescript({ target: 'es5', noEmitOnError })
     ]
   },
   {
@@ -94,7 +98,7 @@ export default [
     })),
     plugins: [
       rollupPluginDelete({ targets: packageJson.jest.roots }),
-      rollupPluginTypescript({ target: 'es2020' })
+      rollupPluginTypescript({ target: 'es2020', noEmitOnError })
     ]
   }
 ]
