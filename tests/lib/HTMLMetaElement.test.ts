@@ -1,3 +1,4 @@
+import { describe, test, expect, vi } from 'vitest'
 import {
   createPartialContent,
   applyContent
@@ -43,7 +44,7 @@ describe('about src/lib/HTMLMetaElement.ts', () => {
 
   test("whether `applyContent` sets correct content attribute with following params. content: `{ width: 'device-width', initialScale: 1, minWidth: 414, maxWidth: 375 }`, documentClientWidth: `320`", () => {
     // Don't show warnings on console
-    jest.spyOn(console, 'warn').mockImplementation(jest.fn())
+    vi.spyOn(console, 'warn').mockImplementation(vi.fn())
     const htmlMetaElement = document.createElement('meta')
     const width = 'device-width' as const
     const initialScale = 1
@@ -59,7 +60,7 @@ describe('about src/lib/HTMLMetaElement.ts', () => {
 
   test('whether `applyContent` sets correct content attribute with following params. content: `{ width: 390, initialScale: 1, minWidth: 375, maxWidth: 414 }`, documentClientWidth: `320`', () => {
     // Don't show warnings on console
-    jest.spyOn(console, 'warn').mockImplementation(jest.fn())
+    vi.spyOn(console, 'warn').mockImplementation(vi.fn())
     const htmlMetaElement = document.createElement('meta')
     const width = 390
     const initialScale = 1

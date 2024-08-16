@@ -1,3 +1,4 @@
+import { describe, test, expect, vi } from 'vitest'
 import {
   isContentWidth,
   isContentInitialScale,
@@ -89,7 +90,7 @@ describe('about src/lib/Content.ts', () => {
 
   test("whether `create` returns correct Content with following params. `{ width: '390', initialScale: '2', minWidth: Infinity, maxWidth: 0 }`", () => {
     // Don't show warnings on console
-    jest.spyOn(console, 'warn').mockImplementation(jest.fn())
+    vi.spyOn(console, 'warn').mockImplementation(vi.fn())
     const partialContent = {
       width: 0,
       initialScale: -1,

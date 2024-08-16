@@ -1,7 +1,6 @@
 .github/
 .types/
 .vscode/
-dist/tests/
 examples/
 node_modules/
 src/

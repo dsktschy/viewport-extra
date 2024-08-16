@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'vitest'
 import { getHTMLMetaElement } from '../../src/lib/Document'
 
 describe('about src/lib/Document.ts', () => {

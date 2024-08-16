@@ -1,7 +1,6 @@
 import rollupPluginTypescript from '@rollup/plugin-typescript'
 import rollupPluginDelete from 'rollup-plugin-delete'
 import { terser as rollupPluginTerser } from 'rollup-plugin-terser'
-import globby from 'globby'
 import * as packageJson from './package.json'
 
 // Copyright
@@ -87,18 +86,6 @@ export default [
     plugins: [
       rollupPluginDelete({ targets: `${packageJson.jsdelivr}/..` }),
       rollupPluginTypescript({ target: 'es5', noEmitOnError })
-    ]
-  },
-  {
-    input: globby.sync('tests/**/*.test.ts'),
-    output: packageJson.jest.roots.map(root => ({
-      dir: root,
-      format: 'cjs',
-      exports: 'named'
-    })),
-    plugins: [
-      rollupPluginDelete({ targets: packageJson.jest.roots }),
-      rollupPluginTypescript({ target: 'es2020', noEmitOnError })
     ]
   }
 ]
