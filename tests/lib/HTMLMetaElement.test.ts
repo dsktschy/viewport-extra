@@ -46,6 +46,7 @@ describe('about src/lib/HTMLMetaElement.ts', () => {
     // Don't show warnings on console
     vi.spyOn(console, 'warn').mockImplementation(vi.fn())
     const htmlMetaElement = document.createElement('meta')
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const width = 'device-width' as const
     const initialScale = 1
     // minWidth and maxWidth will be ignored
@@ -76,6 +77,7 @@ describe('about src/lib/HTMLMetaElement.ts', () => {
 
   test("whether `applyContent` sets correct content attribute with following params. content: `{ width: 'device-width', initialScale: 1, minWidth: 375, maxWidth: 414 }`, documentClientWidth: `374`", () => {
     const htmlMetaElement = document.createElement('meta')
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const width = 'device-width' as const
     const initialScale = 1
     const minWidth = 375
@@ -91,6 +93,7 @@ describe('about src/lib/HTMLMetaElement.ts', () => {
 
   test("whether `applyContent` sets correct content attribute with following params. content: `{ width: 'device-width', initialScale: 1, minWidth: 375, maxWidth: 414 }`, documentClientWidth: `375`", () => {
     const htmlMetaElement = document.createElement('meta')
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const width = 'device-width' as const
     const initialScale = 1
     const minWidth = 375
@@ -104,6 +107,7 @@ describe('about src/lib/HTMLMetaElement.ts', () => {
 
   test("whether `applyContent` sets correct content attribute with following params. content: `{ width: 'device-width', initialScale: 1, minWidth: 375, maxWidth: 414 }`, documentClientWidth: `414`", () => {
     const htmlMetaElement = document.createElement('meta')
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const width = 'device-width' as const
     const initialScale = 1
     const minWidth = 375
@@ -117,6 +121,7 @@ describe('about src/lib/HTMLMetaElement.ts', () => {
 
   test("whether `applyContent` sets correct content attribute with following params. content: `{ width: 'device-width', initialScale: 1, minWidth: 375, maxWidth: 414 }`, documentClientWidth: `415`", () => {
     const htmlMetaElement = document.createElement('meta')
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const width = 'device-width' as const
     const initialScale = 1
     const minWidth = 375
@@ -132,6 +137,7 @@ describe('about src/lib/HTMLMetaElement.ts', () => {
 
   test("whether `applyContent` sets correct content attribute with following params. content: `{ width: 'device-width', initialScale: 1, minWidth: 390, maxWidth: 390 }`, documentClientWidth: `389`", () => {
     const htmlMetaElement = document.createElement('meta')
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const width = 'device-width' as const
     const initialScale = 1
     const minWidth = 390
@@ -147,6 +153,7 @@ describe('about src/lib/HTMLMetaElement.ts', () => {
 
   test("whether `applyContent` sets correct content attribute with following params. content: `{ width: 'device-width', initialScale: 1, minWidth: 390, maxWidth: 390 }`, documentClientWidth: `390`", () => {
     const htmlMetaElement = document.createElement('meta')
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const width = 'device-width' as const
     const initialScale = 1
     const minWidth = 390
@@ -160,6 +167,7 @@ describe('about src/lib/HTMLMetaElement.ts', () => {
 
   test("whether `applyContent` sets correct content attribute with following params. content: `{ width: 'device-width', initialScale: 1, minWidth: 390, maxWidth: 390 }`, documentClientWidth: `391`", () => {
     const htmlMetaElement = document.createElement('meta')
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const width = 'device-width' as const
     const initialScale = 1
     const minWidth = 390
@@ -175,6 +183,7 @@ describe('about src/lib/HTMLMetaElement.ts', () => {
 
   test("whether `applyContent` sets correct content attribute with following params. content: `{ width: 'device-width', initialScale: 2, minWidth: 375, maxWidth: 414 }`, documentClientWidth: `374`", () => {
     const htmlMetaElement = document.createElement('meta')
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const width = 'device-width' as const
     const initialScale = 2
     const minWidth = 375
@@ -190,6 +199,7 @@ describe('about src/lib/HTMLMetaElement.ts', () => {
 
   test("whether `applyContent` sets correct content attribute with following params. content: `{ width: 'device-width', initialScale: 2, minWidth: 375, maxWidth: 414 }`, documentClientWidth: `375`", () => {
     const htmlMetaElement = document.createElement('meta')
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const width = 'device-width' as const
     const initialScale = 2
     const minWidth = 375
@@ -203,6 +213,7 @@ describe('about src/lib/HTMLMetaElement.ts', () => {
 
   test("whether `applyContent` sets correct content attribute with following params. content: `{ width: 'device-width', initialScale: 2, minWidth: 375, maxWidth: 414 }`, documentClientWidth: `414`", () => {
     const htmlMetaElement = document.createElement('meta')
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const width = 'device-width' as const
     const initialScale = 2
     const minWidth = 375
@@ -216,6 +227,7 @@ describe('about src/lib/HTMLMetaElement.ts', () => {
 
   test("whether `applyContent` sets correct content attribute with following params. content: `{ width: 'device-width', initialScale: 2, minWidth: 375, maxWidth: 414 }`, documentClientWidth: `415`", () => {
     const htmlMetaElement = document.createElement('meta')
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const width = 'device-width' as const
     const initialScale = 2
     const minWidth = 375
@@ -231,6 +243,7 @@ describe('about src/lib/HTMLMetaElement.ts', () => {
 
   test("whether `applyContent` sets correct content attribute with following params. content: `{ width: 'device-width', initialScale: 2, minWidth: 390, maxWidth: 390 }`, documentClientWidth: `389`", () => {
     const htmlMetaElement = document.createElement('meta')
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const width = 'device-width' as const
     const initialScale = 2
     const minWidth = 390
@@ -246,6 +259,7 @@ describe('about src/lib/HTMLMetaElement.ts', () => {
 
   test("whether `applyContent` sets correct content attribute with following params. content: `{ width: 'device-width', initialScale: 2, minWidth: 390, maxWidth: 390 }`, documentClientWidth: `390`", () => {
     const htmlMetaElement = document.createElement('meta')
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const width = 'device-width' as const
     const initialScale = 2
     const minWidth = 390
@@ -259,6 +273,7 @@ describe('about src/lib/HTMLMetaElement.ts', () => {
 
   test("whether `applyContent` sets correct content attribute with following params. content: `{ width: 'device-width', initialScale: 2, minWidth: 390, maxWidth: 390 }`, documentClientWidth: `391`", () => {
     const htmlMetaElement = document.createElement('meta')
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const width = 'device-width' as const
     const initialScale = 2
     const minWidth = 390
