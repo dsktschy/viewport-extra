@@ -32,7 +32,7 @@ jobs:
 
       - name: Format
         shell: bash
-        run: npx prettier . '!examples/**' --ignore-path .gitignore --check
+        run: npx prettier . '!examples/**' '!.release-please-manifest.json' '!CHANGELOG.md' --ignore-path .gitignore --check
 
       # Disable ignoring filenames that starts with dot
       # https://stackoverflow.com/a/71829427

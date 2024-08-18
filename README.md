@@ -15,12 +15,16 @@ For example, on devices with a display width of less than 375px (e.g. iPhone SE 
 
 ### CDN
 
+<!-- x-release-please-start-version -->
+
 ```html
 <script
   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.4/dist/iife/viewport-extra.min.js"
   async
 ></script>
 ```
+
+<!-- x-release-please-end-version -->
 
 ### Package Managers
 
@@ -125,6 +129,8 @@ See also [examples](https://github.com/dsktschy/viewport-extra/tree/master/examp
 
 ### [Deprecated] Same usage as v1
 
+<!-- x-release-please-start-version -->
+
 ```html
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <script src="https://cdn.jsdelivr.net/npm/viewport-extra@2.1.4/dist/iife/viewport-extra.min.js"></script>
@@ -133,6 +139,8 @@ See also [examples](https://github.com/dsktschy/viewport-extra/tree/master/examp
   new ViewportExtra(375)
 </script>
 ```
+
+<!-- x-release-please-end-version -->
 
 ## Notes
 
