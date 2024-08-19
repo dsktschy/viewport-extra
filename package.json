@@ -14,7 +14,7 @@
     "watch": "rollup --config rollup.config.build.js --environment NODE_ENV:development --watch",
     "declare": "rm -rf .types && tsc src/index.ts --declaration --emitDeclarationOnly --outDir .types --resolveJsonModule && rollup --config rollup.config.declare.js --environment NODE_ENV:production && rm -rf .types",
     "dev": "npm run watch",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
@@ -48,7 +48,7 @@
     "@typescript-eslint/parser": "^8.1.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
-    "husky": "^8.0.0",
+    "husky": "^9.1.4",
     "jsdom": "^24.1.1",
     "lint-staged": "^15.2.9",
     "prettier": "^3.3.3",
