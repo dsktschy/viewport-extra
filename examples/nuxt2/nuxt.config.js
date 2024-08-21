@@ -4,7 +4,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Nuxt2 Example',
+    title: 'nuxt2',
     htmlAttrs: {
       lang: 'en'
     },
@@ -45,7 +45,10 @@ export default {
   components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [],
+  buildModules: [
+    // https://go.nuxtjs.dev/typescript
+    '@nuxt/typescript-build'
+  ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [],
