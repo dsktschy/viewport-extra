@@ -49,13 +49,13 @@ import 'viewport-extra'
 
 The page will be scaled down in browsers on mobile devices that display as width less than 375px. No operations will be run in browsers on mobile devices that display as width of 375px or more. This setting will output the following viewport meta elements.
 
-On iPhone 5(s) / iPhone SE(1st Gen) in portrait mode  
+On iPhone SE 1st Gen in portrait mode  
 `<meta name="viewport" content="width=375,initial-scale=0.8533333333333334" />`
 
-On Galaxy S20 in portrait mode  
+On Galaxy S22 in portrait mode  
 `<meta name="viewport" content="width=375,initial-scale=0.96" />`
 
-On iPhone >= 6 / iPhone SE(2nd Gen) / Galaxy S20 Ultra / tablets, in portrait mode  
+On Galaxy S22 Ultra / iPhone 15 / iPad Pro 12.9", in portrait mode  
 `<meta name="viewport" content="width=device-width,initial-scale=1" />`
 
 ### Scale up on screens > 320px wide
@@ -69,16 +69,22 @@ On iPhone >= 6 / iPhone SE(2nd Gen) / Galaxy S20 Ultra / tablets, in portrait mo
 
 The page will be scaled up in browsers on mobile devices that display as width greater than 320px. No operations will be run in browsers on mobile devices that display as width of 320px or less. This setting will output the following viewport meta elements.
 
-On iPhone 5(s) / iPhone SE(1st Gen) in portrait mode  
+On iPhone SE 1st Gen in portrait mode  
 `<meta name="viewport" content="width=device-width,initial-scale=1" />`
 
-On Galaxy S20 in portrait mode  
+On Galaxy S22 in portrait mode  
 `<meta name="viewport" content="width=320,initial-scale=1.125" />`
 
-On iPhone 12 Pro Max in portrait mode  
-`<meta name="viewport" content="width=320,initial-scale=1.3375" />`
+On Galaxy S22 Ultra in portrait mode  
+`<meta name="viewport" content="width=320,initial-scale=1.2" />`
 
-### Scale down on mobile phone screens < 375px wide, and on tablet screens < 1280px wide
+On iPhone 15 in portrait mode  
+`<meta name="viewport" content="width=320,initial-scale=1.228125" />`
+
+On iPad Pro 12.9" in portrait mode  
+`<meta name="viewport" content="width=320,initial-scale=3.2" />`
+
+### Scale down on mobile phone screens < 375px wide, and on tablet screens < 1024px wide
 
 ```html
 <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -89,21 +95,21 @@ import { setContent } from 'viewport-extra'
 
 /* Define `isMobilePhone` variable to detect mobile phone here */
 
-setContent({ minWidth: isMobilePhone ? 375 : 1280 })
+setContent({ minWidth: isMobilePhone ? 375 : 1024 })
 ```
 
-The page will be scaled down in browsers on mobile phones that display as width less than 375px, and in browsers on tablets that display as width less than 1280px. No operations will be run in browsers on mobile phones that display as width of 375px or more, and in browsers on tablets that display as width of 1280px or more. This setting will output the following viewport meta elements.
+The page will be scaled down in browsers on mobile phones that display as width less than 375px, and in browsers on tablets that display as width less than 1024px. No operations will be run in browsers on mobile phones that display as width of 375px or more, and in browsers on tablets that display as width of 1024px or more. This setting will output the following viewport meta elements.
 
-On iPhone 5(s) / iPhone SE(1st Gen) in portrait mode  
+On iPhone SE 1st Gen in portrait mode  
 `<meta name="viewport" content="width=375,initial-scale=0.8533333333333334" />`
 
-On iPhone >= 6 / iPhone SE(2nd Gen) / Galaxy S20 Ultra, in portrait mode  
+On Galaxy S22 Ultra / iPhone 15, in portrait mode  
 `<meta name="viewport" content="width=device-width,initial-scale=1" />`
 
-On iPad Pro 12.9" in portrait mode  
-`<meta name="viewport" content="width=1280,initial-scale=0.8" />`
+On iPad mini 5th Gen in portrait mode  
+`<meta name="viewport" content="width=1024,initial-scale=0.75" />`
 
-On iPad Pro 12.9" in landscape mode  
+On iPad Pro 12.9" in portrait mode  
 `<meta name="viewport" content="width=device-width,initial-scale=1" />`
 
 ## Various Usages
