@@ -2,7 +2,7 @@
 
 Viewport Extra enables to set min-width and max-width of viewport, by overriding the content attribute of the viewport meta element. It will reduce the range of viewport that have to be considered when styling.
 
-For example, on devices with a display width of less than 375px (e.g. iPhone SE 1st Gen), if a page with a width of 375px or more is displayed, there will usually be horizontal scrolling. In such a case, you can set the min-width of viewport to 375px with Viewport Extra, which will scale the page down to fit perfectly into the 375px display width and remove horizontal scrolling.
+For example, in browsers on mobile devices with a display width less than 375px (e.g. iPhone SE 1st Gen), if a page with width of 375px or more is displayed, there will usually be horizontal scrolling. In such a case, you can set the min-width of viewport to 375px with Viewport Extra, which will scale the page down to fit perfectly into the 375px display width and remove horizontal scrolling.
 
 ## Getting Started
 
@@ -47,7 +47,7 @@ import 'viewport-extra'
 />
 ```
 
-The page will be scaled down on screens that display as width of less than 375px. No operations will be run on screens that display as width of 375px or more. This setting will output the following viewport meta elements.
+The page will be scaled down in browsers on mobile devices that display as width less than 375px. No operations will be run in browsers on mobile devices that display as width of 375px or more. This setting will output the following viewport meta elements.
 
 On iPhone 5(s) / iPhone SE(1st Gen) in portrait mode  
 `<meta name="viewport" content="width=375,initial-scale=0.8533333333333334" />`
@@ -67,7 +67,7 @@ On iPhone >= 6 / iPhone SE(2nd Gen) / Galaxy S20 Ultra / tablets, in portrait mo
 />
 ```
 
-The page will be scaled up on screens that display as width of more than 320px. No operations will be run on screens that display as width of 320px or less. This setting will output the following viewport meta elements.
+The page will be scaled up in browsers on mobile devices that display as width greater than 320px. No operations will be run in browsers on mobile devices that display as width of 320px or less. This setting will output the following viewport meta elements.
 
 On iPhone 5(s) / iPhone SE(1st Gen) in portrait mode  
 `<meta name="viewport" content="width=device-width,initial-scale=1" />`
@@ -92,7 +92,7 @@ import { setContent } from 'viewport-extra'
 setContent({ minWidth: isMobilePhone ? 375 : 1280 })
 ```
 
-The page will be scaled down on mobile phone screens that display as width of less than 375px, and on tablet screens that display as width of less than 1280px. No operations will be run on mobile phone screens that display as width of 375px or more, and on tablet screens that display as width of 1280px or more. This setting will output the following viewport meta elements.
+The page will be scaled down in browsers on mobile phones that display as width less than 375px, and in browsers on tablets that display as width less than 1280px. No operations will be run in browsers on mobile phones that display as width of 375px or more, and in browsers on tablets that display as width of 1280px or more. This setting will output the following viewport meta elements.
 
 On iPhone 5(s) / iPhone SE(1st Gen) in portrait mode  
 `<meta name="viewport" content="width=375,initial-scale=0.8533333333333334" />`
@@ -144,10 +144,18 @@ See also [examples](https://github.com/dsktschy/viewport-extra/tree/master/examp
 
 ## Notes
 
-- Note that `meta[name="viewport"]` element only has effect in mobile browsers.
+- The viewport meta element has effect only in browsers on mobile devices.
 
 - Viewport Extra will not rescale when switching between portrait and landscape modes. If needed, use `setContent()` as an event handler. See also [Stack Overflow](https://stackoverflow.com/questions/12452349).
 
-- For devices with small display widths, it is recommended to set `body { -webkit-text-size-adjust: 100%; }` in your style. It prevents unintended text size adjustments by browsers. See also [the issue](https://github.com/dsktschy/viewport-extra/issues/17).
+- For devices with small display widths, it is recommended to set the following style:
+
+  ```css
+  body {
+    -webkit-text-size-adjust: 100%;
+  }
+  ```
+
+  It prevents unintended text size adjustments by browsers. See also [the issue](https://github.com/dsktschy/viewport-extra/issues/17).
 
 - Viewport Extra v2 does not support AMD. If it is needed use v1.
