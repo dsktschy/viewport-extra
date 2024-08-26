@@ -56,7 +56,7 @@
     "rollup-plugin-delete": "2.0.0",
     "rollup-plugin-dts": "2.0.0",
     "rollup-plugin-terser": "7.0.2",
-    "tslib": "2.6.3",
+    "tslib": "2.7.0",
     "typescript": "5.5.4",
     "vitest": "2.0.5"
   }
