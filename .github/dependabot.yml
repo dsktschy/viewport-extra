@@ -1,0 +1,7 @@
+# Specify root directory for location of package.json, to ignore examples directory
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'daily'
