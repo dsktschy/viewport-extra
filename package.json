@@ -52,7 +52,7 @@
     "jsdom": "24.1.1",
     "lint-staged": "15.2.9",
     "prettier": "3.3.3",
-    "rollup": "2.34.2",
+    "rollup": "4.21.1",
     "rollup-plugin-delete": "2.0.0",
     "rollup-plugin-dts": "2.0.0",
     "rollup-plugin-terser": "7.0.2",
