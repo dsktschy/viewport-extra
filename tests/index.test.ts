@@ -1,3 +1,5 @@
+import { describe, test, expect, vi } from 'vitest'
+
 describe('about src/index.ts', () => {
   test('activation by importing module in document that has no viewport meta element', async () => {
     // Set clientWidth to document
@@ -9,7 +11,7 @@ describe('about src/index.ts', () => {
     // Reset and prepare document
     document.head.innerHTML = ''
     // Run module again
-    jest.resetModules()
+    vi.resetModules()
     await import('../src/index')
     const contentAttributeValue = document.head
       .querySelector('meta[name="viewport"]')
@@ -42,7 +44,7 @@ describe('about src/index.ts', () => {
     )
     document.head.appendChild(viewportElement)
     // Run module again
-    jest.resetModules()
+    vi.resetModules()
     await import('../src/index')
     const contentAttributeValue = viewportElement.getAttribute('content')
     expect(contentAttributeValue).toBe(
@@ -73,7 +75,7 @@ describe('about src/index.ts', () => {
     )
     document.head.appendChild(viewportExtraElement)
     // Run module again
-    jest.resetModules()
+    vi.resetModules()
     await import('../src/index')
     const contentAttributeValue = document.head
       .querySelector('meta[name="viewport"]')
@@ -113,7 +115,7 @@ describe('about src/index.ts', () => {
     document.head.appendChild(viewportElement)
     document.head.appendChild(viewportExtraElement)
     // Run module again
-    jest.resetModules()
+    vi.resetModules()
     await import('../src/index')
     const contentAttributeValue = viewportElement.getAttribute('content')
     expect(contentAttributeValue).toBe(
@@ -137,7 +139,7 @@ describe('about src/index.ts', () => {
     // Reset and prepare document
     document.head.innerHTML = ''
     // Run module again
-    jest.resetModules()
+    vi.resetModules()
     const { setContent } = await import('../src/index')
     setContent({ width, initialScale, minWidth, maxWidth })
     const contentAttributeValue = document.head
@@ -177,7 +179,7 @@ describe('about src/index.ts', () => {
     )
     document.head.appendChild(viewportElement)
     // Run module again
-    jest.resetModules()
+    vi.resetModules()
     const { setContent } = await import('../src/index')
     setContent({ initialScale: initialScaleAfter, minWidth: minWidthAfter })
     const contentAttributeValue = viewportElement.getAttribute('content')
@@ -200,7 +202,7 @@ describe('about src/index.ts', () => {
     // Reset and prepare document
     document.head.innerHTML = ''
     // Run module again
-    jest.resetModules()
+    vi.resetModules()
     const { default: ViewportExtra } = await import('../src/index')
     new ViewportExtra({ width, initialScale, minWidth, maxWidth })
     const contentAttributeValue = document.head
@@ -225,7 +227,7 @@ describe('about src/index.ts', () => {
     // Reset and prepare document
     document.head.innerHTML = ''
     // Run module again
-    jest.resetModules()
+    vi.resetModules()
     const { default: ViewportExtra } = await import('../src/index')
     new ViewportExtra(minWidth)
     const contentAttributeValue = document.head
@@ -265,7 +267,7 @@ describe('about src/index.ts', () => {
     )
     document.head.appendChild(viewportElement)
     // Run module again
-    jest.resetModules()
+    vi.resetModules()
     const { default: ViewportExtra } = await import('../src/index')
     new ViewportExtra({
       initialScale: initialScaleAfter,
@@ -303,7 +305,7 @@ describe('about src/index.ts', () => {
     )
     document.head.appendChild(viewportElement)
     // Run module again
-    jest.resetModules()
+    vi.resetModules()
     const { default: ViewportExtra } = await import('../src/index')
     new ViewportExtra(minWidthAfter)
     const contentAttributeValue = viewportElement.getAttribute('content')
@@ -337,7 +339,7 @@ describe('about src/index.ts', () => {
     )
     document.head.appendChild(viewportElement)
     // Run module again
-    jest.resetModules()
+    vi.resetModules()
     const { getContent } = await import('../src/index')
     expect(getContent()).toStrictEqual({
       width,
@@ -374,7 +376,7 @@ describe('about src/index.ts', () => {
     )
     document.head.appendChild(viewportElement)
     // Run module again
-    jest.resetModules()
+    vi.resetModules()
     const { setContent, getContent } = await import('../src/index')
     setContent({ initialScale: initialScaleAfter, minWidth: minWidthAfter })
     expect(getContent()).toStrictEqual({
@@ -406,7 +408,7 @@ describe('about src/index.ts', () => {
     )
     document.head.appendChild(firstViewportElement)
     // Run module again
-    jest.resetModules()
+    vi.resetModules()
     const { updateReference, setContent } = await import('../src/index')
     document.head.removeChild(firstViewportElement)
     const secondViewportElement = document.createElement('meta')

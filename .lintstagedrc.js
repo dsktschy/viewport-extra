@@ -1,29 +1,10 @@
-/**
- * https://github.com/okonet/lint-staged#eslint--7-1
- */
-
-const { ESLint } = require('eslint')
-
-const removeIgnoredFiles = async files => {
-  const eslint = new ESLint()
-  const isIgnored = await Promise.all(
-    files.map(file => {
-      return eslint.isPathIgnored(file)
-    })
-  )
-  const filteredFiles = files.filter((_, i) => !isIgnored[i])
-  return filteredFiles.join(' ')
-}
-
 module.exports = {
-  '!(*.{ts,js})': async files => {
-    return [`prettier -w --ignore-unknown ${files.join(' ')}`]
-  },
-  '*.{ts,js}': async files => {
-    const filesToLint = await removeIgnoredFiles(files)
-    return [
-      `eslint --max-warnings=0 ${filesToLint}`,
-      `prettier -w --ignore-unknown ${files.join(' ')}`
-    ]
-  }
+  '{*.(js|ts),!(examples)/**/*.(js|ts)}': [
+    'prettier --write',
+    // Disable ignoring filenames that starts with dot
+    // https://stackoverflow.com/a/71829427
+    'eslint --fix --ignore-pattern "!.*" --max-warnings 0'
+  ],
+  '{*.!(js|ts),!(examples)/**/*.!(js|ts)},!.release-please-manifest.json,!CHANGELOG.md':
+    [`prettier --write --ignore-unknown`]
 }

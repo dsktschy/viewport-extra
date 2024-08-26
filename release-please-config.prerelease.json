@@ -1,0 +1,38 @@
+{
+  "include-component-in-tag": false,
+  "pull-request-title-pattern": "chore: release${component} ${version}",
+  "label": "autorelease: pending,versioning_strategy: prerelease",
+  "versioning": "prerelease",
+  "prerelease": true,
+  "prerelease-type": "rc",
+  "packages": {
+    ".": {
+      "release-type": "node",
+      "extra-files": [
+        "README.md",
+        "examples/no-framework/another.html",
+        "examples/no-framework/index.html",
+        {
+          "type": "json",
+          "path": "examples/next-app-router/package.json",
+          "jsonpath": "$.dependencies.viewport-extra"
+        },
+        {
+          "type": "json",
+          "path": "examples/next-page-router/package.json",
+          "jsonpath": "$.dependencies.viewport-extra"
+        },
+        {
+          "type": "json",
+          "path": "examples/nuxt2/package.json",
+          "jsonpath": "$.dependencies.viewport-extra"
+        },
+        {
+          "type": "json",
+          "path": "examples/nuxt3/package.json",
+          "jsonpath": "$.dependencies.viewport-extra"
+        }
+      ]
+    }
+  }
+}

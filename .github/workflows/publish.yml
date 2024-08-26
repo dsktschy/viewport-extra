@@ -1,0 +1,40 @@
+# Based on https://docs.github.com/ja/actions/use-cases-and-examples/publishing-packages/publishing-nodejs-packages
+name: Publish to npm
+
+on:
+  workflow_dispatch:
+  release:
+    types:
+      - published
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    timeout-minutes: 15
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+
+      - name: Setup node
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
+        with:
+          node-version-file: '.node-version'
+          cache: 'npm'
+
+      - name: Install packages
+        shell: bash
+        run: npm ci
+
+      - name: Build
+        shell: bash
+        run: npm run build & npm run declare
+
+      - name: Publish to npm
+        shell: bash
+        run: npm publish --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}

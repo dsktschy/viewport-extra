@@ -5,8 +5,22 @@
     "strict": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "allowJs": true
   },
   "exclude": ["node_modules", "examples"],
-  "include": ["**/*.ts", "**/*.js", "**/.*.js"]
+  "include": [
+    "**/*.ts",
+    "**/*.mts",
+    "**/*.cts",
+    "**/*.js",
+    "**/*.mjs",
+    "**/*.cjs",
+    "**/.*.ts",
+    "**/.*.mts",
+    "**/.*.cts",
+    "**/.*.js",
+    "**/.*.mjs",
+    "**/.*.cjs"
+  ]
 }

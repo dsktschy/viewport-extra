@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'vitest'
 import { camelize, kebabize } from '../../src/lib/string'
 
 describe('about src/lib/string.ts', () => {
