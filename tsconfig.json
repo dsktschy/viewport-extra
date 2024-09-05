@@ -5,8 +5,7 @@
     "strict": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "allowJs": true
+    "esModuleInterop": true
   },
   "exclude": ["node_modules", "examples"],
   "include": [
