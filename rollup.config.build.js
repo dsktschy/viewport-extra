@@ -1,6 +1,6 @@
 import rollupPluginTypescript from '@rollup/plugin-typescript'
 import rollupPluginDelete from 'rollup-plugin-delete'
-import { terser as rollupPluginTerser } from 'rollup-plugin-terser'
+import rollupPluginTerser from '@rollup/plugin-terser'
 import * as packageJson from './package.json'
 
 // Copyright
