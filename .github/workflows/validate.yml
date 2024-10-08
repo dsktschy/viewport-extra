@@ -30,6 +30,10 @@ jobs:
         shell: bash
         run: npm ci
 
+      - name: Generate type declaration files
+        shell: bash
+        run: npm run declare
+
       - name: Format
         shell: bash
         run: npx prettier . '!examples/**' '!.release-please-manifest.json' '!CHANGELOG.md' --ignore-path .gitignore --check

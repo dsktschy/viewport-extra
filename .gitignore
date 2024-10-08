@@ -131,6 +131,12 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
 # Mac OS
 .DS_Store
 

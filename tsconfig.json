@@ -5,7 +5,10 @@
     "strict": true,
     "moduleResolution": "nodenext",
     "resolveJsonModule": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "paths": {
+      "@@/*": ["./*"]
+    }
   },
   "exclude": ["node_modules", "examples"],
   "include": [

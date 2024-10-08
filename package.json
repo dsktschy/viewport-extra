@@ -22,11 +22,17 @@
   "unpkg": "dist/iife/viewport-extra.min.js",
   "types": "types/index.d.ts",
   "scripts": {
-    "test": "vitest run",
     "build": "rollup --config rollup.config.build.js --environment NODE_ENV:production",
     "watch": "rollup --config rollup.config.build.js --environment NODE_ENV:development --watch",
     "declare": "rm -rf .types && tsc src/index.ts --declaration --emitDeclarationOnly --outDir .types --resolveJsonModule && rollup --config rollup.config.declare.js --environment NODE_ENV:production && rm -rf .types",
     "dev": "npm run watch",
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:unit": "vitest run",
+    "test:e2e": "playwright test --pass-with-no-tests",
+    "pretest:e2e": "npx playwright install --with-deps && npm run build:e2e",
+    "build:e2e": "vite build --config vite.config.e2e.ts",
+    "prebuild:e2e": "npm run build",
+    "preview:e2e": "vite preview --config vite.config.e2e.ts --strictPort --port 3000",
     "prepare": "husky"
   },
   "repository": {
@@ -34,7 +40,8 @@
     "url": "git+https://github.com/dsktschy/viewport-extra.git"
   },
   "files": [
-    "dist",
+    "dist/**/*.js",
+    "dist/**/*.js.map",
     "types"
   ],
   "keywords": [
@@ -56,8 +63,10 @@
   "devDependencies": {
     "@commitlint/cli": "19.4.0",
     "@commitlint/config-conventional": "19.2.2",
+    "@playwright/test": "1.46.1",
     "@rollup/plugin-terser": "0.4.4",
     "@rollup/plugin-typescript": "11.1.6",
+    "@types/node": "22.5.2",
     "@typescript-eslint/eslint-plugin": "8.1.0",
     "@typescript-eslint/parser": "8.1.0",
     "eslint": "8.57.0",
@@ -71,6 +80,7 @@
     "rollup-plugin-dts": "2.0.0",
     "tslib": "2.6.3",
     "typescript": "5.5.4",
+    "vite": "5.4.8",
     "vitest": "2.0.5"
   }
 }
