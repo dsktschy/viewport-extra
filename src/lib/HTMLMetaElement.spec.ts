@@ -1,5 +1,5 @@
 import { describe, test, expect, vi } from 'vitest'
-import { createPartialContent, applyContent } from './HTMLMetaElement'
+import { createPartialContent, applyContent } from './HTMLMetaElement.js'
 
 describe('about src/lib/HTMLMetaElement.ts', () => {
   test("whether `createPartialContent` returns correct Partial<Content> with HTMLMetaElement has following attributes. content: `''`, data-extra-content: `''`", () => {

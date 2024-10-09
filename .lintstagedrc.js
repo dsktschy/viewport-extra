@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   '{*.(js|ts),!(examples)/**/*.(js|ts)}': [
     'prettier --write',
     // Disable ignoring filenames that starts with dot

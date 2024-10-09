@@ -1,6 +1,6 @@
-import { getHTMLMetaElement, getClientWidth } from './lib/Document'
-import { createPartialContent, applyContent } from './lib/HTMLMetaElement'
-import { Content, ContentMinWidth, create } from './lib/Content'
+import { getHTMLMetaElement, getClientWidth } from './lib/Document.js'
+import { createPartialContent, applyContent } from './lib/HTMLMetaElement.js'
+import { Content, ContentMinWidth, create } from './lib/Content.js'
 
 let viewportElement: HTMLMetaElement | null = null
 let viewportExtraElement: HTMLMetaElement | null = null

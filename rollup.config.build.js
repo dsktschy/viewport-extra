@@ -1,7 +1,7 @@
 import rollupPluginTypescript from '@rollup/plugin-typescript'
 import rollupPluginDelete from 'rollup-plugin-delete'
 import rollupPluginTerser from '@rollup/plugin-terser'
-import * as packageJson from './package.json'
+import packageJson from './package.json'
 
 // Copyright
 const banner =
@@ -30,14 +30,14 @@ export default [
     input: 'src/index.ts',
     output: [
       {
-        file: packageJson.module,
+        file: packageJson.exports['.'].import.default,
         format: 'es',
         exports: 'named',
         sourcemap: 'hidden',
         banner
       },
       {
-        file: packageJson.main,
+        file: packageJson.exports['.'].require.default,
         format: 'cjs',
         exports: 'named',
         sourcemap: 'hidden',
@@ -47,7 +47,10 @@ export default [
     ],
     plugins: [
       rollupPluginDelete({
-        targets: [`${packageJson.module}/..`, `${packageJson.main}/..`]
+        targets: [
+          `${packageJson.exports['.'].import.default}/..`,
+          `${packageJson.exports['.'].require.default}/..`
+        ]
       }),
       rollupPluginTypescript({ target: 'es5', noEmitOnError })
     ]

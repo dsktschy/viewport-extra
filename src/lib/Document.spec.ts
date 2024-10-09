@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest'
-import { getHTMLMetaElement } from './Document'
+import { getHTMLMetaElement } from './Document.js'
 
 describe('about src/lib/Document.ts', () => {
   test("whether `getHTMLMetaElement` returns correct HTMLMetaElement with document has viewport meta element and following params. `'viewport'`, `true`", () => {

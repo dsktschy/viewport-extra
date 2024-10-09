@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest'
-import { camelize, kebabize } from './string'
+import { camelize, kebabize } from './string.js'
 
 describe('about src/lib/string.ts', () => {
   test("whether `camelize` returns correct string with following string. `'foo-bar foo   -bar'`", () => {

@@ -12,7 +12,7 @@ describe('about src/index.ts', () => {
     document.head.innerHTML = ''
     // Run module again
     vi.resetModules()
-    await import('../src/index')
+    await import('../src/index.js')
     const contentAttributeValue = document.head
       .querySelector('meta[name="viewport"]')
       ?.getAttribute('content')
@@ -45,7 +45,7 @@ describe('about src/index.ts', () => {
     document.head.appendChild(viewportElement)
     // Run module again
     vi.resetModules()
-    await import('../src/index')
+    await import('../src/index.js')
     const contentAttributeValue = viewportElement.getAttribute('content')
     expect(contentAttributeValue).toBe(
       `initial-scale=${
@@ -76,7 +76,7 @@ describe('about src/index.ts', () => {
     document.head.appendChild(viewportExtraElement)
     // Run module again
     vi.resetModules()
-    await import('../src/index')
+    await import('../src/index.js')
     const contentAttributeValue = document.head
       .querySelector('meta[name="viewport"]')
       ?.getAttribute('content')
@@ -116,7 +116,7 @@ describe('about src/index.ts', () => {
     document.head.appendChild(viewportExtraElement)
     // Run module again
     vi.resetModules()
-    await import('../src/index')
+    await import('../src/index.js')
     const contentAttributeValue = viewportElement.getAttribute('content')
     expect(contentAttributeValue).toBe(
       `initial-scale=${
@@ -140,7 +140,7 @@ describe('about src/index.ts', () => {
     document.head.innerHTML = ''
     // Run module again
     vi.resetModules()
-    const { setContent } = await import('../src/index')
+    const { setContent } = await import('../src/index.js')
     setContent({ width, initialScale, minWidth, maxWidth })
     const contentAttributeValue = document.head
       .querySelector('meta[name="viewport"]')
@@ -180,7 +180,7 @@ describe('about src/index.ts', () => {
     document.head.appendChild(viewportElement)
     // Run module again
     vi.resetModules()
-    const { setContent } = await import('../src/index')
+    const { setContent } = await import('../src/index.js')
     setContent({ initialScale: initialScaleAfter, minWidth: minWidthAfter })
     const contentAttributeValue = viewportElement.getAttribute('content')
     expect(contentAttributeValue).toBe(
@@ -203,7 +203,7 @@ describe('about src/index.ts', () => {
     document.head.innerHTML = ''
     // Run module again
     vi.resetModules()
-    const { default: ViewportExtra } = await import('../src/index')
+    const { default: ViewportExtra } = await import('../src/index.js')
     new ViewportExtra({ width, initialScale, minWidth, maxWidth })
     const contentAttributeValue = document.head
       .querySelector('meta[name="viewport"]')
@@ -228,7 +228,7 @@ describe('about src/index.ts', () => {
     document.head.innerHTML = ''
     // Run module again
     vi.resetModules()
-    const { default: ViewportExtra } = await import('../src/index')
+    const { default: ViewportExtra } = await import('../src/index.js')
     new ViewportExtra(minWidth)
     const contentAttributeValue = document.head
       .querySelector('meta[name="viewport"]')
@@ -268,7 +268,7 @@ describe('about src/index.ts', () => {
     document.head.appendChild(viewportElement)
     // Run module again
     vi.resetModules()
-    const { default: ViewportExtra } = await import('../src/index')
+    const { default: ViewportExtra } = await import('../src/index.js')
     new ViewportExtra({
       initialScale: initialScaleAfter,
       maxWidth: maxWidthAfter
@@ -306,7 +306,7 @@ describe('about src/index.ts', () => {
     document.head.appendChild(viewportElement)
     // Run module again
     vi.resetModules()
-    const { default: ViewportExtra } = await import('../src/index')
+    const { default: ViewportExtra } = await import('../src/index.js')
     new ViewportExtra(minWidthAfter)
     const contentAttributeValue = viewportElement.getAttribute('content')
     expect(contentAttributeValue).toBe(
@@ -340,7 +340,7 @@ describe('about src/index.ts', () => {
     document.head.appendChild(viewportElement)
     // Run module again
     vi.resetModules()
-    const { getContent } = await import('../src/index')
+    const { getContent } = await import('../src/index.js')
     expect(getContent()).toStrictEqual({
       width,
       initialScale,
@@ -377,7 +377,7 @@ describe('about src/index.ts', () => {
     document.head.appendChild(viewportElement)
     // Run module again
     vi.resetModules()
-    const { setContent, getContent } = await import('../src/index')
+    const { setContent, getContent } = await import('../src/index.js')
     setContent({ initialScale: initialScaleAfter, minWidth: minWidthAfter })
     expect(getContent()).toStrictEqual({
       width,
@@ -409,7 +409,7 @@ describe('about src/index.ts', () => {
     document.head.appendChild(firstViewportElement)
     // Run module again
     vi.resetModules()
-    const { updateReference, setContent } = await import('../src/index')
+    const { updateReference, setContent } = await import('../src/index.js')
     document.head.removeChild(firstViewportElement)
     const secondViewportElement = document.createElement('meta')
     secondViewportElement.setAttribute('name', 'viewport')
