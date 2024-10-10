@@ -2,7 +2,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import rollupPluginDts from 'rollup-plugin-dts'
 import rollupPluginDelete from 'rollup-plugin-delete'
-import packageJson from './package.json'
+import packageJson from './package.json' with { type: 'json' }
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
