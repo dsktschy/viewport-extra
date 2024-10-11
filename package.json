@@ -25,6 +25,7 @@
     "build": "rollup --config rollup.config.build.js --environment NODE_ENV:production",
     "watch": "rollup --config rollup.config.build.js --environment NODE_ENV:development --watch",
     "declare": "rm -rf .types && tsc src/index.ts --declaration --emitDeclarationOnly --outDir .types --resolveJsonModule && rollup --config rollup.config.declare.js --environment NODE_ENV:production && rm -rf .types",
+    "typecheck": "tsc --noEmit",
     "dev": "npm run watch",
     "test": "npm run test:unit && npm run test:e2e",
     "test:unit": "vitest run",

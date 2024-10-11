@@ -10,19 +10,13 @@
       "@@/*": ["./*"]
     }
   },
-  "exclude": ["node_modules", "examples"],
+  "exclude": ["**/node_modules", "examples", "**/dist", "types", ".types"],
   "include": [
     "**/*.ts",
     "**/*.mts",
     "**/*.cts",
-    "**/*.js",
-    "**/*.mjs",
-    "**/*.cjs",
     "**/.*.ts",
     "**/.*.mts",
-    "**/.*.cts",
-    "**/.*.js",
-    "**/.*.mjs",
-    "**/.*.cjs"
+    "**/.*.cts"
   ]
 }

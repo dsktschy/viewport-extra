@@ -44,6 +44,10 @@ jobs:
         shell: bash
         run: npx eslint . --ignore-pattern '/examples/' --ignore-path .gitignore --ignore-pattern '!.*' --max-warnings 0
 
+      - name: Check types
+        shell: bash
+        run: npm run typecheck
+
       - name: Test
         shell: bash
         run: npm t
