@@ -6,7 +6,7 @@ import {
   isContentMaxWidth,
   defaultProps,
   create
-} from '../../src/lib/Content'
+} from './Content.js'
 
 describe('about src/lib/Content.ts', () => {
   test('whether `isContentWidth` determines `375` to be ContentWidth', () => {

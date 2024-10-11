@@ -1,1 +1,1 @@
-npx --no-install lint-staged && npm t
+npm run declare && npx --no-install lint-staged && npm run typecheck && npm t

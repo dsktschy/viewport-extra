@@ -30,6 +30,10 @@ jobs:
         shell: bash
         run: npm ci
 
+      - name: Generate type declaration files
+        shell: bash
+        run: npm run declare
+
       - name: Format
         shell: bash
         run: npx prettier . '!examples/**' '!.release-please-manifest.json' '!CHANGELOG.md' --ignore-path .gitignore --check
@@ -39,6 +43,10 @@ jobs:
       - name: Lint
         shell: bash
         run: npx eslint . --ignore-pattern '/examples/' --ignore-path .gitignore --ignore-pattern '!.*' --max-warnings 0
+
+      - name: Check types
+        shell: bash
+        run: npm run typecheck
 
       - name: Test
         shell: bash

@@ -1,26 +1,22 @@
 {
   "compilerOptions": {
-    "module": "esnext",
+    "module": "nodenext",
     "lib": ["es2020", "dom"],
     "strict": true,
-    "moduleResolution": "node",
+    "moduleResolution": "nodenext",
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "allowJs": true
+    "paths": {
+      "@@/*": ["./*"]
+    }
   },
-  "exclude": ["node_modules", "examples"],
+  "exclude": ["**/node_modules", "examples", "**/dist", "types", ".types"],
   "include": [
     "**/*.ts",
     "**/*.mts",
     "**/*.cts",
-    "**/*.js",
-    "**/*.mjs",
-    "**/*.cjs",
     "**/.*.ts",
     "**/.*.mts",
-    "**/.*.cts",
-    "**/.*.js",
-    "**/.*.mjs",
-    "**/.*.cjs"
+    "**/.*.cts"
   ]
 }

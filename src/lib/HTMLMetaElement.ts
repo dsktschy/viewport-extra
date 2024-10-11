@@ -1,5 +1,5 @@
-import { Content } from './Content'
-import { camelize, kebabize } from './string'
+import { Content } from './Content.js'
+import { camelize, kebabize } from './string.js'
 
 export const createPartialContent = (
   htmlMetaElement: HTMLMetaElement
