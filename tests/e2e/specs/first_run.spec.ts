@@ -14,7 +14,9 @@ test.beforeEach(async ({ page }) => {
 ].forEach(({ format, moduleFlag, minified }) => {
   test.describe(`using ${(minified ? 'minified ' : '') + format} output`, () => {
     test.describe('putting no viewport and viewport-extra meta elements', () => {
-      test('viewport meta element is created', async ({ page }) => {
+      test('viewport meta element is created', async ({ page }, testInfo) => {
+        const { project, config } = testInfo
+        testInfo.skip(project !== config.projects[0])
         const width = 'device-width'
         const initialScale = 1
         await page.setContent(`
@@ -38,7 +40,9 @@ test.beforeEach(async ({ page }) => {
 
     test.describe('putting only viewport meta element', () => {
       test.describe('setting no min-width and max-width', () => {
-        test('viewport content is not updated', async ({ page }) => {
+        test('viewport content is not updated', async ({ page }, testInfo) => {
+          const { project, config } = testInfo
+          testInfo.skip(project !== config.projects[0])
           const width = 'device-width'
           const initialScale = 1
           await page.setContent(`
@@ -179,7 +183,9 @@ test.beforeEach(async ({ page }) => {
 
     test.describe('putting only viewport-extra meta element', () => {
       test.describe('setting no min-width and max-width', () => {
-        test('viewport content is not updated', async ({ page }) => {
+        test('viewport content is not updated', async ({ page }, testInfo) => {
+          const { project, config } = testInfo
+          testInfo.skip(project !== config.projects[0])
           const width = 'device-width'
           const initialScale = 1
           await page.setContent(`

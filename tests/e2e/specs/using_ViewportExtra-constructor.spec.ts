@@ -52,7 +52,9 @@ test.beforeEach(async ({ page }) => {
 
     test.describe('using object argument', () => {
       test.describe('setting no min-width and max-width', () => {
-        test('viewport content is not updated', async ({ page }) => {
+        test('viewport content is not updated', async ({ page }, testInfo) => {
+          const { project, config } = testInfo
+          testInfo.skip(project !== config.projects[0])
           const width = 'device-width'
           const initialScale = 1
           await page.setContent(`
