@@ -19,7 +19,7 @@ if (typeof ViewportExtra === 'function') {
       .querySelector('[data-min-width-after-update-reference]')
       ?.getAttribute('data-min-width-after-update-reference')
     if (minWidthAfterUpdateReference)
-      content.minWidth = parseInt(minWidthAfterUpdateReference, 10)
+      content.minWidth = parseFloat(minWidthAfterUpdateReference)
     ViewportExtra.setContent(content)
   }
 }

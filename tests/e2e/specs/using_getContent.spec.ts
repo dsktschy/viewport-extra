@@ -19,7 +19,7 @@ test.beforeEach(async ({ page }) => {
           config: { projects }
         }) => {
           const width = 'device-width'
-          const initialScale = 1
+          const initialScale = 0.5
           const minWidth =
             getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
           const maxWidth =
@@ -54,7 +54,7 @@ test.beforeEach(async ({ page }) => {
           config: { projects }
         }) => {
           const width = 'device-width'
-          const initialScale = 1
+          const initialScale = 0.5
           const minWidth =
             getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
           const maxWidth =
@@ -89,7 +89,7 @@ test.beforeEach(async ({ page }) => {
           config: { projects }
         }) => {
           const width = 'device-width'
-          const initialScale = 1
+          const initialScale = 0.5
           const minWidth =
             getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
           const maxWidth =

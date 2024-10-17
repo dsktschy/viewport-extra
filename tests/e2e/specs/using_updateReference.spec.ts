@@ -25,6 +25,7 @@ test.beforeEach(async ({ page }) => {
           const minWidth = maximumWidthViewportSize.width
             ? maximumWidthViewportSize.width + 1
             : 0
+          const documentClientWidth = viewport ? viewport.width : undefined
           await page.setContent(`
             <!doctype html>
             <html lang="en">
@@ -40,11 +41,12 @@ test.beforeEach(async ({ page }) => {
             </html>
           `)
           expect(await getViewportContentString(page)).toBe(
-            viewport && minWidth > 0
-              ? viewport.width < minWidth
+            documentClientWidth && minWidth > 0
+              ? documentClientWidth < minWidth
                 ? convertToViewportContentString({
                     width: minWidth,
-                    initialScale: viewport.width / minWidth
+                    initialScale:
+                      (documentClientWidth / minWidth) * initialScale
                   })
                 : convertToViewportContentString({ width, initialScale })
               : ''
@@ -63,6 +65,7 @@ test.beforeEach(async ({ page }) => {
           const minWidth = maximumWidthViewportSize.width
             ? maximumWidthViewportSize.width + 1
             : 0
+          const documentClientWidth = viewport ? viewport.width : undefined
           await page.setContent(`
             <!doctype html>
             <html lang="en">
@@ -78,11 +81,12 @@ test.beforeEach(async ({ page }) => {
             </html>
           `)
           expect(await getViewportContentString(page)).toBe(
-            viewport && minWidth > 0
-              ? viewport.width < minWidth
+            documentClientWidth && minWidth > 0
+              ? documentClientWidth < minWidth
                 ? convertToViewportContentString({
                     width: minWidth,
-                    initialScale: viewport.width / minWidth
+                    initialScale:
+                      (documentClientWidth / minWidth) * initialScale
                   })
                 : convertToViewportContentString({ width, initialScale })
               : ''
@@ -101,6 +105,7 @@ test.beforeEach(async ({ page }) => {
           const minWidth = maximumWidthViewportSize.width
             ? maximumWidthViewportSize.width + 1
             : 0
+          const documentClientWidth = viewport ? viewport.width : undefined
           await page.setContent(`
             <!doctype html>
             <html lang="en">
@@ -117,11 +122,12 @@ test.beforeEach(async ({ page }) => {
             </html>
           `)
           expect(await getViewportContentString(page)).toBe(
-            viewport && minWidth > 0
-              ? viewport.width < minWidth
+            documentClientWidth && minWidth > 0
+              ? documentClientWidth < minWidth
                 ? convertToViewportContentString({
                     width: minWidth,
-                    initialScale: viewport.width / minWidth
+                    initialScale:
+                      (documentClientWidth / minWidth) * initialScale
                   })
                 : convertToViewportContentString({ width, initialScale })
               : ''
