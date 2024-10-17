@@ -1,5 +1,5 @@
 import type TViewportExtra from '@@/types/index.d.ts'
-import { convertToJsonString } from '@@/tests/e2e/modules/SeriarizableRecord.js'
+import { convertToJsonString } from '@@/tests/e2e/modules/NumberStringRecord.js'
 
 interface CustomWindow extends Window {
   ViewportExtra?: typeof TViewportExtra
