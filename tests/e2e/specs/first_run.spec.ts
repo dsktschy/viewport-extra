@@ -13,58 +13,7 @@ test.beforeEach(async ({ page }) => {
   { format: 'iife', moduleFlag: false, minified: true }
 ].forEach(({ format, moduleFlag, minified }) => {
   test.describe(`using ${(minified ? 'minified ' : '') + format} output`, () => {
-    test.describe('putting no viewport and viewport-extra meta elements', () => {
-      test('viewport meta element is created', async ({ page }, testInfo) => {
-        const { project, config } = testInfo
-        testInfo.skip(project !== config.projects[0])
-        const width = 'device-width'
-        const initialScale = 1
-        await page.setContent(`
-          <!doctype html>
-          <html lang="en">
-            <head>
-              <meta charset="UTF-8" />
-              <title>Document</title>
-              ${moduleFlag ? '' : `<script async src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>`}
-            </head>
-            <body>
-              ${moduleFlag ? `<script src="/assets/scripts/${format}/first_run.js" type="module"></script>` : ''}
-            </body>
-          </html>
-        `)
-        expect(await getViewportContentString(page)).toBe(
-          convertToViewportContentString({ width, initialScale })
-        )
-      })
-    })
-
     test.describe('putting only viewport meta element', () => {
-      test.describe('setting no min-width and max-width', () => {
-        test('viewport content is not updated', async ({ page }, testInfo) => {
-          const { project, config } = testInfo
-          testInfo.skip(project !== config.projects[0])
-          const width = 'device-width'
-          const initialScale = 0.5
-          await page.setContent(`
-            <!doctype html>
-            <html lang="en">
-              <head>
-                <meta charset="UTF-8" />
-                <title>Document</title>
-                <meta name="viewport" content="width=${width},initial-scale=${initialScale}" />
-                ${moduleFlag ? '' : `<script async src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>`}
-              </head>
-              <body>
-                ${moduleFlag ? `<script src="/assets/scripts/${format}/first_run.js" type="module"></script>` : ''}
-              </body>
-            </html>
-          `)
-          expect(await getViewportContentString(page)).toBe(
-            convertToViewportContentString({ width, initialScale })
-          )
-        })
-      })
-
       test.describe('setting min-width', () => {
         test('viewport content is updated to correct values', async ({
           page,
@@ -186,10 +135,8 @@ test.beforeEach(async ({ page }) => {
           )
         })
       })
-    })
 
-    test.describe('putting only viewport-extra meta element', () => {
-      test.describe('setting no min-width and max-width', () => {
+      test.describe('not setting min-width and max-width', () => {
         test('viewport content is not updated', async ({ page }, testInfo) => {
           const { project, config } = testInfo
           testInfo.skip(project !== config.projects[0])
@@ -201,7 +148,7 @@ test.beforeEach(async ({ page }) => {
               <head>
                 <meta charset="UTF-8" />
                 <title>Document</title>
-                <meta name="viewport-extra" content="width=${width},initial-scale=${initialScale}" />
+                <meta name="viewport" content="width=${width},initial-scale=${initialScale}" />
                 ${moduleFlag ? '' : `<script async src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>`}
               </head>
               <body>
@@ -214,7 +161,9 @@ test.beforeEach(async ({ page }) => {
           )
         })
       })
+    })
 
+    test.describe('putting only viewport-extra meta element', () => {
       test.describe('setting min-width', () => {
         test('viewport content is updated to correct values', async ({
           page,
@@ -333,6 +282,32 @@ test.beforeEach(async ({ page }) => {
                     })
                   : convertToViewportContentString({ width, initialScale })
               : ''
+          )
+        })
+      })
+
+      test.describe('not setting min-width and max-width', () => {
+        test('viewport content is not updated', async ({ page }, testInfo) => {
+          const { project, config } = testInfo
+          testInfo.skip(project !== config.projects[0])
+          const width = 'device-width'
+          const initialScale = 0.5
+          await page.setContent(`
+            <!doctype html>
+            <html lang="en">
+              <head>
+                <meta charset="UTF-8" />
+                <title>Document</title>
+                <meta name="viewport-extra" content="width=${width},initial-scale=${initialScale}" />
+                ${moduleFlag ? '' : `<script async src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>`}
+              </head>
+              <body>
+                ${moduleFlag ? `<script src="/assets/scripts/${format}/first_run.js" type="module"></script>` : ''}
+              </body>
+            </html>
+          `)
+          expect(await getViewportContentString(page)).toBe(
+            convertToViewportContentString({ width, initialScale })
           )
         })
       })
@@ -462,6 +437,31 @@ test.beforeEach(async ({ page }) => {
               : ''
           )
         })
+      })
+    })
+
+    test.describe('not putting viewport and viewport-extra meta elements', () => {
+      test('viewport meta element is created', async ({ page }, testInfo) => {
+        const { project, config } = testInfo
+        testInfo.skip(project !== config.projects[0])
+        const width = 'device-width'
+        const initialScale = 1
+        await page.setContent(`
+          <!doctype html>
+          <html lang="en">
+            <head>
+              <meta charset="UTF-8" />
+              <title>Document</title>
+              ${moduleFlag ? '' : `<script async src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>`}
+            </head>
+            <body>
+              ${moduleFlag ? `<script src="/assets/scripts/${format}/first_run.js" type="module"></script>` : ''}
+            </body>
+          </html>
+        `)
+        expect(await getViewportContentString(page)).toBe(
+          convertToViewportContentString({ width, initialScale })
+        )
       })
     })
   })
