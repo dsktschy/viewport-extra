@@ -1,5 +1,5 @@
 import ViewportExtra, { getContent } from '@@/dist/cjs/index.js'
-import { convertToJsonString } from '@@/tests/e2e/modules/SeriarizableRecord.js'
+import { convertToJsonString } from '@@/tests/e2e/modules/NumberStringRecord.js'
 
 const usingDefaultExport = document
   .querySelector('[data-using-default-export]')
