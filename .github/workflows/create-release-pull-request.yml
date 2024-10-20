@@ -11,9 +11,6 @@ on:
         options:
           - default
           - prerelease
-  pull_request:
-    types:
-      - closed
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -25,10 +22,7 @@ permissions:
 
 jobs:
   create_release_pull_request:
-    if: >-
-      inputs.versioning_strategy == 'default' ||
-      github.event.pull_request.merged &&
-      contains(github.event.pull_request.labels.*.name, 'stabilize')
+    if: inputs.versioning_strategy == 'default'
     timeout-minutes: 15
     runs-on: ubuntu-24.04
     steps:
@@ -37,6 +31,7 @@ jobs:
         with:
           config-file: release-please-config.default.json
           skip-github-release: true
+          target-branch: ${{ github.ref_name }}
 
   create_prerelease_pull_request:
     if: inputs.versioning_strategy == 'prerelease'
@@ -48,3 +43,4 @@ jobs:
         with:
           config-file: release-please-config.prerelease.json
           skip-github-release: true
+          target-branch: ${{ github.ref_name }}

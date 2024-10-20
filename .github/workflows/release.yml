@@ -23,6 +23,7 @@ jobs:
         with:
           config-file: release-please-config.default.json
           skip-github-pull-request: true
+          target-branch: ${{ github.event.pull_request.base.ref }}
 
   prerelease:
     if: >-
@@ -37,3 +38,4 @@ jobs:
         with:
           config-file: release-please-config.prerelease.json
           skip-github-pull-request: true
+          target-branch: ${{ github.event.pull_request.base.ref }}

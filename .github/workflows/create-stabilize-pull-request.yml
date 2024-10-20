@@ -26,6 +26,7 @@ jobs:
         shell: bash
         run: |
           latest_tag=$(git describe --tags --abbrev=0)
+          echo "latest_tag: $latest_tag"
           stable_version=
           stabilizable=no
           if [[ $latest_tag =~ ^v([0-9]+\.[0-9]+\.[0-9]+) ]]; then
@@ -34,6 +35,7 @@ jobs:
               stabilizable=yes
             fi
           fi
+          echo "stabilizable: $stabilizable"
           echo "stable_version=$stable_version" >> $GITHUB_OUTPUT
           echo "stabilizable=$stabilizable" >> $GITHUB_OUTPUT
     outputs:
