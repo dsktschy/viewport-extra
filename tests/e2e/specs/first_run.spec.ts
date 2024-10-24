@@ -15,12 +15,12 @@ test.beforeEach(async ({ page }) => {
   test.describe(`using ${(minified ? 'minified ' : '') + format} output`, () => {
     test.describe('putting only viewport meta element', () => {
       test.describe('setting min-width', () => {
-        test('viewport content is updated to correct values', async ({
+        test('width and initial-scale are updated in viewports less than min-width', async ({
           page,
           viewport
         }, { config: { projects } }) => {
           const width = 'device-width'
-          const initialScale = 0.5
+          const initialScale = 1
           const minWidth =
             getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
           const documentClientWidth = viewport ? viewport.width : undefined
@@ -53,12 +53,12 @@ test.beforeEach(async ({ page }) => {
       })
 
       test.describe('setting max-width', () => {
-        test('viewport content is updated to correct values', async ({
+        test('width and initial-scale are updated in viewports greater than max-width', async ({
           page,
           viewport
         }, { config: { projects } }) => {
           const width = 'device-width'
-          const initialScale = 0.5
+          const initialScale = 1
           const maxWidth =
             getViewportSize(projects, 'lg')?.use.viewport?.width ?? Infinity
           const documentClientWidth = viewport ? viewport.width : undefined
@@ -91,12 +91,12 @@ test.beforeEach(async ({ page }) => {
       })
 
       test.describe('setting min-width and max-width', () => {
-        test('viewport content is updated to correct values', async ({
+        test('width and initial-scale are updated in viewports less than min-width and viewports greater than max-width', async ({
           page,
           viewport
         }, { config: { projects } }) => {
           const width = 'device-width'
-          const initialScale = 0.5
+          const initialScale = 1
           const minWidth =
             getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
           const maxWidth =
@@ -137,11 +137,13 @@ test.beforeEach(async ({ page }) => {
       })
 
       test.describe('not setting min-width and max-width', () => {
-        test('viewport content is not updated', async ({ page }, testInfo) => {
+        test('width and initial-scale are not updated', async ({
+          page
+        }, testInfo) => {
           const { project, config } = testInfo
           testInfo.skip(project !== config.projects[0])
           const width = 'device-width'
-          const initialScale = 0.5
+          const initialScale = 1
           await page.setContent(`
             <!doctype html>
             <html lang="en">
@@ -165,12 +167,12 @@ test.beforeEach(async ({ page }) => {
 
     test.describe('putting only viewport-extra meta element', () => {
       test.describe('setting min-width', () => {
-        test('viewport content is updated to correct values', async ({
+        test('width and initial-scale are updated in viewports less than min-width', async ({
           page,
           viewport
         }, { config: { projects } }) => {
           const width = 'device-width'
-          const initialScale = 0.5
+          const initialScale = 1
           const minWidth =
             getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
           const documentClientWidth = viewport ? viewport.width : undefined
@@ -203,12 +205,12 @@ test.beforeEach(async ({ page }) => {
       })
 
       test.describe('setting max-width', () => {
-        test('viewport content is updated to correct values', async ({
+        test('width and initial-scale are updated in viewports greater than max-width', async ({
           page,
           viewport
         }, { config: { projects } }) => {
           const width = 'device-width'
-          const initialScale = 0.5
+          const initialScale = 1
           const maxWidth =
             getViewportSize(projects, 'lg')?.use.viewport?.width ?? Infinity
           const documentClientWidth = viewport ? viewport.width : undefined
@@ -241,12 +243,12 @@ test.beforeEach(async ({ page }) => {
       })
 
       test.describe('setting min-width and max-width', () => {
-        test('viewport content is updated to correct values', async ({
+        test('width and initial-scale are updated in viewports less than min-width and viewports greater than max-width', async ({
           page,
           viewport
         }, { config: { projects } }) => {
           const width = 'device-width'
-          const initialScale = 0.5
+          const initialScale = 1
           const minWidth =
             getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
           const maxWidth =
@@ -287,11 +289,13 @@ test.beforeEach(async ({ page }) => {
       })
 
       test.describe('not setting min-width and max-width', () => {
-        test('viewport content is not updated', async ({ page }, testInfo) => {
+        test('width and initial-scale are not updated', async ({
+          page
+        }, testInfo) => {
           const { project, config } = testInfo
           testInfo.skip(project !== config.projects[0])
           const width = 'device-width'
-          const initialScale = 0.5
+          const initialScale = 1
           await page.setContent(`
             <!doctype html>
             <html lang="en">
@@ -315,12 +319,12 @@ test.beforeEach(async ({ page }) => {
 
     test.describe('putting viewport and viewport-extra meta elements', () => {
       test.describe('setting min-width', () => {
-        test('viewport content is updated to correct values', async ({
+        test('width and initial-scale are updated in viewports less than min-width', async ({
           page,
           viewport
         }, { config: { projects } }) => {
           const width = 'device-width'
-          const initialScale = 0.5
+          const initialScale = 1
           const minWidth =
             getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
           const documentClientWidth = viewport ? viewport.width : undefined
@@ -354,12 +358,12 @@ test.beforeEach(async ({ page }) => {
       })
 
       test.describe('setting max-width', () => {
-        test('viewport content is updated to correct values', async ({
+        test('width and initial-scale are updated in viewports greater than max-width', async ({
           page,
           viewport
         }, { config: { projects } }) => {
           const width = 'device-width'
-          const initialScale = 0.5
+          const initialScale = 1
           const maxWidth =
             getViewportSize(projects, 'lg')?.use.viewport?.width ?? Infinity
           const documentClientWidth = viewport ? viewport.width : undefined
@@ -393,12 +397,12 @@ test.beforeEach(async ({ page }) => {
       })
 
       test.describe('setting min-width and max-width', () => {
-        test('viewport content is updated to correct values', async ({
+        test('width and initial-scale are updated in viewports less than min-width and viewports greater than max-width', async ({
           page,
           viewport
         }, { config: { projects } }) => {
           const width = 'device-width'
-          const initialScale = 0.5
+          const initialScale = 1
           const minWidth =
             getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
           const maxWidth =
@@ -441,7 +445,9 @@ test.beforeEach(async ({ page }) => {
     })
 
     test.describe('not putting viewport and viewport-extra meta elements', () => {
-      test('viewport meta element is created', async ({ page }, testInfo) => {
+      test('width and initial-scale are not updated', async ({
+        page
+      }, testInfo) => {
         const { project, config } = testInfo
         testInfo.skip(project !== config.projects[0])
         const width = 'device-width'

@@ -15,11 +15,11 @@ test.beforeEach(async ({ page }) => {
   test.describe(`using ${(minified ? 'minified ' : '') + format} output`, () => {
     if (moduleFlag) {
       test.describe('using named export', () => {
-        test('correct content values are gotten', async ({ page }, {
-          config: { projects }
-        }) => {
+        test('updated content values are gotten in viewports less than min-width and viewports greater than max-width', async ({
+          page
+        }, { config: { projects } }) => {
           const width = 'device-width'
-          const initialScale = 0.5
+          const initialScale = 1
           const minWidth =
             getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
           const maxWidth =
@@ -50,11 +50,11 @@ test.beforeEach(async ({ page }) => {
       })
 
       test.describe('using default export', () => {
-        test('correct content values are gotten', async ({ page }, {
-          config: { projects }
-        }) => {
+        test('updated content values are gotten in viewports less than min-width and viewports greater than max-width', async ({
+          page
+        }, { config: { projects } }) => {
           const width = 'device-width'
-          const initialScale = 0.5
+          const initialScale = 1
           const minWidth =
             getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
           const maxWidth =
@@ -85,11 +85,11 @@ test.beforeEach(async ({ page }) => {
       })
     } else {
       test.describe('using global variable', () => {
-        test('correct content values are gotten', async ({ page }, {
-          config: { projects }
-        }) => {
+        test('updated content values are gotten in viewports less than min-width and viewports greater than max-width', async ({
+          page
+        }, { config: { projects } }) => {
           const width = 'device-width'
-          const initialScale = 0.5
+          const initialScale = 1
           const minWidth =
             getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
           const maxWidth =
