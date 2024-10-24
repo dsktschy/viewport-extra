@@ -15,10 +15,9 @@ test.beforeEach(async ({ page }) => {
   test.describe(`using ${(minified ? 'minified ' : '') + format} output`, () => {
     if (moduleFlag) {
       test.describe('using named export', () => {
-        test('reference to viewport meta element is updated', async ({
-          page,
-          viewport
-        }, { config: { projects } }) => {
+        test('width and initial-scale are updated', async ({ page, viewport }, {
+          config: { projects }
+        }) => {
           const width = 'device-width'
           const initialScale = 1
           const maximumWidthViewportSize = getMaximumWidthViewportSize(projects)
@@ -55,10 +54,9 @@ test.beforeEach(async ({ page }) => {
       })
 
       test.describe('using default export', () => {
-        test('reference to viewport meta element is updated', async ({
-          page,
-          viewport
-        }, { config: { projects } }) => {
+        test('width and initial-scale are updated', async ({ page, viewport }, {
+          config: { projects }
+        }) => {
           const width = 'device-width'
           const initialScale = 1
           const maximumWidthViewportSize = getMaximumWidthViewportSize(projects)
@@ -95,10 +93,9 @@ test.beforeEach(async ({ page }) => {
       })
     } else {
       test.describe('using global variable', () => {
-        test('reference to viewport meta element is updated', async ({
-          page,
-          viewport
-        }, { config: { projects } }) => {
+        test('width and initial-scale are updated', async ({ page, viewport }, {
+          config: { projects }
+        }) => {
           const width = 'device-width'
           const initialScale = 1
           const maximumWidthViewportSize = getMaximumWidthViewportSize(projects)
