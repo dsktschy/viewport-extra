@@ -43,8 +43,7 @@ test.beforeEach(async ({ page }) => {
               ? documentClientWidth < minWidth
                 ? convertToViewportContentString({
                     width: minWidth,
-                    initialScale:
-                      (documentClientWidth / minWidth) * initialScale
+                    initialScale: documentClientWidth / minWidth
                   })
                 : convertToViewportContentString({ width, initialScale })
               : ''
@@ -81,8 +80,7 @@ test.beforeEach(async ({ page }) => {
               ? documentClientWidth > maxWidth
                 ? convertToViewportContentString({
                     width: maxWidth,
-                    initialScale:
-                      (documentClientWidth / maxWidth) * initialScale
+                    initialScale: documentClientWidth / maxWidth
                   })
                 : convertToViewportContentString({ width, initialScale })
               : ''
@@ -121,14 +119,12 @@ test.beforeEach(async ({ page }) => {
               ? documentClientWidth < minWidth
                 ? convertToViewportContentString({
                     width: minWidth,
-                    initialScale:
-                      (documentClientWidth / minWidth) * initialScale
+                    initialScale: documentClientWidth / minWidth
                   })
                 : documentClientWidth > maxWidth
                   ? convertToViewportContentString({
                       width: maxWidth,
-                      initialScale:
-                        (documentClientWidth / maxWidth) * initialScale
+                      initialScale: documentClientWidth / maxWidth
                     })
                   : convertToViewportContentString({ width, initialScale })
               : ''
@@ -195,8 +191,7 @@ test.beforeEach(async ({ page }) => {
               ? documentClientWidth < minWidth
                 ? convertToViewportContentString({
                     width: minWidth,
-                    initialScale:
-                      (documentClientWidth / minWidth) * initialScale
+                    initialScale: documentClientWidth / minWidth
                   })
                 : convertToViewportContentString({ width, initialScale })
               : ''
@@ -233,8 +228,7 @@ test.beforeEach(async ({ page }) => {
               ? documentClientWidth > maxWidth
                 ? convertToViewportContentString({
                     width: maxWidth,
-                    initialScale:
-                      (documentClientWidth / maxWidth) * initialScale
+                    initialScale: documentClientWidth / maxWidth
                   })
                 : convertToViewportContentString({ width, initialScale })
               : ''
@@ -273,14 +267,12 @@ test.beforeEach(async ({ page }) => {
               ? documentClientWidth < minWidth
                 ? convertToViewportContentString({
                     width: minWidth,
-                    initialScale:
-                      (documentClientWidth / minWidth) * initialScale
+                    initialScale: documentClientWidth / minWidth
                   })
                 : documentClientWidth > maxWidth
                   ? convertToViewportContentString({
                       width: maxWidth,
-                      initialScale:
-                        (documentClientWidth / maxWidth) * initialScale
+                      initialScale: documentClientWidth / maxWidth
                     })
                   : convertToViewportContentString({ width, initialScale })
               : ''
@@ -348,8 +340,7 @@ test.beforeEach(async ({ page }) => {
               ? documentClientWidth < minWidth
                 ? convertToViewportContentString({
                     width: minWidth,
-                    initialScale:
-                      (documentClientWidth / minWidth) * initialScale
+                    initialScale: documentClientWidth / minWidth
                   })
                 : convertToViewportContentString({ width, initialScale })
               : ''
@@ -387,8 +378,7 @@ test.beforeEach(async ({ page }) => {
               ? documentClientWidth > maxWidth
                 ? convertToViewportContentString({
                     width: maxWidth,
-                    initialScale:
-                      (documentClientWidth / maxWidth) * initialScale
+                    initialScale: documentClientWidth / maxWidth
                   })
                 : convertToViewportContentString({ width, initialScale })
               : ''
@@ -428,14 +418,12 @@ test.beforeEach(async ({ page }) => {
               ? documentClientWidth < minWidth
                 ? convertToViewportContentString({
                     width: minWidth,
-                    initialScale:
-                      (documentClientWidth / minWidth) * initialScale
+                    initialScale: documentClientWidth / minWidth
                   })
                 : documentClientWidth > maxWidth
                   ? convertToViewportContentString({
                       width: maxWidth,
-                      initialScale:
-                        (documentClientWidth / maxWidth) * initialScale
+                      initialScale: documentClientWidth / maxWidth
                     })
                   : convertToViewportContentString({ width, initialScale })
               : ''
