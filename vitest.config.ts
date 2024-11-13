@@ -6,7 +6,10 @@ export default defineConfig({
     include: [
       path.resolve(import.meta.dirname, 'src/**/*.{test,spec}.?(c|m)[jt]s')
     ],
-    environment: 'jsdom',
+    environmentMatchGlobs: [
+      ['**/*.node.{test,spec}.?(c|m)[jt]s', 'node'],
+      ['**/*.{test,spec}.?(c|m)[jt]s', 'jsdom']
+    ],
     passWithNoTests: true
   }
 })

@@ -11,7 +11,7 @@ test.beforeEach(async ({ page }) => {
   { format: 'cjs', moduleFlag: true, minified: false },
   { format: 'iife', moduleFlag: false, minified: false },
   { format: 'iife', moduleFlag: false, minified: true }
-].forEach(({ format, moduleFlag, minified }) => {
+].forEach(({ format, moduleFlag, minified }, formatIndex) => {
   test.describe(`using ${(minified ? 'minified ' : '') + format} output`, () => {
     test.describe('using number argument', () => {
       test('width and initial-scale are updated in viewports less than min-width', async ({
@@ -170,6 +170,125 @@ test.beforeEach(async ({ page }) => {
                   : convertToViewportContentString({ width, initialScale })
               : ''
           )
+        })
+
+        // Following cases cannot be tested with vitest
+        // Because vitest does not update size of document element when viewport element is updated
+        // Run in only one format because purpose is to check library behavior, not to verify bundled code
+        test.describe('comparison with min-width and max-width, and computation of output initial-scale', () => {
+          // When initial-scale is 1 or less, document.documentElement.clientWidth is equal to viewport width
+          test.describe('case where initial-scale before running setContent is 1 or less', () => {
+            test('width of viewport is used for comparison, and initialScale property in content object is applied to output initial-scale', async ({
+              page,
+              viewport
+            }, testInfo) => {
+              testInfo.skip(formatIndex !== 0)
+              const { config } = testInfo
+              const { projects } = config
+              const width = 'device-width'
+              const initialScaleBefore = 0.5
+              const initialScaleAfter = 2
+              const minWidth =
+                (getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0) /
+                initialScaleBefore
+              const maxWidth =
+                (getViewportSize(projects, 'lg')?.use.viewport?.width ??
+                  Infinity) / initialScaleBefore
+              const documentClientWidth = viewport
+                ? viewport.width / initialScaleBefore
+                : undefined
+              await page.setContent(`
+                <!doctype html>
+                <html lang="en">
+                  <head>
+                    <meta charset="UTF-8" />
+                    <title>Document</title>
+                    <meta name="viewport" content="width=${width},initial-scale=${initialScaleBefore}" />
+                    ${moduleFlag ? '' : `<script src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>`}
+                  </head>
+                  <body>
+                    <script data-initial-scale="${initialScaleAfter}" data-min-width="${minWidth}" data-max-width="${maxWidth}"></script>
+                    <script src="/assets/scripts/${format}/using_ViewportExtra-constructor.js" type="module"></script>
+                  </body>
+                </html>
+              `)
+              expect(await getViewportContentString(page)).toBe(
+                documentClientWidth && minWidth > 0 && maxWidth < Infinity
+                  ? documentClientWidth < minWidth
+                    ? convertToViewportContentString({
+                        width: minWidth,
+                        initialScale:
+                          (documentClientWidth / minWidth) * initialScaleAfter
+                      })
+                    : documentClientWidth > maxWidth
+                      ? convertToViewportContentString({
+                          width: maxWidth,
+                          initialScale:
+                            (documentClientWidth / maxWidth) * initialScaleAfter
+                        })
+                      : convertToViewportContentString({
+                          width,
+                          initialScale: initialScaleAfter
+                        })
+                  : ''
+              )
+            })
+          })
+
+          // When initial-scale is greater than 1, document.documentElement.clientWidth is not equal to viewport width
+          test.describe('case where initial-scale before running setContent is greater than 1', () => {
+            test('width of device is used for comparison, and initialScale property in content object is applied to output initial-scale', async ({
+              page,
+              viewport
+            }, testInfo) => {
+              testInfo.skip(formatIndex !== 0)
+              const { config } = testInfo
+              const { projects } = config
+              const width = 'device-width'
+              const initialScaleBefore = 2
+              const initialScaleAfter = 0.5
+              const minWidth =
+                getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
+              const maxWidth =
+                getViewportSize(projects, 'lg')?.use.viewport?.width ?? Infinity
+              const documentClientWidth = viewport ? viewport.width : undefined
+              await page.setContent(`
+                <!doctype html>
+                <html lang="en">
+                  <head>
+                    <meta charset="UTF-8" />
+                    <title>Document</title>
+                    <meta name="viewport" content="width=${width},initial-scale=${initialScaleBefore}" />
+                    ${moduleFlag ? '' : `<script src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>`}
+                  </head>
+                  <body>
+                    <script data-initial-scale="${initialScaleAfter}" data-min-width="${minWidth}" data-max-width="${maxWidth}"></script>
+                    <script src="/assets/scripts/${format}/using_ViewportExtra-constructor.js" type="module"></script>
+                  </body>
+                </html>
+              `)
+              expect(await getViewportContentString(page)).toBe(
+                documentClientWidth && minWidth > 0 && maxWidth < Infinity
+                  ? documentClientWidth < minWidth
+                    ? convertToViewportContentString({
+                        width: minWidth,
+                        initialScale:
+                          (documentClientWidth / minWidth) * initialScaleAfter
+                      })
+                    : documentClientWidth > maxWidth
+                      ? convertToViewportContentString({
+                          width: maxWidth,
+                          initialScale:
+                            (documentClientWidth / maxWidth) * initialScaleAfter
+                        })
+                      : convertToViewportContentString({
+                          width,
+                          initialScale: initialScaleAfter
+                        })
+                  : ''
+              )
+            })
+          })
         })
       })
     })
