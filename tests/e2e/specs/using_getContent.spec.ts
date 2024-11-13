@@ -15,9 +15,9 @@ test.beforeEach(async ({ page }) => {
   test.describe(`using ${(minified ? 'minified ' : '') + format} output`, () => {
     if (moduleFlag) {
       test.describe('using named export', () => {
-        test('updated content values are gotten in viewports less than min-width and viewports greater than max-width', async ({
-          page
-        }, { config: { projects } }) => {
+        test('current content object is gotten', async ({ page }, {
+          config: { projects }
+        }) => {
           const width = 'device-width'
           const initialScale = 1
           const minWidth =
@@ -50,9 +50,9 @@ test.beforeEach(async ({ page }) => {
       })
 
       test.describe('using default export', () => {
-        test('updated content values are gotten in viewports less than min-width and viewports greater than max-width', async ({
-          page
-        }, { config: { projects } }) => {
+        test('current content object is gotten', async ({ page }, {
+          config: { projects }
+        }) => {
           const width = 'device-width'
           const initialScale = 1
           const minWidth =
@@ -85,9 +85,9 @@ test.beforeEach(async ({ page }) => {
       })
     } else {
       test.describe('using global variable', () => {
-        test('updated content values are gotten in viewports less than min-width and viewports greater than max-width', async ({
-          page
-        }, { config: { projects } }) => {
+        test('current content object is gotten', async ({ page }, {
+          config: { projects }
+        }) => {
           const width = 'device-width'
           const initialScale = 1
           const minWidth =
