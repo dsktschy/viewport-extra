@@ -1,3 +1,6 @@
+import { type DeepPartial } from './DeepPartial.js'
+import { type MediaSpecificParameters } from './MediaSpecificParameters.js'
+
 export type ContentWidth = number | 'device-width'
 export type ContentInitialScale = number
 export type ContentMinWidth = number
@@ -54,3 +57,9 @@ export const create = (partialContent: Partial<Content>): Content => {
   }
   return content
 }
+
+export const createPartialMediaSpecificParameters = (
+  partialContent: Partial<Content>
+): DeepPartial<MediaSpecificParameters> => ({
+  content: partialContent
+})

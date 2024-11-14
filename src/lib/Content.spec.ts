@@ -1,11 +1,12 @@
-import { describe, test, expect, vi } from 'vitest'
+import { describe, test, it, expect, vi } from 'vitest'
 import {
   isContentWidth,
   isContentInitialScale,
   isContentMinWidth,
   isContentMaxWidth,
   defaultProps,
-  create
+  create,
+  createPartialMediaSpecificParameters
 } from './Content.js'
 
 describe('about src/lib/Content.ts', () => {
@@ -98,5 +99,13 @@ describe('about src/lib/Content.ts', () => {
       maxWidth: 0
     }
     expect(create(partialContent)).toStrictEqual(defaultProps)
+  })
+})
+
+describe('createPartialMediaSpecificParameters', () => {
+  it('should return object with argument value as content property', () => {
+    expect(
+      createPartialMediaSpecificParameters({ minWidth: 414 })
+    ).toStrictEqual({ content: { minWidth: 414 } })
   })
 })

@@ -1,4 +1,6 @@
-import { Content } from './Content.js'
+import { type Content } from './Content.js'
+import { type MediaSpecificParameters } from './MediaSpecificParameters.js'
+import { type DeepPartial } from './DeepPartial.js'
 import { camelize, kebabize } from './string.js'
 
 export const createPartialContent = (
@@ -26,6 +28,12 @@ export const createPartialContent = (
   }
   return partialContent
 }
+
+export const createPartialMediaSpecificParameters = (
+  htmlMetaElement: HTMLMetaElement
+): DeepPartial<MediaSpecificParameters> => ({
+  content: createPartialContent(htmlMetaElement)
+})
 
 export const applyContent = (
   htmlMetaElement: HTMLMetaElement,
@@ -61,4 +69,16 @@ export const applyContent = (
     .join(',')
   // Apply to HTMLMetaElement
   htmlMetaElement.setAttribute('content', contentAttributeValue)
+}
+
+export const applyMediaSpecificParameters = (
+  htmlMetaElement: HTMLMetaElement,
+  mediaSpecificParameters: MediaSpecificParameters,
+  documentClientWidth: number
+): void => {
+  applyContent(
+    htmlMetaElement,
+    mediaSpecificParameters.content,
+    documentClientWidth
+  )
 }
