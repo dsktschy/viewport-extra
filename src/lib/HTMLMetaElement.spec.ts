@@ -1,5 +1,86 @@
-import { describe, test, expect, vi } from 'vitest'
-import { createPartialContent, applyContent } from './HTMLMetaElement.js'
+import { describe, it, test, expect, vi } from 'vitest'
+import {
+  createPartialContent,
+  createPartialMediaSpecificParameters,
+  applyContent,
+  applyMediaSpecificParameters
+} from './HTMLMetaElement.js'
+
+describe('createPartialMediaSpecificParameters', () => {
+  describe('case where argument element has content attribute', () => {
+    it('should return object that has content property matching all key-value pairs content attribute has', () => {
+      const width = 'device-width'
+      const initialScale = 1
+      const minWidth = 414
+      const htmlMetaElement = document.createElement('meta')
+      htmlMetaElement.setAttribute(
+        'content',
+        `width=${width},initial-scale=${initialScale},min-width=${minWidth}`
+      )
+      expect(
+        createPartialMediaSpecificParameters(htmlMetaElement)
+      ).toStrictEqual({
+        content: { width, initialScale, minWidth }
+      })
+    })
+  })
+
+  describe('case where argument element has content and data-extra-content attribute', () => {
+    it('should return object that has content property matching all key-value pairs content and data-extra-content attributes have', () => {
+      const width = 'device-width'
+      const initialScale = 1
+      const minWidth = 414
+      const htmlMetaElement = document.createElement('meta')
+      htmlMetaElement.setAttribute(
+        'content',
+        `width=${width},initial-scale=${initialScale}`
+      )
+      htmlMetaElement.setAttribute(
+        'data-extra-content',
+        `min-width=${minWidth}`
+      )
+      expect(
+        createPartialMediaSpecificParameters(htmlMetaElement)
+      ).toStrictEqual({
+        content: { width, initialScale, minWidth }
+      })
+    })
+  })
+
+  describe('case where argument element does not have content and data-extra-content attribute', () => {
+    it('should return object that has content property that is empty object', () => {
+      const htmlMetaElement = document.createElement('meta')
+      expect(
+        createPartialMediaSpecificParameters(htmlMetaElement)
+      ).toStrictEqual({
+        content: {}
+      })
+    })
+  })
+})
+
+describe('applyMediaSpecificParameters', () => {
+  it('updates content attribute of argument viewport meta element with value computed from content property of argument MediaSpecificParameters and argument width of viewport', () => {
+    const htmlMetaElement = document.createElement('meta')
+    const minWidth = 414
+    const documentClientWidth = 320
+    applyMediaSpecificParameters(
+      htmlMetaElement,
+      {
+        content: {
+          width: 'device-width',
+          initialScale: 1,
+          minWidth: minWidth,
+          maxWidth: Infinity
+        }
+      },
+      documentClientWidth
+    )
+    expect(htmlMetaElement.getAttribute('content')).toBe(
+      `initial-scale=${documentClientWidth / minWidth},width=${minWidth}`
+    )
+  })
+})
 
 describe('about src/lib/HTMLMetaElement.ts', () => {
   test("whether `createPartialContent` returns correct Partial<Content> with HTMLMetaElement has following attributes. content: `''`, data-extra-content: `''`", () => {

@@ -1,42 +1,80 @@
-import { getHTMLMetaElement, getClientWidth } from './lib/Document.js'
-import { createPartialContent, applyContent } from './lib/HTMLMetaElement.js'
-import { Content, ContentMinWidth, create } from './lib/Content.js'
+import {
+  createPartialMediaSpecificParameters,
+  applyMediaSpecificParameters
+} from './lib/HTMLMetaElement.js'
+import { type Content, type ContentMinWidth } from './lib/Content.js'
+import {
+  type MediaSpecificParameters,
+  createMediaSpecificParameters,
+  mergePartialMediaSpecificParameters
+} from './lib/MediaSpecificParameters.js'
+import {
+  ensureViewportElement,
+  getViewportExtraElementList
+} from './lib/Document.js'
 
 let viewportElement: HTMLMetaElement | null = null
-let viewportExtraElement: HTMLMetaElement | null = null
-let content: Content = create({})
+let viewportExtraElementList: HTMLMetaElement[] = []
+let mediaSpecificParametersList: MediaSpecificParameters[] = []
 
 if (typeof window !== 'undefined') {
-  viewportElement = getHTMLMetaElement(document, 'viewport', true)
-  viewportExtraElement = getHTMLMetaElement(document, 'viewport-extra', false)
+  viewportElement = ensureViewportElement(document)
+  viewportExtraElementList = getViewportExtraElementList(document)
+  mediaSpecificParametersList = [createMediaSpecificParameters({})]
 
-  // Create content object in advance
-  // before default content is applied to viewport meta element
-  const partialContent = {
-    ...createPartialContent(viewportElement),
-    ...createPartialContent(viewportExtraElement)
-  }
+  // Get attributes before default attributes are applied to viewport meta element
+  const partialMediaSpecificParameters =
+    createPartialMediaSpecificParameters(viewportElement)
+  const partialMediaSpecificParametersList = viewportExtraElementList.map(
+    createPartialMediaSpecificParameters
+  )
+  mediaSpecificParametersList = [
+    ...mediaSpecificParametersList,
+    createMediaSpecificParameters(
+      [
+        partialMediaSpecificParameters,
+        ...partialMediaSpecificParametersList
+      ].reduce(mergePartialMediaSpecificParameters)
+    )
+  ]
 
-  // Apply default content to viewport meta element
-  // in order to calculate correct value by getClientWidth
+  // Apply default attributes to viewport meta element
+  // in order to get width of viewport by document.documentElement.clientWidth
   // even if viewport meta element has no content attribute
-  applyContent(viewportElement, content, 0)
+  applyMediaSpecificParameters(
+    viewportElement,
+    mediaSpecificParametersList[0],
+    0
+  )
 
-  content = create(partialContent)
-  applyContent(viewportElement, content, getClientWidth(document))
+  applyMediaSpecificParameters(
+    viewportElement,
+    mediaSpecificParametersList[1],
+    document.documentElement.clientWidth
+  )
 }
 
 export const setContent = (partialContent: Partial<Content>): void => {
   if (typeof window === 'undefined' || !viewportElement) return
-  content = create({ ...content, ...partialContent })
-  applyContent(viewportElement, content, getClientWidth(document))
+  const { content } = mediaSpecificParametersList[1]
+  mediaSpecificParametersList = [
+    mediaSpecificParametersList[0],
+    createMediaSpecificParameters({
+      content: { ...content, ...partialContent }
+    })
+  ]
+  applyMediaSpecificParameters(
+    viewportElement,
+    mediaSpecificParametersList[1],
+    document.documentElement.clientWidth
+  )
 }
 
-export const getContent = (): Content => content
+export const getContent = (): Content => mediaSpecificParametersList[1].content
 
 export const updateReference = (): void => {
   if (typeof window === 'undefined') return
-  viewportElement = getHTMLMetaElement(document, 'viewport', true)
+  viewportElement = ensureViewportElement(document)
 }
 
 // For compatibility with v1
