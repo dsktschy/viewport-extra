@@ -1,7 +1,7 @@
 import { type Content } from './Content.js'
 import { type MediaSpecificParameters } from './MediaSpecificParameters.js'
 import { type DeepPartial } from './DeepPartial.js'
-import { camelize, kebabize } from './string.js'
+import { camelizeKebabCaseString, kebabizeCamelCaseString } from './string.js'
 
 export const createPartialContent = (
   htmlMetaElement: HTMLMetaElement
@@ -22,7 +22,7 @@ export const createPartialContent = (
     // If empty string is splitted, value will be undefined
     const trimmedValue = value ? value.trim() : ''
     if (!trimmedValue) continue
-    partialContent[camelize(trimmedKey)] = isNaN(+trimmedValue)
+    partialContent[camelizeKebabCaseString(trimmedKey)] = isNaN(+trimmedValue)
       ? trimmedValue
       : +trimmedValue
   }
@@ -64,7 +64,7 @@ export const applyContent = (
   }
   // Stringify Content
   const contentAttributeValue = Object.keys(omittedContent)
-    .map(key => `${kebabize(key)}=${omittedContent[key]}`)
+    .map(key => `${kebabizeCamelCaseString(key)}=${omittedContent[key]}`)
     .sort() // For testing
     .join(',')
   // Apply to HTMLMetaElement

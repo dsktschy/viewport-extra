@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 import { convertToViewportContentString } from '../modules/NumberStringRecord.js'
 import { getViewportContentString } from '../modules/PlaywrightPage.js'
 import { getViewportSize } from '../modules/PlaywrightFullProjectList.js'
-import { defaultProps as defaultContentProps } from '../../../src/lib/Content.js'
+import { defaultContent } from '../../../src/lib/Content.js'
 
 test.beforeEach(async ({ page }) => {
   await page.goto('/tests/e2e/__fixtures__/src/dummy.html')
@@ -154,7 +154,7 @@ test.beforeEach(async ({ page }) => {
           testInfo.skip(formatIndex !== 0)
           const { config } = testInfo
           const { projects } = config
-          const { width, initialScale } = defaultContentProps
+          const { width, initialScale } = defaultContent
           const minWidth =
             getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
           const maxWidth =

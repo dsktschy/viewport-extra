@@ -1,4 +1,4 @@
-import { type Content, create as createContent } from './Content.js'
+import { type Content, createContent } from './Content.js'
 import { type DeepPartial } from './DeepPartial.js'
 
 export interface MediaSpecificParameters {

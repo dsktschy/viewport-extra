@@ -29,15 +29,15 @@ export const isContentMinWidth = (value: unknown): value is ContentMinWidth =>
 export const isContentMaxWidth = (value: unknown): value is ContentMaxWidth =>
   typeof value === 'number' && value > 0 && value <= Infinity
 
-export const defaultProps = {
+export const defaultContent = {
   width: 'device-width' as const,
   initialScale: 1,
   minWidth: 0,
   maxWidth: Infinity
 }
 
-export const create = (partialContent: Partial<Content>): Content => {
-  const content: Content = { ...defaultProps }
+export const createContent = (partialContent: Partial<Content>): Content => {
+  const content: Content = { ...defaultContent }
   for (const key of Object.keys(partialContent)) {
     const value = partialContent[key]
     if (

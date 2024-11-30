@@ -4,8 +4,8 @@ import {
   isContentInitialScale,
   isContentMinWidth,
   isContentMaxWidth,
-  defaultProps,
-  create,
+  defaultContent,
+  createContent,
   createPartialMediaSpecificParameters
 } from './Content.js'
 
@@ -74,22 +74,22 @@ describe('about src/lib/Content.ts', () => {
     expect(isContentMaxWidth('375')).toBe(false)
   })
 
-  test('whether `create` returns correct Content with following params. `{}`', () => {
+  test('whether `createContent` returns correct Content with following params. `{}`', () => {
     const partialContent = {}
-    expect(create(partialContent)).toStrictEqual(defaultProps)
+    expect(createContent(partialContent)).toStrictEqual(defaultContent)
   })
 
-  test('whether `create` returns correct Content with following params. `{ width: 390, initialScale: 2, minWidth: 375, maxWidth: 414 }`', () => {
+  test('whether `createContent` returns correct Content with following params. `{ width: 390, initialScale: 2, minWidth: 375, maxWidth: 414 }`', () => {
     const partialContent = {
       width: 390,
       initialScale: 2,
       minWidth: 375,
       maxWidth: 414
     }
-    expect(create(partialContent)).toStrictEqual(partialContent)
+    expect(createContent(partialContent)).toStrictEqual(partialContent)
   })
 
-  test("whether `create` returns correct Content with following params. `{ width: '390', initialScale: '2', minWidth: Infinity, maxWidth: 0 }`", () => {
+  test("whether `createContent` returns correct Content with following params. `{ width: '390', initialScale: '2', minWidth: Infinity, maxWidth: 0 }`", () => {
     // Don't show warnings on console
     vi.spyOn(console, 'warn').mockImplementation(vi.fn())
     const partialContent = {
@@ -98,7 +98,7 @@ describe('about src/lib/Content.ts', () => {
       minWidth: Infinity,
       maxWidth: 0
     }
-    expect(create(partialContent)).toStrictEqual(defaultProps)
+    expect(createContent(partialContent)).toStrictEqual(defaultContent)
   })
 })
 
