@@ -1,84 +1,47 @@
-import { type Content } from './Content.js'
-import { type MediaSpecificParameters } from './MediaSpecificParameters.js'
 import { type DeepPartial } from './DeepPartial.js'
-import { camelizeKebabCaseString, kebabizeCamelCaseString } from './string.js'
+import {
+  type MediaSpecificParameters,
+  setOptionalPartialContent,
+  createContentAttribute
+} from './MediaSpecificParameters.js'
+import {
+  type ContentAttribute,
+  mergeNullableContentAttributes,
+  createOptionalPartialContent
+} from './ContentAttribute.js'
 
-export const createPartialContent = (
+export const getNullableContentAttribute = (
   htmlMetaElement: HTMLMetaElement
-): Partial<Content> => {
-  const contentAttributeValue = htmlMetaElement.getAttribute('content') || ''
-  const dataExtraContentAttributeValue =
-    htmlMetaElement.getAttribute('data-extra-content') || ''
-  const equalSeparatedContentList = [
-    ...contentAttributeValue.split(','),
-    ...dataExtraContentAttributeValue.split(',')
-  ]
-  const partialContent: Partial<Content> = {}
-  for (const equalSeparatedContent of equalSeparatedContentList) {
-    const [key, value] = equalSeparatedContent.split('=')
-    // If empty string is splitted, key will be empty string
-    const trimmedKey = key.trim()
-    if (!trimmedKey) continue
-    // If empty string is splitted, value will be undefined
-    const trimmedValue = value ? value.trim() : ''
-    if (!trimmedValue) continue
-    partialContent[camelizeKebabCaseString(trimmedKey)] = isNaN(+trimmedValue)
-      ? trimmedValue
-      : +trimmedValue
-  }
-  return partialContent
-}
+): ContentAttribute | null =>
+  mergeNullableContentAttributes(
+    htmlMetaElement.getAttribute('content'),
+    htmlMetaElement.getAttribute('data-extra-content')
+  )
 
 export const createPartialMediaSpecificParameters = (
   htmlMetaElement: HTMLMetaElement
-): DeepPartial<MediaSpecificParameters> => ({
-  content: createPartialContent(htmlMetaElement)
-})
-
-export const applyContent = (
-  htmlMetaElement: HTMLMetaElement,
-  content: Content,
-  documentClientWidth: number
-): void => {
-  // Calculate width and initial-scale
-  const { width, initialScale } = content
-  const { minWidth, maxWidth, ...omittedContent } = content
-  if (minWidth > maxWidth) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      'Viewport Extra received minWidth that is greater than maxWidth, so they are ignored.'
-    )
-  } else if (typeof width === 'number') {
-    // eslint-disable-next-line no-console
-    console.warn(
-      'Viewport Extra received fixed width, so minWidth and maxWidth are ignored.'
-    )
-  } else if (documentClientWidth < minWidth) {
-    omittedContent.width = minWidth
-    omittedContent.initialScale =
-      (documentClientWidth / minWidth) * initialScale
-  } else if (documentClientWidth > maxWidth) {
-    omittedContent.width = maxWidth
-    omittedContent.initialScale =
-      (documentClientWidth / maxWidth) * initialScale
-  }
-  // Stringify Content
-  const contentAttributeValue = Object.keys(omittedContent)
-    .map(key => `${kebabizeCamelCaseString(key)}=${omittedContent[key]}`)
-    .sort() // For testing
-    .join(',')
-  // Apply to HTMLMetaElement
-  htmlMetaElement.setAttribute('content', contentAttributeValue)
+): DeepPartial<MediaSpecificParameters> => {
+  const partialMediaSpecificParameters: DeepPartial<MediaSpecificParameters> =
+    {}
+  setOptionalPartialContent(
+    partialMediaSpecificParameters,
+    createOptionalPartialContent(getNullableContentAttribute(htmlMetaElement))
+  )
+  return partialMediaSpecificParameters
 }
+
+export const setContentAttribute = (
+  htmlMetaElement: HTMLMetaElement,
+  contentAttribute: ContentAttribute
+): void => htmlMetaElement.setAttribute('content', contentAttribute)
 
 export const applyMediaSpecificParameters = (
   htmlMetaElement: HTMLMetaElement,
   mediaSpecificParameters: MediaSpecificParameters,
   documentClientWidth: number
 ): void => {
-  applyContent(
+  setContentAttribute(
     htmlMetaElement,
-    mediaSpecificParameters.content,
-    documentClientWidth
+    createContentAttribute(mediaSpecificParameters, documentClientWidth)
   )
 }

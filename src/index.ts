@@ -1,12 +1,12 @@
 import * as HTMLMetaElementModule from './lib/HTMLMetaElement.js'
 import { applyMediaSpecificParameters } from './lib/HTMLMetaElement.js'
-import * as ContentModule from './lib/Content.js'
-import { type Content, type ContentMinWidth } from './lib/Content.js'
 import {
   type MediaSpecificParameters,
   createMediaSpecificParameters,
   mergePartialMediaSpecificParameters
 } from './lib/MediaSpecificParameters.js'
+import * as ContentModule from './lib/Content.js'
+import { type Content, type ContentMinWidth } from './lib/Content.js'
 import {
   ensureViewportElement,
   getViewportExtraElementList
@@ -21,7 +21,7 @@ if (typeof window !== 'undefined') {
   viewportElement = ensureViewportElement(document)
   viewportExtraElementList = getViewportExtraElementList(document)
   mediaSpecificParametersList = [
-    createMediaSpecificParameters({}), // For unscaled computing
+    createMediaSpecificParameters(), // For unscaled computing
     createMediaSpecificParameters(
       [
         HTMLMetaElementModule.createPartialMediaSpecificParameters(
@@ -34,9 +34,10 @@ if (typeof window !== 'undefined') {
     )
   ]
 
-  // Apply default attributes to viewport meta element
-  // in order to get width of viewport by document.documentElement.clientWidth
-  // even if viewport meta element has no content attribute
+  // For backward compatibility,
+  // side effects force unscaled computing regardless of globalParameters
+  // It's so that document.documentElement.clientWidth can work
+  // in the case where viewport meta element does not exist
   applyMediaSpecificParameters(
     viewportElement,
     mediaSpecificParametersList[0],

@@ -1,5 +1,7 @@
 import { type DeepPartial } from './DeepPartial.js'
 import { type MediaSpecificParameters } from './MediaSpecificParameters.js'
+import { type ContentAttribute } from './ContentAttribute.js'
+import { kebabizeCamelCaseString } from './string.js'
 
 export type ContentWidth = number | 'device-width'
 export type ContentInitialScale = number
@@ -36,7 +38,9 @@ export const defaultContent = {
   maxWidth: Infinity
 }
 
-export const createContent = (partialContent: Partial<Content>): Content => {
+export const createContent = (
+  partialContent: Partial<Content> | undefined = {}
+): Content => {
   const content: Content = { ...defaultContent }
   for (const key of Object.keys(partialContent)) {
     const value = partialContent[key]
@@ -58,8 +62,53 @@ export const createContent = (partialContent: Partial<Content>): Content => {
   return content
 }
 
+export const mergeOptionalPartialContent = (
+  precedingOptionalPartialContent: Partial<Content> | undefined,
+  followingOptionalPartialContent: Partial<Content> | undefined
+): Partial<Content> | undefined =>
+  precedingOptionalPartialContent
+    ? {
+        ...precedingOptionalPartialContent,
+        ...(followingOptionalPartialContent ?? {})
+      }
+    : followingOptionalPartialContent
+
 export const createPartialMediaSpecificParameters = (
   partialContent: Partial<Content>
 ): DeepPartial<MediaSpecificParameters> => ({
   content: partialContent
 })
+
+export const createContentAttribute = (
+  content: Content,
+  documentClientWidth: number
+): ContentAttribute => {
+  const { width, initialScale } = content
+  const { minWidth, maxWidth, ...contentWithoutExtraProperties } = content
+  if (minWidth > maxWidth) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      'Viewport Extra received minWidth that is greater than maxWidth, so they are ignored.'
+    )
+  } else if (typeof width === 'number') {
+    // eslint-disable-next-line no-console
+    console.warn(
+      'Viewport Extra received fixed width, so minWidth and maxWidth are ignored.'
+    )
+  } else if (documentClientWidth < minWidth) {
+    contentWithoutExtraProperties.width = minWidth
+    contentWithoutExtraProperties.initialScale =
+      (documentClientWidth / minWidth) * initialScale
+  } else if (documentClientWidth > maxWidth) {
+    contentWithoutExtraProperties.width = maxWidth
+    contentWithoutExtraProperties.initialScale =
+      (documentClientWidth / maxWidth) * initialScale
+  }
+  return Object.keys(contentWithoutExtraProperties)
+    .map(
+      key =>
+        `${kebabizeCamelCaseString(key)}=${contentWithoutExtraProperties[key]}`
+    )
+    .sort()
+    .join(',')
+}
