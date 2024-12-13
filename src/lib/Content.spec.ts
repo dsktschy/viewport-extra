@@ -1,4 +1,4 @@
-import { describe, test, it, expect } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import {
   isContentWidth,
   isContentInitialScale,
@@ -11,69 +11,125 @@ import {
   createContentAttribute
 } from './Content.js'
 
-describe('about src/lib/Content.ts', () => {
-  test('whether `isContentWidth` determines `375` to be ContentWidth', () => {
-    expect(isContentWidth(375)).toBe(true)
+describe('isContentWidth', () => {
+  describe('case where argument is infinity', () => {
+    it('should return false', () => {
+      expect(isContentWidth(Infinity)).toBe(false)
+    })
   })
 
-  test("whether `isContentWidth` determines `'device-width'` to be ContentWidth", () => {
-    expect(isContentWidth('device-width')).toBe(true)
+  describe('case where argument is less than infinity and greater than 0', () => {
+    it('should return true', () => {
+      expect(isContentWidth(1024)).toBe(true)
+    })
   })
 
-  test('whether `isContentWidth` determines `0` not to be ContentWidth', () => {
-    expect(isContentWidth(0)).toBe(false)
+  describe('case where argument is 0', () => {
+    it('should return false', () => {
+      expect(isContentWidth(0)).toBe(false)
+    })
   })
 
-  test('whether `isContentWidth` determines `Infinity` not to be ContentWidth', () => {
-    expect(isContentWidth(Infinity)).toBe(false)
+  describe('case where argument is less than 0', () => {
+    it('should return false', () => {
+      expect(isContentWidth(-1)).toBe(false)
+    })
   })
 
-  test("whether `isContentWidth` determines `'375'` not to be ContentWidth", () => {
-    expect(isContentWidth('375')).toBe(false)
+  describe('case where argument is device-width', () => {
+    it('should return true', () => {
+      expect(isContentWidth('device-width')).toBe(true)
+    })
   })
 
-  test('whether `isContentInitialScale` determines `0` to be ContentInitialScale', () => {
-    expect(isContentInitialScale(0)).toBe(true)
+  describe('case where argument is string other than device-width', () => {
+    it('should return false', () => {
+      expect(isContentWidth('foo')).toBe(false)
+    })
+  })
+})
+
+describe('isContentInitialScale', () => {
+  describe('case where argument is greater than 10', () => {
+    it('should return false', () => {
+      expect(isContentInitialScale(11)).toBe(false)
+    })
   })
 
-  test('whether `isContentInitialScale` determines `10` to be ContentInitialScale', () => {
-    expect(isContentInitialScale(10)).toBe(true)
+  describe('case where argument is 10', () => {
+    it('should return true', () => {
+      expect(isContentInitialScale(10)).toBe(true)
+    })
   })
 
-  test('whether `isContentInitialScale` determines `-1` not to be ContentInitialScale', () => {
-    expect(isContentInitialScale(-1)).toBe(false)
+  describe('case where argument is less than 10 and greater than 0', () => {
+    it('should return true', () => {
+      expect(isContentInitialScale(1)).toBe(true)
+    })
   })
 
-  test('whether `isContentInitialScale` determines `11` not to be ContentInitialScale', () => {
-    expect(isContentInitialScale(11)).toBe(false)
+  describe('case where argument is 0', () => {
+    it('should return true', () => {
+      expect(isContentInitialScale(0)).toBe(true)
+    })
   })
 
-  test("whether `isContentInitialScale` determines `'1'` not to be ContentInitialScale", () => {
-    expect(isContentInitialScale('1')).toBe(false)
+  describe('case where argument is less than 0', () => {
+    it('should return false', () => {
+      expect(isContentInitialScale(-1)).toBe(false)
+    })
+  })
+})
+
+describe('isContentMinWidth', () => {
+  describe('case where argument is infinity', () => {
+    it('should return false', () => {
+      expect(isContentMinWidth(Infinity)).toBe(false)
+    })
   })
 
-  test('whether `isContentMinWidth` determines `0` to be ContentMinWidth', () => {
-    expect(isContentMinWidth(0)).toBe(true)
+  describe('case where argument is less than infinity and greater than 0', () => {
+    it('should return true', () => {
+      expect(isContentMinWidth(414)).toBe(true)
+    })
   })
 
-  test('whether `isContentMinWidth` determines `Infinity` not to be ContentMinWidth', () => {
-    expect(isContentMinWidth(Infinity)).toBe(false)
+  describe('case where argument is 0', () => {
+    it('should return true', () => {
+      expect(isContentMinWidth(0)).toBe(true)
+    })
   })
 
-  test("whether `isContentMinWidth` determines `'375'` not to be ContentMinWidth", () => {
-    expect(isContentMinWidth('375')).toBe(false)
+  describe('case where argument is less than 0', () => {
+    it('should return false', () => {
+      expect(isContentMinWidth(-1)).toBe(false)
+    })
+  })
+})
+
+describe('isContentMaxWidth', () => {
+  describe('case where argument is infinity', () => {
+    it('should return true', () => {
+      expect(isContentMaxWidth(Infinity)).toBe(true)
+    })
   })
 
-  test('whether `isContentMaxWidth` determines `Infinity` to be ContentMaxWidth', () => {
-    expect(isContentMaxWidth(Infinity)).toBe(true)
+  describe('case where argument is less than infinity and greater than 0', () => {
+    it('should return true', () => {
+      expect(isContentMaxWidth(768)).toBe(true)
+    })
   })
 
-  test('whether `isContentMaxWidth` determines `0` not to be ContentMaxWidth', () => {
-    expect(isContentMaxWidth(0)).toBe(false)
+  describe('case where argument is 0', () => {
+    it('should return false', () => {
+      expect(isContentMaxWidth(0)).toBe(false)
+    })
   })
 
-  test("whether `isContentMaxWidth` determines `'375'` not to be ContentMaxWidth", () => {
-    expect(isContentMaxWidth('375')).toBe(false)
+  describe('case where argument is less than 0', () => {
+    it('should return false', () => {
+      expect(isContentMaxWidth(-1)).toBe(false)
+    })
   })
 })
 

@@ -95,8 +95,8 @@ describe('side effects', () => {
   })
 
   describe('updating content attribute of viewport meta element', () => {
-    describe('case where viewport width is less than min-width in merged content attributes', () => {
-      it('updates width to min-width and initial-scale to value that does not cause scrolling', async () => {
+    describe('case where viewport width is less than minWidth property of object whose index in mediaSpecificParametersList array is 1', () => {
+      it('updates width to minimum width and initial-scale to value that fits minimum width into viewport', async () => {
         const viewportWidth = 320
         const minWidth = 414
         Object.defineProperty(document.documentElement, 'clientWidth', {
@@ -117,8 +117,8 @@ describe('side effects', () => {
       })
     })
 
-    describe('case where viewport width is greater than max-width in merged content attributes', () => {
-      it('updates width to max-width and initial-scale to value that does not cause scrolling', async () => {
+    describe('case where viewport width is less than maxWidth property of object whose index in mediaSpecificParametersList array is 1', () => {
+      it('updates width to maximum width and initial-scale to value that fits maximum width into viewport', async () => {
         const viewportWidth = 1024
         const maxWidth = 768
         Object.defineProperty(document.documentElement, 'clientWidth', {
@@ -142,8 +142,8 @@ describe('side effects', () => {
 })
 
 describe('setContent', () => {
-  describe('merging current content object and argument content object', () => {
-    it('uses properties of argument content object', async () => {
+  describe('merging current mediaSpecificParametersList array and argument', () => {
+    it('merges content property in object with index 1 of current mediaSpecificParametersList and argument object, with rule that values in argument object overwrites values in current mediaSpecificParametersList', async () => {
       const width = 640
       const initialScale = 2
       const minWidth = 414
@@ -165,8 +165,8 @@ describe('setContent', () => {
   })
 
   describe('updating content attribute of viewport meta element', () => {
-    describe('case where viewport width is less than min-width in argument content object', () => {
-      it('updates width to min-width and initial-scale to value that does not cause scrolling', async () => {
+    describe('case where viewport width is less than minWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+      it('updates width to minimum width and initial-scale to value that fits minimum width into viewport', async () => {
         const viewportWidth = 320
         const minWidth = 414
         Object.defineProperty(document.documentElement, 'clientWidth', {
@@ -187,8 +187,8 @@ describe('setContent', () => {
       })
     })
 
-    describe('case where viewport width is greater than max-width in argument content object', () => {
-      it('updates width to max-width and initial-scale to value that does not cause scrolling', async () => {
+    describe('case where viewport width is less than maxWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+      it('updates width to maximum width and initial-scale to value that fits maximum width into viewport', async () => {
         const viewportWidth = 1024
         const maxWidth = 768
         Object.defineProperty(document.documentElement, 'clientWidth', {
@@ -296,8 +296,8 @@ describe('updateReference', () => {
 })
 
 describe('constructor of ViewportExtra class', () => {
-  describe('merging current min-width and argument min-width', () => {
-    it('uses argument min-width and uses properties of current content object for rest', async () => {
+  describe('merging current mediaSpecificParametersList array and argument number', () => {
+    it('overwrites content.minWidth property in object with index 1 of current mediaSpecificParametersList with argument number', async () => {
       const width = 'device-width'
       const initialScale = 1
       const minWidth = 414
@@ -317,8 +317,8 @@ describe('constructor of ViewportExtra class', () => {
     })
   })
 
-  describe('merging current content object and argument content object', () => {
-    it('uses properties of argument content object', async () => {
+  describe('merging current mediaSpecificParametersList array and argument object', () => {
+    it('merges content property in object with index 1 of current mediaSpecificParametersList and argument object, with rule that values in argument object overwrites values in current mediaSpecificParametersList', async () => {
       const width = 640
       const initialScale = 2
       const minWidth = 414
@@ -340,8 +340,8 @@ describe('constructor of ViewportExtra class', () => {
   })
 
   describe('updating content attribute of viewport meta element', () => {
-    describe('case where viewport width is less than min-width in argument content object or as argument number', () => {
-      it('updates width to min-width and initial-scale to value that does not cause scrolling', async () => {
+    describe('case where viewport width is less than minWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+      it('updates width to minimum width and initial-scale to value that fits minimum width into viewport', async () => {
         const viewportWidth = 320
         const minWidth = 414
         Object.defineProperty(document.documentElement, 'clientWidth', {
@@ -362,8 +362,8 @@ describe('constructor of ViewportExtra class', () => {
       })
     })
 
-    describe('case where viewport width is greater than max-width in argument content object', () => {
-      it('updates width to max-width and initial-scale to value that does not cause scrolling', async () => {
+    describe('case where viewport width is less than maxWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+      it('updates width to maximum width and initial-scale to value that fits maximum width into viewport', async () => {
         const viewportWidth = 1024
         const maxWidth = 768
         Object.defineProperty(document.documentElement, 'clientWidth', {
@@ -387,8 +387,8 @@ describe('constructor of ViewportExtra class', () => {
 })
 
 describe('setContent method of ViewportExtra class', () => {
-  describe('merging current content object and argument content object', () => {
-    it('uses properties of argument content object', async () => {
+  describe('merging current mediaSpecificParametersList array and argument', () => {
+    it('merges content property in object with index 1 of current mediaSpecificParametersList and argument object, with rule that values in argument object overwrites values in current mediaSpecificParametersList', async () => {
       const width = 640
       const initialScale = 2
       const minWidth = 414
@@ -410,8 +410,8 @@ describe('setContent method of ViewportExtra class', () => {
   })
 
   describe('updating content attribute of viewport meta element', () => {
-    describe('case where viewport width is less than min-width in argument content object', () => {
-      it('updates width to min-width and initial-scale to value that does not cause scrolling', async () => {
+    describe('case where viewport width is less than minWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+      it('updates width to minimum width and initial-scale to value that fits minimum width into viewport', async () => {
         const viewportWidth = 320
         const minWidth = 414
         Object.defineProperty(document.documentElement, 'clientWidth', {
@@ -432,8 +432,8 @@ describe('setContent method of ViewportExtra class', () => {
       })
     })
 
-    describe('case where viewport width is greater than max-width in argument content object', () => {
-      it('updates width to max-width and initial-scale to value that does not cause scrolling', async () => {
+    describe('case where viewport width is less than maxWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+      it('updates width to maximum width and initial-scale to value that fits maximum width into viewport', async () => {
         const viewportWidth = 1024
         const maxWidth = 768
         Object.defineProperty(document.documentElement, 'clientWidth', {

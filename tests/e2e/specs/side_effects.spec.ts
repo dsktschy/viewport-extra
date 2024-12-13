@@ -16,7 +16,7 @@ test.beforeEach(async ({ page }) => {
   test.describe(`using ${(minified ? 'minified ' : '') + format} output`, () => {
     test.describe('updating content attribute of viewport meta element', () => {
       test.describe('case where min-width are set in data-extra-content attribute of viewport meta element or content attribute of viewport-extra meta element', () => {
-        test('width is updated to min-width and initial-scale is updated to value that does not cause scrolling, on browser whose viewport width is less than min-width', async ({
+        test('width is updated to minimum width and initial-scale is updated to value that fits minimum width into viewport, on browser whose viewport width is less than minimum width', async ({
           page,
           viewport
         }, { config: { projects } }) => {
@@ -54,7 +54,7 @@ test.beforeEach(async ({ page }) => {
       })
 
       test.describe('case where max-width are set in data-extra-content attribute of viewport meta element or content attribute of viewport-extra meta element', () => {
-        test('width is updated to max-width and initial-scale is updated to value that does not cause scrolling, on browser whose viewport width is greater than max-width', async ({
+        test('width is updated to maximum width and initial-scale is updated to value that fits maximum width into viewport, on browser whose viewport width is greater than maximum width', async ({
           page,
           viewport
         }, { config: { projects } }) => {
@@ -95,9 +95,9 @@ test.beforeEach(async ({ page }) => {
     // Following cases cannot be tested with vitest
     // Because vitest does not update size of document element when viewport element is updated
     // Run in only one format because purpose is to check library behavior, not to verify bundled code
-    test.describe('comparison with min-width and max-width, and computation of output initial-scale', () => {
+    test.describe('comparison with minimum and maximum width, and computation of output initial scale', () => {
       test.describe('case where content attribute of viewport meta element is valid', () => {
-        test('width of device is used for comparison, and initial-scale in content attributes of viewport and viewport-extra meta elements is applied to output initial-scale', async ({
+        test('width of window without scroll bars when scale is 1 is used for comparison, and initial-scale in content attributes of viewport and viewport-extra meta elements is applied to output initial scale', async ({
           page,
           viewport
         }, testInfo) => {
@@ -147,7 +147,7 @@ test.beforeEach(async ({ page }) => {
       })
 
       test.describe('case where content attribute of viewport meta element is invalid', () => {
-        test('width of device is used for comparison, and initial-scale in default content object is applied to output initial-scale', async ({
+        test('width of window without scroll bars when scale is 1 is used for comparison, and default initialScale value of Content type is applied to output initial scale', async ({
           page,
           viewport
         }, testInfo) => {

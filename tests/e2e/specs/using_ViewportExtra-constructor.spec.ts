@@ -14,8 +14,8 @@ test.beforeEach(async ({ page }) => {
 ].forEach(({ format, moduleFlag, minified }, formatIndex) => {
   test.describe(`using ${(minified ? 'minified ' : '') + format} output`, () => {
     test.describe('updating content attribute of viewport meta element', () => {
-      test.describe('case where min-width is passed as argument number', () => {
-        test('width is updated to min-width and initial-scale is updated to value that does not cause scrolling, on browser whose viewport width is less than min-width', async ({
+      test.describe('case where minimum width is provided as argument number', () => {
+        test('width is updated to minimum width and initial-scale is updated to value that fits minimum width into viewport, on browser whose viewport width is less than minimum width', async ({
           page,
           viewport
         }, { config: { projects } }) => {
@@ -52,8 +52,8 @@ test.beforeEach(async ({ page }) => {
         })
       })
 
-      test.describe('case where min-width are set in argument content object', () => {
-        test('width is updated to min-width and initial-scale is updated to value that does not cause scrolling, on browser whose viewport width is less than min-width', async ({
+      test.describe('case where minWidth property is set in argument object', () => {
+        test('width is updated to minimum width and initial-scale is updated to value that fits minimum width into viewport, on browser whose viewport width is less than minimum width', async ({
           page,
           viewport
         }, { config: { projects } }) => {
@@ -90,8 +90,8 @@ test.beforeEach(async ({ page }) => {
         })
       })
 
-      test.describe('case where max-width are set in argument content object', () => {
-        test('width is updated to max-width and initial-scale is updated to value that does not cause scrolling, on browser whose viewport width is greater than max-width', async ({
+      test.describe('case where maxWidth property is set in argument object', () => {
+        test('width is updated to maximum width and initial-scale is updated to value that fits maximum width into viewport, on browser whose viewport width is greater than maximum width', async ({
           page,
           viewport
         }, { config: { projects } }) => {
@@ -132,10 +132,10 @@ test.beforeEach(async ({ page }) => {
     // Following cases cannot be tested with vitest
     // Because vitest does not update size of document element when viewport element is updated
     // Run in only one format because purpose is to check library behavior, not to verify bundled code
-    test.describe('comparison with min-width and max-width, and computation of output initial-scale', () => {
-      // When initial-scale is 1 or less, document.documentElement.clientWidth is equal to viewport width
-      test.describe('case where initial-scale before running setContent is 1 or less', () => {
-        test('width of viewport is used for comparison, and initialScale property in content object is applied to output initial-scale', async ({
+    test.describe('comparison with minimum and maximum width, and computation of output initial scale', () => {
+      // When initial scale is 1 or less, document.documentElement.clientWidth is equal to viewport width
+      test.describe('case where initial scale before running ViewportExtra constructor is 1 or less', () => {
+        test('width of viewport is used for comparison, and initialScale property in argument is applied to output initial scale', async ({
           page,
           viewport
         }, testInfo) => {
@@ -192,9 +192,9 @@ test.beforeEach(async ({ page }) => {
         })
       })
 
-      // When initial-scale is greater than 1, document.documentElement.clientWidth is not equal to viewport width
-      test.describe('case where initial-scale before running setContent is greater than 1', () => {
-        test('width of device is used for comparison, and initialScale property in content object is applied to output initial-scale', async ({
+      // When initial scale is greater than 1, document.documentElement.clientWidth is not equal to viewport width
+      test.describe('case where initial scale before running ViewportExtra constructor is greater than 1', () => {
+        test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in argument is applied to output initial scale', async ({
           page,
           viewport
         }, testInfo) => {
