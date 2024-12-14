@@ -1,5 +1,4 @@
 import { expect, test } from '@playwright/test'
-import { convertToViewportContentString } from '../modules/NumberStringRecord.js'
 import { getViewportContentString } from '../modules/PlaywrightPage.js'
 import { getViewportSize } from '../modules/PlaywrightFullProjectList.js'
 
@@ -21,8 +20,6 @@ test.beforeEach(async ({ page }) => {
               page,
               viewport
             }, { config: { projects } }) => {
-              const width = 'device-width'
-              const initialScale = 1
               const minWidth =
                 getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
               const documentClientWidth = viewport ? viewport.width : undefined
@@ -32,7 +29,7 @@ test.beforeEach(async ({ page }) => {
                   <head>
                     <meta charset="UTF-8" />
                     <title>Document</title>
-                    <meta name="viewport" content="width=${width},initial-scale=${initialScale}" />
+                    <meta name="viewport" content="width=device-width,initial-scale=1" />
                   </head>
                   <body>
                     <script data-min-width="${minWidth}"></script>
@@ -43,11 +40,8 @@ test.beforeEach(async ({ page }) => {
               expect(await getViewportContentString(page)).toBe(
                 documentClientWidth && minWidth > 0
                   ? documentClientWidth < minWidth
-                    ? convertToViewportContentString({
-                        width: minWidth,
-                        initialScale: documentClientWidth / minWidth
-                      })
-                    : convertToViewportContentString({ width, initialScale })
+                    ? `initial-scale=${(documentClientWidth / minWidth) * 1},width=${minWidth}`
+                    : 'initial-scale=1,width=device-width'
                   : ''
               )
             })
@@ -58,8 +52,6 @@ test.beforeEach(async ({ page }) => {
               page,
               viewport
             }, { config: { projects } }) => {
-              const width = 'device-width'
-              const initialScale = 1
               const maxWidth =
                 getViewportSize(projects, 'lg')?.use.viewport?.width ?? Infinity
               const documentClientWidth = viewport ? viewport.width : undefined
@@ -69,7 +61,7 @@ test.beforeEach(async ({ page }) => {
                   <head>
                     <meta charset="UTF-8" />
                     <title>Document</title>
-                    <meta name="viewport" content="width=${width},initial-scale=${initialScale}" />
+                    <meta name="viewport" content="width=device-width,initial-scale=1" />
                   </head>
                   <body>
                     <script data-max-width="${maxWidth}"></script>
@@ -80,11 +72,8 @@ test.beforeEach(async ({ page }) => {
               expect(await getViewportContentString(page)).toBe(
                 documentClientWidth && maxWidth < Infinity
                   ? documentClientWidth > maxWidth
-                    ? convertToViewportContentString({
-                        width: maxWidth,
-                        initialScale: documentClientWidth / maxWidth
-                      })
-                    : convertToViewportContentString({ width, initialScale })
+                    ? `initial-scale=${(documentClientWidth / maxWidth) * 1},width=${maxWidth}`
+                    : 'initial-scale=1,width=device-width'
                   : ''
               )
             })
@@ -104,17 +93,14 @@ test.beforeEach(async ({ page }) => {
               testInfo.skip(formatIndex !== 0)
               const { config } = testInfo
               const { projects } = config
-              const width = 'device-width'
-              const initialScaleBefore = 0.5
-              const initialScaleAfter = 2
               const minWidth =
                 (getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0) /
-                initialScaleBefore
+                0.5
               const maxWidth =
                 (getViewportSize(projects, 'lg')?.use.viewport?.width ??
-                  Infinity) / initialScaleBefore
+                  Infinity) / 0.5
               const documentClientWidth = viewport
-                ? viewport.width / initialScaleBefore
+                ? viewport.width / 0.5
                 : undefined
               await page.setContent(`
                 <!doctype html>
@@ -122,10 +108,10 @@ test.beforeEach(async ({ page }) => {
                   <head>
                     <meta charset="UTF-8" />
                     <title>Document</title>
-                    <meta name="viewport" content="width=${width},initial-scale=${initialScaleBefore}" />
+                    <meta name="viewport" content="width=device-width,initial-scale=0.5" />
                   </head>
                   <body>
-                    <script data-initial-scale="${initialScaleAfter}" data-min-width="${minWidth}" data-max-width="${maxWidth}"></script>
+                    <script data-initial-scale="2" data-min-width="${minWidth}" data-max-width="${maxWidth}"></script>
                     <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
                   </body>
                 </html>
@@ -133,21 +119,10 @@ test.beforeEach(async ({ page }) => {
               expect(await getViewportContentString(page)).toBe(
                 documentClientWidth && minWidth > 0 && maxWidth < Infinity
                   ? documentClientWidth < minWidth
-                    ? convertToViewportContentString({
-                        width: minWidth,
-                        initialScale:
-                          (documentClientWidth / minWidth) * initialScaleAfter
-                      })
+                    ? `initial-scale=${(documentClientWidth / minWidth) * 2},width=${minWidth}`
                     : documentClientWidth > maxWidth
-                      ? convertToViewportContentString({
-                          width: maxWidth,
-                          initialScale:
-                            (documentClientWidth / maxWidth) * initialScaleAfter
-                        })
-                      : convertToViewportContentString({
-                          width,
-                          initialScale: initialScaleAfter
-                        })
+                      ? `initial-scale=${(documentClientWidth / maxWidth) * 2},width=${maxWidth}`
+                      : 'initial-scale=2,width=device-width'
                   : ''
               )
             })
@@ -162,9 +137,6 @@ test.beforeEach(async ({ page }) => {
               testInfo.skip(formatIndex !== 0)
               const { config } = testInfo
               const { projects } = config
-              const width = 'device-width'
-              const initialScaleBefore = 2
-              const initialScaleAfter = 0.5
               const minWidth =
                 getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
               const maxWidth =
@@ -176,10 +148,10 @@ test.beforeEach(async ({ page }) => {
                   <head>
                     <meta charset="UTF-8" />
                     <title>Document</title>
-                    <meta name="viewport" content="width=${width},initial-scale=${initialScaleBefore}" />
+                    <meta name="viewport" content="width=device-width,initial-scale=2" />
                   </head>
                   <body>
-                    <script data-initial-scale="${initialScaleAfter}" data-min-width="${minWidth}" data-max-width="${maxWidth}"></script>
+                    <script data-initial-scale="0.5" data-min-width="${minWidth}" data-max-width="${maxWidth}"></script>
                     <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
                   </body>
                 </html>
@@ -187,21 +159,10 @@ test.beforeEach(async ({ page }) => {
               expect(await getViewportContentString(page)).toBe(
                 documentClientWidth && minWidth > 0 && maxWidth < Infinity
                   ? documentClientWidth < minWidth
-                    ? convertToViewportContentString({
-                        width: minWidth,
-                        initialScale:
-                          (documentClientWidth / minWidth) * initialScaleAfter
-                      })
+                    ? `initial-scale=${(documentClientWidth / minWidth) * 0.5},width=${minWidth}`
                     : documentClientWidth > maxWidth
-                      ? convertToViewportContentString({
-                          width: maxWidth,
-                          initialScale:
-                            (documentClientWidth / maxWidth) * initialScaleAfter
-                        })
-                      : convertToViewportContentString({
-                          width,
-                          initialScale: initialScaleAfter
-                        })
+                      ? `initial-scale=${(documentClientWidth / maxWidth) * 0.5},width=${maxWidth}`
+                      : 'initial-scale=0.5,width=device-width'
                   : ''
               )
             })
@@ -216,8 +177,6 @@ test.beforeEach(async ({ page }) => {
               page,
               viewport
             }, { config: { projects } }) => {
-              const width = 'device-width'
-              const initialScale = 1
               const minWidth =
                 getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
               const documentClientWidth = viewport ? viewport.width : undefined
@@ -227,7 +186,7 @@ test.beforeEach(async ({ page }) => {
                   <head>
                     <meta charset="UTF-8" />
                     <title>Document</title>
-                    <meta name="viewport" content="width=${width},initial-scale=${initialScale}" />
+                    <meta name="viewport" content="width=device-width,initial-scale=1" />
                   </head>
                   <body>
                     <script data-using-default-export data-min-width="${minWidth}"></script>
@@ -238,11 +197,8 @@ test.beforeEach(async ({ page }) => {
               expect(await getViewportContentString(page)).toBe(
                 documentClientWidth && minWidth > 0
                   ? documentClientWidth < minWidth
-                    ? convertToViewportContentString({
-                        width: minWidth,
-                        initialScale: documentClientWidth / minWidth
-                      })
-                    : convertToViewportContentString({ width, initialScale })
+                    ? `initial-scale=${(documentClientWidth / minWidth) * 1},width=${minWidth}`
+                    : 'initial-scale=1,width=device-width'
                   : ''
               )
             })
@@ -253,8 +209,6 @@ test.beforeEach(async ({ page }) => {
               page,
               viewport
             }, { config: { projects } }) => {
-              const width = 'device-width'
-              const initialScale = 1
               const maxWidth =
                 getViewportSize(projects, 'lg')?.use.viewport?.width ?? Infinity
               const documentClientWidth = viewport ? viewport.width : undefined
@@ -264,7 +218,7 @@ test.beforeEach(async ({ page }) => {
                   <head>
                     <meta charset="UTF-8" />
                     <title>Document</title>
-                    <meta name="viewport" content="width=${width},initial-scale=${initialScale}" />
+                    <meta name="viewport" content="width=device-width,initial-scale=1" />
                   </head>
                   <body>
                     <script data-using-default-export data-max-width="${maxWidth}"></script>
@@ -275,11 +229,8 @@ test.beforeEach(async ({ page }) => {
               expect(await getViewportContentString(page)).toBe(
                 documentClientWidth && maxWidth < Infinity
                   ? documentClientWidth > maxWidth
-                    ? convertToViewportContentString({
-                        width: maxWidth,
-                        initialScale: documentClientWidth / maxWidth
-                      })
-                    : convertToViewportContentString({ width, initialScale })
+                    ? `initial-scale=${(documentClientWidth / maxWidth) * 1},width=${maxWidth}`
+                    : 'initial-scale=1,width=device-width'
                   : ''
               )
             })
@@ -299,17 +250,14 @@ test.beforeEach(async ({ page }) => {
               testInfo.skip(formatIndex !== 0)
               const { config } = testInfo
               const { projects } = config
-              const width = 'device-width'
-              const initialScaleBefore = 0.5
-              const initialScaleAfter = 2
               const minWidth =
                 (getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0) /
-                initialScaleBefore
+                0.5
               const maxWidth =
                 (getViewportSize(projects, 'lg')?.use.viewport?.width ??
-                  Infinity) / initialScaleBefore
+                  Infinity) / 0.5
               const documentClientWidth = viewport
-                ? viewport.width / initialScaleBefore
+                ? viewport.width / 0.5
                 : undefined
               await page.setContent(`
                 <!doctype html>
@@ -317,10 +265,10 @@ test.beforeEach(async ({ page }) => {
                   <head>
                     <meta charset="UTF-8" />
                     <title>Document</title>
-                    <meta name="viewport" content="width=${width},initial-scale=${initialScaleBefore}" />
+                    <meta name="viewport" content="width=device-width,initial-scale=0.5" />
                   </head>
                   <body>
-                    <script data-using-default-export data-initial-scale="${initialScaleAfter}" data-min-width="${minWidth}" data-max-width="${maxWidth}"></script>
+                    <script data-using-default-export data-initial-scale="2" data-min-width="${minWidth}" data-max-width="${maxWidth}"></script>
                     <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
                   </body>
                 </html>
@@ -328,21 +276,10 @@ test.beforeEach(async ({ page }) => {
               expect(await getViewportContentString(page)).toBe(
                 documentClientWidth && minWidth > 0 && maxWidth < Infinity
                   ? documentClientWidth < minWidth
-                    ? convertToViewportContentString({
-                        width: minWidth,
-                        initialScale:
-                          (documentClientWidth / minWidth) * initialScaleAfter
-                      })
+                    ? `initial-scale=${(documentClientWidth / minWidth) * 2},width=${minWidth}`
                     : documentClientWidth > maxWidth
-                      ? convertToViewportContentString({
-                          width: maxWidth,
-                          initialScale:
-                            (documentClientWidth / maxWidth) * initialScaleAfter
-                        })
-                      : convertToViewportContentString({
-                          width,
-                          initialScale: initialScaleAfter
-                        })
+                      ? `initial-scale=${(documentClientWidth / maxWidth) * 2},width=${maxWidth}`
+                      : 'initial-scale=2,width=device-width'
                   : ''
               )
             })
@@ -357,9 +294,6 @@ test.beforeEach(async ({ page }) => {
               testInfo.skip(formatIndex !== 0)
               const { config } = testInfo
               const { projects } = config
-              const width = 'device-width'
-              const initialScaleBefore = 2
-              const initialScaleAfter = 0.5
               const minWidth =
                 getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
               const maxWidth =
@@ -371,10 +305,10 @@ test.beforeEach(async ({ page }) => {
                   <head>
                     <meta charset="UTF-8" />
                     <title>Document</title>
-                    <meta name="viewport" content="width=${width},initial-scale=${initialScaleBefore}" />
+                    <meta name="viewport" content="width=device-width,initial-scale=2" />
                   </head>
                   <body>
-                    <script data-using-default-export data-initial-scale="${initialScaleAfter}" data-min-width="${minWidth}" data-max-width="${maxWidth}"></script>
+                    <script data-using-default-export data-initial-scale="0.5" data-min-width="${minWidth}" data-max-width="${maxWidth}"></script>
                     <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
                   </body>
                 </html>
@@ -382,21 +316,10 @@ test.beforeEach(async ({ page }) => {
               expect(await getViewportContentString(page)).toBe(
                 documentClientWidth && minWidth > 0 && maxWidth < Infinity
                   ? documentClientWidth < minWidth
-                    ? convertToViewportContentString({
-                        width: minWidth,
-                        initialScale:
-                          (documentClientWidth / minWidth) * initialScaleAfter
-                      })
+                    ? `initial-scale=${(documentClientWidth / minWidth) * 0.5},width=${minWidth}`
                     : documentClientWidth > maxWidth
-                      ? convertToViewportContentString({
-                          width: maxWidth,
-                          initialScale:
-                            (documentClientWidth / maxWidth) * initialScaleAfter
-                        })
-                      : convertToViewportContentString({
-                          width,
-                          initialScale: initialScaleAfter
-                        })
+                      ? `initial-scale=${(documentClientWidth / maxWidth) * 0.5},width=${maxWidth}`
+                      : 'initial-scale=0.5,width=device-width'
                   : ''
               )
             })
@@ -411,8 +334,6 @@ test.beforeEach(async ({ page }) => {
               page,
               viewport
             }, { config: { projects } }) => {
-              const width = 'device-width'
-              const initialScale = 1
               const minWidth =
                 getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
               const documentClientWidth = viewport ? viewport.width : undefined
@@ -422,7 +343,7 @@ test.beforeEach(async ({ page }) => {
                   <head>
                     <meta charset="UTF-8" />
                     <title>Document</title>
-                    <meta name="viewport" content="width=${width},initial-scale=${initialScale}" />
+                    <meta name="viewport" content="width=device-width,initial-scale=1" />
                     <script src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>
                   </head>
                   <body>
@@ -434,11 +355,8 @@ test.beforeEach(async ({ page }) => {
               expect(await getViewportContentString(page)).toBe(
                 documentClientWidth && minWidth > 0
                   ? documentClientWidth < minWidth
-                    ? convertToViewportContentString({
-                        width: minWidth,
-                        initialScale: documentClientWidth / minWidth
-                      })
-                    : convertToViewportContentString({ width, initialScale })
+                    ? `initial-scale=${(documentClientWidth / minWidth) * 1},width=${minWidth}`
+                    : 'initial-scale=1,width=device-width'
                   : ''
               )
             })
@@ -449,8 +367,6 @@ test.beforeEach(async ({ page }) => {
               page,
               viewport
             }, { config: { projects } }) => {
-              const width = 'device-width'
-              const initialScale = 1
               const maxWidth =
                 getViewportSize(projects, 'lg')?.use.viewport?.width ?? Infinity
               const documentClientWidth = viewport ? viewport.width : undefined
@@ -460,7 +376,7 @@ test.beforeEach(async ({ page }) => {
                   <head>
                     <meta charset="UTF-8" />
                     <title>Document</title>
-                    <meta name="viewport" content="width=${width},initial-scale=${initialScale}" />
+                    <meta name="viewport" content="width=device-width,initial-scale=1" />
                     <script src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>
                   </head>
                   <body>
@@ -472,11 +388,8 @@ test.beforeEach(async ({ page }) => {
               expect(await getViewportContentString(page)).toBe(
                 documentClientWidth && maxWidth < Infinity
                   ? documentClientWidth > maxWidth
-                    ? convertToViewportContentString({
-                        width: maxWidth,
-                        initialScale: documentClientWidth / maxWidth
-                      })
-                    : convertToViewportContentString({ width, initialScale })
+                    ? `initial-scale=${(documentClientWidth / maxWidth) * 1},width=${maxWidth}`
+                    : 'initial-scale=1,width=device-width'
                   : ''
               )
             })
@@ -496,17 +409,14 @@ test.beforeEach(async ({ page }) => {
               testInfo.skip(formatIndex !== 0)
               const { config } = testInfo
               const { projects } = config
-              const width = 'device-width'
-              const initialScaleBefore = 0.5
-              const initialScaleAfter = 2
               const minWidth =
                 (getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0) /
-                initialScaleBefore
+                0.5
               const maxWidth =
                 (getViewportSize(projects, 'lg')?.use.viewport?.width ??
-                  Infinity) / initialScaleBefore
+                  Infinity) / 0.5
               const documentClientWidth = viewport
-                ? viewport.width / initialScaleBefore
+                ? viewport.width / 0.5
                 : undefined
               await page.setContent(`
                 <!doctype html>
@@ -514,11 +424,11 @@ test.beforeEach(async ({ page }) => {
                   <head>
                     <meta charset="UTF-8" />
                     <title>Document</title>
-                    <meta name="viewport" content="width=${width},initial-scale=${initialScaleBefore}" />
+                    <meta name="viewport" content="width=device-width,initial-scale=0.5" />
                     <script src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>
                   </head>
                   <body>
-                    <script data-initial-scale="${initialScaleAfter}" data-min-width="${minWidth}" data-max-width="${maxWidth}"></script>
+                    <script data-initial-scale="2" data-min-width="${minWidth}" data-max-width="${maxWidth}"></script>
                     <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
                   </body>
                 </html>
@@ -526,21 +436,10 @@ test.beforeEach(async ({ page }) => {
               expect(await getViewportContentString(page)).toBe(
                 documentClientWidth && minWidth > 0 && maxWidth < Infinity
                   ? documentClientWidth < minWidth
-                    ? convertToViewportContentString({
-                        width: minWidth,
-                        initialScale:
-                          (documentClientWidth / minWidth) * initialScaleAfter
-                      })
+                    ? `initial-scale=${(documentClientWidth / minWidth) * 2},width=${minWidth}`
                     : documentClientWidth > maxWidth
-                      ? convertToViewportContentString({
-                          width: maxWidth,
-                          initialScale:
-                            (documentClientWidth / maxWidth) * initialScaleAfter
-                        })
-                      : convertToViewportContentString({
-                          width,
-                          initialScale: initialScaleAfter
-                        })
+                      ? `initial-scale=${(documentClientWidth / maxWidth) * 2},width=${maxWidth}`
+                      : 'initial-scale=2,width=device-width'
                   : ''
               )
             })
@@ -555,9 +454,6 @@ test.beforeEach(async ({ page }) => {
               testInfo.skip(formatIndex !== 0)
               const { config } = testInfo
               const { projects } = config
-              const width = 'device-width'
-              const initialScaleBefore = 2
-              const initialScaleAfter = 0.5
               const minWidth =
                 getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
               const maxWidth =
@@ -569,11 +465,11 @@ test.beforeEach(async ({ page }) => {
                   <head>
                     <meta charset="UTF-8" />
                     <title>Document</title>
-                    <meta name="viewport" content="width=${width},initial-scale=${initialScaleBefore}" />
+                    <meta name="viewport" content="width=device-width,initial-scale=2" />
                     <script src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>
                   </head>
                   <body>
-                    <script data-initial-scale="${initialScaleAfter}" data-min-width="${minWidth}" data-max-width="${maxWidth}"></script>
+                    <script data-initial-scale="0.5" data-min-width="${minWidth}" data-max-width="${maxWidth}"></script>
                     <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
                   </body>
                 </html>
@@ -581,21 +477,10 @@ test.beforeEach(async ({ page }) => {
               expect(await getViewportContentString(page)).toBe(
                 documentClientWidth && minWidth > 0 && maxWidth < Infinity
                   ? documentClientWidth < minWidth
-                    ? convertToViewportContentString({
-                        width: minWidth,
-                        initialScale:
-                          (documentClientWidth / minWidth) * initialScaleAfter
-                      })
+                    ? `initial-scale=${(documentClientWidth / minWidth) * 0.5},width=${minWidth}`
                     : documentClientWidth > maxWidth
-                      ? convertToViewportContentString({
-                          width: maxWidth,
-                          initialScale:
-                            (documentClientWidth / maxWidth) * initialScaleAfter
-                        })
-                      : convertToViewportContentString({
-                          width,
-                          initialScale: initialScaleAfter
-                        })
+                      ? `initial-scale=${(documentClientWidth / maxWidth) * 0.5},width=${maxWidth}`
+                      : 'initial-scale=0.5,width=device-width'
                   : ''
               )
             })
