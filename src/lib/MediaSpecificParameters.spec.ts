@@ -5,7 +5,6 @@ import {
   createContentAttribute,
   setOptionalPartialContent
 } from './MediaSpecificParameters.js'
-import { defaultContent } from './Content.js'
 
 describe('createMediaSpecificParameters', () => {
   describe('case where argument has properties', () => {
@@ -35,7 +34,12 @@ describe('createMediaSpecificParameters', () => {
   describe('case where argument has missing properties of MediaSpecificParameters type', () => {
     it('should return object with missing properties set to default value deeply', () => {
       expect(createMediaSpecificParameters({})).toStrictEqual({
-        content: defaultContent
+        content: {
+          width: 'device-width',
+          initialScale: 1,
+          minWidth: 0,
+          maxWidth: Infinity
+        }
       })
     })
   })
@@ -43,7 +47,12 @@ describe('createMediaSpecificParameters', () => {
   describe('case where argument is undefined', () => {
     it('should return object with all properties that have default value', () => {
       expect(createMediaSpecificParameters()).toStrictEqual({
-        content: defaultContent
+        content: {
+          width: 'device-width',
+          initialScale: 1,
+          minWidth: 0,
+          maxWidth: Infinity
+        }
       })
     })
   })

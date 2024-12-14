@@ -1,5 +1,4 @@
 import { expect, test } from '@playwright/test'
-import { convertToViewportContentString } from '../modules/NumberStringRecord.js'
 import { getViewportContentString } from '../modules/PlaywrightPage.js'
 import { getMaximumWidthViewportSize } from '../modules/PlaywrightFullProjectList.js'
 
@@ -19,8 +18,6 @@ test.beforeEach(async ({ page }) => {
           page,
           viewport
         }, { config: { projects } }) => {
-          const width = 'device-width'
-          const initialScale = 1
           const maximumWidthViewportSize = getMaximumWidthViewportSize(projects)
           const minWidth = maximumWidthViewportSize.width
             ? maximumWidthViewportSize.width + 1
@@ -32,7 +29,7 @@ test.beforeEach(async ({ page }) => {
               <head>
                 <meta charset="UTF-8" />
                 <title>Document</title>
-                <meta name="viewport" content="width=${width},initial-scale=${initialScale}" />
+                <meta name="viewport" content="width=device-width,initial-scale=1" />
               </head>
               <body>
                 <script data-min-width-after-update-reference="${minWidth}"></script>
@@ -43,11 +40,8 @@ test.beforeEach(async ({ page }) => {
           expect(await getViewportContentString(page)).toBe(
             documentClientWidth && minWidth > 0
               ? documentClientWidth < minWidth
-                ? convertToViewportContentString({
-                    width: minWidth,
-                    initialScale: documentClientWidth / minWidth
-                  })
-                : convertToViewportContentString({ width, initialScale })
+                ? `initial-scale=${(documentClientWidth / minWidth) * 1},width=${minWidth}`
+                : 'initial-scale=1,width=device-width'
               : ''
           )
         })
@@ -58,8 +52,6 @@ test.beforeEach(async ({ page }) => {
           page,
           viewport
         }, { config: { projects } }) => {
-          const width = 'device-width'
-          const initialScale = 1
           const maximumWidthViewportSize = getMaximumWidthViewportSize(projects)
           const minWidth = maximumWidthViewportSize.width
             ? maximumWidthViewportSize.width + 1
@@ -71,7 +63,7 @@ test.beforeEach(async ({ page }) => {
               <head>
                 <meta charset="UTF-8" />
                 <title>Document</title>
-                <meta name="viewport" content="width=${width},initial-scale=${initialScale}" />
+                <meta name="viewport" content="width=device-width,initial-scale=1" />
               </head>
               <body>
                 <script data-using-default-export data-min-width-after-update-reference="${minWidth}"></script>
@@ -82,11 +74,8 @@ test.beforeEach(async ({ page }) => {
           expect(await getViewportContentString(page)).toBe(
             documentClientWidth && minWidth > 0
               ? documentClientWidth < minWidth
-                ? convertToViewportContentString({
-                    width: minWidth,
-                    initialScale: documentClientWidth / minWidth
-                  })
-                : convertToViewportContentString({ width, initialScale })
+                ? `initial-scale=${(documentClientWidth / minWidth) * 1},width=${minWidth}`
+                : 'initial-scale=1,width=device-width'
               : ''
           )
         })
@@ -97,8 +86,6 @@ test.beforeEach(async ({ page }) => {
           page,
           viewport
         }, { config: { projects } }) => {
-          const width = 'device-width'
-          const initialScale = 1
           const maximumWidthViewportSize = getMaximumWidthViewportSize(projects)
           const minWidth = maximumWidthViewportSize.width
             ? maximumWidthViewportSize.width + 1
@@ -110,7 +97,7 @@ test.beforeEach(async ({ page }) => {
               <head>
                 <meta charset="UTF-8" />
                 <title>Document</title>
-                <meta name="viewport" content="width=${width},initial-scale=${initialScale}" />
+                <meta name="viewport" content="width=device-width,initial-scale=1" />
                 <script src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>
               </head>
               <body>
@@ -122,11 +109,8 @@ test.beforeEach(async ({ page }) => {
           expect(await getViewportContentString(page)).toBe(
             documentClientWidth && minWidth > 0
               ? documentClientWidth < minWidth
-                ? convertToViewportContentString({
-                    width: minWidth,
-                    initialScale: documentClientWidth / minWidth
-                  })
-                : convertToViewportContentString({ width, initialScale })
+                ? `initial-scale=${(documentClientWidth / minWidth) * 1},width=${minWidth}`
+                : 'initial-scale=1,width=device-width'
               : ''
           )
         })

@@ -1,5 +1,4 @@
 import { expect, test } from '@playwright/test'
-import { convertToJsonString } from '../modules/NumberStringRecord.js'
 import { getGetContentResultString } from '../modules/PlaywrightPage.js'
 import { getViewportSize } from '../modules/PlaywrightFullProjectList.js'
 
@@ -18,8 +17,6 @@ test.beforeEach(async ({ page }) => {
         test('current content object is gotten', async ({ page }, {
           config: { projects }
         }) => {
-          const width = 'device-width'
-          const initialScale = 1
           const minWidth =
             getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
           const maxWidth =
@@ -30,7 +27,7 @@ test.beforeEach(async ({ page }) => {
               <head>
                 <meta charset="UTF-8" />
                 <title>Document</title>
-                <meta name="viewport" content="width=${width},initial-scale=${initialScale}" data-extra-content="min-width=${minWidth},max-width=${maxWidth}" />
+                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=${minWidth},max-width=${maxWidth}" />
               </head>
               <body>
                 <script data-get-content-result></script>
@@ -39,12 +36,7 @@ test.beforeEach(async ({ page }) => {
             </html>
           `)
           expect(await getGetContentResultString(page)).toBe(
-            convertToJsonString({
-              width,
-              initialScale,
-              minWidth,
-              maxWidth
-            })
+            `{"initialScale":1,"maxWidth":${maxWidth},"minWidth":${minWidth},"width":"device-width"}`
           )
         })
       })
@@ -53,8 +45,6 @@ test.beforeEach(async ({ page }) => {
         test('current content object is gotten', async ({ page }, {
           config: { projects }
         }) => {
-          const width = 'device-width'
-          const initialScale = 1
           const minWidth =
             getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
           const maxWidth =
@@ -65,7 +55,7 @@ test.beforeEach(async ({ page }) => {
               <head>
                 <meta charset="UTF-8" />
                 <title>Document</title>
-                <meta name="viewport" content="width=${width},initial-scale=${initialScale}" data-extra-content="min-width=${minWidth},max-width=${maxWidth}" />
+                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=${minWidth},max-width=${maxWidth}" />
               </head>
               <body>
                 <script data-using-default-export data-get-content-result></script>
@@ -74,12 +64,7 @@ test.beforeEach(async ({ page }) => {
             </html>
           `)
           expect(await getGetContentResultString(page)).toBe(
-            convertToJsonString({
-              width,
-              initialScale,
-              minWidth,
-              maxWidth
-            })
+            `{"initialScale":1,"maxWidth":${maxWidth},"minWidth":${minWidth},"width":"device-width"}`
           )
         })
       })
@@ -88,8 +73,6 @@ test.beforeEach(async ({ page }) => {
         test('current content object is gotten', async ({ page }, {
           config: { projects }
         }) => {
-          const width = 'device-width'
-          const initialScale = 1
           const minWidth =
             getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
           const maxWidth =
@@ -100,7 +83,7 @@ test.beforeEach(async ({ page }) => {
               <head>
                 <meta charset="UTF-8" />
                 <title>Document</title>
-                <meta name="viewport" content="width=${width},initial-scale=${initialScale}" data-extra-content="min-width=${minWidth},max-width=${maxWidth}" />
+                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=${minWidth},max-width=${maxWidth}" />
                 <script src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>
               </head>
               <body>
@@ -110,12 +93,7 @@ test.beforeEach(async ({ page }) => {
             </html>
           `)
           expect(await getGetContentResultString(page)).toBe(
-            convertToJsonString({
-              width,
-              initialScale,
-              minWidth,
-              maxWidth
-            })
+            `{"initialScale":1,"maxWidth":${maxWidth},"minWidth":${minWidth},"width":"device-width"}`
           )
         })
       })

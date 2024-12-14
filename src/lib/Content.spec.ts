@@ -4,7 +4,6 @@ import {
   isContentInitialScale,
   isContentMinWidth,
   isContentMaxWidth,
-  defaultContent,
   createContent,
   createPartialMediaSpecificParameters,
   mergeOptionalPartialContent,
@@ -164,23 +163,33 @@ describe('createContent', () => {
           maxWidth: 0
         })
       ).toStrictEqual({
-        width: defaultContent.width,
-        initialScale: defaultContent.initialScale,
-        minWidth: defaultContent.minWidth,
-        maxWidth: defaultContent.maxWidth
+        width: 'device-width',
+        initialScale: 1,
+        minWidth: 0,
+        maxWidth: Infinity
       })
     })
   })
 
   describe('case where argument is missing properties as Content type', () => {
     it('should return object with default values for missing properties as Content type', () => {
-      expect(createContent({})).toStrictEqual(defaultContent)
+      expect(createContent({})).toStrictEqual({
+        width: 'device-width',
+        initialScale: 1,
+        minWidth: 0,
+        maxWidth: Infinity
+      })
     })
   })
 
   describe('case where argument is undefined', () => {
     it('should return object with default values of Content type', () => {
-      expect(createContent()).toStrictEqual(defaultContent)
+      expect(createContent()).toStrictEqual({
+        width: 'device-width',
+        initialScale: 1,
+        minWidth: 0,
+        maxWidth: Infinity
+      })
     })
   })
 })
