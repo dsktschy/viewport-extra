@@ -1,10 +1,6 @@
 import { expect, test } from '@playwright/test'
 import { getViewportContentString } from '../modules/PlaywrightPage.js'
 import { getViewportSize } from '../modules/PlaywrightFullProjectList.js'
-
-test.beforeEach(async ({ page }) => {
-  await page.goto('/tests/e2e/__fixtures__/src/dummy.html')
-})
 ;[
   { format: 'es', moduleFlag: true, minified: false },
   { format: 'cjs', moduleFlag: true, minified: false },
@@ -15,6 +11,10 @@ test.beforeEach(async ({ page }) => {
     if (moduleFlag) {
       test.describe('using named export', () => {
         test.describe('updating content attribute of viewport meta element', () => {
+          test.beforeEach(async ({ page }) => {
+            await page.goto('/tests/e2e/__fixtures__/src/dummy.html')
+          })
+
           test.describe('case where minWidth property is set in first argument', () => {
             test('width is updated to minimum width and initial-scale is updated to value that fits minimum width into viewport, on browser whose viewport width is less than minimum width', async ({
               page,
@@ -84,17 +84,19 @@ test.beforeEach(async ({ page }) => {
         // Because vitest does not update size of document element when viewport element is updated
         // Run in only one format because purpose is to check library behavior, not to verify bundled code
         test.describe('comparison with minimum and maximum width, and computation of output initial scale', () => {
+          test.beforeEach(async ({ page }, testInfo) => {
+            testInfo.skip(formatIndex !== 0)
+            testInfo.skip(!['xs', 'xl'].includes(testInfo.project.name))
+            await page.goto('/tests/e2e/__fixtures__/src/dummy.html')
+          })
+
           test.describe('case where unscaledComputing property in merged globalParameters object is false', () => {
             // When initial scale is 1 or less, document.documentElement.clientWidth is equal to viewport width
             test.describe('case where initial scale before running setParameters is 1 or less', () => {
               test('width of viewport is used for comparison, and initialScale property in first argument is applied to output initial scale', async ({
                 page,
                 viewport
-              }, testInfo) => {
-                testInfo.skip(formatIndex !== 0)
-                const { config, project } = testInfo
-                testInfo.skip(!['xs', 'xl'].includes(project.name))
-                const { projects } = config
+              }, { config: { projects } }) => {
                 const minWidth =
                   (getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0) /
                   0.5
@@ -135,11 +137,7 @@ test.beforeEach(async ({ page }) => {
               test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in first argument is applied to output initial scale', async ({
                 page,
                 viewport
-              }, testInfo) => {
-                testInfo.skip(formatIndex !== 0)
-                const { config, project } = testInfo
-                testInfo.skip(!['xs', 'xl'].includes(project.name))
-                const { projects } = config
+              }, { config: { projects } }) => {
                 const minWidth =
                   getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
                 const maxWidth =
@@ -180,11 +178,7 @@ test.beforeEach(async ({ page }) => {
               test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in first argument is applied to output initial scale', async ({
                 page,
                 viewport
-              }, testInfo) => {
-                testInfo.skip(formatIndex !== 0)
-                const { config, project } = testInfo
-                testInfo.skip(!['xs', 'xl'].includes(project.name))
-                const { projects } = config
+              }, { config: { projects } }) => {
                 const minWidth =
                   getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
                 const maxWidth =
@@ -223,11 +217,7 @@ test.beforeEach(async ({ page }) => {
               test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in first argument is applied to output initial scale', async ({
                 page,
                 viewport
-              }, testInfo) => {
-                testInfo.skip(formatIndex !== 0)
-                const { config, project } = testInfo
-                testInfo.skip(!['xs', 'xl'].includes(project.name))
-                const { projects } = config
+              }, { config: { projects } }) => {
                 const minWidth =
                   getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
                 const maxWidth =
@@ -265,15 +255,17 @@ test.beforeEach(async ({ page }) => {
         })
 
         test.describe('merging current GlobalParameters object and second argument', () => {
+          test.beforeEach(async ({ page }, testInfo) => {
+            testInfo.skip(formatIndex !== 0)
+            testInfo.skip(!['xs'].includes(testInfo.project.name))
+            await page.goto('/tests/e2e/__fixtures__/src/dummy.html')
+          })
+
           test.describe('case where second argument is provided', () => {
             test('values in second argument is used', async ({
               page,
               viewport
-            }, testInfo) => {
-              testInfo.skip(formatIndex !== 0)
-              const { config, project } = testInfo
-              testInfo.skip(!['xs'].includes(project.name))
-              const { projects } = config
+            }, { config: { projects } }) => {
               const minWidth =
                 (getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0) /
                 0.5
@@ -308,11 +300,7 @@ test.beforeEach(async ({ page }) => {
             test('values in current GlobalParameters object is used', async ({
               page,
               viewport
-            }, testInfo) => {
-              testInfo.skip(formatIndex !== 0)
-              const { config, project } = testInfo
-              testInfo.skip(!['xs'].includes(project.name))
-              const { projects } = config
+            }, { config: { projects } }) => {
               const minWidth =
                 getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
               const documentClientWidth = viewport ? viewport.width : undefined
@@ -344,6 +332,10 @@ test.beforeEach(async ({ page }) => {
 
       test.describe('using default export', () => {
         test.describe('updating content attribute of viewport meta element', () => {
+          test.beforeEach(async ({ page }) => {
+            await page.goto('/tests/e2e/__fixtures__/src/dummy.html')
+          })
+
           test.describe('case where minWidth property is set in first argument', () => {
             test('width is updated to minimum width and initial-scale is updated to value that fits minimum width into viewport, on browser whose viewport width is less than minimum width', async ({
               page,
@@ -413,17 +405,19 @@ test.beforeEach(async ({ page }) => {
         // Because vitest does not update size of document element when viewport element is updated
         // Run in only one format because purpose is to check library behavior, not to verify bundled code
         test.describe('comparison with minimum and maximum width, and computation of output initial scale', () => {
+          test.beforeEach(async ({ page }, testInfo) => {
+            testInfo.skip(formatIndex !== 0)
+            testInfo.skip(!['xs', 'xl'].includes(testInfo.project.name))
+            await page.goto('/tests/e2e/__fixtures__/src/dummy.html')
+          })
+
           test.describe('case where unscaledComputing property in merged globalParameters object is false', () => {
             // When initial scale is 1 or less, document.documentElement.clientWidth is equal to viewport width
             test.describe('case where initial scale before running setParameters is 1 or less', () => {
               test('width of viewport is used for comparison, and initialScale property in first argument is applied to output initial scale', async ({
                 page,
                 viewport
-              }, testInfo) => {
-                testInfo.skip(formatIndex !== 0)
-                const { config, project } = testInfo
-                testInfo.skip(!['xs', 'xl'].includes(project.name))
-                const { projects } = config
+              }, { config: { projects } }) => {
                 const minWidth =
                   (getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0) /
                   0.5
@@ -464,11 +458,7 @@ test.beforeEach(async ({ page }) => {
               test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in first argument is applied to output initial scale', async ({
                 page,
                 viewport
-              }, testInfo) => {
-                testInfo.skip(formatIndex !== 0)
-                const { config, project } = testInfo
-                testInfo.skip(!['xs', 'xl'].includes(project.name))
-                const { projects } = config
+              }, { config: { projects } }) => {
                 const minWidth =
                   getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
                 const maxWidth =
@@ -509,11 +499,7 @@ test.beforeEach(async ({ page }) => {
               test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in first argument is applied to output initial scale', async ({
                 page,
                 viewport
-              }, testInfo) => {
-                testInfo.skip(formatIndex !== 0)
-                const { config, project } = testInfo
-                testInfo.skip(!['xs', 'xl'].includes(project.name))
-                const { projects } = config
+              }, { config: { projects } }) => {
                 const minWidth =
                   getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
                 const maxWidth =
@@ -552,11 +538,7 @@ test.beforeEach(async ({ page }) => {
               test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in first argument is applied to output initial scale', async ({
                 page,
                 viewport
-              }, testInfo) => {
-                testInfo.skip(formatIndex !== 0)
-                const { config, project } = testInfo
-                testInfo.skip(!['xs', 'xl'].includes(project.name))
-                const { projects } = config
+              }, { config: { projects } }) => {
                 const minWidth =
                   getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
                 const maxWidth =
@@ -594,15 +576,17 @@ test.beforeEach(async ({ page }) => {
         })
 
         test.describe('merging current GlobalParameters object and second argument', () => {
+          test.beforeEach(async ({ page }, testInfo) => {
+            testInfo.skip(formatIndex !== 0)
+            testInfo.skip(!['xs'].includes(testInfo.project.name))
+            await page.goto('/tests/e2e/__fixtures__/src/dummy.html')
+          })
+
           test.describe('case where second argument is provided', () => {
             test('values in second argument is used', async ({
               page,
               viewport
-            }, testInfo) => {
-              testInfo.skip(formatIndex !== 0)
-              const { config, project } = testInfo
-              testInfo.skip(!['xs'].includes(project.name))
-              const { projects } = config
+            }, { config: { projects } }) => {
               const minWidth =
                 (getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0) /
                 0.5
@@ -637,11 +621,7 @@ test.beforeEach(async ({ page }) => {
             test('values in current GlobalParameters object is used', async ({
               page,
               viewport
-            }, testInfo) => {
-              testInfo.skip(formatIndex !== 0)
-              const { config, project } = testInfo
-              testInfo.skip(!['xs'].includes(project.name))
-              const { projects } = config
+            }, { config: { projects } }) => {
               const minWidth =
                 getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
               const documentClientWidth = viewport ? viewport.width : undefined
@@ -673,6 +653,10 @@ test.beforeEach(async ({ page }) => {
     } else {
       test.describe('using global variable', () => {
         test.describe('updating content attribute of viewport meta element', () => {
+          test.beforeEach(async ({ page }) => {
+            await page.goto('/tests/e2e/__fixtures__/src/dummy.html')
+          })
+
           test.describe('case where minWidth property is set in first argument', () => {
             test('width is updated to minimum width and initial-scale is updated to value that fits minimum width into viewport, on browser whose viewport width is less than minimum width', async ({
               page,
@@ -744,17 +728,19 @@ test.beforeEach(async ({ page }) => {
         // Because vitest does not update size of document element when viewport element is updated
         // Run in only one format because purpose is to check library behavior, not to verify bundled code
         test.describe('comparison with minimum and maximum width, and computation of output initial scale', () => {
+          test.beforeEach(async ({ page }, testInfo) => {
+            testInfo.skip(formatIndex !== 0)
+            testInfo.skip(!['xs', 'xl'].includes(testInfo.project.name))
+            await page.goto('/tests/e2e/__fixtures__/src/dummy.html')
+          })
+
           test.describe('case where unscaledComputing property in merged globalParameters object is false', () => {
             // When initial scale is 1 or less, document.documentElement.clientWidth is equal to viewport width
             test.describe('case where initial scale before running setParameters is 1 or less', () => {
               test('width of viewport is used for comparison, and initialScale property in first argument is applied to output initial scale', async ({
                 page,
                 viewport
-              }, testInfo) => {
-                testInfo.skip(formatIndex !== 0)
-                const { config, project } = testInfo
-                testInfo.skip(!['xs', 'xl'].includes(project.name))
-                const { projects } = config
+              }, { config: { projects } }) => {
                 const minWidth =
                   (getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0) /
                   0.5
@@ -796,11 +782,7 @@ test.beforeEach(async ({ page }) => {
               test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in first argument is applied to output initial scale', async ({
                 page,
                 viewport
-              }, testInfo) => {
-                testInfo.skip(formatIndex !== 0)
-                const { config, project } = testInfo
-                testInfo.skip(!['xs', 'xl'].includes(project.name))
-                const { projects } = config
+              }, { config: { projects } }) => {
                 const minWidth =
                   getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
                 const maxWidth =
@@ -842,11 +824,7 @@ test.beforeEach(async ({ page }) => {
               test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in first argument is applied to output initial scale', async ({
                 page,
                 viewport
-              }, testInfo) => {
-                testInfo.skip(formatIndex !== 0)
-                const { config, project } = testInfo
-                testInfo.skip(!['xs', 'xl'].includes(project.name))
-                const { projects } = config
+              }, { config: { projects } }) => {
                 const minWidth =
                   getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
                 const maxWidth =
@@ -886,11 +864,7 @@ test.beforeEach(async ({ page }) => {
               test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in first argument is applied to output initial scale', async ({
                 page,
                 viewport
-              }, testInfo) => {
-                testInfo.skip(formatIndex !== 0)
-                const { config, project } = testInfo
-                testInfo.skip(!['xs', 'xl'].includes(project.name))
-                const { projects } = config
+              }, { config: { projects } }) => {
                 const minWidth =
                   getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
                 const maxWidth =
@@ -929,15 +903,17 @@ test.beforeEach(async ({ page }) => {
         })
 
         test.describe('merging current GlobalParameters object and second argument', () => {
+          test.beforeEach(async ({ page }, testInfo) => {
+            testInfo.skip(formatIndex !== 0)
+            testInfo.skip(!['xs'].includes(testInfo.project.name))
+            await page.goto('/tests/e2e/__fixtures__/src/dummy.html')
+          })
+
           test.describe('case where second argument is provided', () => {
             test('values in second argument is used', async ({
               page,
               viewport
-            }, testInfo) => {
-              testInfo.skip(formatIndex !== 0)
-              const { config, project } = testInfo
-              testInfo.skip(!['xs'].includes(project.name))
-              const { projects } = config
+            }, { config: { projects } }) => {
               const minWidth =
                 (getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0) /
                 0.5
@@ -973,11 +949,7 @@ test.beforeEach(async ({ page }) => {
             test('values in current GlobalParameters object is used', async ({
               page,
               viewport
-            }, testInfo) => {
-              testInfo.skip(formatIndex !== 0)
-              const { config, project } = testInfo
-              testInfo.skip(!['xs'].includes(project.name))
-              const { projects } = config
+            }, { config: { projects } }) => {
               const minWidth =
                 getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
               const documentClientWidth = viewport ? viewport.width : undefined
