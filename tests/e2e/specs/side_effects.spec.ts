@@ -166,5 +166,157 @@ test.beforeEach(async ({ page }) => {
         })
       })
     })
+
+    test.describe('merging data-(extra-)unscaled-computing attributes of viewport and viewport-extra meta elements', () => {
+      test.describe('case where data-(extra-)unscaled-computing attribute exists in only viewport meta elements', () => {
+        test('unscaledComputing property of GlobalParameters object is set to true', async ({
+          page,
+          viewport
+        }, testInfo) => {
+          testInfo.skip(formatIndex !== 0)
+          const { config, project } = testInfo
+          testInfo.skip(!['xs'].includes(project.name))
+          const { projects } = config
+          const minWidth =
+            getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
+          const documentClientWidth = viewport ? viewport.width : undefined
+          await page.setContent(`
+            <!doctype html>
+            <html lang="en">
+              <head>
+                <meta charset="UTF-8" />
+                <title>Document</title>
+                <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-unscaled-computing />
+                <meta name="viewport-extra" />
+              </head>
+              <body>
+                <script data-media-specific-parameters-list='[{ "content": { "initialScale": 2, "minWidth": ${minWidth} } }]'></script>
+                <script src="/assets/scripts/${format}/side_effects.js" type="module"></script>
+              </body>
+            </html>
+          `)
+          expect(await getViewportContentString(page)).toBe(
+            documentClientWidth && minWidth > 0
+              ? documentClientWidth < minWidth
+                ? `initial-scale=${(documentClientWidth / minWidth) * 2},width=${minWidth}`
+                : 'initial-scale=2,width=device-width'
+              : ''
+          )
+        })
+      })
+
+      test.describe('case where data-(extra-)unscaled-computing attribute exists in only viewport-extra meta elements', () => {
+        test('unscaledComputing property of GlobalParameters object is set to true', async ({
+          page,
+          viewport
+        }, testInfo) => {
+          testInfo.skip(formatIndex !== 0)
+          const { config, project } = testInfo
+          testInfo.skip(!['xs'].includes(project.name))
+          const { projects } = config
+          const minWidth =
+            getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
+          const documentClientWidth = viewport ? viewport.width : undefined
+          await page.setContent(`
+            <!doctype html>
+            <html lang="en">
+              <head>
+                <meta charset="UTF-8" />
+                <title>Document</title>
+                <meta name="viewport" content="width=device-width,initial-scale=0.5" />
+                <meta name="viewport-extra" data-extra-unscaled-computing />
+              </head>
+              <body>
+                <script data-media-specific-parameters-list='[{ "content": { "initialScale": 2, "minWidth": ${minWidth} } }]'></script>
+                <script src="/assets/scripts/${format}/side_effects.js" type="module"></script>
+              </body>
+            </html>
+          `)
+          expect(await getViewportContentString(page)).toBe(
+            documentClientWidth && minWidth > 0
+              ? documentClientWidth < minWidth
+                ? `initial-scale=${(documentClientWidth / minWidth) * 2},width=${minWidth}`
+                : 'initial-scale=2,width=device-width'
+              : ''
+          )
+        })
+      })
+
+      test.describe('case where data-(extra-)unscaled-computing attribute exists in both meta elements', () => {
+        test('unscaledComputing property of GlobalParameters object is set to true', async ({
+          page,
+          viewport
+        }, testInfo) => {
+          testInfo.skip(formatIndex !== 0)
+          const { config, project } = testInfo
+          testInfo.skip(!['xs'].includes(project.name))
+          const { projects } = config
+          const minWidth =
+            getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
+          const documentClientWidth = viewport ? viewport.width : undefined
+          await page.setContent(`
+            <!doctype html>
+            <html lang="en">
+              <head>
+                <meta charset="UTF-8" />
+                <title>Document</title>
+                <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-unscaled-computing />
+                <meta name="viewport-extra" data-extra-unscaled-computing />
+              </head>
+              <body>
+                <script data-media-specific-parameters-list='[{ "content": { "initialScale": 2, "minWidth": ${minWidth} } }]'></script>
+                <script src="/assets/scripts/${format}/side_effects.js" type="module"></script>
+              </body>
+            </html>
+          `)
+          expect(await getViewportContentString(page)).toBe(
+            documentClientWidth && minWidth > 0
+              ? documentClientWidth < minWidth
+                ? `initial-scale=${(documentClientWidth / minWidth) * 2},width=${minWidth}`
+                : 'initial-scale=2,width=device-width'
+              : ''
+          )
+        })
+      })
+
+      test.describe('case where data-(extra-)unscaled-computing attribute does not exist in both meta elements', () => {
+        test('unscaledComputing property of GlobalParameters object is set to false', async ({
+          page,
+          viewport
+        }, testInfo) => {
+          testInfo.skip(formatIndex !== 0)
+          const { config, project } = testInfo
+          testInfo.skip(!['xs'].includes(project.name))
+          const { projects } = config
+          const minWidth =
+            (getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0) / 0.5
+          const documentClientWidth = viewport
+            ? viewport.width / 0.5
+            : undefined
+          await page.setContent(`
+            <!doctype html>
+            <html lang="en">
+              <head>
+                <meta charset="UTF-8" />
+                <title>Document</title>
+                <meta name="viewport" content="width=device-width,initial-scale=0.5" />
+                <meta name="viewport-extra" />
+              </head>
+              <body>
+                <script data-media-specific-parameters-list='[{ "content": { "initialScale": 2, "minWidth": ${minWidth} } }]'></script>
+                <script src="/assets/scripts/${format}/side_effects.js" type="module"></script>
+              </body>
+            </html>
+          `)
+          expect(await getViewportContentString(page)).toBe(
+            documentClientWidth && minWidth > 0
+              ? documentClientWidth < minWidth
+                ? `initial-scale=${(documentClientWidth / minWidth) * 2},width=${minWidth}`
+                : 'initial-scale=2,width=device-width'
+              : ''
+          )
+        })
+      })
+    })
   })
 })
