@@ -1,10 +1,6 @@
 import { expect, test } from '@playwright/test'
 import { getViewportContentString } from '../modules/PlaywrightPage.js'
 import { getMaximumWidthViewportSize } from '../modules/PlaywrightFullProjectList.js'
-
-test.beforeEach(async ({ page }) => {
-  await page.goto('/tests/e2e/__fixtures__/src/dummy.html')
-})
 ;[
   { format: 'es', moduleFlag: true, minified: false },
   { format: 'cjs', moduleFlag: true, minified: false },
@@ -12,6 +8,10 @@ test.beforeEach(async ({ page }) => {
   { format: 'iife', moduleFlag: false, minified: true }
 ].forEach(({ format, moduleFlag, minified }) => {
   test.describe(`using ${(minified ? 'minified ' : '') + format} output`, () => {
+    test.beforeEach(async ({ page }) => {
+      await page.goto('/tests/e2e/__fixtures__/src/dummy.html')
+    })
+
     if (moduleFlag) {
       test.describe('using named export', () => {
         test('reference to viewport meta element is updated', async ({
