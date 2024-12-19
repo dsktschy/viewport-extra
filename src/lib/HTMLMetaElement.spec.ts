@@ -1,10 +1,88 @@
 import { describe, it, expect } from 'vitest'
 import {
+  getNullableUnscaledComputingAttribute,
+  createPartialGlobalParameters,
   getNullableContentAttribute,
   createPartialMediaSpecificParameters,
   setContentAttribute,
   applyMediaSpecificParameters
 } from './HTMLMetaElement.js'
+
+describe('getNullableUnscaledComputingAttribute', () => {
+  describe('case where argument has only data-unscaled-computing attribute', () => {
+    it('should return value of data-unscaled-computing attribute', () => {
+      const htmlMetaElement = document.createElement('meta')
+      htmlMetaElement.setAttribute('data-unscaled-computing', '')
+      expect(getNullableUnscaledComputingAttribute(htmlMetaElement)).toBe('')
+    })
+  })
+
+  describe('case where argument has only data-extra-unscaled-computing attribute', () => {
+    it('should return value of data-extra-unscaled-computing attribute', () => {
+      const htmlMetaElement = document.createElement('meta')
+      htmlMetaElement.setAttribute('data-extra-unscaled-computing', '')
+      expect(getNullableUnscaledComputingAttribute(htmlMetaElement)).toBe('')
+    })
+  })
+
+  describe('case where argument has both data-unscaled-computing and data-extra-unscaled-computing attributes', () => {
+    it('should return value of data-extra-unscaled-computing attribute', () => {
+      const htmlMetaElement = document.createElement('meta')
+      htmlMetaElement.setAttribute('data-unscaled-computing', 'foo')
+      htmlMetaElement.setAttribute('data-extra-unscaled-computing', '')
+      expect(getNullableUnscaledComputingAttribute(htmlMetaElement)).toBe('')
+    })
+  })
+
+  describe('case where argument does not have both data-unscaled-computing and data-extra-unscaled-computing attributes', () => {
+    it('should return null', () => {
+      expect(getNullableContentAttribute(document.createElement('meta'))).toBe(
+        null
+      )
+    })
+  })
+})
+
+describe('createPartialGlobalParameters', () => {
+  describe('case where argument has only data-unscaled-computing attribute', () => {
+    it('should return object whose unscaledComputing property is true', () => {
+      const htmlMetaElement = document.createElement('meta')
+      htmlMetaElement.setAttribute('data-unscaled-computing', '')
+      expect(createPartialGlobalParameters(htmlMetaElement)).toStrictEqual({
+        unscaledComputing: true
+      })
+    })
+  })
+
+  describe('case where argument has only data-extra-unscaled-computing attribute', () => {
+    it('should return object whose unscaledComputing property is true', () => {
+      const htmlMetaElement = document.createElement('meta')
+      htmlMetaElement.setAttribute('data-extra-unscaled-computing', '')
+      expect(createPartialGlobalParameters(htmlMetaElement)).toStrictEqual({
+        unscaledComputing: true
+      })
+    })
+  })
+
+  describe('case where argument has both data-unscaled-computing and data-extra-unscaled-computing attributes', () => {
+    it('should return object whose unscaledComputing property is true', () => {
+      const htmlMetaElement = document.createElement('meta')
+      htmlMetaElement.setAttribute('data-unscaled-computing', '')
+      htmlMetaElement.setAttribute('data-extra-unscaled-computing', '')
+      expect(createPartialGlobalParameters(htmlMetaElement)).toStrictEqual({
+        unscaledComputing: true
+      })
+    })
+  })
+
+  describe('case where argument does not have both data-unscaled-computing and data-extra-unscaled-computing attributes', () => {
+    it('should return object that does not have unscaledComputing property', () => {
+      expect(
+        createPartialGlobalParameters(document.createElement('meta'))
+      ).toStrictEqual({})
+    })
+  })
+})
 
 describe('getNullableContentAttribute', () => {
   describe('case where argument has only content attribute', () => {

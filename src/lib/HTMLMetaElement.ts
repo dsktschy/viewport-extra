@@ -1,3 +1,7 @@
+import {
+  type GlobalParameters,
+  setOptionalUnscaledComputing
+} from './GlobalParameters.js'
 import { type DeepPartial } from './DeepPartial.js'
 import {
   type MediaSpecificParameters,
@@ -5,10 +9,36 @@ import {
   createContentAttribute
 } from './MediaSpecificParameters.js'
 import {
+  type UnscaledComputingAttribute,
+  mergeNullableUnscaledComputingAttribute,
+  createOptionalUnscaledComputing
+} from './UnscaledComputingAttribute.js'
+import {
   type ContentAttribute,
   mergeNullableContentAttributes,
   createOptionalPartialContent
 } from './ContentAttribute.js'
+
+export const getNullableUnscaledComputingAttribute = (
+  htmlMetaElement: HTMLMetaElement
+): UnscaledComputingAttribute | null =>
+  mergeNullableUnscaledComputingAttribute(
+    htmlMetaElement.getAttribute('data-unscaled-computing'),
+    htmlMetaElement.getAttribute('data-extra-unscaled-computing')
+  )
+
+export const createPartialGlobalParameters = (
+  htmlMetaElement: HTMLMetaElement
+): Partial<GlobalParameters> => {
+  const partialGlobalParameters: Partial<GlobalParameters> = {}
+  setOptionalUnscaledComputing(
+    partialGlobalParameters,
+    createOptionalUnscaledComputing(
+      getNullableUnscaledComputingAttribute(htmlMetaElement)
+    )
+  )
+  return partialGlobalParameters
+}
 
 export const getNullableContentAttribute = (
   htmlMetaElement: HTMLMetaElement

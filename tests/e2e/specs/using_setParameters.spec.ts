@@ -15,7 +15,7 @@ test.beforeEach(async ({ page }) => {
     if (moduleFlag) {
       test.describe('using named export', () => {
         test.describe('updating content attribute of viewport meta element', () => {
-          test.describe('case where minWidth property is set in argument', () => {
+          test.describe('case where minWidth property is set in first argument', () => {
             test('width is updated to minimum width and initial-scale is updated to value that fits minimum width into viewport, on browser whose viewport width is less than minimum width', async ({
               page,
               viewport
@@ -32,8 +32,8 @@ test.beforeEach(async ({ page }) => {
                     <meta name="viewport" content="width=device-width,initial-scale=1" />
                   </head>
                   <body>
-                    <script data-min-width="${minWidth}"></script>
-                    <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
+                    <script data-media-specific-parameters-list='[{ "content": { "minWidth": ${minWidth} } }]'></script>
+                    <script src="/assets/scripts/${format}/using_setParameters.js" type="module"></script>
                   </body>
                 </html>
               `)
@@ -47,7 +47,7 @@ test.beforeEach(async ({ page }) => {
             })
           })
 
-          test.describe('case where maxWidth property is set in argument', () => {
+          test.describe('case where maxWidth property is set in first argument', () => {
             test('width is updated to maximum width and initial-scale is updated to value that fits maximum width into viewport, on browser whose viewport width is greater than maximum width', async ({
               page,
               viewport
@@ -64,8 +64,8 @@ test.beforeEach(async ({ page }) => {
                     <meta name="viewport" content="width=device-width,initial-scale=1" />
                   </head>
                   <body>
-                    <script data-max-width="${maxWidth}"></script>
-                    <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
+                    <script data-media-specific-parameters-list='[{ "content": { "maxWidth": ${maxWidth} } }]'></script>
+                    <script src="/assets/scripts/${format}/using_setParameters.js" type="module"></script>
                   </body>
                 </html>
               `)
@@ -84,10 +84,10 @@ test.beforeEach(async ({ page }) => {
         // Because vitest does not update size of document element when viewport element is updated
         // Run in only one format because purpose is to check library behavior, not to verify bundled code
         test.describe('comparison with minimum and maximum width, and computation of output initial scale', () => {
-          test.describe('case where unscaledComputing property in globalParameters object is false', () => {
+          test.describe('case where unscaledComputing property in merged globalParameters object is false', () => {
             // When initial scale is 1 or less, document.documentElement.clientWidth is equal to viewport width
-            test.describe('case where initial scale before running setContent is 1 or less', () => {
-              test('width of viewport is used for comparison, and initialScale property in argument is applied to output initial scale', async ({
+            test.describe('case where initial scale before running setParameters is 1 or less', () => {
+              test('width of viewport is used for comparison, and initialScale property in first argument is applied to output initial scale', async ({
                 page,
                 viewport
               }, testInfo) => {
@@ -113,8 +113,8 @@ test.beforeEach(async ({ page }) => {
                       <meta name="viewport" content="width=device-width,initial-scale=0.5" />
                     </head>
                     <body>
-                      <script data-initial-scale="2" data-min-width="${minWidth}" data-max-width="${maxWidth}"></script>
-                      <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
+                      <script data-media-specific-parameters-list='[{ "content": { "initialScale": 2, "minWidth": ${minWidth}, "maxWidth": ${maxWidth} } }]'></script>
+                      <script src="/assets/scripts/${format}/using_setParameters.js" type="module"></script>
                     </body>
                   </html>
                 `)
@@ -131,8 +131,8 @@ test.beforeEach(async ({ page }) => {
             })
 
             // When initial scale is greater than 1, document.documentElement.clientWidth is not equal to viewport width
-            test.describe('case where initial scale before running setContent is greater than 1', () => {
-              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in argument is applied to output initial scale', async ({
+            test.describe('case where initial scale before running setParameters is greater than 1', () => {
+              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in first argument is applied to output initial scale', async ({
                 page,
                 viewport
               }, testInfo) => {
@@ -157,8 +157,8 @@ test.beforeEach(async ({ page }) => {
                       <meta name="viewport" content="width=device-width,initial-scale=2" />
                     </head>
                     <body>
-                      <script data-initial-scale="0.5" data-min-width="${minWidth}" data-max-width="${maxWidth}"></script>
-                      <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
+                      <script data-media-specific-parameters-list='[{ "content": { "initialScale": 0.5, "minWidth": ${minWidth}, "maxWidth": ${maxWidth} } }]'></script>
+                      <script src="/assets/scripts/${format}/using_setParameters.js" type="module"></script>
                     </body>
                   </html>
                 `)
@@ -175,9 +175,9 @@ test.beforeEach(async ({ page }) => {
             })
           })
 
-          test.describe('case where unscaledComputing property in globalParameters object is true', () => {
-            test.describe('case where initial scale before running setContent is 1 or less', () => {
-              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in argument is applied to output initial scale', async ({
+          test.describe('case where unscaledComputing property in merged globalParameters object is true', () => {
+            test.describe('case where initial scale before running setParameters is 1 or less', () => {
+              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in first argument is applied to output initial scale', async ({
                 page,
                 viewport
               }, testInfo) => {
@@ -199,11 +199,11 @@ test.beforeEach(async ({ page }) => {
                     <head>
                       <meta charset="UTF-8" />
                       <title>Document</title>
-                      <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-unscaled-computing />
+                      <meta name="viewport" content="width=device-width,initial-scale=0.5" />
                     </head>
                     <body>
-                      <script data-initial-scale="2" data-min-width="${minWidth}" data-max-width="${maxWidth}"></script>
-                      <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
+                      <script data-global-parameters='{ "unscaledComputing": true }' data-media-specific-parameters-list='[{ "content": { "initialScale": 2, "minWidth": ${minWidth}, "maxWidth": ${maxWidth} } }]'></script>
+                      <script src="/assets/scripts/${format}/using_setParameters.js" type="module"></script>
                     </body>
                   </html>
                 `)
@@ -219,8 +219,8 @@ test.beforeEach(async ({ page }) => {
               })
             })
 
-            test.describe('case where initial scale before running setContent is greater than 1', () => {
-              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in argument is applied to output initial scale', async ({
+            test.describe('case where initial scale before running setParameters is greater than 1', () => {
+              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in first argument is applied to output initial scale', async ({
                 page,
                 viewport
               }, testInfo) => {
@@ -242,11 +242,11 @@ test.beforeEach(async ({ page }) => {
                     <head>
                       <meta charset="UTF-8" />
                       <title>Document</title>
-                      <meta name="viewport" content="width=device-width,initial-scale=2" data-extra-unscaled-computing />
+                      <meta name="viewport" content="width=device-width,initial-scale=2" />
                     </head>
                     <body>
-                      <script data-initial-scale="0.5" data-min-width="${minWidth}" data-max-width="${maxWidth}"></script>
-                      <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
+                      <script data-global-parameters='{ "unscaledComputing": true }' data-media-specific-parameters-list='[{ "content": { "initialScale": 0.5, "minWidth": ${minWidth}, "maxWidth": ${maxWidth} } }]'></script>
+                      <script src="/assets/scripts/${format}/using_setParameters.js" type="module"></script>
                     </body>
                   </html>
                 `)
@@ -260,6 +260,83 @@ test.beforeEach(async ({ page }) => {
                     : ''
                 )
               })
+            })
+          })
+        })
+
+        test.describe('merging current GlobalParameters object and second argument', () => {
+          test.describe('case where second argument is provided', () => {
+            test('values in second argument is used', async ({
+              page,
+              viewport
+            }, testInfo) => {
+              testInfo.skip(formatIndex !== 0)
+              const { config, project } = testInfo
+              testInfo.skip(!['xs'].includes(project.name))
+              const { projects } = config
+              const minWidth =
+                (getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0) /
+                0.5
+              const documentClientWidth = viewport
+                ? viewport.width / 0.5
+                : undefined
+              await page.setContent(`
+                <!doctype html>
+                <html lang="en">
+                  <head>
+                    <meta charset="UTF-8" />
+                    <title>Document</title>
+                    <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-unscaled-computing />
+                  </head>
+                  <body>
+                    <script data-global-parameters='{ "unscaledComputing": false }' data-media-specific-parameters-list='[{ "content": { "initialScale": 2, "minWidth": ${minWidth} } }]'></script>
+                    <script src="/assets/scripts/${format}/using_setParameters.js" type="module"></script>
+                  </body>
+                </html>
+              `)
+              expect(await getViewportContentString(page)).toBe(
+                documentClientWidth && minWidth > 0
+                  ? documentClientWidth < minWidth
+                    ? `initial-scale=${(documentClientWidth / minWidth) * 2},width=${minWidth}`
+                    : 'initial-scale=2,width=device-width'
+                  : ''
+              )
+            })
+          })
+
+          test.describe('case where second argument is not provided', () => {
+            test('values in current GlobalParameters object is used', async ({
+              page,
+              viewport
+            }, testInfo) => {
+              testInfo.skip(formatIndex !== 0)
+              const { config, project } = testInfo
+              testInfo.skip(!['xs'].includes(project.name))
+              const { projects } = config
+              const minWidth =
+                getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
+              const documentClientWidth = viewport ? viewport.width : undefined
+              await page.setContent(`
+                <!doctype html>
+                <html lang="en">
+                  <head>
+                    <meta charset="UTF-8" />
+                    <title>Document</title>
+                    <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-unscaled-computing />
+                  </head>
+                  <body>
+                    <script data-media-specific-parameters-list='[{ "content": { "initialScale": 2, "minWidth": ${minWidth} } }]'></script>
+                    <script src="/assets/scripts/${format}/using_setParameters.js" type="module"></script>
+                  </body>
+                </html>
+              `)
+              expect(await getViewportContentString(page)).toBe(
+                documentClientWidth && minWidth > 0
+                  ? documentClientWidth < minWidth
+                    ? `initial-scale=${(documentClientWidth / minWidth) * 2},width=${minWidth}`
+                    : 'initial-scale=2,width=device-width'
+                  : ''
+              )
             })
           })
         })
@@ -267,7 +344,7 @@ test.beforeEach(async ({ page }) => {
 
       test.describe('using default export', () => {
         test.describe('updating content attribute of viewport meta element', () => {
-          test.describe('case where minWidth property is set in argument', () => {
+          test.describe('case where minWidth property is set in first argument', () => {
             test('width is updated to minimum width and initial-scale is updated to value that fits minimum width into viewport, on browser whose viewport width is less than minimum width', async ({
               page,
               viewport
@@ -284,8 +361,8 @@ test.beforeEach(async ({ page }) => {
                     <meta name="viewport" content="width=device-width,initial-scale=1" />
                   </head>
                   <body>
-                    <script data-using-default-export data-min-width="${minWidth}"></script>
-                    <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
+                    <script data-using-default-export data-media-specific-parameters-list='[{ "content": { "minWidth": ${minWidth} } }]'></script>
+                    <script src="/assets/scripts/${format}/using_setParameters.js" type="module"></script>
                   </body>
                 </html>
               `)
@@ -299,7 +376,7 @@ test.beforeEach(async ({ page }) => {
             })
           })
 
-          test.describe('case where maxWidth property is set in argument', () => {
+          test.describe('case where maxWidth property is set in first argument', () => {
             test('width is updated to maximum width and initial-scale is updated to value that fits maximum width into viewport, on browser whose viewport width is greater than maximum width', async ({
               page,
               viewport
@@ -316,8 +393,8 @@ test.beforeEach(async ({ page }) => {
                     <meta name="viewport" content="width=device-width,initial-scale=1" />
                   </head>
                   <body>
-                    <script data-using-default-export data-max-width="${maxWidth}"></script>
-                    <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
+                    <script data-using-default-export data-media-specific-parameters-list='[{ "content": { "maxWidth": ${maxWidth} } }]'></script>
+                    <script src="/assets/scripts/${format}/using_setParameters.js" type="module"></script>
                   </body>
                 </html>
               `)
@@ -336,10 +413,10 @@ test.beforeEach(async ({ page }) => {
         // Because vitest does not update size of document element when viewport element is updated
         // Run in only one format because purpose is to check library behavior, not to verify bundled code
         test.describe('comparison with minimum and maximum width, and computation of output initial scale', () => {
-          test.describe('case where unscaledComputing property in globalParameters object is false', () => {
+          test.describe('case where unscaledComputing property in merged globalParameters object is false', () => {
             // When initial scale is 1 or less, document.documentElement.clientWidth is equal to viewport width
-            test.describe('case where initial scale before running setContent is 1 or less', () => {
-              test('width of viewport is used for comparison, and initialScale property in argument is applied to output initial scale', async ({
+            test.describe('case where initial scale before running setParameters is 1 or less', () => {
+              test('width of viewport is used for comparison, and initialScale property in first argument is applied to output initial scale', async ({
                 page,
                 viewport
               }, testInfo) => {
@@ -365,8 +442,8 @@ test.beforeEach(async ({ page }) => {
                       <meta name="viewport" content="width=device-width,initial-scale=0.5" />
                     </head>
                     <body>
-                      <script data-using-default-export data-initial-scale="2" data-min-width="${minWidth}" data-max-width="${maxWidth}"></script>
-                      <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
+                      <script data-using-default-export data-media-specific-parameters-list='[{ "content": { "initialScale": 2, "minWidth": ${minWidth}, "maxWidth": ${maxWidth} } }]'></script>
+                      <script src="/assets/scripts/${format}/using_setParameters.js" type="module"></script>
                     </body>
                   </html>
                 `)
@@ -383,8 +460,8 @@ test.beforeEach(async ({ page }) => {
             })
 
             // When initial scale is greater than 1, document.documentElement.clientWidth is not equal to viewport width
-            test.describe('case where initial scale before running setContent is greater than 1', () => {
-              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in argument is applied to output initial scale', async ({
+            test.describe('case where initial scale before running setParameters is greater than 1', () => {
+              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in first argument is applied to output initial scale', async ({
                 page,
                 viewport
               }, testInfo) => {
@@ -409,8 +486,8 @@ test.beforeEach(async ({ page }) => {
                       <meta name="viewport" content="width=device-width,initial-scale=2" />
                     </head>
                     <body>
-                      <script data-using-default-export data-initial-scale="0.5" data-min-width="${minWidth}" data-max-width="${maxWidth}"></script>
-                      <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
+                      <script data-using-default-export data-media-specific-parameters-list='[{ "content": { "initialScale": 0.5, "minWidth": ${minWidth}, "maxWidth": ${maxWidth} } }]'></script>
+                      <script src="/assets/scripts/${format}/using_setParameters.js" type="module"></script>
                     </body>
                   </html>
                 `)
@@ -427,9 +504,9 @@ test.beforeEach(async ({ page }) => {
             })
           })
 
-          test.describe('case where unscaledComputing property in globalParameters object is true', () => {
-            test.describe('case where initial scale before running setContent is 1 or less', () => {
-              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in argument is applied to output initial scale', async ({
+          test.describe('case where unscaledComputing property in merged globalParameters object is true', () => {
+            test.describe('case where initial scale before running setParameters is 1 or less', () => {
+              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in first argument is applied to output initial scale', async ({
                 page,
                 viewport
               }, testInfo) => {
@@ -451,11 +528,11 @@ test.beforeEach(async ({ page }) => {
                     <head>
                       <meta charset="UTF-8" />
                       <title>Document</title>
-                      <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-unscaled-computing />
+                      <meta name="viewport" content="width=device-width,initial-scale=0.5" />
                     </head>
                     <body>
-                      <script data-using-default-export data-initial-scale="2" data-min-width="${minWidth}" data-max-width="${maxWidth}"></script>
-                      <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
+                      <script data-using-default-export data-global-parameters='{ "unscaledComputing": true }' data-media-specific-parameters-list='[{ "content": { "initialScale": 2, "minWidth": ${minWidth}, "maxWidth": ${maxWidth} } }]'></script>
+                      <script src="/assets/scripts/${format}/using_setParameters.js" type="module"></script>
                     </body>
                   </html>
                 `)
@@ -471,8 +548,8 @@ test.beforeEach(async ({ page }) => {
               })
             })
 
-            test.describe('case where initial scale before running setContent is greater than 1', () => {
-              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in argument is applied to output initial scale', async ({
+            test.describe('case where initial scale before running setParameters is greater than 1', () => {
+              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in first argument is applied to output initial scale', async ({
                 page,
                 viewport
               }, testInfo) => {
@@ -494,11 +571,11 @@ test.beforeEach(async ({ page }) => {
                     <head>
                       <meta charset="UTF-8" />
                       <title>Document</title>
-                      <meta name="viewport" content="width=device-width,initial-scale=2" data-extra-unscaled-computing />
+                      <meta name="viewport" content="width=device-width,initial-scale=2" />
                     </head>
                     <body>
-                      <script data-using-default-export data-initial-scale="0.5" data-min-width="${minWidth}" data-max-width="${maxWidth}"></script>
-                      <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
+                      <script data-using-default-export data-global-parameters='{ "unscaledComputing": true }' data-media-specific-parameters-list='[{ "content": { "initialScale": 0.5, "minWidth": ${minWidth}, "maxWidth": ${maxWidth} } }]'></script>
+                      <script src="/assets/scripts/${format}/using_setParameters.js" type="module"></script>
                     </body>
                   </html>
                 `)
@@ -512,6 +589,83 @@ test.beforeEach(async ({ page }) => {
                     : ''
                 )
               })
+            })
+          })
+        })
+
+        test.describe('merging current GlobalParameters object and second argument', () => {
+          test.describe('case where second argument is provided', () => {
+            test('values in second argument is used', async ({
+              page,
+              viewport
+            }, testInfo) => {
+              testInfo.skip(formatIndex !== 0)
+              const { config, project } = testInfo
+              testInfo.skip(!['xs'].includes(project.name))
+              const { projects } = config
+              const minWidth =
+                (getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0) /
+                0.5
+              const documentClientWidth = viewport
+                ? viewport.width / 0.5
+                : undefined
+              await page.setContent(`
+                <!doctype html>
+                <html lang="en">
+                  <head>
+                    <meta charset="UTF-8" />
+                    <title>Document</title>
+                    <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-unscaled-computing />
+                  </head>
+                  <body>
+                    <script data-using-default-export data-global-parameters='{ "unscaledComputing": false }' data-media-specific-parameters-list='[{ "content": { "initialScale": 2, "minWidth": ${minWidth} } }]'></script>
+                    <script src="/assets/scripts/${format}/using_setParameters.js" type="module"></script>
+                  </body>
+                </html>
+              `)
+              expect(await getViewportContentString(page)).toBe(
+                documentClientWidth && minWidth > 0
+                  ? documentClientWidth < minWidth
+                    ? `initial-scale=${(documentClientWidth / minWidth) * 2},width=${minWidth}`
+                    : 'initial-scale=2,width=device-width'
+                  : ''
+              )
+            })
+          })
+
+          test.describe('case where second argument is not provided', () => {
+            test('values in current GlobalParameters object is used', async ({
+              page,
+              viewport
+            }, testInfo) => {
+              testInfo.skip(formatIndex !== 0)
+              const { config, project } = testInfo
+              testInfo.skip(!['xs'].includes(project.name))
+              const { projects } = config
+              const minWidth =
+                getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
+              const documentClientWidth = viewport ? viewport.width : undefined
+              await page.setContent(`
+                <!doctype html>
+                <html lang="en">
+                  <head>
+                    <meta charset="UTF-8" />
+                    <title>Document</title>
+                    <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-unscaled-computing />
+                  </head>
+                  <body>
+                    <script data-using-default-export data-media-specific-parameters-list='[{ "content": { "initialScale": 2, "minWidth": ${minWidth} } }]'></script>
+                    <script src="/assets/scripts/${format}/using_setParameters.js" type="module"></script>
+                  </body>
+                </html>
+              `)
+              expect(await getViewportContentString(page)).toBe(
+                documentClientWidth && minWidth > 0
+                  ? documentClientWidth < minWidth
+                    ? `initial-scale=${(documentClientWidth / minWidth) * 2},width=${minWidth}`
+                    : 'initial-scale=2,width=device-width'
+                  : ''
+              )
             })
           })
         })
@@ -519,7 +673,7 @@ test.beforeEach(async ({ page }) => {
     } else {
       test.describe('using global variable', () => {
         test.describe('updating content attribute of viewport meta element', () => {
-          test.describe('case where minWidth property is set in argument', () => {
+          test.describe('case where minWidth property is set in first argument', () => {
             test('width is updated to minimum width and initial-scale is updated to value that fits minimum width into viewport, on browser whose viewport width is less than minimum width', async ({
               page,
               viewport
@@ -537,8 +691,8 @@ test.beforeEach(async ({ page }) => {
                     <script src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>
                   </head>
                   <body>
-                    <script data-min-width="${minWidth}"></script>
-                    <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
+                    <script data-media-specific-parameters-list='[{ "content": { "minWidth": ${minWidth} } }]'></script>
+                    <script src="/assets/scripts/${format}/using_setParameters.js" type="module"></script>
                   </body>
                 </html>
               `)
@@ -552,7 +706,7 @@ test.beforeEach(async ({ page }) => {
             })
           })
 
-          test.describe('case where maxWidth property is set in argument', () => {
+          test.describe('case where maxWidth property is set in first argument', () => {
             test('width is updated to maximum width and initial-scale is updated to value that fits maximum width into viewport, on browser whose viewport width is greater than maximum width', async ({
               page,
               viewport
@@ -570,8 +724,8 @@ test.beforeEach(async ({ page }) => {
                     <script src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>
                   </head>
                   <body>
-                    <script data-max-width="${maxWidth}"></script>
-                    <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
+                    <script data-media-specific-parameters-list='[{ "content": { "maxWidth": ${maxWidth} } }]'></script>
+                    <script src="/assets/scripts/${format}/using_setParameters.js" type="module"></script>
                   </body>
                 </html>
               `)
@@ -590,10 +744,10 @@ test.beforeEach(async ({ page }) => {
         // Because vitest does not update size of document element when viewport element is updated
         // Run in only one format because purpose is to check library behavior, not to verify bundled code
         test.describe('comparison with minimum and maximum width, and computation of output initial scale', () => {
-          test.describe('case where unscaledComputing property in globalParameters object is false', () => {
+          test.describe('case where unscaledComputing property in merged globalParameters object is false', () => {
             // When initial scale is 1 or less, document.documentElement.clientWidth is equal to viewport width
-            test.describe('case where initial scale before running setContent is 1 or less', () => {
-              test('width of viewport is used for comparison, and initialScale property in argument is applied to output initial scale', async ({
+            test.describe('case where initial scale before running setParameters is 1 or less', () => {
+              test('width of viewport is used for comparison, and initialScale property in first argument is applied to output initial scale', async ({
                 page,
                 viewport
               }, testInfo) => {
@@ -620,8 +774,8 @@ test.beforeEach(async ({ page }) => {
                       <script src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>
                     </head>
                     <body>
-                      <script data-initial-scale="2" data-min-width="${minWidth}" data-max-width="${maxWidth}"></script>
-                      <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
+                      <script data-media-specific-parameters-list='[{ "content": { "initialScale": 2, "minWidth": ${minWidth}, "maxWidth": ${maxWidth} } }]'></script>
+                      <script src="/assets/scripts/${format}/using_setParameters.js" type="module"></script>
                     </body>
                   </html>
                 `)
@@ -638,8 +792,8 @@ test.beforeEach(async ({ page }) => {
             })
 
             // When initial scale is greater than 1, document.documentElement.clientWidth is not equal to viewport width
-            test.describe('case where initial scale before running setContent is greater than 1', () => {
-              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in argument is applied to output initial scale', async ({
+            test.describe('case where initial scale before running setParameters is greater than 1', () => {
+              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in first argument is applied to output initial scale', async ({
                 page,
                 viewport
               }, testInfo) => {
@@ -665,8 +819,8 @@ test.beforeEach(async ({ page }) => {
                       <script src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>
                     </head>
                     <body>
-                      <script data-initial-scale="0.5" data-min-width="${minWidth}" data-max-width="${maxWidth}"></script>
-                      <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
+                      <script data-media-specific-parameters-list='[{ "content": { "initialScale": 0.5, "minWidth": ${minWidth}, "maxWidth": ${maxWidth} } }]'></script>
+                      <script src="/assets/scripts/${format}/using_setParameters.js" type="module"></script>
                     </body>
                   </html>
                 `)
@@ -683,9 +837,9 @@ test.beforeEach(async ({ page }) => {
             })
           })
 
-          test.describe('case where unscaledComputing property in globalParameters object is true', () => {
-            test.describe('case where initial scale before running setContent is 1 or less', () => {
-              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in argument is applied to output initial scale', async ({
+          test.describe('case where unscaledComputing property in merged globalParameters object is true', () => {
+            test.describe('case where initial scale before running setParameters is 1 or less', () => {
+              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in first argument is applied to output initial scale', async ({
                 page,
                 viewport
               }, testInfo) => {
@@ -707,12 +861,12 @@ test.beforeEach(async ({ page }) => {
                     <head>
                       <meta charset="UTF-8" />
                       <title>Document</title>
-                      <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-unscaled-computing />
+                      <meta name="viewport" content="width=device-width,initial-scale=0.5" />
                       <script src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>
                     </head>
                     <body>
-                      <script data-initial-scale="2" data-min-width="${minWidth}" data-max-width="${maxWidth}"></script>
-                      <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
+                      <script data-global-parameters='{ "unscaledComputing": true }' data-media-specific-parameters-list='[{ "content": { "initialScale": 2, "minWidth": ${minWidth}, "maxWidth": ${maxWidth} } }]'></script>
+                      <script src="/assets/scripts/${format}/using_setParameters.js" type="module"></script>
                     </body>
                   </html>
                 `)
@@ -728,8 +882,8 @@ test.beforeEach(async ({ page }) => {
               })
             })
 
-            test.describe('case where initial scale before running setContent is greater than 1', () => {
-              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in argument is applied to output initial scale', async ({
+            test.describe('case where initial scale before running setParameters is greater than 1', () => {
+              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in first argument is applied to output initial scale', async ({
                 page,
                 viewport
               }, testInfo) => {
@@ -751,12 +905,12 @@ test.beforeEach(async ({ page }) => {
                     <head>
                       <meta charset="UTF-8" />
                       <title>Document</title>
-                      <meta name="viewport" content="width=device-width,initial-scale=2" data-extra-unscaled-computing />
+                      <meta name="viewport" content="width=device-width,initial-scale=2" />
                       <script src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>
                     </head>
                     <body>
-                      <script data-initial-scale="0.5" data-min-width="${minWidth}" data-max-width="${maxWidth}"></script>
-                      <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
+                      <script data-global-parameters='{ "unscaledComputing": true }' data-media-specific-parameters-list='[{ "content": { "initialScale": 0.5, "minWidth": ${minWidth}, "maxWidth": ${maxWidth} } }]'></script>
+                      <script src="/assets/scripts/${format}/using_setParameters.js" type="module"></script>
                     </body>
                   </html>
                 `)
@@ -770,6 +924,85 @@ test.beforeEach(async ({ page }) => {
                     : ''
                 )
               })
+            })
+          })
+        })
+
+        test.describe('merging current GlobalParameters object and second argument', () => {
+          test.describe('case where second argument is provided', () => {
+            test('values in second argument is used', async ({
+              page,
+              viewport
+            }, testInfo) => {
+              testInfo.skip(formatIndex !== 0)
+              const { config, project } = testInfo
+              testInfo.skip(!['xs'].includes(project.name))
+              const { projects } = config
+              const minWidth =
+                (getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0) /
+                0.5
+              const documentClientWidth = viewport
+                ? viewport.width / 0.5
+                : undefined
+              await page.setContent(`
+                <!doctype html>
+                <html lang="en">
+                  <head>
+                    <meta charset="UTF-8" />
+                    <title>Document</title>
+                    <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-unscaled-computing />
+                    <script src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>
+                  </head>
+                  <body>
+                    <script data-global-parameters='{ "unscaledComputing": false }' data-media-specific-parameters-list='[{ "content": { "initialScale": 2, "minWidth": ${minWidth} } }]'></script>
+                    <script src="/assets/scripts/${format}/using_setParameters.js" type="module"></script>
+                  </body>
+                </html>
+              `)
+              expect(await getViewportContentString(page)).toBe(
+                documentClientWidth && minWidth > 0
+                  ? documentClientWidth < minWidth
+                    ? `initial-scale=${(documentClientWidth / minWidth) * 2},width=${minWidth}`
+                    : 'initial-scale=2,width=device-width'
+                  : ''
+              )
+            })
+          })
+
+          test.describe('case where second argument is not provided', () => {
+            test('values in current GlobalParameters object is used', async ({
+              page,
+              viewport
+            }, testInfo) => {
+              testInfo.skip(formatIndex !== 0)
+              const { config, project } = testInfo
+              testInfo.skip(!['xs'].includes(project.name))
+              const { projects } = config
+              const minWidth =
+                getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
+              const documentClientWidth = viewport ? viewport.width : undefined
+              await page.setContent(`
+                <!doctype html>
+                <html lang="en">
+                  <head>
+                    <meta charset="UTF-8" />
+                    <title>Document</title>
+                    <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-unscaled-computing />
+                    <script src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>
+                  </head>
+                  <body>
+                    <script data-media-specific-parameters-list='[{ "content": { "initialScale": 2, "minWidth": ${minWidth} } }]'></script>
+                    <script src="/assets/scripts/${format}/using_setParameters.js" type="module"></script>
+                  </body>
+                </html>
+              `)
+              expect(await getViewportContentString(page)).toBe(
+                documentClientWidth && minWidth > 0
+                  ? documentClientWidth < minWidth
+                    ? `initial-scale=${(documentClientWidth / minWidth) * 2},width=${minWidth}`
+                    : 'initial-scale=2,width=device-width'
+                  : ''
+              )
             })
           })
         })
