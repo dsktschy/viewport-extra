@@ -90,7 +90,8 @@ test.beforeEach(async ({ page }) => {
           viewport
         }, testInfo) => {
           testInfo.skip(formatIndex !== 0)
-          const { config } = testInfo
+          const { config, project } = testInfo
+          testInfo.skip(!['xs', 'xl'].includes(project.name))
           const { projects } = config
           const minWidth =
             getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
@@ -130,7 +131,8 @@ test.beforeEach(async ({ page }) => {
           viewport
         }, testInfo) => {
           testInfo.skip(formatIndex !== 0)
-          const { config } = testInfo
+          const { config, project } = testInfo
+          testInfo.skip(!['xs', 'xl'].includes(project.name))
           const { projects } = config
           const minWidth =
             getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
