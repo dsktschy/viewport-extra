@@ -1,4 +1,4 @@
-import ViewportExtra, { updateReference, setContent } from '@@/dist/es/index.js'
+import ViewportExtra, { setContent, updateReference } from '@@/dist/es/index.js'
 
 const fitstViewportMetaElement = document.querySelector('meta[name="viewport"]')
 if (fitstViewportMetaElement) {

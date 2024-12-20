@@ -1,25 +1,25 @@
-import * as HTMLMetaElementModule from './lib/HTMLMetaElement.js'
+import * as ContentModule from './lib/Content.js'
+import { type Content, type ContentMinWidth } from './lib/Content.js'
+import { DeepPartial } from './lib/DeepPartial.js'
 import {
-  createPartialGlobalParameters,
-  applyMediaSpecificParameters
-} from './lib/HTMLMetaElement.js'
+  ensureViewportElement,
+  getViewportExtraElementList
+} from './lib/Document.js'
 import {
   type GlobalParameters,
   createGlobalParameters,
   mergePartialGlobalParameters
 } from './lib/GlobalParameters.js'
+import * as HTMLMetaElementModule from './lib/HTMLMetaElement.js'
+import {
+  applyMediaSpecificParameters,
+  createPartialGlobalParameters
+} from './lib/HTMLMetaElement.js'
 import {
   type MediaSpecificParameters,
   createMediaSpecificParameters,
   mergePartialMediaSpecificParameters
 } from './lib/MediaSpecificParameters.js'
-import { DeepPartial } from './lib/DeepPartial.js'
-import * as ContentModule from './lib/Content.js'
-import { type Content, type ContentMinWidth } from './lib/Content.js'
-import {
-  ensureViewportElement,
-  getViewportExtraElementList
-} from './lib/Document.js'
 import { createPartialContent } from './lib/number.js'
 
 let viewportElement: HTMLMetaElement | null = null

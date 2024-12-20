@@ -1,7 +1,7 @@
-import { describe, it, expect } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import {
-  mergeNullableContentAttributes,
-  createOptionalPartialContent
+  createOptionalPartialContent,
+  mergeNullableContentAttributes
 } from './ContentAttribute.js'
 
 describe('mergeNullableContentAttributes', () => {

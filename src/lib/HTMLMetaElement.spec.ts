@@ -1,11 +1,11 @@
-import { describe, it, expect } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import {
-  getNullableUnscaledComputingAttribute,
+  applyMediaSpecificParameters,
   createPartialGlobalParameters,
-  getNullableContentAttribute,
   createPartialMediaSpecificParameters,
-  setContentAttribute,
-  applyMediaSpecificParameters
+  getNullableContentAttribute,
+  getNullableUnscaledComputingAttribute,
+  setContentAttribute
 } from './HTMLMetaElement.js'
 
 describe('getNullableUnscaledComputingAttribute', () => {

@@ -1,7 +1,7 @@
-import { describe, it, expect } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import {
-  mergeNullableUnscaledComputingAttribute,
-  createOptionalUnscaledComputing
+  createOptionalUnscaledComputing,
+  mergeNullableUnscaledComputingAttribute
 } from './UnscaledComputingAttribute.js'
 
 describe('mergeNullableUnscaledComputingAttribute', () => {

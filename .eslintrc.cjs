@@ -19,11 +19,22 @@ module.exports = {
       defaultProject: 'tsconfig.json'
     }
   },
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'import'],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     '@typescript-eslint/no-unused-vars':
-      process.env.NODE_ENV === 'production' ? 2 : 1
+      process.env.NODE_ENV === 'production' ? 2 : 1,
+    'sort-imports': ['error', { ignoreDeclarationSort: true }],
+    'import/order': [
+      'error',
+      {
+        alphabetize: {
+          order: 'asc',
+          orderImportKind: 'asc',
+          caseInsensitive: true
+        }
+      }
+    ]
   }
 }

@@ -1,6 +1,6 @@
+import { type ContentAttribute } from './ContentAttribute.js'
 import { type DeepPartial } from './DeepPartial.js'
 import { type MediaSpecificParameters } from './MediaSpecificParameters.js'
-import { type ContentAttribute } from './ContentAttribute.js'
 import { kebabizeCamelCaseString } from './string.js'
 
 export type ContentWidth = number | 'device-width'

@@ -1,6 +1,6 @@
 import ViewportExtra, {
-  updateReference,
-  setContent
+  setContent,
+  updateReference
 } from '@@/dist/cjs/index.js'
 
 const fitstViewportMetaElement = document.querySelector('meta[name="viewport"]')

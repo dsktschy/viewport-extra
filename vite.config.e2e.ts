@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite'
-import path from 'node:path'
 import { globSync } from 'node:fs'
+import path from 'node:path'
+import { defineConfig } from 'vite'
 
 const srcDir = 'tests/e2e/__fixtures__/src/'
 
