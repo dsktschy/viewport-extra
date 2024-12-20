@@ -1,23 +1,23 @@
 import {
+  type ContentAttribute,
+  createOptionalPartialContent,
+  mergeNullableContentAttributes
+} from './ContentAttribute.js'
+import { type DeepPartial } from './DeepPartial.js'
+import {
   type GlobalParameters,
   setOptionalUnscaledComputing
 } from './GlobalParameters.js'
-import { type DeepPartial } from './DeepPartial.js'
 import {
   type MediaSpecificParameters,
-  setOptionalPartialContent,
-  createContentAttribute
+  createContentAttribute,
+  setOptionalPartialContent
 } from './MediaSpecificParameters.js'
 import {
   type UnscaledComputingAttribute,
-  mergeNullableUnscaledComputingAttribute,
-  createOptionalUnscaledComputing
+  createOptionalUnscaledComputing,
+  mergeNullableUnscaledComputingAttribute
 } from './UnscaledComputingAttribute.js'
-import {
-  type ContentAttribute,
-  mergeNullableContentAttributes,
-  createOptionalPartialContent
-} from './ContentAttribute.js'
 
 export const getNullableUnscaledComputingAttribute = (
   htmlMetaElement: HTMLMetaElement

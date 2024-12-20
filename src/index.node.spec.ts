@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
 describe('side effects', () => {
   describe('updating content attribute of viewport meta element', () => {

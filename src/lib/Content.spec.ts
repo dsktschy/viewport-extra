@@ -1,13 +1,13 @@
-import { describe, it, expect } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import {
-  isContentWidth,
-  isContentInitialScale,
-  isContentMinWidth,
-  isContentMaxWidth,
   createContent,
+  createContentAttribute,
   createPartialMediaSpecificParameters,
-  mergeOptionalPartialContent,
-  createContentAttribute
+  isContentInitialScale,
+  isContentMaxWidth,
+  isContentMinWidth,
+  isContentWidth,
+  mergeOptionalPartialContent
 } from './Content.js'
 
 describe('isContentWidth', () => {

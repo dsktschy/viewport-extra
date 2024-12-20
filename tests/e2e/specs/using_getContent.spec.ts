@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
-import { getGetContentResultString } from '../modules/PlaywrightPage.js'
 import { getViewportSize } from '../modules/PlaywrightFullProjectList.js'
+import { getGetContentResultString } from '../modules/PlaywrightPage.js'
 ;[
   { format: 'es', moduleFlag: true, minified: false },
   { format: 'cjs', moduleFlag: true, minified: false },
