@@ -15,7 +15,29 @@ permissions:
   id-token: write
 
 jobs:
+  define_variables_to_publish:
+    timeout-minutes: 15
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+
+      - name: Define variables
+        id: define_variables
+        shell: bash
+        run: |
+          version=$(jq -r .version package.json)
+          tag=latest
+          if [[ $version == *-* ]]; then
+            tag=next
+          fi
+          echo "tag: $tag"
+          echo "tag=$tag" >> $GITHUB_OUTPUT
+    outputs:
+      tag: ${{ steps.define_variables.outputs.tag }}
+
   publish:
+    needs: define_variables_to_publish
     if: !inputs.dry_run
     timeout-minutes: 15
     runs-on: ubuntu-24.04
@@ -39,11 +61,12 @@ jobs:
 
       - name: Publish to npm
         shell: bash
-        run: npm publish --provenance
+        run: npm publish --tag ${{ needs.define_variables_to_publish.outputs.tag }} --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
 
   dry_publish:
+    needs: define_variables_to_publish
     if: inputs.dry_run
     timeout-minutes: 15
     runs-on: ubuntu-24.04
@@ -67,6 +90,6 @@ jobs:
 
       - name: Publish to npm
         shell: bash
-        run: npm publish --provenance --dry-run
+        run: npm publish --tag ${{ needs.define_variables_to_publish.outputs.tag }} --provenance --dry-run
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
