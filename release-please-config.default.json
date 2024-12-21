@@ -12,22 +12,22 @@
         {
           "type": "json",
           "path": "examples/next-app-router/package.json",
-          "jsonpath": "$.dependencies.viewport-extra"
+          "jsonpath": "$.dependencies['viewport-extra']"
         },
         {
           "type": "json",
           "path": "examples/next-page-router/package.json",
-          "jsonpath": "$.dependencies.viewport-extra"
+          "jsonpath": "$.dependencies['viewport-extra']"
         },
         {
           "type": "json",
           "path": "examples/nuxt2/package.json",
-          "jsonpath": "$.dependencies.viewport-extra"
+          "jsonpath": "$.dependencies['viewport-extra']"
         },
         {
           "type": "json",
           "path": "examples/nuxt3/package.json",
-          "jsonpath": "$.dependencies.viewport-extra"
+          "jsonpath": "$.dependencies['viewport-extra']"
         }
       ]
     }
