@@ -1,6 +1,6 @@
 {
   "name": "viewport-extra",
-  "version": "2.1.4",
+  "version": "2.2.0-rc",
   "description": "Enable to set min-width and max-width to viewport",
   "type": "module",
   "exports": {
