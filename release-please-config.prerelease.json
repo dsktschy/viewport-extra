@@ -4,7 +4,7 @@
   "label": "autorelease: pending,versioning_strategy: prerelease",
   "versioning": "prerelease",
   "prerelease": true,
-  "prerelease-type": "rc",
+  "prerelease-type": "rc.0",
   "packages": {
     ".": {
       "release-type": "node",
