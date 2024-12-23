@@ -23,14 +23,8 @@ const outro = 'exports = exports.default;\n' + 'exports.default = exports;'
 // Global variable name for iife
 const name = 'ViewportExtra'
 
-const importDefaultPath = path.resolve(
-  __dirname,
-  packageJson.exports['.'].import.default
-)
-const requireDefaultPath = path.resolve(
-  __dirname,
-  packageJson.exports['.'].require.default
-)
+const importDefaultPath = path.resolve(__dirname, packageJson.module)
+const requireDefaultPath = path.resolve(__dirname, packageJson.main)
 const jsdelivrPath = path.resolve(__dirname, packageJson.jsdelivr)
 const nonMinifiedJsdelivrPath = jsdelivrPath.replace(/\.min\.js$/, '.js')
 
