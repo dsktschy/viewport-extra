@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "nuxt": "3.12.4",
-    "viewport-extra": "2.1.4",
+    "viewport-extra": "2.2.0-rc.0",
     "vue": "3.4.38",
     "vue-router": "4.4.3"
   }
