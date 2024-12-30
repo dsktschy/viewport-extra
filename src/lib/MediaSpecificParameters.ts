@@ -42,10 +42,10 @@ export const createContentAttribute = (
 ): ContentAttribute =>
   ContentModule.createContentAttribute(content, documentClientWidth)
 
-export const setOptionalPartialContent = (
-  partialMediaSpecificParameters: DeepPartial<MediaSpecificParameters>,
+export const assignOptionalPartialContent = (
+  partialMediaSpecificParameters: DeepPartial<MediaSpecificParameters> = {},
   optionalPartialContent: Partial<Content> | undefined
-): void => {
-  if (!optionalPartialContent) return
-  partialMediaSpecificParameters.content = optionalPartialContent
-}
+): DeepPartial<MediaSpecificParameters> =>
+  optionalPartialContent
+    ? { ...partialMediaSpecificParameters, content: optionalPartialContent }
+    : partialMediaSpecificParameters

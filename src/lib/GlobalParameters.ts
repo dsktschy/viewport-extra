@@ -34,10 +34,13 @@ export const mergePartialGlobalParameters = (
   return partialGlobalParameters
 }
 
-export const setOptionalUnscaledComputing = (
-  partialGlobalParameters: Partial<GlobalParameters>,
+export const assignOptionalUnscaledComputing = (
+  partialGlobalParameters: Partial<GlobalParameters> = {},
   optionalUnscaledComputing: UnscaledComputing | undefined
-): void => {
-  if (typeof optionalUnscaledComputing === 'undefined') return
-  partialGlobalParameters.unscaledComputing = optionalUnscaledComputing
-}
+): Partial<GlobalParameters> =>
+  typeof optionalUnscaledComputing !== 'undefined'
+    ? {
+        ...partialGlobalParameters,
+        unscaledComputing: optionalUnscaledComputing
+      }
+    : partialGlobalParameters

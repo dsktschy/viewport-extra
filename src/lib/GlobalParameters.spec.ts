@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import {
+  assignOptionalUnscaledComputing,
   createGlobalParameters,
-  mergePartialGlobalParameters,
-  setOptionalUnscaledComputing
+  mergePartialGlobalParameters
 } from './GlobalParameters.js'
 
 describe('createGlobalParameters', () => {
@@ -92,12 +92,18 @@ describe('mergePartialGlobalParameters', () => {
   })
 })
 
-describe('setOptionalUnscaledComputing', () => {
-  describe('case where second argument is not undefined', () => {
-    it('should set second argument to unscaledComputing property of first argument', () => {
-      const globalParameters = {}
-      setOptionalUnscaledComputing(globalParameters, true)
-      expect(globalParameters).toStrictEqual({
+describe('assignOptionalUnscaledComputing', () => {
+  describe('case where first and second arguments are not undefined', () => {
+    it('should return object that second argument is set to unscaledComputing property of first argument', () => {
+      expect(assignOptionalUnscaledComputing({}, true)).toStrictEqual({
+        unscaledComputing: true
+      })
+    })
+  })
+
+  describe('case where first argument is undefined', () => {
+    it('should return object that second argument is set to unscaledComputing property', () => {
+      expect(assignOptionalUnscaledComputing(undefined, true)).toStrictEqual({
         unscaledComputing: true
       })
     })
@@ -105,9 +111,7 @@ describe('setOptionalUnscaledComputing', () => {
 
   describe('case where second argument is undefined', () => {
     it('should do nothing', () => {
-      const globalParameters = {}
-      setOptionalUnscaledComputing(globalParameters, undefined)
-      expect(globalParameters).toStrictEqual({})
+      expect(assignOptionalUnscaledComputing({}, undefined)).toStrictEqual({})
     })
   })
 })

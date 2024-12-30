@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import {
+  assignOptionalPartialContent,
   createContentAttribute,
   createMediaSpecificParameters,
-  mergePartialMediaSpecificParameters,
-  setOptionalPartialContent
+  mergePartialMediaSpecificParameters
 } from './MediaSpecificParameters.js'
 
 describe('createMediaSpecificParameters', () => {
@@ -290,16 +290,37 @@ describe('createContentAttribute', () => {
   })
 })
 
-describe('setOptionalPartialContent', () => {
-  describe('case where second argument is not undefined', () => {
-    it('should set second argument to content property of first argument', () => {
-      const mediaSpecificParameters = {}
-      setOptionalPartialContent(mediaSpecificParameters, {
-        width: 'device-width',
-        minWidth: 414,
-        interactiveWidget: 'resizes-content'
+describe('assignOptionalPartialContent', () => {
+  describe('case where first and second arguments are not undefined', () => {
+    it('should return object that second argument is set to content property of first argument', () => {
+      expect(
+        assignOptionalPartialContent(
+          {},
+          {
+            width: 'device-width',
+            minWidth: 414,
+            interactiveWidget: 'resizes-content'
+          }
+        )
+      ).toStrictEqual({
+        content: {
+          width: 'device-width',
+          minWidth: 414,
+          interactiveWidget: 'resizes-content'
+        }
       })
-      expect(mediaSpecificParameters).toStrictEqual({
+    })
+  })
+
+  describe('case where first argument is undefined', () => {
+    it('should return object that second argument is set to content property', () => {
+      expect(
+        assignOptionalPartialContent(undefined, {
+          width: 'device-width',
+          minWidth: 414,
+          interactiveWidget: 'resizes-content'
+        })
+      ).toStrictEqual({
         content: {
           width: 'device-width',
           minWidth: 414,
@@ -311,9 +332,7 @@ describe('setOptionalPartialContent', () => {
 
   describe('case where second argument is undefined', () => {
     it('should do nothing', () => {
-      const mediaSpecificParameters = {}
-      setOptionalPartialContent(mediaSpecificParameters, undefined)
-      expect(mediaSpecificParameters).toStrictEqual({})
+      expect(assignOptionalPartialContent({}, undefined)).toStrictEqual({})
     })
   })
 })
