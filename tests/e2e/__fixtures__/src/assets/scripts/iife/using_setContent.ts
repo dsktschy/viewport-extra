@@ -6,22 +6,13 @@ interface CustomWindow extends Window {
 
 const ViewportExtra = (window as CustomWindow).ViewportExtra
 if (typeof ViewportExtra === 'function') {
-  const content: {
-    minWidth?: number
-    maxWidth?: number
-    initialScale?: number
-  } = {}
-  const minWidth = document
-    .querySelector('[data-min-width]')
-    ?.getAttribute('data-min-width')
-  const maxWidth = document
-    .querySelector('[data-max-width]')
-    ?.getAttribute('data-max-width')
-  const initialScale = document
-    .querySelector('[data-initial-scale]')
-    ?.getAttribute('data-initial-scale')
-  if (minWidth) content.minWidth = parseFloat(minWidth)
-  if (maxWidth) content.maxWidth = parseFloat(maxWidth)
-  if (initialScale) content.initialScale = parseFloat(initialScale)
-  ViewportExtra.setContent(content)
+  const contentAttribute = document
+    .querySelector('[data-content]')
+    ?.getAttribute('data-content')
+  if (typeof contentAttribute === 'string')
+    ViewportExtra.setContent(
+      JSON.parse(contentAttribute) as Parameters<
+        typeof ViewportExtra.setContent
+      >[0]
+    )
 }

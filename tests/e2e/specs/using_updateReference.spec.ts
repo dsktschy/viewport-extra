@@ -59,7 +59,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
           </head>
           <body>
             ${usingDefaultExport ? `<script data-using-default-export></script>` : ''}
-            <script data-min-width-after-update-reference="${minWidth}"></script>
+            <script data-content-after-update-reference='{ "minWidth": ${minWidth} }'></script>
             <script src="/assets/scripts/${format}/using_updateReference.js" type="module"></script>
           </body>
         </html>
