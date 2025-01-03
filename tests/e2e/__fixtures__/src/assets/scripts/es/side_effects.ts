@@ -1,4 +1,4 @@
-import ViewportExtra, { setParameters } from '@@/dist/es/index.js'
+import { setParameters } from '@@/dist/es/index.js'
 
 const mediaSpecificParametersListAttribute = document
   .querySelector('[data-media-specific-parameters-list]')
@@ -9,7 +9,5 @@ if (typeof mediaSpecificParametersListAttribute === 'string') {
       typeof setParameters
     >[0]
   ]
-  ;(document.querySelector('[data-using-default-export]')
-    ? ViewportExtra.setParameters
-    : setParameters)(...argumentList)
+  setParameters(...argumentList)
 }
