@@ -42,8 +42,9 @@ import { getGetContentResultString } from '../modules/PlaywrightPage.js'
     test('current content object is gotten', async ({ page }, {
       config: { projects }
     }) => {
-      const minWidth = getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
-      const maxWidth =
+      const smViewportWidth =
+        getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
+      const lgViewportWidth =
         getViewportSize(projects, 'lg')?.use.viewport?.width ?? Infinity
       await page.setContent(`
         <!doctype html>
@@ -51,7 +52,7 @@ import { getGetContentResultString } from '../modules/PlaywrightPage.js'
           <head>
             <meta charset="UTF-8" />
             <title>Document</title>
-            <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=${minWidth},max-width=${maxWidth}" />
+            <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=${smViewportWidth},max-width=${lgViewportWidth}" />
             ${moduleFlag ? '' : `<script src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>`}
           </head>
           <body>
@@ -62,7 +63,7 @@ import { getGetContentResultString } from '../modules/PlaywrightPage.js'
         </html>
       `)
       expect(await getGetContentResultString(page)).toBe(
-        `{"initialScale":1,"maxWidth":${maxWidth},"minWidth":${minWidth},"width":"device-width"}`
+        `{"initialScale":1,"maxWidth":${lgViewportWidth},"minWidth":${smViewportWidth},"width":"device-width"}`
       )
     })
   })
