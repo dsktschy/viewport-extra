@@ -14,12 +14,14 @@ if (typeof ViewportExtra === 'function') {
     document.head.removeChild(fitstViewportMetaElement)
     document.head.appendChild(secondViewportMetaElement)
     ViewportExtra.updateReference()
-    const content: { minWidth?: number; maxWidth?: number } = {}
-    const minWidthAfterUpdateReference = document
-      .querySelector('[data-min-width-after-update-reference]')
-      ?.getAttribute('data-min-width-after-update-reference')
-    if (minWidthAfterUpdateReference)
-      content.minWidth = parseFloat(minWidthAfterUpdateReference)
-    ViewportExtra.setContent(content)
+    const contentAfterUpdateReferenceAttribute = document
+      .querySelector('[data-content-after-update-reference]')
+      ?.getAttribute('data-content-after-update-reference')
+    if (typeof contentAfterUpdateReferenceAttribute === 'string')
+      ViewportExtra.setContent(
+        JSON.parse(contentAfterUpdateReferenceAttribute) as Parameters<
+          typeof ViewportExtra.setContent
+        >[0]
+      )
   }
 }

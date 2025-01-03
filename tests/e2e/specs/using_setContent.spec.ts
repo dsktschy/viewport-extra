@@ -60,7 +60,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
                 </head>
                 <body>
                   ${usingDefaultExport ? `<script data-using-default-export></script>` : ''}
-                  <script data-min-width="${minWidth}"></script>
+                  <script data-content='{ "minWidth": ${minWidth} }'></script>
                   <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
                 </body>
               </html>
@@ -94,7 +94,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
                 </head>
                 <body>
                   ${usingDefaultExport ? `<script data-using-default-export></script>` : ''}
-                  <script data-max-width="${maxWidth}"></script>
+                  <script data-content='{ "maxWidth": ${maxWidth} }'></script>
                   <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
                 </body>
               </html>
@@ -147,7 +147,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
                   </head>
                   <body>
                     ${usingDefaultExport ? `<script data-using-default-export></script>` : ''}
-                    <script data-initial-scale="2" data-min-width="${minWidth}" data-max-width="${maxWidth}"></script>
+                    <script data-content='{ "initialScale": 2, "minWidth": ${minWidth}, "maxWidth": ${maxWidth} }'></script>
                     <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
                   </body>
                 </html>
@@ -186,7 +186,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
                   </head>
                   <body>
                     ${usingDefaultExport ? `<script data-using-default-export></script>` : ''}
-                    <script data-initial-scale="0.5" data-min-width="${minWidth}" data-max-width="${maxWidth}"></script>
+                    <script data-content='{ "initialScale": 0.5, "minWidth": ${minWidth}, "maxWidth": ${maxWidth} }'></script>
                     <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
                   </body>
                 </html>
@@ -226,7 +226,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
                   </head>
                   <body>
                     ${usingDefaultExport ? `<script data-using-default-export></script>` : ''}
-                    <script data-initial-scale="2" data-min-width="${minWidth}" data-max-width="${maxWidth}"></script>
+                    <script data-content='{ "initialScale": 2, "minWidth": ${minWidth}, "maxWidth": ${maxWidth} }'></script>
                     <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
                   </body>
                 </html>
@@ -264,7 +264,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
                   </head>
                   <body>
                     ${usingDefaultExport ? `<script data-using-default-export></script>` : ''}
-                    <script data-initial-scale="0.5" data-min-width="${minWidth}" data-max-width="${maxWidth}"></script>
+                    <script data-content='{ "initialScale": 0.5, "minWidth": ${minWidth}, "maxWidth": ${maxWidth} }'></script>
                     <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
                   </body>
                 </html>
