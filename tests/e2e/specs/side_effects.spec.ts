@@ -83,7 +83,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
     // Following cases cannot be tested with vitest
     // Because vitest does not update size of document element when viewport element is updated
     // Run in only one format because purpose is to check library behavior, not to verify bundled code
-    test.describe('comparison with minimum and maximum width, and computation of output initial scale', () => {
+    test.describe('comparison with min-width and max-width, and computation of output initial-scale', () => {
       test.beforeEach(async ({ page }, testInfo) => {
         testInfo.skip(formatIndex !== 0)
         testInfo.skip(!['xs', 'xl'].includes(testInfo.project.name))
@@ -91,7 +91,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
       })
 
       test.describe('case where content attribute of viewport meta element is valid', () => {
-        test('width of window without scroll bars when scale is 1 is used for comparison, and initial-scale in content attributes of viewport and viewport-extra meta elements is applied to output initial scale', async ({
+        test('width of window without scroll bars when scale is 1 is used for comparison, and initial-scale merged from viewport and viewport-extra meta elements is applied to output initial-scale', async ({
           page,
           viewport
         }, { config: { projects } }) => {
@@ -128,7 +128,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
       })
 
       test.describe('case where content attribute of viewport meta element is invalid', () => {
-        test('width of window without scroll bars when scale is 1 is used for comparison, and default initialScale value of Content type is applied to output initial scale', async ({
+        test('width of window without scroll bars when scale is 1 is used for comparison, and default initialScale value of Content type is applied to output initial-scale', async ({
           page,
           viewport
         }, { config: { projects } }) => {
@@ -173,7 +173,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
       })
 
       test.describe('case where data-(extra-)unscaled-computing attribute exists in only viewport meta elements', () => {
-        test('unscaledComputing property of GlobalParameters object is set to true', async ({
+        test('unscaledComputing property of globalParameters variable is set to true', async ({
           page,
           viewport
         }, { config: { projects } }) => {
@@ -206,7 +206,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
       })
 
       test.describe('case where data-(extra-)unscaled-computing attribute exists in only viewport-extra meta elements', () => {
-        test('unscaledComputing property of GlobalParameters object is set to true', async ({
+        test('unscaledComputing property of globalParameters variable is set to true', async ({
           page,
           viewport
         }, { config: { projects } }) => {
@@ -239,7 +239,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
       })
 
       test.describe('case where data-(extra-)unscaled-computing attribute exists in both meta elements', () => {
-        test('unscaledComputing property of GlobalParameters object is set to true', async ({
+        test('unscaledComputing property of globalParameters variable is set to true', async ({
           page,
           viewport
         }, { config: { projects } }) => {
@@ -272,7 +272,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
       })
 
       test.describe('case where data-(extra-)unscaled-computing attribute does not exist in both meta elements', () => {
-        test('unscaledComputing property of GlobalParameters object is set to false', async ({
+        test('unscaledComputing property of globalParameters variable is set to false', async ({
           page,
           viewport
         }, { config: { projects } }) => {

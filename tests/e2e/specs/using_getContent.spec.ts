@@ -14,9 +14,9 @@ import { getGetContentResultString } from '../modules/PlaywrightPage.js'
 
     if (moduleFlag) {
       test.describe('using named export', () => {
-        test('current content object is gotten', async ({ page }, {
-          config: { projects }
-        }) => {
+        test('Content object used to update content attribute of viewport meta element is gotten', async ({
+          page
+        }, { config: { projects } }) => {
           const minWidth =
             getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
           const maxWidth =
@@ -42,9 +42,9 @@ import { getGetContentResultString } from '../modules/PlaywrightPage.js'
       })
 
       test.describe('using default export', () => {
-        test('current content object is gotten', async ({ page }, {
-          config: { projects }
-        }) => {
+        test('Content object used to update content attribute of viewport meta element is gotten', async ({
+          page
+        }, { config: { projects } }) => {
           const minWidth =
             getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
           const maxWidth =
@@ -70,9 +70,9 @@ import { getGetContentResultString } from '../modules/PlaywrightPage.js'
       })
     } else {
       test.describe('using global variable', () => {
-        test('current content object is gotten', async ({ page }, {
-          config: { projects }
-        }) => {
+        test('Content object used to update content attribute of viewport meta element is gotten', async ({
+          page
+        }, { config: { projects } }) => {
           const minWidth =
             getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
           const maxWidth =
