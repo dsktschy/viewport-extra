@@ -107,7 +107,7 @@ describe('side effects', () => {
       })
     })
 
-    describe('case where viewport width is less than maxWidth property of object whose index in mediaSpecificParametersList array is 1', () => {
+    describe('case where viewport width is greater than maxWidth property of object whose index in mediaSpecificParametersList array is 1', () => {
       it('updates width to maximum width and initial-scale to value that fits maximum width into viewport', async () => {
         Object.defineProperty(document.documentElement, 'clientWidth', {
           value: 1024,
@@ -173,7 +173,7 @@ describe('setParameters', () => {
       })
     })
 
-    describe('case where viewport width is less than maxWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+    describe('case where viewport width is greater than maxWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
       it('updates width to maximum width and initial-scale to value that fits maximum width into viewport', async () => {
         Object.defineProperty(document.documentElement, 'clientWidth', {
           value: 1024,
@@ -235,7 +235,7 @@ describe('setContent', () => {
       })
     })
 
-    describe('case where viewport width is less than maxWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+    describe('case where viewport width is greater than maxWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
       it('updates width to maximum width and initial-scale to value that fits maximum width into viewport', async () => {
         Object.defineProperty(document.documentElement, 'clientWidth', {
           value: 1024,
@@ -394,7 +394,7 @@ describe('constructor of ViewportExtra class', () => {
       })
     })
 
-    describe('case where viewport width is less than maxWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+    describe('case where viewport width is greater than maxWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
       it('updates width to maximum width and initial-scale to value that fits maximum width into viewport', async () => {
         Object.defineProperty(document.documentElement, 'clientWidth', {
           value: 1024,
@@ -460,7 +460,7 @@ describe('setParameters method of ViewportExtra class', () => {
       })
     })
 
-    describe('case where viewport width is less than maxWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+    describe('case where viewport width is greater than maxWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
       it('updates width to maximum width and initial-scale to value that fits maximum width into viewport', async () => {
         Object.defineProperty(document.documentElement, 'clientWidth', {
           value: 1024,
@@ -527,7 +527,7 @@ describe('setContent method of ViewportExtra class', () => {
       })
     })
 
-    describe('case where viewport width is less than maxWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+    describe('case where viewport width is greater than maxWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
       it('updates width to maximum width and initial-scale to value that fits maximum width into viewport', async () => {
         Object.defineProperty(document.documentElement, 'clientWidth', {
           value: 1024,

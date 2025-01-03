@@ -139,7 +139,7 @@ describe('getNullableContentAttribute', () => {
 
 describe('createPartialMediaSpecificParameters', () => {
   describe('case where argument has only content attribute', () => {
-    it('should return object that has content property matching all key-value pairs content attribute has', () => {
+    it('should return object that has content property matching all key-value pairs in content attribute', () => {
       const htmlMetaElement = document.createElement('meta')
       htmlMetaElement.setAttribute(
         'content',
@@ -158,7 +158,7 @@ describe('createPartialMediaSpecificParameters', () => {
   })
 
   describe('case where argument has only data-extra-content attribute', () => {
-    it('should return object that has content property matching all key-value pairs data-extra-content attribute has', () => {
+    it('should return object that has content property matching all key-value pairs in data-extra-content attribute', () => {
       const htmlMetaElement = document.createElement('meta')
       htmlMetaElement.setAttribute(
         'data-extra-content',
@@ -177,7 +177,7 @@ describe('createPartialMediaSpecificParameters', () => {
   })
 
   describe('case where argument has both content and data-extra-content attributes', () => {
-    it('should return object that has content property matching all key-value pairs content and data-extra-content attributes have', () => {
+    it('should return object that has content property matching all key-value pairs in content and data-extra-content attributes', () => {
       const htmlMetaElement = document.createElement('meta')
       htmlMetaElement.setAttribute(
         'content',

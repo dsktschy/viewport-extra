@@ -83,7 +83,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
         // Following cases cannot be tested with vitest
         // Because vitest does not update size of document element when viewport element is updated
         // Run in only one format because purpose is to check library behavior, not to verify bundled code
-        test.describe('comparison with minimum and maximum width, and computation of output initial scale', () => {
+        test.describe('comparison with minWidth and maxWidth, and computation of output initial-scale', () => {
           test.beforeEach(async ({ page }, testInfo) => {
             testInfo.skip(formatIndex !== 0)
             testInfo.skip(!['xs', 'xl'].includes(testInfo.project.name))
@@ -93,7 +93,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
           test.describe('case where unscaledComputing property in globalParameters object is false', () => {
             // When initial scale is 1 or less, document.documentElement.clientWidth is equal to viewport width
             test.describe('case where initial scale before running setContent is 1 or less', () => {
-              test('width of viewport is used for comparison, and initialScale property in argument is applied to output initial scale', async ({
+              test('width of viewport is used for comparison, and initialScale property merged from current partialMediaSpecificParametersList variable and argument is applied to output initial-scale', async ({
                 page,
                 viewport
               }, { config: { projects } }) => {
@@ -134,7 +134,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
 
             // When initial scale is greater than 1, document.documentElement.clientWidth is not equal to viewport width
             test.describe('case where initial scale before running setContent is greater than 1', () => {
-              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in argument is applied to output initial scale', async ({
+              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property merged from current partialMediaSpecificParametersList variable and argument is applied to output initial-scale', async ({
                 page,
                 viewport
               }, { config: { projects } }) => {
@@ -175,7 +175,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
 
           test.describe('case where unscaledComputing property in globalParameters object is true', () => {
             test.describe('case where initial scale before running setContent is 1 or less', () => {
-              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in argument is applied to output initial scale', async ({
+              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property merged from current partialMediaSpecificParametersList variable and argument is applied to output initial-scale', async ({
                 page,
                 viewport
               }, { config: { projects } }) => {
@@ -214,7 +214,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
             })
 
             test.describe('case where initial scale before running setContent is greater than 1', () => {
-              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in argument is applied to output initial scale', async ({
+              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property merged from current partialMediaSpecificParametersList variable and argument is applied to output initial-scale', async ({
                 page,
                 viewport
               }, { config: { projects } }) => {
@@ -329,7 +329,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
         // Following cases cannot be tested with vitest
         // Because vitest does not update size of document element when viewport element is updated
         // Run in only one format because purpose is to check library behavior, not to verify bundled code
-        test.describe('comparison with minimum and maximum width, and computation of output initial scale', () => {
+        test.describe('comparison with minWidth and maxWidth, and computation of output initial-scale', () => {
           test.beforeEach(async ({ page }, testInfo) => {
             testInfo.skip(formatIndex !== 0)
             testInfo.skip(!['xs', 'xl'].includes(testInfo.project.name))
@@ -339,7 +339,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
           test.describe('case where unscaledComputing property in globalParameters object is false', () => {
             // When initial scale is 1 or less, document.documentElement.clientWidth is equal to viewport width
             test.describe('case where initial scale before running setContent is 1 or less', () => {
-              test('width of viewport is used for comparison, and initialScale property in argument is applied to output initial scale', async ({
+              test('width of viewport is used for comparison, and initialScale property merged from current partialMediaSpecificParametersList variable and argument is applied to output initial-scale', async ({
                 page,
                 viewport
               }, { config: { projects } }) => {
@@ -380,7 +380,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
 
             // When initial scale is greater than 1, document.documentElement.clientWidth is not equal to viewport width
             test.describe('case where initial scale before running setContent is greater than 1', () => {
-              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in argument is applied to output initial scale', async ({
+              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property merged from current partialMediaSpecificParametersList variable and argument is applied to output initial-scale', async ({
                 page,
                 viewport
               }, { config: { projects } }) => {
@@ -421,7 +421,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
 
           test.describe('case where unscaledComputing property in globalParameters object is true', () => {
             test.describe('case where initial scale before running setContent is 1 or less', () => {
-              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in argument is applied to output initial scale', async ({
+              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property merged from current partialMediaSpecificParametersList variable and argument is applied to output initial-scale', async ({
                 page,
                 viewport
               }, { config: { projects } }) => {
@@ -460,7 +460,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
             })
 
             test.describe('case where initial scale before running setContent is greater than 1', () => {
-              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in argument is applied to output initial scale', async ({
+              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property merged from current partialMediaSpecificParametersList variable and argument is applied to output initial-scale', async ({
                 page,
                 viewport
               }, { config: { projects } }) => {
@@ -577,7 +577,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
         // Following cases cannot be tested with vitest
         // Because vitest does not update size of document element when viewport element is updated
         // Run in only one format because purpose is to check library behavior, not to verify bundled code
-        test.describe('comparison with minimum and maximum width, and computation of output initial scale', () => {
+        test.describe('comparison with minWidth and maxWidth, and computation of output initial-scale', () => {
           test.beforeEach(async ({ page }, testInfo) => {
             testInfo.skip(formatIndex !== 0)
             testInfo.skip(!['xs', 'xl'].includes(testInfo.project.name))
@@ -587,7 +587,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
           test.describe('case where unscaledComputing property in globalParameters object is false', () => {
             // When initial scale is 1 or less, document.documentElement.clientWidth is equal to viewport width
             test.describe('case where initial scale before running setContent is 1 or less', () => {
-              test('width of viewport is used for comparison, and initialScale property in argument is applied to output initial scale', async ({
+              test('width of viewport is used for comparison, and initialScale property merged from current partialMediaSpecificParametersList variable and argument is applied to output initial-scale', async ({
                 page,
                 viewport
               }, { config: { projects } }) => {
@@ -629,7 +629,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
 
             // When initial scale is greater than 1, document.documentElement.clientWidth is not equal to viewport width
             test.describe('case where initial scale before running setContent is greater than 1', () => {
-              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in argument is applied to output initial scale', async ({
+              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property merged from current partialMediaSpecificParametersList variable and argument is applied to output initial-scale', async ({
                 page,
                 viewport
               }, { config: { projects } }) => {
@@ -671,7 +671,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
 
           test.describe('case where unscaledComputing property in globalParameters object is true', () => {
             test.describe('case where initial scale before running setContent is 1 or less', () => {
-              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in argument is applied to output initial scale', async ({
+              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property merged from current partialMediaSpecificParametersList variable and argument is applied to output initial-scale', async ({
                 page,
                 viewport
               }, { config: { projects } }) => {
@@ -711,7 +711,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
             })
 
             test.describe('case where initial scale before running setContent is greater than 1', () => {
-              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property in argument is applied to output initial scale', async ({
+              test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property merged from current partialMediaSpecificParametersList variable and argument is applied to output initial-scale', async ({
                 page,
                 viewport
               }, { config: { projects } }) => {
