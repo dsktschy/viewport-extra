@@ -18,7 +18,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
           page,
           viewport
         }, { config: { projects } }) => {
-          const minWidth =
+          const smViewportWidth =
             getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
           const documentClientWidth = viewport ? viewport.width : undefined
           await page.setContent(`
@@ -31,15 +31,15 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
                 ${moduleFlag ? '' : `<script src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>`}
               </head>
               <body>
-                <script data-using-number-argument data-min-width="${minWidth}"></script>
+                <script data-using-number-argument data-min-width="${smViewportWidth}"></script>
                 <script src="/assets/scripts/${format}/using_ViewportExtra-constructor.js" type="module"></script>
               </body>
             </html>
           `)
           expect(await getViewportContentString(page)).toBe(
-            documentClientWidth && minWidth > 0
-              ? documentClientWidth < minWidth
-                ? `initial-scale=${(documentClientWidth / minWidth) * 1},width=${minWidth}`
+            documentClientWidth && smViewportWidth > 0
+              ? documentClientWidth < smViewportWidth
+                ? `initial-scale=${(documentClientWidth / smViewportWidth) * 1},width=${smViewportWidth}`
                 : 'initial-scale=1,width=device-width'
               : ''
           )
@@ -51,7 +51,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
           page,
           viewport
         }, { config: { projects } }) => {
-          const minWidth =
+          const smViewportWidth =
             getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
           const documentClientWidth = viewport ? viewport.width : undefined
           await page.setContent(`
@@ -64,15 +64,15 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
                 ${moduleFlag ? '' : `<script src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>`}
               </head>
               <body>
-                <script data-content='{ "minWidth": ${minWidth} }'></script>
+                <script data-content='{ "minWidth": ${smViewportWidth} }'></script>
                 <script src="/assets/scripts/${format}/using_ViewportExtra-constructor.js" type="module"></script>
               </body>
             </html>
           `)
           expect(await getViewportContentString(page)).toBe(
-            documentClientWidth && minWidth > 0
-              ? documentClientWidth < minWidth
-                ? `initial-scale=${(documentClientWidth / minWidth) * 1},width=${minWidth}`
+            documentClientWidth && smViewportWidth > 0
+              ? documentClientWidth < smViewportWidth
+                ? `initial-scale=${(documentClientWidth / smViewportWidth) * 1},width=${smViewportWidth}`
                 : 'initial-scale=1,width=device-width'
               : ''
           )
@@ -84,7 +84,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
           page,
           viewport
         }, { config: { projects } }) => {
-          const maxWidth =
+          const lgViewportWidth =
             getViewportSize(projects, 'lg')?.use.viewport?.width ?? Infinity
           const documentClientWidth = viewport ? viewport.width : undefined
           await page.setContent(`
@@ -97,15 +97,15 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
                 ${moduleFlag ? '' : `<script src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>`}
               </head>
               <body>
-                <script data-content='{ "maxWidth": ${maxWidth} }'></script>
+                <script data-content='{ "maxWidth": ${lgViewportWidth} }'></script>
                 <script src="/assets/scripts/${format}/using_ViewportExtra-constructor.js" type="module"></script>
               </body>
             </html>
           `)
           expect(await getViewportContentString(page)).toBe(
-            documentClientWidth && maxWidth < Infinity
-              ? documentClientWidth > maxWidth
-                ? `initial-scale=${(documentClientWidth / maxWidth) * 1},width=${maxWidth}`
+            documentClientWidth && lgViewportWidth < Infinity
+              ? documentClientWidth > lgViewportWidth
+                ? `initial-scale=${(documentClientWidth / lgViewportWidth) * 1},width=${lgViewportWidth}`
                 : 'initial-scale=1,width=device-width'
               : ''
           )
@@ -130,9 +130,9 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
             page,
             viewport
           }, { config: { projects } }) => {
-            const minWidth =
+            const smViewportWidth =
               (getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0) / 0.5
-            const maxWidth =
+            const lgViewportWidth =
               (getViewportSize(projects, 'lg')?.use.viewport?.width ??
                 Infinity) / 0.5
             const documentClientWidth = viewport
@@ -148,17 +148,19 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
                   ${moduleFlag ? '' : `<script src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>`}
                 </head>
                 <body>
-                  <script data-content='{ "initialScale": 2, "minWidth": ${minWidth}, "maxWidth": ${maxWidth} }'></script>
+                  <script data-content='{ "initialScale": 2, "minWidth": ${smViewportWidth}, "maxWidth": ${lgViewportWidth} }'></script>
                   <script src="/assets/scripts/${format}/using_ViewportExtra-constructor.js" type="module"></script>
                 </body>
               </html>
             `)
             expect(await getViewportContentString(page)).toBe(
-              documentClientWidth && minWidth > 0 && maxWidth < Infinity
-                ? documentClientWidth < minWidth
-                  ? `initial-scale=${(documentClientWidth / minWidth) * 2},width=${minWidth}`
-                  : documentClientWidth > maxWidth
-                    ? `initial-scale=${(documentClientWidth / maxWidth) * 2},width=${maxWidth}`
+              documentClientWidth &&
+                smViewportWidth > 0 &&
+                lgViewportWidth < Infinity
+                ? documentClientWidth < smViewportWidth
+                  ? `initial-scale=${(documentClientWidth / smViewportWidth) * 2},width=${smViewportWidth}`
+                  : documentClientWidth > lgViewportWidth
+                    ? `initial-scale=${(documentClientWidth / lgViewportWidth) * 2},width=${lgViewportWidth}`
                     : 'initial-scale=2,width=device-width'
                 : ''
             )
@@ -171,9 +173,9 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
             page,
             viewport
           }, { config: { projects } }) => {
-            const minWidth =
+            const smViewportWidth =
               getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
-            const maxWidth =
+            const lgViewportWidth =
               getViewportSize(projects, 'lg')?.use.viewport?.width ?? Infinity
             const documentClientWidth = viewport ? viewport.width : undefined
             await page.setContent(`
@@ -186,17 +188,19 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
                   ${moduleFlag ? '' : `<script src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>`}
                 </head>
                 <body>
-                  <script data-content='{ "initialScale": 0.5, "minWidth": ${minWidth}, "maxWidth": ${maxWidth} }'></script>
+                  <script data-content='{ "initialScale": 0.5, "minWidth": ${smViewportWidth}, "maxWidth": ${lgViewportWidth} }'></script>
                   <script src="/assets/scripts/${format}/using_ViewportExtra-constructor.js" type="module"></script>
                 </body>
               </html>
             `)
             expect(await getViewportContentString(page)).toBe(
-              documentClientWidth && minWidth > 0 && maxWidth < Infinity
-                ? documentClientWidth < minWidth
-                  ? `initial-scale=${(documentClientWidth / minWidth) * 0.5},width=${minWidth}`
-                  : documentClientWidth > maxWidth
-                    ? `initial-scale=${(documentClientWidth / maxWidth) * 0.5},width=${maxWidth}`
+              documentClientWidth &&
+                smViewportWidth > 0 &&
+                lgViewportWidth < Infinity
+                ? documentClientWidth < smViewportWidth
+                  ? `initial-scale=${(documentClientWidth / smViewportWidth) * 0.5},width=${smViewportWidth}`
+                  : documentClientWidth > lgViewportWidth
+                    ? `initial-scale=${(documentClientWidth / lgViewportWidth) * 0.5},width=${lgViewportWidth}`
                     : 'initial-scale=0.5,width=device-width'
                 : ''
             )
@@ -210,9 +214,9 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
             page,
             viewport
           }, { config: { projects } }) => {
-            const minWidth =
+            const smViewportWidth =
               getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
-            const maxWidth =
+            const lgViewportWidth =
               getViewportSize(projects, 'lg')?.use.viewport?.width ?? Infinity
             const documentClientWidth = viewport ? viewport.width : undefined
             await page.setContent(`
@@ -225,17 +229,19 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
                   ${moduleFlag ? '' : `<script src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>`}
                 </head>
                 <body>
-                  <script data-content='{ "initialScale": 2, "minWidth": ${minWidth}, "maxWidth": ${maxWidth} }'></script>
+                  <script data-content='{ "initialScale": 2, "minWidth": ${smViewportWidth}, "maxWidth": ${lgViewportWidth} }'></script>
                   <script src="/assets/scripts/${format}/using_ViewportExtra-constructor.js" type="module"></script>
                 </body>
               </html>
             `)
             expect(await getViewportContentString(page)).toBe(
-              documentClientWidth && minWidth > 0 && maxWidth < Infinity
-                ? documentClientWidth < minWidth
-                  ? `initial-scale=${(documentClientWidth / minWidth) * 2},width=${minWidth}`
-                  : documentClientWidth > maxWidth
-                    ? `initial-scale=${(documentClientWidth / maxWidth) * 2},width=${maxWidth}`
+              documentClientWidth &&
+                smViewportWidth > 0 &&
+                lgViewportWidth < Infinity
+                ? documentClientWidth < smViewportWidth
+                  ? `initial-scale=${(documentClientWidth / smViewportWidth) * 2},width=${smViewportWidth}`
+                  : documentClientWidth > lgViewportWidth
+                    ? `initial-scale=${(documentClientWidth / lgViewportWidth) * 2},width=${lgViewportWidth}`
                     : 'initial-scale=2,width=device-width'
                 : ''
             )
@@ -247,9 +253,9 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
             page,
             viewport
           }, { config: { projects } }) => {
-            const minWidth =
+            const smViewportWidth =
               getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
-            const maxWidth =
+            const lgViewportWidth =
               getViewportSize(projects, 'lg')?.use.viewport?.width ?? Infinity
             const documentClientWidth = viewport ? viewport.width : undefined
             await page.setContent(`
@@ -262,17 +268,19 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
                   ${moduleFlag ? '' : `<script src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>`}
                 </head>
                 <body>
-                  <script data-content='{ "initialScale": 0.5, "minWidth": ${minWidth}, "maxWidth": ${maxWidth} }'></script>
+                  <script data-content='{ "initialScale": 0.5, "minWidth": ${smViewportWidth}, "maxWidth": ${lgViewportWidth} }'></script>
                   <script src="/assets/scripts/${format}/using_ViewportExtra-constructor.js" type="module"></script>
                 </body>
               </html>
             `)
             expect(await getViewportContentString(page)).toBe(
-              documentClientWidth && minWidth > 0 && maxWidth < Infinity
-                ? documentClientWidth < minWidth
-                  ? `initial-scale=${(documentClientWidth / minWidth) * 0.5},width=${minWidth}`
-                  : documentClientWidth > maxWidth
-                    ? `initial-scale=${(documentClientWidth / maxWidth) * 0.5},width=${maxWidth}`
+              documentClientWidth &&
+                smViewportWidth > 0 &&
+                lgViewportWidth < Infinity
+                ? documentClientWidth < smViewportWidth
+                  ? `initial-scale=${(documentClientWidth / smViewportWidth) * 0.5},width=${smViewportWidth}`
+                  : documentClientWidth > lgViewportWidth
+                    ? `initial-scale=${(documentClientWidth / lgViewportWidth) * 0.5},width=${lgViewportWidth}`
                     : 'initial-scale=0.5,width=device-width'
                 : ''
             )

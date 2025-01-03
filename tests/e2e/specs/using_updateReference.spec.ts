@@ -43,9 +43,9 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
       page,
       viewport
     }, { config: { projects } }) => {
-      const maximumWidthViewportSize = getMaximumWidthViewportSize(projects)
-      const minWidth = maximumWidthViewportSize.width
-        ? maximumWidthViewportSize.width + 1
+      const maxViewportWidth = getMaximumWidthViewportSize(projects).width
+      const maxViewportWidthPlusOne = maxViewportWidth
+        ? maxViewportWidth + 1
         : 0
       const documentClientWidth = viewport ? viewport.width : undefined
       await page.setContent(`
@@ -59,15 +59,15 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
           </head>
           <body>
             ${usingDefaultExport ? `<script data-using-default-export></script>` : ''}
-            <script data-content-after-update-reference='{ "minWidth": ${minWidth} }'></script>
+            <script data-content-after-update-reference='{ "minWidth": ${maxViewportWidthPlusOne} }'></script>
             <script src="/assets/scripts/${format}/using_updateReference.js" type="module"></script>
           </body>
         </html>
       `)
       expect(await getViewportContentString(page)).toBe(
-        documentClientWidth && minWidth > 0
-          ? documentClientWidth < minWidth
-            ? `initial-scale=${(documentClientWidth / minWidth) * 1},width=${minWidth}`
+        documentClientWidth && maxViewportWidthPlusOne > 0
+          ? documentClientWidth < maxViewportWidthPlusOne
+            ? `initial-scale=${(documentClientWidth / maxViewportWidthPlusOne) * 1},width=${maxViewportWidthPlusOne}`
             : 'initial-scale=1,width=device-width'
           : ''
       )
