@@ -132,7 +132,10 @@ export const updateReference = (): void => {
   viewportElement = ensureViewportElement(document)
 }
 
-// For compatibility with v1
+/**
+ * - For compatibility with v1
+ * @deprecated
+ */
 export default class ViewportExtra {
   constructor(
     partialContentOrContentMinWidth: Partial<Content> | ContentMinWidth
