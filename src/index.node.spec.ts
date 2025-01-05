@@ -19,6 +19,20 @@ describe('setContent', () => {
   })
 })
 
+describe('getContent', () => {
+  describe('running in environments where no window object exists', () => {
+    it('returns default Content object', async () => {
+      const { getContent } = await import('./index.js')
+      expect(getContent()).toStrictEqual({
+        width: 'device-width',
+        initialScale: 1,
+        minWidth: 0,
+        maxWidth: Infinity
+      })
+    })
+  })
+})
+
 describe('updateReference', () => {
   describe('running in environments where no window object exists', () => {
     it('does not throw error', async () => {
@@ -48,6 +62,20 @@ describe('setContent method of ViewportExtra class', () => {
       expect(() => {
         ViewportExtra.setContent({ minWidth: 414 })
       }).not.toThrowError()
+    })
+  })
+})
+
+describe('getContent method of ViewportExtra class', () => {
+  describe('running in environments where no window object exists', () => {
+    it('returns default Content object', async () => {
+      const { default: ViewportExtra } = await import('./index.js')
+      expect(ViewportExtra.getContent()).toStrictEqual({
+        width: 'device-width',
+        initialScale: 1,
+        minWidth: 0,
+        maxWidth: Infinity
+      })
     })
   })
 })

@@ -125,7 +125,11 @@ export const setContent = (partialContent: Partial<Content>): void => {
   )
 }
 
-export const getContent = (): Content => mediaSpecificParametersList[1].content
+export const getContent = (): Content =>
+  typeof window === 'undefined' ||
+  typeof mediaSpecificParametersList[1] === 'undefined'
+    ? createMediaSpecificParameters().content
+    : mediaSpecificParametersList[1].content
 
 export const updateReference = (): void => {
   if (typeof window === 'undefined') return
