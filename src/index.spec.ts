@@ -1,4 +1,4 @@
-import { describe, beforeEach, vi, it, expect } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 beforeEach(() => {
   vi.resetModules()
@@ -36,42 +36,34 @@ describe('side effects', () => {
   describe('merging content attributes of viewport and viewport-extra meta elements', () => {
     describe('case where content attributes of both meta elements have no duplicate key-value pairs', () => {
       it('uses key-value pairs of both meta elements', async () => {
-        const width = 640
-        const initialScale = 2
-        const minWidth = 414
-        const maxWidth = 768
         document.head.innerHTML = `
           <meta charset="utf-8" />
-          <meta name="viewport" content="width=${width}" data-extra-content="min-width=${minWidth}" />
-          <meta name="viewport-extra" content="initial-scale=${initialScale},max-width=${maxWidth}" />
+          <meta name="viewport" content="width=640" data-extra-content="min-width=414" />
+          <meta name="viewport-extra" content="initial-scale=2,max-width=768" />
         `
         const { getContent } = await import('./index.js')
         expect(getContent()).toStrictEqual({
-          width,
-          initialScale,
-          minWidth,
-          maxWidth
+          width: 640,
+          initialScale: 2,
+          minWidth: 414,
+          maxWidth: 768
         })
       })
     })
 
     describe('case where content attributes of both meta elements have duplicate key-value pairs', () => {
       it('uses key-value pairs of viewport-extra meta element', async () => {
-        const width = 640
-        const initialScale = 2
-        const minWidth = 414
-        const maxWidth = 768
         document.head.innerHTML = `
           <meta charset="utf-8" />
           <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=360,max-width=640" />
-          <meta name="viewport-extra" content="width=${width},initial-scale=${initialScale},min-width=${minWidth},max-width=${maxWidth}" />
+          <meta name="viewport-extra" content="width=640,initial-scale=2,min-width=414,max-width=768" />
         `
         const { getContent } = await import('./index.js')
         expect(getContent()).toStrictEqual({
-          width,
-          initialScale,
-          minWidth,
-          maxWidth
+          width: 640,
+          initialScale: 2,
+          minWidth: 414,
+          maxWidth: 768
         })
       })
     })
@@ -95,82 +87,138 @@ describe('side effects', () => {
   })
 
   describe('updating content attribute of viewport meta element', () => {
-    describe('case where viewport width is less than min-width in merged content attributes', () => {
-      it('updates width to min-width and initial-scale to value that does not cause scrolling', async () => {
-        const viewportWidth = 320
-        const minWidth = 414
+    describe('case where viewport width is less than minWidth property of object whose index in mediaSpecificParametersList array is 1', () => {
+      it('updates width to minimum width and initial-scale to value that fits minimum width into viewport', async () => {
         Object.defineProperty(document.documentElement, 'clientWidth', {
-          value: viewportWidth,
+          value: 320,
           configurable: true
         })
         document.head.innerHTML = `
           <meta charset="utf-8" />
           <meta name="viewport" content="width=device-width,initial-scale=1" />
-          <meta name="viewport-extra" content="min-width=${minWidth}" />
+          <meta name="viewport-extra" content="min-width=414" />
         `
         await import('./index.js')
         expect(
           document
             .querySelector('meta[name="viewport"]')
             ?.getAttribute('content')
-        ).toBe(`initial-scale=${viewportWidth / minWidth},width=${minWidth}`)
+        ).toBe('initial-scale=0.7729468599033816,width=414')
       })
     })
 
-    describe('case where viewport width is greater than max-width in merged content attributes', () => {
-      it('updates width to max-width and initial-scale to value that does not cause scrolling', async () => {
-        const viewportWidth = 1024
-        const maxWidth = 768
+    describe('case where viewport width is greater than maxWidth property of object whose index in mediaSpecificParametersList array is 1', () => {
+      it('updates width to maximum width and initial-scale to value that fits maximum width into viewport', async () => {
         Object.defineProperty(document.documentElement, 'clientWidth', {
-          value: viewportWidth,
+          value: 1024,
           configurable: true
         })
         document.head.innerHTML = `
           <meta charset="utf-8" />
           <meta name="viewport" content="width=device-width,initial-scale=1" />
-          <meta name="viewport-extra" content="max-width=${maxWidth}" />
+          <meta name="viewport-extra" content="max-width=768" />
         `
         await import('./index.js')
         expect(
           document
             .querySelector('meta[name="viewport"]')
             ?.getAttribute('content')
-        ).toBe(`initial-scale=${viewportWidth / maxWidth},width=${maxWidth}`)
+        ).toBe('initial-scale=1.3333333333333333,width=768')
+      })
+    })
+  })
+})
+
+describe('setParameters', () => {
+  describe('merging current mediaSpecificParametersList array and first argument', () => {
+    it('deeply merges object with index 1 of current mediaSpecificParametersList and all objects in argument array, with rule that values in argument array overwrites values in current mediaSpecificParametersList and values in object whose index is higher overwrites values in object whose index is lower', async () => {
+      Object.defineProperty(document.documentElement, 'clientWidth', {
+        value: 320,
+        configurable: true
+      })
+      document.head.innerHTML = `
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <meta name="viewport-extra" content="min-width=320,max-width=640" />
+      `
+      const { setParameters } = await import('./index.js')
+      setParameters([
+        { content: { initialScale: 2, minWidth: 360 } },
+        { content: { minWidth: 414 } }
+      ])
+      expect(
+        document.querySelector('meta[name="viewport"]')?.getAttribute('content')
+      ).toBe('initial-scale=1.5458937198067633,width=414')
+    })
+  })
+
+  describe('updating content attribute of viewport meta element', () => {
+    describe('case where viewport width is less than minWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+      it('updates width to minimum width and initial-scale to value that fits minimum width into viewport', async () => {
+        Object.defineProperty(document.documentElement, 'clientWidth', {
+          value: 320,
+          configurable: true
+        })
+        document.head.innerHTML = `
+          <meta charset="utf-8" />
+          <meta name="viewport" content="width=device-width,initial-scale=1" />
+        `
+        const { setParameters } = await import('./index.js')
+        setParameters([{ content: { minWidth: 414 } }])
+        expect(
+          document
+            .querySelector('meta[name="viewport"]')
+            ?.getAttribute('content')
+        ).toBe('initial-scale=0.7729468599033816,width=414')
+      })
+    })
+
+    describe('case where viewport width is greater than maxWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+      it('updates width to maximum width and initial-scale to value that fits maximum width into viewport', async () => {
+        Object.defineProperty(document.documentElement, 'clientWidth', {
+          value: 1024,
+          configurable: true
+        })
+        document.head.innerHTML = `
+          <meta charset="utf-8" />
+          <meta name="viewport" content="width=device-width,initial-scale=1" />
+        `
+        const { setParameters } = await import('./index.js')
+        setParameters([{ content: { maxWidth: 768 } }])
+        expect(
+          document
+            .querySelector('meta[name="viewport"]')
+            ?.getAttribute('content')
+        ).toBe('initial-scale=1.3333333333333333,width=768')
       })
     })
   })
 })
 
 describe('setContent', () => {
-  describe('merging current content object and argument content object', () => {
-    it('uses properties of argument content object', async () => {
-      const width = 640
-      const initialScale = 2
-      const minWidth = 414
-      const maxWidth = 768
+  describe('merging current mediaSpecificParametersList array and argument', () => {
+    it('merges content property in object with index 1 of current mediaSpecificParametersList and argument object, with rule that values in argument object overwrites values in current mediaSpecificParametersList', async () => {
       document.head.innerHTML = `
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <meta name="viewport-extra" content="min-width=360,max-width=640" />
       `
       const { setContent, getContent } = await import('./index.js')
-      setContent({ width, initialScale, minWidth, maxWidth })
+      setContent({ width: 640, initialScale: 2, minWidth: 414, maxWidth: 768 })
       expect(getContent()).toStrictEqual({
-        width,
-        initialScale,
-        minWidth,
-        maxWidth
+        width: 640,
+        initialScale: 2,
+        minWidth: 414,
+        maxWidth: 768
       })
     })
   })
 
   describe('updating content attribute of viewport meta element', () => {
-    describe('case where viewport width is less than min-width in argument content object', () => {
-      it('updates width to min-width and initial-scale to value that does not cause scrolling', async () => {
-        const viewportWidth = 320
-        const minWidth = 414
+    describe('case where viewport width is less than minWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+      it('updates width to minimum width and initial-scale to value that fits minimum width into viewport', async () => {
         Object.defineProperty(document.documentElement, 'clientWidth', {
-          value: viewportWidth,
+          value: 320,
           configurable: true
         })
         document.head.innerHTML = `
@@ -178,21 +226,19 @@ describe('setContent', () => {
           <meta name="viewport" content="width=device-width,initial-scale=1" />
         `
         const { setContent } = await import('./index.js')
-        setContent({ minWidth })
+        setContent({ minWidth: 414 })
         expect(
           document
             .querySelector('meta[name="viewport"]')
             ?.getAttribute('content')
-        ).toBe(`initial-scale=${viewportWidth / minWidth},width=${minWidth}`)
+        ).toBe('initial-scale=0.7729468599033816,width=414')
       })
     })
 
-    describe('case where viewport width is greater than max-width in argument content object', () => {
-      it('updates width to max-width and initial-scale to value that does not cause scrolling', async () => {
-        const viewportWidth = 1024
-        const maxWidth = 768
+    describe('case where viewport width is greater than maxWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+      it('updates width to maximum width and initial-scale to value that fits maximum width into viewport', async () => {
         Object.defineProperty(document.documentElement, 'clientWidth', {
-          value: viewportWidth,
+          value: 1024,
           configurable: true
         })
         document.head.innerHTML = `
@@ -200,44 +246,38 @@ describe('setContent', () => {
           <meta name="viewport" content="width=device-width,initial-scale=1" />
         `
         const { setContent } = await import('./index.js')
-        setContent({ maxWidth })
+        setContent({ maxWidth: 768 })
         expect(
           document
             .querySelector('meta[name="viewport"]')
             ?.getAttribute('content')
-        ).toBe(`initial-scale=${viewportWidth / maxWidth},width=${maxWidth}`)
+        ).toBe('initial-scale=1.3333333333333333,width=768')
       })
     })
   })
 })
 
 describe('getContent', () => {
-  it('returns current content object', async () => {
-    const width = 640
-    const initialScale = 2
-    const minWidth = 414
-    const maxWidth = 768
+  it('returns Content object used to update content attribute of viewport meta element', async () => {
     document.head.innerHTML = `
       <meta charset="utf-8" />
-      <meta name="viewport" content="width=${width},initial-scale=${initialScale}" />
-      <meta name="viewport-extra" content="min-width=${minWidth},max-width=${maxWidth}" />
+      <meta name="viewport" content="width=640,initial-scale=2" />
+      <meta name="viewport-extra" content="min-width=414,max-width=768" />
     `
     const { getContent } = await import('./index.js')
     expect(getContent()).toStrictEqual({
-      width,
-      initialScale,
-      minWidth,
-      maxWidth
+      width: 640,
+      initialScale: 2,
+      minWidth: 414,
+      maxWidth: 768
     })
   })
 })
 
 describe('updateReference', () => {
   it('updates reference to viewport meta element', async () => {
-    const viewportWidth = 320
-    const minWidth = 414
     Object.defineProperty(document.documentElement, 'clientWidth', {
-      value: viewportWidth,
+      value: 320,
       configurable: true
     })
     document.head.innerHTML = `
@@ -254,22 +294,18 @@ describe('updateReference', () => {
     document.head.removeChild(fitstViewportMetaElement)
     document.head.appendChild(secondViewportMetaElement)
     updateReference()
-    setContent({ minWidth })
+    setContent({ minWidth: 414 })
     expect(secondViewportMetaElement.getAttribute('content')).toBe(
-      `initial-scale=${viewportWidth / minWidth},width=${minWidth}`
+      'initial-scale=0.7729468599033816,width=414'
     )
   })
 
   describe('target of updating', () => {
     it('does not update content object', async () => {
-      const width = 640
-      const initialScale = 2
-      const minWidth = 414
-      const maxWidth = 768
       document.head.innerHTML = `
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=${width},initial-scale=${initialScale}" />
-        <meta name="viewport-extra" content="min-width=${minWidth},max-width=${maxWidth}" />
+        <meta name="viewport" content="width=640,initial-scale=2" />
+        <meta name="viewport-extra" content="min-width=414,max-width=768" />
       `
       const { updateReference, getContent } = await import('./index.js')
       const fitstViewportMetaElement = document.querySelector(
@@ -286,66 +322,62 @@ describe('updateReference', () => {
       document.head.appendChild(secondViewportMetaElement)
       updateReference()
       expect(getContent()).toStrictEqual({
-        width,
-        initialScale,
-        minWidth,
-        maxWidth
+        width: 640,
+        initialScale: 2,
+        minWidth: 414,
+        maxWidth: 768
       })
     })
   })
 })
 
 describe('constructor of ViewportExtra class', () => {
-  describe('merging current min-width and argument min-width', () => {
-    it('uses argument min-width and uses properties of current content object for rest', async () => {
-      const width = 'device-width'
-      const initialScale = 1
-      const minWidth = 414
+  describe('merging current mediaSpecificParametersList array and argument number', () => {
+    it('overwrites content.minWidth property in object with index 1 of current mediaSpecificParametersList with argument number', async () => {
       document.head.innerHTML = `
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=${width},initial-scale=${initialScale}" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
         <meta name="viewport-extra" content="min-width=360" />
       `
       const { default: ViewportExtra, getContent } = await import('./index.js')
-      new ViewportExtra(minWidth)
+      new ViewportExtra(414)
       expect(getContent()).toStrictEqual({
-        width,
-        initialScale,
-        minWidth,
+        width: 'device-width',
+        initialScale: 1,
+        minWidth: 414,
         maxWidth: Infinity
       })
     })
   })
 
-  describe('merging current content object and argument content object', () => {
-    it('uses properties of argument content object', async () => {
-      const width = 640
-      const initialScale = 2
-      const minWidth = 414
-      const maxWidth = 768
+  describe('merging current mediaSpecificParametersList array and argument object', () => {
+    it('merges content property in object with index 1 of current mediaSpecificParametersList and argument object, with rule that values in argument object overwrites values in current mediaSpecificParametersList', async () => {
       document.head.innerHTML = `
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <meta name="viewport-extra" content="min-width=360,max-width=640" />
       `
       const { default: ViewportExtra, getContent } = await import('./index.js')
-      new ViewportExtra({ width, initialScale, minWidth, maxWidth })
+      new ViewportExtra({
+        width: 640,
+        initialScale: 2,
+        minWidth: 414,
+        maxWidth: 768
+      })
       expect(getContent()).toStrictEqual({
-        width,
-        initialScale,
-        minWidth,
-        maxWidth
+        width: 640,
+        initialScale: 2,
+        minWidth: 414,
+        maxWidth: 768
       })
     })
   })
 
   describe('updating content attribute of viewport meta element', () => {
-    describe('case where viewport width is less than min-width in argument content object or as argument number', () => {
-      it('updates width to min-width and initial-scale to value that does not cause scrolling', async () => {
-        const viewportWidth = 320
-        const minWidth = 414
+    describe('case where viewport width is less than minWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+      it('updates width to minimum width and initial-scale to value that fits minimum width into viewport', async () => {
         Object.defineProperty(document.documentElement, 'clientWidth', {
-          value: viewportWidth,
+          value: 320,
           configurable: true
         })
         document.head.innerHTML = `
@@ -353,21 +385,19 @@ describe('constructor of ViewportExtra class', () => {
           <meta name="viewport" content="width=device-width,initial-scale=1" />
         `
         const { default: ViewportExtra } = await import('./index.js')
-        new ViewportExtra({ minWidth })
+        new ViewportExtra({ minWidth: 414 })
         expect(
           document
             .querySelector('meta[name="viewport"]')
             ?.getAttribute('content')
-        ).toBe(`initial-scale=${viewportWidth / minWidth},width=${minWidth}`)
+        ).toBe('initial-scale=0.7729468599033816,width=414')
       })
     })
 
-    describe('case where viewport width is greater than max-width in argument content object', () => {
-      it('updates width to max-width and initial-scale to value that does not cause scrolling', async () => {
-        const viewportWidth = 1024
-        const maxWidth = 768
+    describe('case where viewport width is greater than maxWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+      it('updates width to maximum width and initial-scale to value that fits maximum width into viewport', async () => {
         Object.defineProperty(document.documentElement, 'clientWidth', {
-          value: viewportWidth,
+          value: 1024,
           configurable: true
         })
         document.head.innerHTML = `
@@ -375,47 +405,112 @@ describe('constructor of ViewportExtra class', () => {
           <meta name="viewport" content="width=device-width,initial-scale=1" />
         `
         const { default: ViewportExtra } = await import('./index.js')
-        new ViewportExtra({ maxWidth })
+        new ViewportExtra({ maxWidth: 768 })
         expect(
           document
             .querySelector('meta[name="viewport"]')
             ?.getAttribute('content')
-        ).toBe(`initial-scale=${viewportWidth / maxWidth},width=${maxWidth}`)
+        ).toBe('initial-scale=1.3333333333333333,width=768')
+      })
+    })
+  })
+})
+
+describe('setParameters method of ViewportExtra class', () => {
+  describe('merging current mediaSpecificParametersList array and first argument', () => {
+    it('deeply merges object with index 1 of current mediaSpecificParametersList and all objects in argument array, with rule that values in argument array overwrites values in current mediaSpecificParametersList and values in object whose index is higher overwrites values in object whose index is lower', async () => {
+      Object.defineProperty(document.documentElement, 'clientWidth', {
+        value: 320,
+        configurable: true
+      })
+      document.head.innerHTML = `
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <meta name="viewport-extra" content="min-width=320,max-width=640" />
+      `
+      const { default: ViewportExtra } = await import('./index.js')
+      ViewportExtra.setParameters([
+        { content: { initialScale: 2, minWidth: 360 } },
+        { content: { minWidth: 414 } }
+      ])
+      expect(
+        document.querySelector('meta[name="viewport"]')?.getAttribute('content')
+      ).toBe('initial-scale=1.5458937198067633,width=414')
+    })
+  })
+
+  describe('updating content attribute of viewport meta element', () => {
+    describe('case where viewport width is less than minWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+      it('updates width to minimum width and initial-scale to value that fits minimum width into viewport', async () => {
+        Object.defineProperty(document.documentElement, 'clientWidth', {
+          value: 320,
+          configurable: true
+        })
+        document.head.innerHTML = `
+          <meta charset="utf-8" />
+          <meta name="viewport" content="width=device-width,initial-scale=1" />
+        `
+        const { default: ViewportExtra } = await import('./index.js')
+        ViewportExtra.setParameters([{ content: { minWidth: 414 } }])
+        expect(
+          document
+            .querySelector('meta[name="viewport"]')
+            ?.getAttribute('content')
+        ).toBe('initial-scale=0.7729468599033816,width=414')
+      })
+    })
+
+    describe('case where viewport width is greater than maxWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+      it('updates width to maximum width and initial-scale to value that fits maximum width into viewport', async () => {
+        Object.defineProperty(document.documentElement, 'clientWidth', {
+          value: 1024,
+          configurable: true
+        })
+        document.head.innerHTML = `
+          <meta charset="utf-8" />
+          <meta name="viewport" content="width=device-width,initial-scale=1" />
+        `
+        const { default: ViewportExtra } = await import('./index.js')
+        ViewportExtra.setParameters([{ content: { maxWidth: 768 } }])
+        expect(
+          document
+            .querySelector('meta[name="viewport"]')
+            ?.getAttribute('content')
+        ).toBe('initial-scale=1.3333333333333333,width=768')
       })
     })
   })
 })
 
 describe('setContent method of ViewportExtra class', () => {
-  describe('merging current content object and argument content object', () => {
-    it('uses properties of argument content object', async () => {
-      const width = 640
-      const initialScale = 2
-      const minWidth = 414
-      const maxWidth = 768
+  describe('merging current mediaSpecificParametersList array and argument', () => {
+    it('merges content property in object with index 1 of current mediaSpecificParametersList and argument object, with rule that values in argument object overwrites values in current mediaSpecificParametersList', async () => {
       document.head.innerHTML = `
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <meta name="viewport-extra" content="min-width=360,max-width=640" />
       `
       const { default: ViewportExtra, getContent } = await import('./index.js')
-      ViewportExtra.setContent({ width, initialScale, minWidth, maxWidth })
+      ViewportExtra.setContent({
+        width: 640,
+        initialScale: 2,
+        minWidth: 414,
+        maxWidth: 768
+      })
       expect(getContent()).toStrictEqual({
-        width,
-        initialScale,
-        minWidth,
-        maxWidth
+        width: 640,
+        initialScale: 2,
+        minWidth: 414,
+        maxWidth: 768
       })
     })
   })
 
   describe('updating content attribute of viewport meta element', () => {
-    describe('case where viewport width is less than min-width in argument content object', () => {
-      it('updates width to min-width and initial-scale to value that does not cause scrolling', async () => {
-        const viewportWidth = 320
-        const minWidth = 414
+    describe('case where viewport width is less than minWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+      it('updates width to minimum width and initial-scale to value that fits minimum width into viewport', async () => {
         Object.defineProperty(document.documentElement, 'clientWidth', {
-          value: viewportWidth,
+          value: 320,
           configurable: true
         })
         document.head.innerHTML = `
@@ -423,21 +518,19 @@ describe('setContent method of ViewportExtra class', () => {
           <meta name="viewport" content="width=device-width,initial-scale=1" />
         `
         const { default: ViewportExtra } = await import('./index.js')
-        ViewportExtra.setContent({ minWidth })
+        ViewportExtra.setContent({ minWidth: 414 })
         expect(
           document
             .querySelector('meta[name="viewport"]')
             ?.getAttribute('content')
-        ).toBe(`initial-scale=${viewportWidth / minWidth},width=${minWidth}`)
+        ).toBe('initial-scale=0.7729468599033816,width=414')
       })
     })
 
-    describe('case where viewport width is greater than max-width in argument content object', () => {
-      it('updates width to max-width and initial-scale to value that does not cause scrolling', async () => {
-        const viewportWidth = 1024
-        const maxWidth = 768
+    describe('case where viewport width is greater than maxWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+      it('updates width to maximum width and initial-scale to value that fits maximum width into viewport', async () => {
         Object.defineProperty(document.documentElement, 'clientWidth', {
-          value: viewportWidth,
+          value: 1024,
           configurable: true
         })
         document.head.innerHTML = `
@@ -445,44 +538,38 @@ describe('setContent method of ViewportExtra class', () => {
           <meta name="viewport" content="width=device-width,initial-scale=1" />
         `
         const { default: ViewportExtra } = await import('./index.js')
-        ViewportExtra.setContent({ maxWidth })
+        ViewportExtra.setContent({ maxWidth: 768 })
         expect(
           document
             .querySelector('meta[name="viewport"]')
             ?.getAttribute('content')
-        ).toBe(`initial-scale=${viewportWidth / maxWidth},width=${maxWidth}`)
+        ).toBe('initial-scale=1.3333333333333333,width=768')
       })
     })
   })
 })
 
 describe('getContent method of ViewportExtra class', () => {
-  it('returns current content object', async () => {
-    const width = 640
-    const initialScale = 2
-    const minWidth = 414
-    const maxWidth = 768
+  it('returns Content object used to update content attribute of viewport meta element', async () => {
     document.head.innerHTML = `
       <meta charset="utf-8" />
-      <meta name="viewport" content="width=${width},initial-scale=${initialScale}" />
-      <meta name="viewport-extra" content="min-width=${minWidth},max-width=${maxWidth}" />
+      <meta name="viewport" content="width=640,initial-scale=2" />
+      <meta name="viewport-extra" content="min-width=414,max-width=768" />
     `
     const { default: ViewportExtra } = await import('./index.js')
     expect(ViewportExtra.getContent()).toStrictEqual({
-      width,
-      initialScale,
-      minWidth,
-      maxWidth
+      width: 640,
+      initialScale: 2,
+      minWidth: 414,
+      maxWidth: 768
     })
   })
 })
 
 describe('updateReference method of ViewportExtra class', () => {
   it('updates reference to viewport meta element', async () => {
-    const viewportWidth = 320
-    const minWidth = 414
     Object.defineProperty(document.documentElement, 'clientWidth', {
-      value: viewportWidth,
+      value: 320,
       configurable: true
     })
     document.head.innerHTML = `
@@ -499,22 +586,18 @@ describe('updateReference method of ViewportExtra class', () => {
     document.head.removeChild(fitstViewportMetaElement)
     document.head.appendChild(secondViewportMetaElement)
     ViewportExtra.updateReference()
-    setContent({ minWidth })
+    setContent({ minWidth: 414 })
     expect(secondViewportMetaElement.getAttribute('content')).toBe(
-      `initial-scale=${viewportWidth / minWidth},width=${minWidth}`
+      'initial-scale=0.7729468599033816,width=414'
     )
   })
 
   describe('target of updating', () => {
     it('does not update content object', async () => {
-      const width = 640
-      const initialScale = 2
-      const minWidth = 414
-      const maxWidth = 768
       document.head.innerHTML = `
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=${width},initial-scale=${initialScale}" />
-        <meta name="viewport-extra" content="min-width=${minWidth},max-width=${maxWidth}" />
+        <meta name="viewport" content="width=640,initial-scale=2" />
+        <meta name="viewport-extra" content="min-width=414,max-width=768" />
       `
       const { default: ViewportExtra, getContent } = await import('./index.js')
       const fitstViewportMetaElement = document.querySelector(
@@ -531,10 +614,10 @@ describe('updateReference method of ViewportExtra class', () => {
       document.head.appendChild(secondViewportMetaElement)
       ViewportExtra.updateReference()
       expect(getContent()).toStrictEqual({
-        width,
-        initialScale,
-        minWidth,
-        maxWidth
+        width: 640,
+        initialScale: 2,
+        minWidth: 414,
+        maxWidth: 768
       })
     })
   })

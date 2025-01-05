@@ -1,56 +1,66 @@
-import { describe, test, expect } from 'vitest'
-import { getHTMLMetaElement } from './Document.js'
+import { describe, expect, it } from 'vitest'
+import {
+  ensureViewportElement,
+  getViewportExtraElementList
+} from './Document.js'
 
-describe('about src/lib/Document.ts', () => {
-  test("whether `getHTMLMetaElement` returns correct HTMLMetaElement with document has viewport meta element and following params. `'viewport'`, `true`", () => {
-    document.head.innerHTML = ''
-    const nameAttributeValue = 'viewport'
-    const appendedHTMLMetaElement = document.createElement('meta')
-    appendedHTMLMetaElement.setAttribute('name', nameAttributeValue)
-    document.head.appendChild(appendedHTMLMetaElement)
-    const gottenHTMLMetaElement = getHTMLMetaElement(
-      document,
-      nameAttributeValue,
-      true
-    )
-    expect(gottenHTMLMetaElement).toBe(appendedHTMLMetaElement)
+describe('ensureViewportElement', () => {
+  describe('case where viewport meta element exists', () => {
+    it('should return existing viewport meta element', () => {
+      document.head.innerHTML = `
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=414,initial-scale=2" />
+      `
+      expect(ensureViewportElement(document)).toBe(
+        document.querySelector('meta[name="viewport"]')
+      )
+    })
   })
 
-  test("whether `getHTMLMetaElement` returns correct HTMLMetaElement with document has no viewport meta element and following params. `'viewport'`, `true`", () => {
-    document.head.innerHTML = ''
-    const nameAttributeValue = 'viewport'
-    const gottenHTMLMetaElement = getHTMLMetaElement(
-      document,
-      nameAttributeValue,
-      true
-    )
-    const selectedHTMLMetaElement = document.head.querySelector(
-      `meta[name="${nameAttributeValue}"]`
-    )
-    expect(selectedHTMLMetaElement).toBe(gottenHTMLMetaElement)
+  describe('case where viewport meta element does not exist', () => {
+    it('should append viewport meta element to HTML and returns appended viewport meta element', () => {
+      document.head.innerHTML = `
+        <meta charset="utf-8" />
+      `
+      const returnedViewportElement = ensureViewportElement(document)
+      const selectedViewportElement = document.querySelector(
+        'meta[name="viewport"]'
+      )
+      expect(selectedViewportElement).not.toBe(null)
+      expect(returnedViewportElement).toBe(selectedViewportElement)
+    })
+  })
+})
+
+describe('getViewportExtraElementList', () => {
+  describe('case where viewport meta elements exist', () => {
+    it('should return existing viewport-extra meta elements without viewport meta element', () => {
+      document.head.innerHTML = `
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <meta name="viewport-extra" content="min-width=414" />
+        <meta name="viewport-extra" content="max-width=768" />
+      `
+      const selectedViewportElementList = document.querySelectorAll(
+        'meta[name="viewport-extra"]'
+      )
+      getViewportExtraElementList(document).forEach(
+        (returnedViewportExtraElement, index) => {
+          expect(returnedViewportExtraElement).toBe(
+            selectedViewportElementList[index]
+          )
+        }
+      )
+    })
   })
 
-  test("whether `getHTMLMetaElement` returns correct HTMLMetaElement with document has viewport meta element and following params. `'viewport'`, `false`", () => {
-    document.head.innerHTML = ''
-    const nameAttributeValue = 'viewport'
-    const appendedHTMLMetaElement = document.createElement('meta')
-    appendedHTMLMetaElement.setAttribute('name', nameAttributeValue)
-    document.head.appendChild(appendedHTMLMetaElement)
-    const gottenHTMLMetaElement = getHTMLMetaElement(
-      document,
-      nameAttributeValue,
-      false
-    )
-    expect(gottenHTMLMetaElement).toBe(appendedHTMLMetaElement)
-  })
-
-  test("whether `getHTMLMetaElement` returns correct HTMLMetaElement with document has no viewport meta element and following params. `'viewport'`, `false`", () => {
-    document.head.innerHTML = ''
-    const nameAttributeValue = 'viewport'
-    getHTMLMetaElement(document, nameAttributeValue, false)
-    const selectedHTMLMetaElement = document.head.querySelector(
-      `meta[name="${nameAttributeValue}"]`
-    )
-    expect(selectedHTMLMetaElement).toBe(null)
+  describe('case where viewport meta elements do not exist', () => {
+    it('should return empty array', () => {
+      document.head.innerHTML = `
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+      `
+      expect(getViewportExtraElementList(document).length).toBe(0)
+    })
   })
 })

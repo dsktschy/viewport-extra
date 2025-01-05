@@ -1,286 +1,360 @@
-import { describe, test, expect, vi } from 'vitest'
-import { createPartialContent, applyContent } from './HTMLMetaElement.js'
+import { describe, expect, it } from 'vitest'
+import {
+  applyMediaSpecificParameters,
+  createPartialGlobalParameters,
+  createPartialMediaSpecificParameters,
+  getNullableContentAttribute,
+  getNullableUnscaledComputingAttribute,
+  setContentAttribute
+} from './HTMLMetaElement.js'
 
-describe('about src/lib/HTMLMetaElement.ts', () => {
-  test("whether `createPartialContent` returns correct Partial<Content> with HTMLMetaElement has following attributes. content: `''`, data-extra-content: `''`", () => {
-    const htmlMetaElement = document.createElement('meta')
-    expect(createPartialContent(htmlMetaElement)).toStrictEqual({})
-  })
-
-  test("whether `createPartialContent` returns correct Partial<Content> with HTMLMetaElement has following attributes. content: `'width=device-width,initial-scale=1, foo = bar ,=foo,bar=,===,'`, data-extra-content: `'min-width=375,max-width=414'`", () => {
-    const htmlMetaElement = document.createElement('meta')
-    htmlMetaElement.setAttribute(
-      'content',
-      'width=device-width,initial-scale=1, foo = bar ,=foo,bar=,===,'
-    )
-    expect(createPartialContent(htmlMetaElement)).toStrictEqual({
-      width: 'device-width',
-      initialScale: 1,
-      foo: 'bar'
+describe('getNullableUnscaledComputingAttribute', () => {
+  describe('case where argument has only data-unscaled-computing attribute', () => {
+    it('should return value of data-unscaled-computing attribute', () => {
+      const htmlMetaElement = document.createElement('meta')
+      htmlMetaElement.setAttribute('data-unscaled-computing', '')
+      expect(getNullableUnscaledComputingAttribute(htmlMetaElement)).toBe('')
     })
   })
 
-  test("whether `createPartialContent` returns correct Partial<Content> with HTMLMetaElement has following attributes. content: `'width=device-width,initial-scale=1,min-width=375,max-width=414'`, data-extra-content: `'width=375,initial-scale=2,min-width=0,max-width=Infinity'`", () => {
-    const htmlMetaElement = document.createElement('meta')
-    htmlMetaElement.setAttribute(
-      'content',
-      'width=device-width,initial-scale=1,min-width=375,max-width=414'
-    )
-    htmlMetaElement.setAttribute(
-      'data-extra-content',
-      'width=375,min-width=Infinity,max-width=0'
-    )
-    // Before passing through type guard functions, Partial<Content> may have invalid number
-    expect(createPartialContent(htmlMetaElement)).toStrictEqual({
-      width: 375,
-      initialScale: 1,
-      minWidth: Infinity,
-      maxWidth: 0
+  describe('case where argument has only data-extra-unscaled-computing attribute', () => {
+    it('should return value of data-extra-unscaled-computing attribute', () => {
+      const htmlMetaElement = document.createElement('meta')
+      htmlMetaElement.setAttribute('data-extra-unscaled-computing', '')
+      expect(getNullableUnscaledComputingAttribute(htmlMetaElement)).toBe('')
     })
   })
 
-  test("whether `applyContent` sets correct content attribute with following params. content: `{ width: 'device-width', initialScale: 1, minWidth: 414, maxWidth: 375 }`, documentClientWidth: `320`", () => {
-    // Don't show warnings on console
-    vi.spyOn(console, 'warn').mockImplementation(vi.fn())
-    const htmlMetaElement = document.createElement('meta')
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    const width = 'device-width' as const
-    const initialScale = 1
-    // minWidth and maxWidth will be ignored
-    const minWidth = 414
-    const maxWidth = 375
-    const content = { width, initialScale, minWidth, maxWidth }
-    const documentClientWidth = 320
-    applyContent(htmlMetaElement, content, documentClientWidth)
-    const expectedString = `initial-scale=${initialScale},width=${width}`
-    expect(htmlMetaElement.getAttribute('content')).toBe(expectedString)
+  describe('case where argument has both data-unscaled-computing and data-extra-unscaled-computing attributes', () => {
+    it('should return value of data-extra-unscaled-computing attribute', () => {
+      const htmlMetaElement = document.createElement('meta')
+      htmlMetaElement.setAttribute('data-unscaled-computing', 'foo')
+      htmlMetaElement.setAttribute('data-extra-unscaled-computing', '')
+      expect(getNullableUnscaledComputingAttribute(htmlMetaElement)).toBe('')
+    })
   })
 
-  test('whether `applyContent` sets correct content attribute with following params. content: `{ width: 390, initialScale: 1, minWidth: 375, maxWidth: 414 }`, documentClientWidth: `320`', () => {
-    // Don't show warnings on console
-    vi.spyOn(console, 'warn').mockImplementation(vi.fn())
-    const htmlMetaElement = document.createElement('meta')
-    const width = 390
-    const initialScale = 1
-    // minWidth and maxWidth will be ignored
-    const minWidth = 375
-    const maxWidth = 414
-    const content = { width, initialScale, minWidth, maxWidth }
-    const documentClientWidth = 320
-    applyContent(htmlMetaElement, content, documentClientWidth)
-    const expectedString = `initial-scale=${initialScale},width=${width}`
-    expect(htmlMetaElement.getAttribute('content')).toBe(expectedString)
+  describe('case where argument does not have both data-unscaled-computing and data-extra-unscaled-computing attributes', () => {
+    it('should return null', () => {
+      expect(getNullableContentAttribute(document.createElement('meta'))).toBe(
+        null
+      )
+    })
+  })
+})
+
+describe('createPartialGlobalParameters', () => {
+  describe('case where argument has only data-unscaled-computing attribute', () => {
+    it('should return object whose unscaledComputing property is true', () => {
+      const htmlMetaElement = document.createElement('meta')
+      htmlMetaElement.setAttribute('data-unscaled-computing', '')
+      expect(createPartialGlobalParameters(htmlMetaElement)).toStrictEqual({
+        unscaledComputing: true
+      })
+    })
   })
 
-  test("whether `applyContent` sets correct content attribute with following params. content: `{ width: 'device-width', initialScale: 1, minWidth: 375, maxWidth: 414 }`, documentClientWidth: `374`", () => {
-    const htmlMetaElement = document.createElement('meta')
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    const width = 'device-width' as const
-    const initialScale = 1
-    const minWidth = 375
-    const maxWidth = 414
-    const content = { width, initialScale, minWidth, maxWidth }
-    const documentClientWidth = 374
-    applyContent(htmlMetaElement, content, documentClientWidth)
-    const expectedString = `initial-scale=${
-      (documentClientWidth / minWidth) * initialScale
-    },width=${minWidth}`
-    expect(htmlMetaElement.getAttribute('content')).toBe(expectedString)
+  describe('case where argument has only data-extra-unscaled-computing attribute', () => {
+    it('should return object whose unscaledComputing property is true', () => {
+      const htmlMetaElement = document.createElement('meta')
+      htmlMetaElement.setAttribute('data-extra-unscaled-computing', '')
+      expect(createPartialGlobalParameters(htmlMetaElement)).toStrictEqual({
+        unscaledComputing: true
+      })
+    })
   })
 
-  test("whether `applyContent` sets correct content attribute with following params. content: `{ width: 'device-width', initialScale: 1, minWidth: 375, maxWidth: 414 }`, documentClientWidth: `375`", () => {
-    const htmlMetaElement = document.createElement('meta')
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    const width = 'device-width' as const
-    const initialScale = 1
-    const minWidth = 375
-    const maxWidth = 414
-    const content = { width, initialScale, minWidth, maxWidth }
-    const documentClientWidth = 375
-    applyContent(htmlMetaElement, content, documentClientWidth)
-    const expectedString = `initial-scale=${initialScale},width=${width}`
-    expect(htmlMetaElement.getAttribute('content')).toBe(expectedString)
+  describe('case where argument has both data-unscaled-computing and data-extra-unscaled-computing attributes', () => {
+    it('should return object whose unscaledComputing property is true', () => {
+      const htmlMetaElement = document.createElement('meta')
+      htmlMetaElement.setAttribute('data-unscaled-computing', '')
+      htmlMetaElement.setAttribute('data-extra-unscaled-computing', '')
+      expect(createPartialGlobalParameters(htmlMetaElement)).toStrictEqual({
+        unscaledComputing: true
+      })
+    })
   })
 
-  test("whether `applyContent` sets correct content attribute with following params. content: `{ width: 'device-width', initialScale: 1, minWidth: 375, maxWidth: 414 }`, documentClientWidth: `414`", () => {
-    const htmlMetaElement = document.createElement('meta')
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    const width = 'device-width' as const
-    const initialScale = 1
-    const minWidth = 375
-    const maxWidth = 414
-    const content = { width, initialScale, minWidth, maxWidth }
-    const documentClientWidth = 414
-    applyContent(htmlMetaElement, content, documentClientWidth)
-    const expectedString = `initial-scale=${initialScale},width=${width}`
-    expect(htmlMetaElement.getAttribute('content')).toBe(expectedString)
+  describe('case where argument does not have both data-unscaled-computing and data-extra-unscaled-computing attributes', () => {
+    it('should return object that does not have unscaledComputing property', () => {
+      expect(
+        createPartialGlobalParameters(document.createElement('meta'))
+      ).toStrictEqual({})
+    })
+  })
+})
+
+describe('getNullableContentAttribute', () => {
+  describe('case where argument has only content attribute', () => {
+    it('should return value of content attribute', () => {
+      const htmlMetaElement = document.createElement('meta')
+      htmlMetaElement.setAttribute(
+        'content',
+        'width=device-width,initial-scale=1,interactive-widget=resizes-content'
+      )
+      expect(getNullableContentAttribute(htmlMetaElement)).toBe(
+        'width=device-width,initial-scale=1,interactive-widget=resizes-content'
+      )
+    })
   })
 
-  test("whether `applyContent` sets correct content attribute with following params. content: `{ width: 'device-width', initialScale: 1, minWidth: 375, maxWidth: 414 }`, documentClientWidth: `415`", () => {
-    const htmlMetaElement = document.createElement('meta')
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    const width = 'device-width' as const
-    const initialScale = 1
-    const minWidth = 375
-    const maxWidth = 414
-    const content = { width, initialScale, minWidth, maxWidth }
-    const documentClientWidth = 415
-    applyContent(htmlMetaElement, content, documentClientWidth)
-    const expectedString = `initial-scale=${
-      (documentClientWidth / maxWidth) * initialScale
-    },width=${maxWidth}`
-    expect(htmlMetaElement.getAttribute('content')).toBe(expectedString)
+  describe('case where argument has only data-extra-content attribute', () => {
+    it('should return value of data-extra-content attribute', () => {
+      const htmlMetaElement = document.createElement('meta')
+      htmlMetaElement.setAttribute(
+        'data-extra-content',
+        'min-width=414,max-width=768'
+      )
+      expect(getNullableContentAttribute(htmlMetaElement)).toBe(
+        'min-width=414,max-width=768'
+      )
+    })
   })
 
-  test("whether `applyContent` sets correct content attribute with following params. content: `{ width: 'device-width', initialScale: 1, minWidth: 390, maxWidth: 390 }`, documentClientWidth: `389`", () => {
-    const htmlMetaElement = document.createElement('meta')
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    const width = 'device-width' as const
-    const initialScale = 1
-    const minWidth = 390
-    const maxWidth = 390
-    const content = { width, initialScale, minWidth, maxWidth }
-    const documentClientWidth = 389
-    applyContent(htmlMetaElement, content, documentClientWidth)
-    const expectedString = `initial-scale=${
-      (documentClientWidth / minWidth) * initialScale
-    },width=${minWidth}`
-    expect(htmlMetaElement.getAttribute('content')).toBe(expectedString)
+  describe('case where argument has both content and data-extra-content attributes', () => {
+    it('should return string that values of content and data-extra-content attributes are joined with comma', () => {
+      const htmlMetaElement = document.createElement('meta')
+      htmlMetaElement.setAttribute(
+        'content',
+        'width=device-width,initial-scale=1,interactive-widget=resizes-content'
+      )
+      htmlMetaElement.setAttribute(
+        'data-extra-content',
+        'min-width=414,max-width=768'
+      )
+      expect(getNullableContentAttribute(htmlMetaElement)).toBe(
+        'width=device-width,initial-scale=1,interactive-widget=resizes-content,min-width=414,max-width=768'
+      )
+    })
   })
 
-  test("whether `applyContent` sets correct content attribute with following params. content: `{ width: 'device-width', initialScale: 1, minWidth: 390, maxWidth: 390 }`, documentClientWidth: `390`", () => {
-    const htmlMetaElement = document.createElement('meta')
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    const width = 'device-width' as const
-    const initialScale = 1
-    const minWidth = 390
-    const maxWidth = 390
-    const content = { width, initialScale, minWidth, maxWidth }
-    const documentClientWidth = 390
-    applyContent(htmlMetaElement, content, documentClientWidth)
-    const expectedString = `initial-scale=${initialScale},width=${width}`
-    expect(htmlMetaElement.getAttribute('content')).toBe(expectedString)
+  describe('case where argument does not have both content and data-extra-content attributes', () => {
+    it('should return null', () => {
+      expect(getNullableContentAttribute(document.createElement('meta'))).toBe(
+        null
+      )
+    })
+  })
+})
+
+describe('createPartialMediaSpecificParameters', () => {
+  describe('case where argument has only content attribute', () => {
+    it('should return object that has content property matching all key-value pairs in content attribute', () => {
+      const htmlMetaElement = document.createElement('meta')
+      htmlMetaElement.setAttribute(
+        'content',
+        `width=device-width,min-width=414,interactive-widget=resizes-content`
+      )
+      expect(
+        createPartialMediaSpecificParameters(htmlMetaElement)
+      ).toStrictEqual({
+        content: {
+          width: 'device-width',
+          minWidth: 414,
+          interactiveWidget: 'resizes-content'
+        }
+      })
+    })
   })
 
-  test("whether `applyContent` sets correct content attribute with following params. content: `{ width: 'device-width', initialScale: 1, minWidth: 390, maxWidth: 390 }`, documentClientWidth: `391`", () => {
-    const htmlMetaElement = document.createElement('meta')
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    const width = 'device-width' as const
-    const initialScale = 1
-    const minWidth = 390
-    const maxWidth = 390
-    const content = { width, initialScale, minWidth, maxWidth }
-    const documentClientWidth = 391
-    applyContent(htmlMetaElement, content, documentClientWidth)
-    const expectedString = `initial-scale=${
-      (documentClientWidth / maxWidth) * initialScale
-    },width=${maxWidth}`
-    expect(htmlMetaElement.getAttribute('content')).toBe(expectedString)
+  describe('case where argument has only data-extra-content attribute', () => {
+    it('should return object that has content property matching all key-value pairs in data-extra-content attribute', () => {
+      const htmlMetaElement = document.createElement('meta')
+      htmlMetaElement.setAttribute(
+        'data-extra-content',
+        `width=device-width,min-width=414,interactive-widget=resizes-content`
+      )
+      expect(
+        createPartialMediaSpecificParameters(htmlMetaElement)
+      ).toStrictEqual({
+        content: {
+          width: 'device-width',
+          minWidth: 414,
+          interactiveWidget: 'resizes-content'
+        }
+      })
+    })
   })
 
-  test("whether `applyContent` sets correct content attribute with following params. content: `{ width: 'device-width', initialScale: 2, minWidth: 375, maxWidth: 414 }`, documentClientWidth: `374`", () => {
-    const htmlMetaElement = document.createElement('meta')
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    const width = 'device-width' as const
-    const initialScale = 2
-    const minWidth = 375
-    const maxWidth = 414
-    const content = { width, initialScale, minWidth, maxWidth }
-    const documentClientWidth = 374
-    applyContent(htmlMetaElement, content, documentClientWidth)
-    const expectedString = `initial-scale=${
-      (documentClientWidth / minWidth) * initialScale
-    },width=${minWidth}`
-    expect(htmlMetaElement.getAttribute('content')).toBe(expectedString)
+  describe('case where argument has both content and data-extra-content attributes', () => {
+    it('should return object that has content property matching all key-value pairs in content and data-extra-content attributes', () => {
+      const htmlMetaElement = document.createElement('meta')
+      htmlMetaElement.setAttribute(
+        'content',
+        `width=device-width,initial-scale=1,interactive-widget=resizes-content`
+      )
+      htmlMetaElement.setAttribute(
+        'data-extra-content',
+        `min-width=414,max-width=768`
+      )
+      expect(
+        createPartialMediaSpecificParameters(htmlMetaElement)
+      ).toStrictEqual({
+        content: {
+          width: 'device-width',
+          initialScale: 1,
+          interactiveWidget: 'resizes-content',
+          minWidth: 414,
+          maxWidth: 768
+        }
+      })
+    })
+
+    describe('case where same keys exist in content and data-extra-content attributes', () => {
+      it('should return object that values of data-extra-content attribute are used', () => {
+        const htmlMetaElement = document.createElement('meta')
+        htmlMetaElement.setAttribute(
+          'content',
+          `width=device-width,min-width=414,interactive-widget=resizes-content`
+        )
+        htmlMetaElement.setAttribute(
+          'data-extra-content',
+          `width=1024,min-width=375,interactive-widget=overlays-content`
+        )
+        expect(
+          createPartialMediaSpecificParameters(htmlMetaElement)
+        ).toStrictEqual({
+          content: {
+            width: 1024,
+            minWidth: 375,
+            interactiveWidget: 'overlays-content'
+          }
+        })
+      })
+    })
   })
 
-  test("whether `applyContent` sets correct content attribute with following params. content: `{ width: 'device-width', initialScale: 2, minWidth: 375, maxWidth: 414 }`, documentClientWidth: `375`", () => {
+  describe('case where argument does not have both content and data-extra-content attributes', () => {
+    it('should return object that does not have content property', () => {
+      const htmlMetaElement = document.createElement('meta')
+      expect(
+        createPartialMediaSpecificParameters(htmlMetaElement)
+      ).toStrictEqual({})
+    })
+  })
+})
+
+describe('setContentAttribute', () => {
+  it('should update content attribute of first argument with second argument', () => {
     const htmlMetaElement = document.createElement('meta')
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    const width = 'device-width' as const
-    const initialScale = 2
-    const minWidth = 375
-    const maxWidth = 414
-    const content = { width, initialScale, minWidth, maxWidth }
-    const documentClientWidth = 375
-    applyContent(htmlMetaElement, content, documentClientWidth)
-    const expectedString = `initial-scale=${initialScale},width=${width}`
-    expect(htmlMetaElement.getAttribute('content')).toBe(expectedString)
+    setContentAttribute(
+      htmlMetaElement,
+      'width=device-width,initial-scale=1,interactive-widget=resizes-content'
+    )
+    expect(htmlMetaElement.getAttribute('content')).toBe(
+      'width=device-width,initial-scale=1,interactive-widget=resizes-content'
+    )
+  })
+})
+
+describe('applyMediaSpecificParameters', () => {
+  describe('case where third argument is greater than minWidth and less than maxWidth in second argument', () => {
+    it('should create string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth in second argument, and set it to first argument', () => {
+      const htmlMetaElement = document.createElement('meta')
+      applyMediaSpecificParameters(
+        htmlMetaElement,
+        {
+          content: {
+            width: 'device-width',
+            initialScale: 2,
+            minWidth: 414,
+            maxWidth: 768,
+            interactiveWidget: 'resizes-content'
+          }
+        },
+        640
+      )
+      expect(htmlMetaElement.getAttribute('content')).toBe(
+        'initial-scale=2,interactive-widget=resizes-content,width=device-width'
+      )
+    })
   })
 
-  test("whether `applyContent` sets correct content attribute with following params. content: `{ width: 'device-width', initialScale: 2, minWidth: 375, maxWidth: 414 }`, documentClientWidth: `414`", () => {
-    const htmlMetaElement = document.createElement('meta')
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    const width = 'device-width' as const
-    const initialScale = 2
-    const minWidth = 375
-    const maxWidth = 414
-    const content = { width, initialScale, minWidth, maxWidth }
-    const documentClientWidth = 414
-    applyContent(htmlMetaElement, content, documentClientWidth)
-    const expectedString = `initial-scale=${initialScale},width=${width}`
-    expect(htmlMetaElement.getAttribute('content')).toBe(expectedString)
+  describe('case where third argument is less than minWidth in second argument', () => {
+    it('should compute width and initialScale from first and third argument to fit minimum width into viewport, create string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth, and set it to first argument', () => {
+      const htmlMetaElement = document.createElement('meta')
+      applyMediaSpecificParameters(
+        htmlMetaElement,
+        {
+          content: {
+            width: 'device-width',
+            initialScale: 2,
+            minWidth: 414,
+            maxWidth: 768,
+            interactiveWidget: 'resizes-content'
+          }
+        },
+        375
+      )
+      expect(htmlMetaElement.getAttribute('content')).toBe(
+        'initial-scale=1.8115942028985508,interactive-widget=resizes-content,width=414'
+      )
+    })
   })
 
-  test("whether `applyContent` sets correct content attribute with following params. content: `{ width: 'device-width', initialScale: 2, minWidth: 375, maxWidth: 414 }`, documentClientWidth: `415`", () => {
-    const htmlMetaElement = document.createElement('meta')
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    const width = 'device-width' as const
-    const initialScale = 2
-    const minWidth = 375
-    const maxWidth = 414
-    const content = { width, initialScale, minWidth, maxWidth }
-    const documentClientWidth = 415
-    applyContent(htmlMetaElement, content, documentClientWidth)
-    const expectedString = `initial-scale=${
-      (documentClientWidth / maxWidth) * initialScale
-    },width=${maxWidth}`
-    expect(htmlMetaElement.getAttribute('content')).toBe(expectedString)
+  describe('case where third argument is greater than maxWidth in second argument', () => {
+    it('should compute width and initialScale from first and third argument to fit maximum width into viewport, create string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth, and set it to first argument', () => {
+      const htmlMetaElement = document.createElement('meta')
+      applyMediaSpecificParameters(
+        htmlMetaElement,
+        {
+          content: {
+            width: 'device-width',
+            initialScale: 2,
+            minWidth: 414,
+            maxWidth: 768,
+            interactiveWidget: 'resizes-content'
+          }
+        },
+        1024
+      )
+      expect(htmlMetaElement.getAttribute('content')).toBe(
+        'initial-scale=2.6666666666666665,interactive-widget=resizes-content,width=768'
+      )
+    })
   })
 
-  test("whether `applyContent` sets correct content attribute with following params. content: `{ width: 'device-width', initialScale: 2, minWidth: 390, maxWidth: 390 }`, documentClientWidth: `389`", () => {
-    const htmlMetaElement = document.createElement('meta')
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    const width = 'device-width' as const
-    const initialScale = 2
-    const minWidth = 390
-    const maxWidth = 390
-    const content = { width, initialScale, minWidth, maxWidth }
-    const documentClientWidth = 389
-    applyContent(htmlMetaElement, content, documentClientWidth)
-    const expectedString = `initial-scale=${
-      (documentClientWidth / minWidth) * initialScale
-    },width=${minWidth}`
-    expect(htmlMetaElement.getAttribute('content')).toBe(expectedString)
+  describe('case where minWidth is greater than maxWidth in second argument', () => {
+    it('should create string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth in second argument, and set it to first argument', () => {
+      const htmlMetaElement = document.createElement('meta')
+      applyMediaSpecificParameters(
+        htmlMetaElement,
+        {
+          content: {
+            width: 'device-width',
+            initialScale: 2,
+            minWidth: 768,
+            maxWidth: 414,
+            interactiveWidget: 'resizes-content'
+          }
+        },
+        375
+      )
+      expect(htmlMetaElement.getAttribute('content')).toBe(
+        'initial-scale=2,interactive-widget=resizes-content,width=device-width'
+      )
+    })
   })
 
-  test("whether `applyContent` sets correct content attribute with following params. content: `{ width: 'device-width', initialScale: 2, minWidth: 390, maxWidth: 390 }`, documentClientWidth: `390`", () => {
-    const htmlMetaElement = document.createElement('meta')
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    const width = 'device-width' as const
-    const initialScale = 2
-    const minWidth = 390
-    const maxWidth = 390
-    const content = { width, initialScale, minWidth, maxWidth }
-    const documentClientWidth = 390
-    applyContent(htmlMetaElement, content, documentClientWidth)
-    const expectedString = `initial-scale=${initialScale},width=${width}`
-    expect(htmlMetaElement.getAttribute('content')).toBe(expectedString)
-  })
-
-  test("whether `applyContent` sets correct content attribute with following params. content: `{ width: 'device-width', initialScale: 2, minWidth: 390, maxWidth: 390 }`, documentClientWidth: `391`", () => {
-    const htmlMetaElement = document.createElement('meta')
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    const width = 'device-width' as const
-    const initialScale = 2
-    const minWidth = 390
-    const maxWidth = 390
-    const content = { width, initialScale, minWidth, maxWidth }
-    const documentClientWidth = 391
-    applyContent(htmlMetaElement, content, documentClientWidth)
-    const expectedString = `initial-scale=${
-      (documentClientWidth / maxWidth) * initialScale
-    },width=${maxWidth}`
-    expect(htmlMetaElement.getAttribute('content')).toBe(expectedString)
+  describe('case where width is number in second argument', () => {
+    it('should create string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth in second argument, and set it to first argument', () => {
+      const htmlMetaElement = document.createElement('meta')
+      applyMediaSpecificParameters(
+        htmlMetaElement,
+        {
+          content: {
+            width: 1024,
+            initialScale: 2,
+            minWidth: 414,
+            maxWidth: 768,
+            interactiveWidget: 'resizes-content'
+          }
+        },
+        1024
+      )
+      expect(htmlMetaElement.getAttribute('content')).toBe(
+        'initial-scale=2,interactive-widget=resizes-content,width=1024'
+      )
+    })
   })
 })

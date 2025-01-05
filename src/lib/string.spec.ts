@@ -1,12 +1,22 @@
-import { describe, test, expect } from 'vitest'
-import { camelize, kebabize } from './string.js'
+import { describe, expect, it } from 'vitest'
+import { camelizeKebabCaseString, kebabizeCamelCaseString } from './string.js'
 
-describe('about src/lib/string.ts', () => {
-  test("whether `camelize` returns correct string with following string. `'foo-bar foo   -bar'`", () => {
-    expect(camelize('foo-bar foo   -bar')).toBe('fooBarfooBar')
+describe('camelizeKebabCaseString', () => {
+  it('should camelize kebab case', () => {
+    expect(camelizeKebabCaseString('foo-bar-foo')).toBe('fooBarFoo')
   })
 
-  test("whether `kebabize` returns correct string with following string. `'fooBar foo   Bar'`", () => {
-    expect(kebabize('fooBar foo   Bar')).toBe('foo-barfoo-bar')
+  it('should ignore whitespaces', () => {
+    expect(camelizeKebabCaseString('foo bar   -   foo')).toBe('foobarFoo')
+  })
+})
+
+describe('kebabizeCamelCaseString', () => {
+  it('should kebabize camel case', () => {
+    expect(kebabizeCamelCaseString('fooBarFoo')).toBe('foo-bar-foo')
+  })
+
+  it('should ignore whitespaces', () => {
+    expect(kebabizeCamelCaseString('foo bar   Foo')).toBe('foobar-foo')
   })
 })

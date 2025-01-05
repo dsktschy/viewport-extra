@@ -1,6 +1,6 @@
 import ViewportExtra, {
-  updateReference,
-  setContent
+  setContent,
+  updateReference
 } from '@@/dist/cjs/index.js'
 
 const fitstViewportMetaElement = document.querySelector('meta[name="viewport"]')
@@ -12,11 +12,13 @@ if (fitstViewportMetaElement) {
     .querySelector('[data-using-default-export]')
     ?.hasAttribute('data-using-default-export')
   ;(usingDefaultExport ? ViewportExtra.updateReference : updateReference)()
-  const content: { minWidth?: number; maxWidth?: number } = {}
-  const minWidthAfterUpdateReference = document
-    .querySelector('[data-min-width-after-update-reference]')
-    ?.getAttribute('data-min-width-after-update-reference')
-  if (minWidthAfterUpdateReference)
-    content.minWidth = parseFloat(minWidthAfterUpdateReference)
-  setContent(content)
+  const contentAfterUpdateReferenceAttribute = document
+    .querySelector('[data-content-after-update-reference]')
+    ?.getAttribute('data-content-after-update-reference')
+  if (typeof contentAfterUpdateReferenceAttribute === 'string')
+    setContent(
+      JSON.parse(contentAfterUpdateReferenceAttribute) as Parameters<
+        typeof setContent
+      >[0]
+    )
 }

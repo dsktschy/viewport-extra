@@ -1,136 +1,76 @@
 import { expect, test } from '@playwright/test'
-import { convertToViewportContentString } from '../modules/NumberStringRecord.js'
-import { getViewportContentString } from '../modules/PlaywrightPage.js'
 import { getMaximumWidthViewportSize } from '../modules/PlaywrightFullProjectList.js'
-
-test.beforeEach(async ({ page }) => {
-  await page.goto('/tests/e2e/__fixtures__/src/dummy.html')
-})
+import { getViewportContentString } from '../modules/PlaywrightPage.js'
 ;[
-  { format: 'es', moduleFlag: true, minified: false },
-  { format: 'cjs', moduleFlag: true, minified: false },
-  { format: 'iife', moduleFlag: false, minified: false },
-  { format: 'iife', moduleFlag: false, minified: true }
-].forEach(({ format, moduleFlag, minified }) => {
-  test.describe(`using ${(minified ? 'minified ' : '') + format} output`, () => {
-    if (moduleFlag) {
-      test.describe('using named export', () => {
-        test('reference to viewport meta element is updated', async ({
-          page,
-          viewport
-        }, { config: { projects } }) => {
-          const width = 'device-width'
-          const initialScale = 1
-          const maximumWidthViewportSize = getMaximumWidthViewportSize(projects)
-          const minWidth = maximumWidthViewportSize.width
-            ? maximumWidthViewportSize.width + 1
-            : 0
-          const documentClientWidth = viewport ? viewport.width : undefined
-          await page.setContent(`
-            <!doctype html>
-            <html lang="en">
-              <head>
-                <meta charset="UTF-8" />
-                <title>Document</title>
-                <meta name="viewport" content="width=${width},initial-scale=${initialScale}" />
-              </head>
-              <body>
-                <script data-min-width-after-update-reference="${minWidth}"></script>
-                <script src="/assets/scripts/${format}/using_updateReference.js" type="module"></script>
-              </body>
-            </html>
-          `)
-          expect(await getViewportContentString(page)).toBe(
-            documentClientWidth && minWidth > 0
-              ? documentClientWidth < minWidth
-                ? convertToViewportContentString({
-                    width: minWidth,
-                    initialScale: documentClientWidth / minWidth
-                  })
-                : convertToViewportContentString({ width, initialScale })
-              : ''
-          )
-        })
-      })
+  {
+    format: 'es',
+    moduleFlag: true,
+    minified: false,
+    usingDefaultExport: false
+  },
+  { format: 'es', moduleFlag: true, minified: false, usingDefaultExport: true },
+  {
+    format: 'cjs',
+    moduleFlag: true,
+    minified: false,
+    usingDefaultExport: false
+  },
+  {
+    format: 'cjs',
+    moduleFlag: true,
+    minified: false,
+    usingDefaultExport: true
+  },
+  {
+    format: 'iife',
+    moduleFlag: false,
+    minified: false,
+    usingDefaultExport: false
+  },
+  {
+    format: 'iife',
+    moduleFlag: false,
+    minified: true,
+    usingDefaultExport: false
+  }
+].forEach(({ format, moduleFlag, minified, usingDefaultExport }) => {
+  test.describe(`using ${usingDefaultExport ? 'default export of' : ''} ${(minified ? 'minified ' : '') + format} output`, () => {
+    test.beforeEach(async ({ page }) => {
+      await page.goto('/tests/e2e/__fixtures__/src/dummy.html')
+    })
 
-      test.describe('using default export', () => {
-        test('reference to viewport meta element is updated', async ({
-          page,
-          viewport
-        }, { config: { projects } }) => {
-          const width = 'device-width'
-          const initialScale = 1
-          const maximumWidthViewportSize = getMaximumWidthViewportSize(projects)
-          const minWidth = maximumWidthViewportSize.width
-            ? maximumWidthViewportSize.width + 1
-            : 0
-          const documentClientWidth = viewport ? viewport.width : undefined
-          await page.setContent(`
-            <!doctype html>
-            <html lang="en">
-              <head>
-                <meta charset="UTF-8" />
-                <title>Document</title>
-                <meta name="viewport" content="width=${width},initial-scale=${initialScale}" />
-              </head>
-              <body>
-                <script data-using-default-export data-min-width-after-update-reference="${minWidth}"></script>
-                <script src="/assets/scripts/${format}/using_updateReference.js" type="module"></script>
-              </body>
-            </html>
-          `)
-          expect(await getViewportContentString(page)).toBe(
-            documentClientWidth && minWidth > 0
-              ? documentClientWidth < minWidth
-                ? convertToViewportContentString({
-                    width: minWidth,
-                    initialScale: documentClientWidth / minWidth
-                  })
-                : convertToViewportContentString({ width, initialScale })
-              : ''
-          )
-        })
-      })
-    } else {
-      test.describe('using global variable', () => {
-        test('reference to viewport meta element is updated', async ({
-          page,
-          viewport
-        }, { config: { projects } }) => {
-          const width = 'device-width'
-          const initialScale = 1
-          const maximumWidthViewportSize = getMaximumWidthViewportSize(projects)
-          const minWidth = maximumWidthViewportSize.width
-            ? maximumWidthViewportSize.width + 1
-            : 0
-          const documentClientWidth = viewport ? viewport.width : undefined
-          await page.setContent(`
-            <!doctype html>
-            <html lang="en">
-              <head>
-                <meta charset="UTF-8" />
-                <title>Document</title>
-                <meta name="viewport" content="width=${width},initial-scale=${initialScale}" />
-                <script src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>
-              </head>
-              <body>
-                <script data-min-width-after-update-reference="${minWidth}"></script>
-                <script src="/assets/scripts/${format}/using_updateReference.js" type="module"></script>
-              </body>
-            </html>
-          `)
-          expect(await getViewportContentString(page)).toBe(
-            documentClientWidth && minWidth > 0
-              ? documentClientWidth < minWidth
-                ? convertToViewportContentString({
-                    width: minWidth,
-                    initialScale: documentClientWidth / minWidth
-                  })
-                : convertToViewportContentString({ width, initialScale })
-              : ''
-          )
-        })
-      })
-    }
+    test('reference to viewport meta element is updated', async ({
+      page,
+      viewport
+    }, { config: { projects } }) => {
+      const maxViewportWidth = getMaximumWidthViewportSize(projects).width
+      const maxViewportWidthPlusOne = maxViewportWidth
+        ? maxViewportWidth + 1
+        : 0
+      const documentClientWidth = viewport ? viewport.width : undefined
+      await page.setContent(`
+        <!doctype html>
+        <html lang="en">
+          <head>
+            <meta charset="UTF-8" />
+            <title>Document</title>
+            <meta name="viewport" content="width=device-width,initial-scale=1" />
+            ${moduleFlag ? '' : `<script src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>`}
+          </head>
+          <body>
+            ${usingDefaultExport ? `<script data-using-default-export></script>` : ''}
+            <script data-content-after-update-reference='{ "minWidth": ${maxViewportWidthPlusOne} }'></script>
+            <script src="/assets/scripts/${format}/using_updateReference.js" type="module"></script>
+          </body>
+        </html>
+      `)
+      expect(await getViewportContentString(page)).toBe(
+        documentClientWidth && maxViewportWidthPlusOne > 0
+          ? documentClientWidth < maxViewportWidthPlusOne
+            ? `initial-scale=${(documentClientWidth / maxViewportWidthPlusOne) * 1},width=${maxViewportWidthPlusOne}`
+            : 'initial-scale=1,width=device-width'
+          : ''
+      )
+    })
   })
 })

@@ -1,55 +1,156 @@
-import { getHTMLMetaElement, getClientWidth } from './lib/Document.js'
-import { createPartialContent, applyContent } from './lib/HTMLMetaElement.js'
-import { Content, ContentMinWidth, create } from './lib/Content.js'
+import * as ContentModule from './lib/Content.js'
+import { type Content, type ContentMinWidth } from './lib/Content.js'
+import { DeepPartial } from './lib/DeepPartial.js'
+import {
+  ensureViewportElement,
+  getViewportExtraElementList
+} from './lib/Document.js'
+import {
+  type GlobalParameters,
+  createGlobalParameters,
+  mergePartialGlobalParameters
+} from './lib/GlobalParameters.js'
+import * as HTMLMetaElementModule from './lib/HTMLMetaElement.js'
+import {
+  applyMediaSpecificParameters,
+  createPartialGlobalParameters
+} from './lib/HTMLMetaElement.js'
+import {
+  type MediaSpecificParameters,
+  createMediaSpecificParameters,
+  mergePartialMediaSpecificParameters
+} from './lib/MediaSpecificParameters.js'
+import { createPartialContent } from './lib/number.js'
 
 let viewportElement: HTMLMetaElement | null = null
-let viewportExtraElement: HTMLMetaElement | null = null
-let content: Content = create({})
+let viewportExtraElementList: HTMLMetaElement[] = []
+let globalParameters: GlobalParameters | null = null
+let mediaSpecificParametersList: MediaSpecificParameters[] = []
 
 if (typeof window !== 'undefined') {
-  viewportElement = getHTMLMetaElement(document, 'viewport', true)
-  viewportExtraElement = getHTMLMetaElement(document, 'viewport-extra', false)
+  viewportElement = ensureViewportElement(document)
+  viewportExtraElementList = getViewportExtraElementList(document)
+  globalParameters = createGlobalParameters(
+    [
+      createPartialGlobalParameters(viewportElement),
+      ...viewportExtraElementList.map(createPartialGlobalParameters)
+    ].reduce(mergePartialGlobalParameters)
+  )
+  mediaSpecificParametersList = [
+    createMediaSpecificParameters(), // For unscaled computing
+    createMediaSpecificParameters(
+      [
+        HTMLMetaElementModule.createPartialMediaSpecificParameters(
+          viewportElement
+        ),
+        ...viewportExtraElementList.map(
+          HTMLMetaElementModule.createPartialMediaSpecificParameters
+        )
+      ].reduce(mergePartialMediaSpecificParameters)
+    )
+  ]
 
-  // Create content object in advance
-  // before default content is applied to viewport meta element
-  const partialContent = {
-    ...createPartialContent(viewportElement),
-    ...createPartialContent(viewportExtraElement)
-  }
+  // For backward compatibility,
+  // side effects force unscaled computing regardless of globalParameters
+  // It's so that document.documentElement.clientWidth can work
+  // in the case where viewport meta element does not exist
+  applyMediaSpecificParameters(
+    viewportElement,
+    mediaSpecificParametersList[0],
+    0
+  )
 
-  // Apply default content to viewport meta element
-  // in order to calculate correct value by getClientWidth
-  // even if viewport meta element has no content attribute
-  applyContent(viewportElement, content, 0)
+  applyMediaSpecificParameters(
+    viewportElement,
+    mediaSpecificParametersList[1],
+    document.documentElement.clientWidth
+  )
+}
 
-  content = create(partialContent)
-  applyContent(viewportElement, content, getClientWidth(document))
+export const setParameters = (
+  partialMediaSpecificParametersList: DeepPartial<MediaSpecificParameters>[],
+  partialGlobalParameters: Partial<GlobalParameters> = {}
+): void => {
+  if (typeof window === 'undefined' || !viewportElement || !globalParameters)
+    return
+  globalParameters = createGlobalParameters(
+    [globalParameters, partialGlobalParameters].reduce(
+      mergePartialGlobalParameters
+    )
+  )
+  mediaSpecificParametersList = [
+    mediaSpecificParametersList[0],
+    createMediaSpecificParameters(
+      [
+        mediaSpecificParametersList[1],
+        ...partialMediaSpecificParametersList
+      ].reduce(mergePartialMediaSpecificParameters)
+    )
+  ]
+  if (globalParameters.unscaledComputing)
+    applyMediaSpecificParameters(
+      viewportElement,
+      mediaSpecificParametersList[0],
+      0
+    )
+  applyMediaSpecificParameters(
+    viewportElement,
+    mediaSpecificParametersList[1],
+    document.documentElement.clientWidth
+  )
 }
 
 export const setContent = (partialContent: Partial<Content>): void => {
-  if (typeof window === 'undefined' || !viewportElement) return
-  content = create({ ...content, ...partialContent })
-  applyContent(viewportElement, content, getClientWidth(document))
+  if (typeof window === 'undefined' || !viewportElement || !globalParameters)
+    return
+  mediaSpecificParametersList = [
+    mediaSpecificParametersList[0],
+    createMediaSpecificParameters(
+      [
+        mediaSpecificParametersList[1],
+        ContentModule.createPartialMediaSpecificParameters(partialContent)
+      ].reduce(mergePartialMediaSpecificParameters)
+    )
+  ]
+  if (globalParameters.unscaledComputing)
+    applyMediaSpecificParameters(
+      viewportElement,
+      mediaSpecificParametersList[0],
+      0
+    )
+  applyMediaSpecificParameters(
+    viewportElement,
+    mediaSpecificParametersList[1],
+    document.documentElement.clientWidth
+  )
 }
 
-export const getContent = (): Content => content
+export const getContent = (): Content =>
+  typeof window === 'undefined' ||
+  typeof mediaSpecificParametersList[1] === 'undefined'
+    ? createMediaSpecificParameters().content
+    : mediaSpecificParametersList[1].content
 
 export const updateReference = (): void => {
   if (typeof window === 'undefined') return
-  viewportElement = getHTMLMetaElement(document, 'viewport', true)
+  viewportElement = ensureViewportElement(document)
 }
 
-// For compatibility with v1
+/**
+ * - For compatibility with v1
+ * @deprecated
+ */
 export default class ViewportExtra {
   constructor(
     partialContentOrContentMinWidth: Partial<Content> | ContentMinWidth
   ) {
-    const partialContent =
+    setContent(
       typeof partialContentOrContentMinWidth === 'number'
-        ? { minWidth: partialContentOrContentMinWidth }
+        ? createPartialContent(partialContentOrContentMinWidth)
         : partialContentOrContentMinWidth
-    setContent(partialContent)
+    )
   }
+  static setParameters = setParameters
   static setContent = setContent
   static getContent = getContent
   static updateReference = updateReference
