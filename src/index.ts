@@ -15,9 +15,11 @@ import {
   applyMediaSpecificParameters,
   createPartialGlobalParameters
 } from './lib/HTMLMetaElement.js'
+import { createMatchMediaPredicate } from './lib/MatchMedia.js'
 import {
   type MediaSpecificParameters,
   createMediaSpecificParameters,
+  createPartialMediaSpecificParametersMerger,
   mergePartialMediaSpecificParameters
 } from './lib/MediaSpecificParameters.js'
 import { createPartialContent } from './lib/number.js'
@@ -25,7 +27,8 @@ import { createPartialContent } from './lib/number.js'
 let viewportElement: HTMLMetaElement | null = null
 let viewportExtraElementList: HTMLMetaElement[] = []
 let globalParameters: GlobalParameters | null = null
-let mediaSpecificParametersList: MediaSpecificParameters[] = []
+let internalPartialMediaSpecificParametersList: DeepPartial<MediaSpecificParameters>[] =
+  []
 
 if (typeof window !== 'undefined') {
   viewportElement = ensureViewportElement(document)
@@ -36,19 +39,13 @@ if (typeof window !== 'undefined') {
       ...viewportExtraElementList.map(createPartialGlobalParameters)
     ].reduce(mergePartialGlobalParameters)
   )
-  mediaSpecificParametersList = [
-    createMediaSpecificParameters(), // For unscaled computing
-    createMediaSpecificParameters(
-      [
-        HTMLMetaElementModule.createPartialMediaSpecificParameters(
-          viewportElement
-        ),
-        ...viewportExtraElementList.map(
-          HTMLMetaElementModule.createPartialMediaSpecificParameters
-        )
-      ].reduce(mergePartialMediaSpecificParameters)
+  internalPartialMediaSpecificParametersList = [
+    HTMLMetaElementModule.createPartialMediaSpecificParameters(viewportElement),
+    ...viewportExtraElementList.map(
+      HTMLMetaElementModule.createPartialMediaSpecificParameters
     )
   ]
+  const defaultMediaSpecificParameters = createMediaSpecificParameters()
 
   // For backward compatibility,
   // side effects force unscaled computing regardless of globalParameters
@@ -56,13 +53,21 @@ if (typeof window !== 'undefined') {
   // in the case where viewport meta element does not exist
   applyMediaSpecificParameters(
     viewportElement,
-    mediaSpecificParametersList[0],
+    defaultMediaSpecificParameters,
     0
   )
 
   applyMediaSpecificParameters(
     viewportElement,
-    mediaSpecificParametersList[1],
+    createMediaSpecificParameters(
+      internalPartialMediaSpecificParametersList.reduce(
+        createPartialMediaSpecificParametersMerger(
+          createMatchMediaPredicate(matchMedia)
+        ),
+        // Value that does not need to check matching current viewport
+        defaultMediaSpecificParameters
+      )
+    ),
     document.documentElement.clientWidth
   )
 }
@@ -78,24 +83,28 @@ export const setParameters = (
       mergePartialGlobalParameters
     )
   )
-  mediaSpecificParametersList = [
-    mediaSpecificParametersList[0],
-    createMediaSpecificParameters(
-      [
-        mediaSpecificParametersList[1],
-        ...partialMediaSpecificParametersList
-      ].reduce(mergePartialMediaSpecificParameters)
-    )
+  internalPartialMediaSpecificParametersList = [
+    ...internalPartialMediaSpecificParametersList,
+    ...partialMediaSpecificParametersList
   ]
+  const defaultMediaSpecificParameters = createMediaSpecificParameters()
   if (globalParameters.unscaledComputing)
     applyMediaSpecificParameters(
       viewportElement,
-      mediaSpecificParametersList[0],
+      defaultMediaSpecificParameters,
       0
     )
   applyMediaSpecificParameters(
     viewportElement,
-    mediaSpecificParametersList[1],
+    createMediaSpecificParameters(
+      internalPartialMediaSpecificParametersList.reduce(
+        createPartialMediaSpecificParametersMerger(
+          createMatchMediaPredicate(matchMedia)
+        ),
+        // Value that does not need to check matching current viewport
+        defaultMediaSpecificParameters
+      )
+    ),
     document.documentElement.clientWidth
   )
 }
@@ -103,33 +112,45 @@ export const setParameters = (
 export const setContent = (partialContent: Partial<Content>): void => {
   if (typeof window === 'undefined' || !viewportElement || !globalParameters)
     return
-  mediaSpecificParametersList = [
-    mediaSpecificParametersList[0],
-    createMediaSpecificParameters(
-      [
-        mediaSpecificParametersList[1],
-        ContentModule.createPartialMediaSpecificParameters(partialContent)
-      ].reduce(mergePartialMediaSpecificParameters)
-    )
+  internalPartialMediaSpecificParametersList = [
+    ...internalPartialMediaSpecificParametersList,
+    ContentModule.createPartialMediaSpecificParameters(partialContent)
   ]
+  const defaultMediaSpecificParameters = createMediaSpecificParameters()
   if (globalParameters.unscaledComputing)
     applyMediaSpecificParameters(
       viewportElement,
-      mediaSpecificParametersList[0],
+      defaultMediaSpecificParameters,
       0
     )
   applyMediaSpecificParameters(
     viewportElement,
-    mediaSpecificParametersList[1],
+    createMediaSpecificParameters(
+      internalPartialMediaSpecificParametersList.reduce(
+        createPartialMediaSpecificParametersMerger(
+          createMatchMediaPredicate(matchMedia)
+        ),
+        // Value that does not need to check matching current viewport
+        defaultMediaSpecificParameters
+      )
+    ),
     document.documentElement.clientWidth
   )
 }
 
+/**
+ * - Merge content properties of all objects in internalPartialMediaSpecificParametersList variable and return it
+ * - Feature assuming that media properties are not used
+ * @deprecated
+ * */
 export const getContent = (): Content =>
-  typeof window === 'undefined' ||
-  typeof mediaSpecificParametersList[1] === 'undefined'
-    ? createMediaSpecificParameters().content
-    : mediaSpecificParametersList[1].content
+  createMediaSpecificParameters(
+    internalPartialMediaSpecificParametersList.reduce(
+      mergePartialMediaSpecificParameters,
+      // For environments where no window object exists
+      createMediaSpecificParameters()
+    )
+  ).content
 
 export const updateReference = (): void => {
   if (typeof window === 'undefined') return

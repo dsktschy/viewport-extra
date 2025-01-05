@@ -4,6 +4,7 @@ import {
   createPartialGlobalParameters,
   createPartialMediaSpecificParameters,
   getNullableContentAttribute,
+  getNullableMediaAttribute,
   getNullableUnscaledComputingAttribute,
   setContentAttribute
 } from './HTMLMetaElement.js'
@@ -137,6 +138,47 @@ describe('getNullableContentAttribute', () => {
   })
 })
 
+describe('getNullableMediaAttribute', () => {
+  describe('case where argument has only data-media attribute', () => {
+    it('should return value of data-media attribute', () => {
+      const htmlMetaElement = document.createElement('meta')
+      htmlMetaElement.setAttribute('data-media', '(min-width: 768px)')
+      expect(getNullableMediaAttribute(htmlMetaElement)).toBe(
+        '(min-width: 768px)'
+      )
+    })
+  })
+
+  describe('case where argument has only data-extra-media attribute', () => {
+    it('should return value of data-extra-media attribute', () => {
+      const htmlMetaElement = document.createElement('meta')
+      htmlMetaElement.setAttribute('data-extra-media', '(min-width: 768px)')
+      expect(getNullableMediaAttribute(htmlMetaElement)).toBe(
+        '(min-width: 768px)'
+      )
+    })
+  })
+
+  describe('case where argument has both data-media and data-extra-media attributes', () => {
+    it('should return value of data-extra-media attribute', () => {
+      const htmlMetaElement = document.createElement('meta')
+      htmlMetaElement.setAttribute('data-media', '(min-width: 768px)')
+      htmlMetaElement.setAttribute('data-extra-media', '(min-width: 1024px)')
+      expect(getNullableMediaAttribute(htmlMetaElement)).toBe(
+        '(min-width: 1024px)'
+      )
+    })
+  })
+
+  describe('case where argument does not have both data-media and data-extra-media attributes', () => {
+    it('should return null', () => {
+      expect(getNullableMediaAttribute(document.createElement('meta'))).toBe(
+        null
+      )
+    })
+  })
+})
+
 describe('createPartialMediaSpecificParameters', () => {
   describe('case where argument has only content attribute', () => {
     it('should return object that has content property matching all key-value pairs in content attribute', () => {
@@ -224,8 +266,66 @@ describe('createPartialMediaSpecificParameters', () => {
     })
   })
 
-  describe('case where argument does not have both content and data-extra-content attributes', () => {
-    it('should return object that does not have content property', () => {
+  describe('case where argument has only data-media attribute', () => {
+    it('should return object that has media property equal to data-media attribute', () => {
+      const htmlMetaElement = document.createElement('meta')
+      htmlMetaElement.setAttribute('data-media', '(min-width: 768px)')
+      expect(
+        createPartialMediaSpecificParameters(htmlMetaElement)
+      ).toStrictEqual({
+        media: '(min-width: 768px)'
+      })
+    })
+  })
+
+  describe('case where argument has only data-extra-media attribute', () => {
+    it('should return object that has media property equal to data-extra-media attribute', () => {
+      const htmlMetaElement = document.createElement('meta')
+      htmlMetaElement.setAttribute('data-extra-media', '(min-width: 768px)')
+      expect(
+        createPartialMediaSpecificParameters(htmlMetaElement)
+      ).toStrictEqual({
+        media: '(min-width: 768px)'
+      })
+    })
+  })
+
+  describe('case where argument has both data-media and data-extra-media attributes', () => {
+    it('should return object that has media property equal to data-extra-media attribute', () => {
+      const htmlMetaElement = document.createElement('meta')
+      htmlMetaElement.setAttribute('data-media', '(min-width: 768px)')
+      htmlMetaElement.setAttribute('data-extra-media', '(min-width: 1024px)')
+      expect(
+        createPartialMediaSpecificParameters(htmlMetaElement)
+      ).toStrictEqual({
+        media: '(min-width: 1024px)'
+      })
+    })
+  })
+
+  describe('case where argument has both (data-extra-)content and data-(extra-)media attributes', () => {
+    it('should return object that has content property matching all key-value pairs in (data-extra-)content attribute and media property equal to data-(extra-)media attribute', () => {
+      const htmlMetaElement = document.createElement('meta')
+      htmlMetaElement.setAttribute(
+        'content',
+        `width=device-width,min-width=1024,interactive-widget=resizes-content`
+      )
+      htmlMetaElement.setAttribute('data-media', '(min-width: 768px)')
+      expect(
+        createPartialMediaSpecificParameters(htmlMetaElement)
+      ).toStrictEqual({
+        content: {
+          width: 'device-width',
+          minWidth: 1024,
+          interactiveWidget: 'resizes-content'
+        },
+        media: '(min-width: 768px)'
+      })
+    })
+  })
+
+  describe('case where argument has no attributes', () => {
+    it('should return object that has no properties', () => {
       const htmlMetaElement = document.createElement('meta')
       expect(
         createPartialMediaSpecificParameters(htmlMetaElement)
@@ -260,7 +360,8 @@ describe('applyMediaSpecificParameters', () => {
             minWidth: 414,
             maxWidth: 768,
             interactiveWidget: 'resizes-content'
-          }
+          },
+          media: ''
         },
         640
       )
@@ -282,7 +383,8 @@ describe('applyMediaSpecificParameters', () => {
             minWidth: 414,
             maxWidth: 768,
             interactiveWidget: 'resizes-content'
-          }
+          },
+          media: ''
         },
         375
       )
@@ -304,7 +406,8 @@ describe('applyMediaSpecificParameters', () => {
             minWidth: 414,
             maxWidth: 768,
             interactiveWidget: 'resizes-content'
-          }
+          },
+          media: ''
         },
         1024
       )
@@ -326,7 +429,8 @@ describe('applyMediaSpecificParameters', () => {
             minWidth: 768,
             maxWidth: 414,
             interactiveWidget: 'resizes-content'
-          }
+          },
+          media: ''
         },
         375
       )
@@ -348,7 +452,8 @@ describe('applyMediaSpecificParameters', () => {
             minWidth: 414,
             maxWidth: 768,
             interactiveWidget: 'resizes-content'
-          }
+          },
+          media: ''
         },
         1024
       )

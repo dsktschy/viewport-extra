@@ -39,7 +39,7 @@ import { getGetContentResultString } from '../modules/PlaywrightPage.js'
       await page.goto('/tests/e2e/__fixtures__/src/dummy.html')
     })
 
-    test('Content object used to update content attribute of viewport meta element is gotten', async ({
+    test('Content object used to update content attribute of viewport meta element is gotten if no media queries are specified', async ({
       page
     }, { config: { projects } }) => {
       const smViewportWidth =

@@ -9,7 +9,13 @@ import {
   assignOptionalUnscaledComputing
 } from './GlobalParameters.js'
 import {
+  type MediaAttribute,
+  createOptionalMedia,
+  mergeNullableMediaAttribute
+} from './MediaAttribute.js'
+import {
   type MediaSpecificParameters,
+  assignOptionalMedia,
   assignOptionalPartialContent,
   createContentAttribute
 } from './MediaSpecificParameters.js'
@@ -45,12 +51,23 @@ export const getNullableContentAttribute = (
     htmlMetaElement.getAttribute('data-extra-content')
   )
 
+export const getNullableMediaAttribute = (
+  htmlMetaElement: HTMLMetaElement
+): MediaAttribute | null =>
+  mergeNullableMediaAttribute(
+    htmlMetaElement.getAttribute('data-media'),
+    htmlMetaElement.getAttribute('data-extra-media')
+  )
+
 export const createPartialMediaSpecificParameters = (
   htmlMetaElement: HTMLMetaElement
 ): DeepPartial<MediaSpecificParameters> =>
-  assignOptionalPartialContent(
-    undefined,
-    createOptionalPartialContent(getNullableContentAttribute(htmlMetaElement))
+  assignOptionalMedia(
+    assignOptionalPartialContent(
+      undefined,
+      createOptionalPartialContent(getNullableContentAttribute(htmlMetaElement))
+    ),
+    createOptionalMedia(getNullableMediaAttribute(htmlMetaElement))
   )
 
 export const setContentAttribute = (
