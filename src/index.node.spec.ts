@@ -8,6 +8,17 @@ describe('side effects', () => {
   })
 })
 
+describe('setParameters', () => {
+  describe('running in environments where no window object exists', () => {
+    it('does not throw error', async () => {
+      const { setParameters } = await import('./index.js')
+      expect(() => {
+        setParameters([{ content: { minWidth: 414 } }])
+      }).not.toThrowError()
+    })
+  })
+})
+
 describe('setContent', () => {
   describe('running in environments where no window object exists', () => {
     it('does not throw error', async () => {
@@ -50,6 +61,17 @@ describe('constructor of ViewportExtra class', () => {
       const { default: ViewportExtra } = await import('./index.js')
       expect(() => {
         new ViewportExtra(414)
+      }).not.toThrowError()
+    })
+  })
+})
+
+describe('setParameters method of ViewportExtra class', () => {
+  describe('running in environments where no window object exists', () => {
+    it('does not throw error', async () => {
+      const { default: ViewportExtra } = await import('./index.js')
+      expect(() => {
+        ViewportExtra.setParameters([{ content: { minWidth: 414 } }])
       }).not.toThrowError()
     })
   })
