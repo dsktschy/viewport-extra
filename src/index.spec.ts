@@ -87,7 +87,7 @@ describe('side effects', () => {
   })
 
   describe('updating content attribute of viewport meta element', () => {
-    describe('case where viewport width is less than minWidth property of object whose index in mediaSpecificParametersList array is 1', () => {
+    describe('case where viewport width is less than minWidth property of first item in mediaSpecificParametersList variable', () => {
       it('updates width to minimum width and initial-scale to value that fits minimum width into viewport', async () => {
         Object.defineProperty(document.documentElement, 'clientWidth', {
           value: 320,
@@ -107,7 +107,7 @@ describe('side effects', () => {
       })
     })
 
-    describe('case where viewport width is greater than maxWidth property of object whose index in mediaSpecificParametersList array is 1', () => {
+    describe('case where viewport width is greater than maxWidth property of first item in mediaSpecificParametersList variable', () => {
       it('updates width to maximum width and initial-scale to value that fits maximum width into viewport', async () => {
         Object.defineProperty(document.documentElement, 'clientWidth', {
           value: 1024,
@@ -130,8 +130,8 @@ describe('side effects', () => {
 })
 
 describe('setParameters', () => {
-  describe('merging current mediaSpecificParametersList array and first argument', () => {
-    it('deeply merges object with index 1 of current mediaSpecificParametersList and all objects in argument array, with rule that values in argument array overwrites values in current mediaSpecificParametersList and values in object whose index is higher overwrites values in object whose index is lower', async () => {
+  describe('merging current mediaSpecificParametersList variable and first argument', () => {
+    it('deeply merges first item in current mediaSpecificParametersList variable and all objects in argument array, with rule that values in argument array overwrites values in current mediaSpecificParametersList variable and values in object whose index is higher overwrites values in object whose index is lower', async () => {
       Object.defineProperty(document.documentElement, 'clientWidth', {
         value: 320,
         configurable: true
@@ -153,7 +153,7 @@ describe('setParameters', () => {
   })
 
   describe('updating content attribute of viewport meta element', () => {
-    describe('case where viewport width is less than minWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+    describe('case where viewport width is less than minWidth property of first item in merged mediaSpecificParametersList variable', () => {
       it('updates width to minimum width and initial-scale to value that fits minimum width into viewport', async () => {
         Object.defineProperty(document.documentElement, 'clientWidth', {
           value: 320,
@@ -173,7 +173,7 @@ describe('setParameters', () => {
       })
     })
 
-    describe('case where viewport width is greater than maxWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+    describe('case where viewport width is greater than maxWidth property of first item in merged mediaSpecificParametersList variable', () => {
       it('updates width to maximum width and initial-scale to value that fits maximum width into viewport', async () => {
         Object.defineProperty(document.documentElement, 'clientWidth', {
           value: 1024,
@@ -196,8 +196,8 @@ describe('setParameters', () => {
 })
 
 describe('setContent', () => {
-  describe('merging current mediaSpecificParametersList array and argument', () => {
-    it('merges content property in object with index 1 of current mediaSpecificParametersList and argument object, with rule that values in argument object overwrites values in current mediaSpecificParametersList', async () => {
+  describe('merging current mediaSpecificParametersList variable and argument', () => {
+    it('merges content property of first item in current mediaSpecificParametersList variable and argument object, with rule that values in argument object overwrites values in current mediaSpecificParametersList variable', async () => {
       document.head.innerHTML = `
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -215,7 +215,7 @@ describe('setContent', () => {
   })
 
   describe('updating content attribute of viewport meta element', () => {
-    describe('case where viewport width is less than minWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+    describe('case where viewport width is less than minWidth property of first item in merged mediaSpecificParametersList variable', () => {
       it('updates width to minimum width and initial-scale to value that fits minimum width into viewport', async () => {
         Object.defineProperty(document.documentElement, 'clientWidth', {
           value: 320,
@@ -235,7 +235,7 @@ describe('setContent', () => {
       })
     })
 
-    describe('case where viewport width is greater than maxWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+    describe('case where viewport width is greater than maxWidth property of first item in merged mediaSpecificParametersList variable', () => {
       it('updates width to maximum width and initial-scale to value that fits maximum width into viewport', async () => {
         Object.defineProperty(document.documentElement, 'clientWidth', {
           value: 1024,
@@ -332,8 +332,8 @@ describe('updateReference', () => {
 })
 
 describe('constructor of ViewportExtra class', () => {
-  describe('merging current mediaSpecificParametersList array and argument number', () => {
-    it('overwrites content.minWidth property in object with index 1 of current mediaSpecificParametersList with argument number', async () => {
+  describe('merging current mediaSpecificParametersList variable and argument number', () => {
+    it('overwrites content.minWidth property of first item in current mediaSpecificParametersList variable with argument number', async () => {
       document.head.innerHTML = `
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -350,8 +350,8 @@ describe('constructor of ViewportExtra class', () => {
     })
   })
 
-  describe('merging current mediaSpecificParametersList array and argument object', () => {
-    it('merges content property in object with index 1 of current mediaSpecificParametersList and argument object, with rule that values in argument object overwrites values in current mediaSpecificParametersList', async () => {
+  describe('merging current mediaSpecificParametersList variable and argument object', () => {
+    it('merges content property of first item in current mediaSpecificParametersList variable and argument object, with rule that values in argument object overwrites values in current mediaSpecificParametersList variable', async () => {
       document.head.innerHTML = `
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -374,7 +374,7 @@ describe('constructor of ViewportExtra class', () => {
   })
 
   describe('updating content attribute of viewport meta element', () => {
-    describe('case where viewport width is less than minWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+    describe('case where viewport width is less than minWidth property of first item in merged mediaSpecificParametersList variable', () => {
       it('updates width to minimum width and initial-scale to value that fits minimum width into viewport', async () => {
         Object.defineProperty(document.documentElement, 'clientWidth', {
           value: 320,
@@ -394,7 +394,7 @@ describe('constructor of ViewportExtra class', () => {
       })
     })
 
-    describe('case where viewport width is greater than maxWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+    describe('case where viewport width is greater than maxWidth property of first item in merged mediaSpecificParametersList variable', () => {
       it('updates width to maximum width and initial-scale to value that fits maximum width into viewport', async () => {
         Object.defineProperty(document.documentElement, 'clientWidth', {
           value: 1024,
@@ -417,8 +417,8 @@ describe('constructor of ViewportExtra class', () => {
 })
 
 describe('setParameters method of ViewportExtra class', () => {
-  describe('merging current mediaSpecificParametersList array and first argument', () => {
-    it('deeply merges object with index 1 of current mediaSpecificParametersList and all objects in argument array, with rule that values in argument array overwrites values in current mediaSpecificParametersList and values in object whose index is higher overwrites values in object whose index is lower', async () => {
+  describe('merging current mediaSpecificParametersList variable and first argument', () => {
+    it('deeply merges first item in current mediaSpecificParametersList variable and all objects in argument array, with rule that values in argument array overwrites values in current mediaSpecificParametersList variable and values in object whose index is higher overwrites values in object whose index is lower', async () => {
       Object.defineProperty(document.documentElement, 'clientWidth', {
         value: 320,
         configurable: true
@@ -440,7 +440,7 @@ describe('setParameters method of ViewportExtra class', () => {
   })
 
   describe('updating content attribute of viewport meta element', () => {
-    describe('case where viewport width is less than minWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+    describe('case where viewport width is less than minWidth property of first item in current mediaSpecificParametersList variable', () => {
       it('updates width to minimum width and initial-scale to value that fits minimum width into viewport', async () => {
         Object.defineProperty(document.documentElement, 'clientWidth', {
           value: 320,
@@ -460,7 +460,7 @@ describe('setParameters method of ViewportExtra class', () => {
       })
     })
 
-    describe('case where viewport width is greater than maxWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+    describe('case where viewport width is greater than maxWidth property of first item in current mediaSpecificParametersList variable', () => {
       it('updates width to maximum width and initial-scale to value that fits maximum width into viewport', async () => {
         Object.defineProperty(document.documentElement, 'clientWidth', {
           value: 1024,
@@ -483,8 +483,8 @@ describe('setParameters method of ViewportExtra class', () => {
 })
 
 describe('setContent method of ViewportExtra class', () => {
-  describe('merging current mediaSpecificParametersList array and argument', () => {
-    it('merges content property in object with index 1 of current mediaSpecificParametersList and argument object, with rule that values in argument object overwrites values in current mediaSpecificParametersList', async () => {
+  describe('merging current mediaSpecificParametersList variable and argument', () => {
+    it('merges content property of first item in current mediaSpecificParametersList variable and argument object, with rule that values in argument object overwrites values in current mediaSpecificParametersList variable', async () => {
       document.head.innerHTML = `
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -507,7 +507,7 @@ describe('setContent method of ViewportExtra class', () => {
   })
 
   describe('updating content attribute of viewport meta element', () => {
-    describe('case where viewport width is less than minWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+    describe('case where viewport width is less than minWidth property of first item in current mediaSpecificParametersList variable', () => {
       it('updates width to minimum width and initial-scale to value that fits minimum width into viewport', async () => {
         Object.defineProperty(document.documentElement, 'clientWidth', {
           value: 320,
@@ -527,7 +527,7 @@ describe('setContent method of ViewportExtra class', () => {
       })
     })
 
-    describe('case where viewport width is greater than maxWidth property of object whose index in merged mediaSpecificParametersList array is 1', () => {
+    describe('case where viewport width is greater than maxWidth property of first item in current mediaSpecificParametersList variable', () => {
       it('updates width to maximum width and initial-scale to value that fits maximum width into viewport', async () => {
         Object.defineProperty(document.documentElement, 'clientWidth', {
           value: 1024,

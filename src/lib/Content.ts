@@ -80,7 +80,7 @@ export const createPartialMediaSpecificParameters = (
 })
 
 export const createContentAttribute = (
-  content: Content,
+  content: Content = { ...defaultContent },
   documentClientWidth: number
 ): ContentAttribute => {
   const { width, initialScale } = content

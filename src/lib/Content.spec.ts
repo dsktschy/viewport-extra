@@ -293,6 +293,14 @@ describe('createPartialMediaSpecificParameters', () => {
 })
 
 describe('createContentAttribute', () => {
+  describe('case where first argument is undefined', () => {
+    it('should return string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth in default value of Content type', () => {
+      expect(createContentAttribute(undefined, 414)).toBe(
+        'initial-scale=1,width=device-width'
+      )
+    })
+  })
+
   describe('case where second argument is greater than minWidth and less than maxWidth in first argument', () => {
     it('should return string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth in first argument', () => {
       expect(

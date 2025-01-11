@@ -3,6 +3,7 @@ import {
   assignOptionalPartialContent,
   createContentAttribute,
   createMediaSpecificParameters,
+  getContent,
   mergePartialMediaSpecificParameters
 } from './MediaSpecificParameters.js'
 
@@ -186,6 +187,14 @@ describe('mergePartialMediaSpecificParameters', () => {
 })
 
 describe('createContentAttribute', () => {
+  describe('case where first argument is undefined', () => {
+    it('should return string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth in default value of Content type', () => {
+      expect(createContentAttribute(undefined, 414)).toBe(
+        'initial-scale=1,width=device-width'
+      )
+    })
+  })
+
   describe('case where second argument is greater than minWidth and less than maxWidth in first argument', () => {
     it('should return string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth in first argument', () => {
       expect(
@@ -333,6 +342,28 @@ describe('assignOptionalPartialContent', () => {
   describe('case where second argument is undefined', () => {
     it('should do nothing', () => {
       expect(assignOptionalPartialContent({}, undefined)).toStrictEqual({})
+    })
+  })
+})
+
+describe('getContent', () => {
+  it('should return content property of argument', () => {
+    expect(
+      getContent({
+        content: {
+          width: 'device-width',
+          initialScale: 2,
+          minWidth: 414,
+          maxWidth: 768,
+          interactiveWidget: 'resizes-content'
+        }
+      })
+    ).toStrictEqual({
+      width: 'device-width',
+      initialScale: 2,
+      minWidth: 414,
+      maxWidth: 768,
+      interactiveWidget: 'resizes-content'
     })
   })
 })

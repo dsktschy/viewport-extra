@@ -3,6 +3,7 @@ import { type Content, type ContentMinWidth } from './lib/Content.js'
 import { DeepPartial } from './lib/DeepPartial.js'
 import {
   ensureViewportElement,
+  getDocumentClientWidth,
   getViewportExtraElementList
 } from './lib/Document.js'
 import {
@@ -13,8 +14,10 @@ import {
 import * as HTMLMetaElementModule from './lib/HTMLMetaElement.js'
 import {
   applyMediaSpecificParameters,
+  applyMediaSpecificParametersUnscaled,
   createPartialGlobalParameters
 } from './lib/HTMLMetaElement.js'
+import * as MediaSpecificParametersModule from './lib/MediaSpecificParameters.js'
 import {
   type MediaSpecificParameters,
   createMediaSpecificParameters,
@@ -37,7 +40,6 @@ if (typeof window !== 'undefined') {
     ].reduce(mergePartialGlobalParameters)
   )
   mediaSpecificParametersList = [
-    createMediaSpecificParameters(), // For unscaled computing
     createMediaSpecificParameters(
       [
         HTMLMetaElementModule.createPartialMediaSpecificParameters(
@@ -49,21 +51,14 @@ if (typeof window !== 'undefined') {
       ].reduce(mergePartialMediaSpecificParameters)
     )
   ]
-
   // For backward compatibility,
-  // side effects force unscaled computing regardless of globalParameters
+  // side effects force unscaled computing regardless of data-(extra-)unscaled-computing attributes
   // It's so that document.documentElement.clientWidth can work
   // in the case where viewport meta element does not exist
-  applyMediaSpecificParameters(
+  applyMediaSpecificParametersUnscaled(
     viewportElement,
-    mediaSpecificParametersList[0],
-    0
-  )
-
-  applyMediaSpecificParameters(
-    viewportElement,
-    mediaSpecificParametersList[1],
-    document.documentElement.clientWidth
+    () => getDocumentClientWidth(document),
+    mediaSpecificParametersList[0]
   )
 }
 
@@ -79,24 +74,18 @@ export const setParameters = (
     )
   )
   mediaSpecificParametersList = [
-    mediaSpecificParametersList[0],
     createMediaSpecificParameters(
       [
-        mediaSpecificParametersList[1],
+        mediaSpecificParametersList[0],
         ...partialMediaSpecificParametersList
       ].reduce(mergePartialMediaSpecificParameters)
     )
   ]
-  if (globalParameters.unscaledComputing)
-    applyMediaSpecificParameters(
-      viewportElement,
-      mediaSpecificParametersList[0],
-      0
-    )
   applyMediaSpecificParameters(
     viewportElement,
-    mediaSpecificParametersList[1],
-    document.documentElement.clientWidth
+    () => getDocumentClientWidth(document),
+    mediaSpecificParametersList[0],
+    globalParameters
   )
 }
 
@@ -104,32 +93,28 @@ export const setContent = (partialContent: Partial<Content>): void => {
   if (typeof window === 'undefined' || !viewportElement || !globalParameters)
     return
   mediaSpecificParametersList = [
-    mediaSpecificParametersList[0],
     createMediaSpecificParameters(
       [
-        mediaSpecificParametersList[1],
+        mediaSpecificParametersList[0],
         ContentModule.createPartialMediaSpecificParameters(partialContent)
       ].reduce(mergePartialMediaSpecificParameters)
     )
   ]
-  if (globalParameters.unscaledComputing)
-    applyMediaSpecificParameters(
-      viewportElement,
-      mediaSpecificParametersList[0],
-      0
-    )
   applyMediaSpecificParameters(
     viewportElement,
-    mediaSpecificParametersList[1],
-    document.documentElement.clientWidth
+    () => getDocumentClientWidth(document),
+    mediaSpecificParametersList[0],
+    globalParameters
   )
 }
 
 export const getContent = (): Content =>
-  typeof window === 'undefined' ||
-  typeof mediaSpecificParametersList[1] === 'undefined'
-    ? createMediaSpecificParameters().content
-    : mediaSpecificParametersList[1].content
+  MediaSpecificParametersModule.getContent(
+    typeof window === 'undefined' ||
+      typeof mediaSpecificParametersList[0] === 'undefined'
+      ? createMediaSpecificParameters()
+      : mediaSpecificParametersList[0]
+  )
 
 export const updateReference = (): void => {
   if (typeof window === 'undefined') return
