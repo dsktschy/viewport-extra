@@ -36,14 +36,23 @@ export const mergePartialMediaSpecificParameters = (
   return partialMediaSpecificParameters
 }
 
-export const createContentAttribute = (
-  optionalMediaSpecificParameters: MediaSpecificParameters | undefined,
-  documentClientWidth: number
-): ContentAttribute =>
-  ContentModule.createContentAttribute(
-    optionalMediaSpecificParameters?.content,
-    documentClientWidth
-  )
+export function createContentAttribute(
+  optionalMediaSpecificParameters: MediaSpecificParameters,
+  optionalDocumentClientWidth: number
+): ContentAttribute
+export function createContentAttribute(): ContentAttribute
+export function createContentAttribute(
+  optionalMediaSpecificParameters?: MediaSpecificParameters,
+  optionalDocumentClientWidth?: number
+): ContentAttribute {
+  return optionalMediaSpecificParameters &&
+    typeof optionalDocumentClientWidth === 'number'
+    ? ContentModule.createContentAttribute(
+        optionalMediaSpecificParameters.content,
+        optionalDocumentClientWidth
+      )
+    : ContentModule.createContentAttribute()
+}
 
 export const assignOptionalPartialContent = (
   partialMediaSpecificParameters: DeepPartial<MediaSpecificParameters> = {},
