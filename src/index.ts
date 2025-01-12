@@ -3,6 +3,7 @@ import { type Content, type ContentMinWidth } from './lib/Content.js'
 import { DeepPartial } from './lib/DeepPartial.js'
 import {
   ensureViewportElement,
+  getDocumentClientWidth,
   getViewportExtraElementList
 } from './lib/Document.js'
 import {
@@ -13,9 +14,11 @@ import {
 import * as HTMLMetaElementModule from './lib/HTMLMetaElement.js'
 import {
   applyMediaSpecificParameters,
+  applyMediaSpecificParametersUnscaled,
   createPartialGlobalParameters
 } from './lib/HTMLMetaElement.js'
 import { createMatchMediaPredicate } from './lib/MatchMedia.js'
+import * as MediaSpecificParametersModule from './lib/MediaSpecificParameters.js'
 import {
   type MediaSpecificParameters,
   createMediaSpecificParameters,
@@ -45,30 +48,23 @@ if (typeof window !== 'undefined') {
       HTMLMetaElementModule.createPartialMediaSpecificParameters
     )
   ]
-  const defaultMediaSpecificParameters = createMediaSpecificParameters()
-
   // For backward compatibility,
-  // side effects force unscaled computing regardless of globalParameters
+  // side effects force unscaled computing regardless of data-(extra-)unscaled-computing attributes
   // It's so that document.documentElement.clientWidth can work
   // in the case where viewport meta element does not exist
-  applyMediaSpecificParameters(
+  applyMediaSpecificParametersUnscaled(
     viewportElement,
-    defaultMediaSpecificParameters,
-    0
-  )
-
-  applyMediaSpecificParameters(
-    viewportElement,
-    createMediaSpecificParameters(
-      internalPartialMediaSpecificParametersList.reduce(
-        createPartialMediaSpecificParametersMerger(
-          createMatchMediaPredicate(matchMedia)
-        ),
-        // Value that does not need to check matching current viewport
-        defaultMediaSpecificParameters
+    () => getDocumentClientWidth(document),
+    () =>
+      createMediaSpecificParameters(
+        internalPartialMediaSpecificParametersList.reduce(
+          createPartialMediaSpecificParametersMerger(
+            createMatchMediaPredicate(matchMedia)
+          ),
+          // Value that does not need to check matching current viewport
+          createMediaSpecificParameters()
+        )
       )
-    ),
-    document.documentElement.clientWidth
   )
 }
 
@@ -87,25 +83,20 @@ export const setParameters = (
     ...internalPartialMediaSpecificParametersList,
     ...partialMediaSpecificParametersList
   ]
-  const defaultMediaSpecificParameters = createMediaSpecificParameters()
-  if (globalParameters.unscaledComputing)
-    applyMediaSpecificParameters(
-      viewportElement,
-      defaultMediaSpecificParameters,
-      0
-    )
   applyMediaSpecificParameters(
     viewportElement,
-    createMediaSpecificParameters(
-      internalPartialMediaSpecificParametersList.reduce(
-        createPartialMediaSpecificParametersMerger(
-          createMatchMediaPredicate(matchMedia)
-        ),
-        // Value that does not need to check matching current viewport
-        defaultMediaSpecificParameters
-      )
-    ),
-    document.documentElement.clientWidth
+    () => getDocumentClientWidth(document),
+    () =>
+      createMediaSpecificParameters(
+        internalPartialMediaSpecificParametersList.reduce(
+          createPartialMediaSpecificParametersMerger(
+            createMatchMediaPredicate(matchMedia)
+          ),
+          // Value that does not need to check matching current viewport
+          createMediaSpecificParameters()
+        )
+      ),
+    globalParameters
   )
 }
 
@@ -116,25 +107,20 @@ export const setContent = (partialContent: Partial<Content>): void => {
     ...internalPartialMediaSpecificParametersList,
     ContentModule.createPartialMediaSpecificParameters(partialContent)
   ]
-  const defaultMediaSpecificParameters = createMediaSpecificParameters()
-  if (globalParameters.unscaledComputing)
-    applyMediaSpecificParameters(
-      viewportElement,
-      defaultMediaSpecificParameters,
-      0
-    )
   applyMediaSpecificParameters(
     viewportElement,
-    createMediaSpecificParameters(
-      internalPartialMediaSpecificParametersList.reduce(
-        createPartialMediaSpecificParametersMerger(
-          createMatchMediaPredicate(matchMedia)
-        ),
-        // Value that does not need to check matching current viewport
-        defaultMediaSpecificParameters
-      )
-    ),
-    document.documentElement.clientWidth
+    () => getDocumentClientWidth(document),
+    () =>
+      createMediaSpecificParameters(
+        internalPartialMediaSpecificParametersList.reduce(
+          createPartialMediaSpecificParametersMerger(
+            createMatchMediaPredicate(matchMedia)
+          ),
+          // Value that does not need to check matching current viewport
+          createMediaSpecificParameters()
+        )
+      ),
+    globalParameters
   )
 }
 
@@ -144,13 +130,15 @@ export const setContent = (partialContent: Partial<Content>): void => {
  * @deprecated
  * */
 export const getContent = (): Content =>
-  createMediaSpecificParameters(
-    internalPartialMediaSpecificParametersList.reduce(
-      mergePartialMediaSpecificParameters,
-      // For environments where no window object exists
-      createMediaSpecificParameters()
+  MediaSpecificParametersModule.getContent(
+    createMediaSpecificParameters(
+      internalPartialMediaSpecificParametersList.reduce(
+        mergePartialMediaSpecificParameters,
+        // For environments where no window object exists
+        createMediaSpecificParameters()
+      )
     )
-  ).content
+  )
 
 export const updateReference = (): void => {
   if (typeof window === 'undefined') return

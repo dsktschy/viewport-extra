@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   assignOptionalUnscaledComputing,
   createGlobalParameters,
+  getUnscaledComputing,
   mergePartialGlobalParameters
 } from './GlobalParameters.js'
 
@@ -113,5 +114,15 @@ describe('assignOptionalUnscaledComputing', () => {
     it('should do nothing', () => {
       expect(assignOptionalUnscaledComputing({}, undefined)).toStrictEqual({})
     })
+  })
+})
+
+describe('getUnscaledComputing', () => {
+  it('should return unscaledComputing property', () => {
+    expect(
+      getUnscaledComputing({
+        unscaledComputing: true
+      })
+    ).toBe(true)
   })
 })

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   applyMediaSpecificParameters,
+  applyMediaSpecificParametersUnscaled,
   createPartialGlobalParameters,
   createPartialMediaSpecificParameters,
   getNullableContentAttribute,
@@ -348,12 +349,85 @@ describe('setContentAttribute', () => {
 })
 
 describe('applyMediaSpecificParameters', () => {
-  describe('case where third argument is greater than minWidth and less than maxWidth in second argument', () => {
-    it('should create string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth in second argument, and set it to first argument', () => {
+  describe('case where unscaledComputing property in fourth argument is false', () => {
+    it('should get width with second argument without updating content attribute in viewport meta element', () => {
+      const htmlMetaElement = document.createElement('meta')
+      htmlMetaElement.setAttribute(
+        'content',
+        'width=device-width,initial-scale=0.5'
+      )
+      applyMediaSpecificParameters(
+        htmlMetaElement,
+        () => {
+          const initialScale = parseFloat(
+            htmlMetaElement
+              .getAttribute('content')
+              ?.split(',')
+              .find(property => property.split('=')[0] === 'initial-scale')
+              ?.split('=')[1] ?? '0'
+          )
+          return initialScale <= 1 ? 320 / initialScale : 320
+        },
+        () => ({
+          content: {
+            width: 'device-width',
+            initialScale: 1,
+            minWidth: 414,
+            maxWidth: Infinity
+          },
+          media: ''
+        }),
+        { unscaledComputing: false }
+      )
+      expect(htmlMetaElement.getAttribute('content')).toBe(
+        'initial-scale=1,width=device-width'
+      )
+    })
+  })
+
+  describe('case where unscaledComputing property in fourth argument is true', () => {
+    it('should get width with second argument after updating width to device-width and initial-scale to 1, of content attribute in viewport meta element', () => {
+      const htmlMetaElement = document.createElement('meta')
+      htmlMetaElement.setAttribute(
+        'content',
+        'width=device-width,initial-scale=0.5'
+      )
+      applyMediaSpecificParameters(
+        htmlMetaElement,
+        () => {
+          const initialScale = parseFloat(
+            htmlMetaElement
+              .getAttribute('content')
+              ?.split(',')
+              .find(property => property.split('=')[0] === 'initial-scale')
+              ?.split('=')[1] ?? '0'
+          )
+          return initialScale <= 1 ? 320 / initialScale : 320
+        },
+        () => ({
+          content: {
+            width: 'device-width',
+            initialScale: 1,
+            minWidth: 414,
+            maxWidth: Infinity
+          },
+          media: ''
+        }),
+        { unscaledComputing: true }
+      )
+      expect(htmlMetaElement.getAttribute('content')).toBe(
+        'initial-scale=0.7729468599033816,width=414'
+      )
+    })
+  })
+
+  describe('case where return value of second argument is greater than minWidth and less than maxWidth in third argument', () => {
+    it('should create string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth in third argument, and set it to first argument', () => {
       const htmlMetaElement = document.createElement('meta')
       applyMediaSpecificParameters(
         htmlMetaElement,
-        {
+        () => 640,
+        () => ({
           content: {
             width: 'device-width',
             initialScale: 2,
@@ -362,8 +436,8 @@ describe('applyMediaSpecificParameters', () => {
             interactiveWidget: 'resizes-content'
           },
           media: ''
-        },
-        640
+        }),
+        { unscaledComputing: false }
       )
       expect(htmlMetaElement.getAttribute('content')).toBe(
         'initial-scale=2,interactive-widget=resizes-content,width=device-width'
@@ -371,12 +445,13 @@ describe('applyMediaSpecificParameters', () => {
     })
   })
 
-  describe('case where third argument is less than minWidth in second argument', () => {
-    it('should compute width and initialScale from first and third argument to fit minimum width into viewport, create string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth, and set it to first argument', () => {
+  describe('case where return value of second argument is less than minWidth in third argument', () => {
+    it('should compute width and initialScale from first argument and return value of second argument to fit minimum width into viewport, create string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth, and set it to first argument', () => {
       const htmlMetaElement = document.createElement('meta')
       applyMediaSpecificParameters(
         htmlMetaElement,
-        {
+        () => 375,
+        () => ({
           content: {
             width: 'device-width',
             initialScale: 2,
@@ -385,8 +460,8 @@ describe('applyMediaSpecificParameters', () => {
             interactiveWidget: 'resizes-content'
           },
           media: ''
-        },
-        375
+        }),
+        { unscaledComputing: false }
       )
       expect(htmlMetaElement.getAttribute('content')).toBe(
         'initial-scale=1.8115942028985508,interactive-widget=resizes-content,width=414'
@@ -394,12 +469,13 @@ describe('applyMediaSpecificParameters', () => {
     })
   })
 
-  describe('case where third argument is greater than maxWidth in second argument', () => {
-    it('should compute width and initialScale from first and third argument to fit maximum width into viewport, create string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth, and set it to first argument', () => {
+  describe('case where return value of second argument is greater than maxWidth in third argument', () => {
+    it('should compute width and initialScale from first argument and return value of second argument to fit maximum width into viewport, create string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth, and set it to first argument', () => {
       const htmlMetaElement = document.createElement('meta')
       applyMediaSpecificParameters(
         htmlMetaElement,
-        {
+        () => 1024,
+        () => ({
           content: {
             width: 'device-width',
             initialScale: 2,
@@ -408,8 +484,8 @@ describe('applyMediaSpecificParameters', () => {
             interactiveWidget: 'resizes-content'
           },
           media: ''
-        },
-        1024
+        }),
+        { unscaledComputing: false }
       )
       expect(htmlMetaElement.getAttribute('content')).toBe(
         'initial-scale=2.6666666666666665,interactive-widget=resizes-content,width=768'
@@ -417,12 +493,13 @@ describe('applyMediaSpecificParameters', () => {
     })
   })
 
-  describe('case where minWidth is greater than maxWidth in second argument', () => {
-    it('should create string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth in second argument, and set it to first argument', () => {
+  describe('case where minWidth is greater than maxWidth in third argument', () => {
+    it('should create string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth in third argument, and set it to first argument', () => {
       const htmlMetaElement = document.createElement('meta')
       applyMediaSpecificParameters(
         htmlMetaElement,
-        {
+        () => 375,
+        () => ({
           content: {
             width: 'device-width',
             initialScale: 2,
@@ -431,8 +508,8 @@ describe('applyMediaSpecificParameters', () => {
             interactiveWidget: 'resizes-content'
           },
           media: ''
-        },
-        375
+        }),
+        { unscaledComputing: false }
       )
       expect(htmlMetaElement.getAttribute('content')).toBe(
         'initial-scale=2,interactive-widget=resizes-content,width=device-width'
@@ -440,12 +517,13 @@ describe('applyMediaSpecificParameters', () => {
     })
   })
 
-  describe('case where width is number in second argument', () => {
-    it('should create string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth in second argument, and set it to first argument', () => {
+  describe('case where width in third argument is number', () => {
+    it('should create string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth in third argument, and set it to first argument', () => {
       const htmlMetaElement = document.createElement('meta')
       applyMediaSpecificParameters(
         htmlMetaElement,
-        {
+        () => 1024,
+        () => ({
           content: {
             width: 1024,
             initialScale: 2,
@@ -454,8 +532,158 @@ describe('applyMediaSpecificParameters', () => {
             interactiveWidget: 'resizes-content'
           },
           media: ''
+        }),
+        { unscaledComputing: false }
+      )
+      expect(htmlMetaElement.getAttribute('content')).toBe(
+        'initial-scale=2,interactive-widget=resizes-content,width=1024'
+      )
+    })
+  })
+})
+
+describe('applyMediaSpecificParametersUnscaled', () => {
+  it('should get width with second argument after updating width to device-width and initial-scale to 1, of content attribute in viewport meta element', () => {
+    const htmlMetaElement = document.createElement('meta')
+    htmlMetaElement.setAttribute(
+      'content',
+      'width=device-width,initial-scale=0.5'
+    )
+    applyMediaSpecificParametersUnscaled(
+      htmlMetaElement,
+      () => {
+        const initialScale = parseFloat(
+          htmlMetaElement
+            .getAttribute('content')
+            ?.split(',')
+            .find(property => property.split('=')[0] === 'initial-scale')
+            ?.split('=')[1] ?? '0'
+        )
+        return initialScale <= 1 ? 320 / initialScale : 320
+      },
+      () => ({
+        content: {
+          width: 'device-width',
+          initialScale: 1,
+          minWidth: 414,
+          maxWidth: Infinity
         },
-        1024
+        media: ''
+      })
+    )
+    expect(htmlMetaElement.getAttribute('content')).toBe(
+      'initial-scale=0.7729468599033816,width=414'
+    )
+  })
+
+  describe('case where return value of second argument is greater than minWidth and less than maxWidth in third argument', () => {
+    it('should create string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth in third argument, and set it to first argument', () => {
+      const htmlMetaElement = document.createElement('meta')
+      applyMediaSpecificParametersUnscaled(
+        htmlMetaElement,
+        () => 640,
+        () => ({
+          content: {
+            width: 'device-width',
+            initialScale: 2,
+            minWidth: 414,
+            maxWidth: 768,
+            interactiveWidget: 'resizes-content'
+          },
+          media: ''
+        })
+      )
+      expect(htmlMetaElement.getAttribute('content')).toBe(
+        'initial-scale=2,interactive-widget=resizes-content,width=device-width'
+      )
+    })
+  })
+
+  describe('case where return value of second argument is less than minWidth in third argument', () => {
+    it('should compute width and initialScale from first argument and return value of second argument to fit minimum width into viewport, create string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth, and set it to first argument', () => {
+      const htmlMetaElement = document.createElement('meta')
+      applyMediaSpecificParametersUnscaled(
+        htmlMetaElement,
+        () => 375,
+        () => ({
+          content: {
+            width: 'device-width',
+            initialScale: 2,
+            minWidth: 414,
+            maxWidth: 768,
+            interactiveWidget: 'resizes-content'
+          },
+          media: ''
+        })
+      )
+      expect(htmlMetaElement.getAttribute('content')).toBe(
+        'initial-scale=1.8115942028985508,interactive-widget=resizes-content,width=414'
+      )
+    })
+  })
+
+  describe('case where return value of second argument is greater than maxWidth in third argument', () => {
+    it('should compute width and initialScale from first argument and return value of second argument to fit maximum width into viewport, create string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth, and set it to first argument', () => {
+      const htmlMetaElement = document.createElement('meta')
+      applyMediaSpecificParametersUnscaled(
+        htmlMetaElement,
+        () => 1024,
+        () => ({
+          content: {
+            width: 'device-width',
+            initialScale: 2,
+            minWidth: 414,
+            maxWidth: 768,
+            interactiveWidget: 'resizes-content'
+          },
+          media: ''
+        })
+      )
+      expect(htmlMetaElement.getAttribute('content')).toBe(
+        'initial-scale=2.6666666666666665,interactive-widget=resizes-content,width=768'
+      )
+    })
+  })
+
+  describe('case where minWidth is greater than maxWidth in third argument', () => {
+    it('should create string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth in third argument, and set it to first argument', () => {
+      const htmlMetaElement = document.createElement('meta')
+      applyMediaSpecificParametersUnscaled(
+        htmlMetaElement,
+        () => 375,
+        () => ({
+          content: {
+            width: 'device-width',
+            initialScale: 2,
+            minWidth: 768,
+            maxWidth: 414,
+            interactiveWidget: 'resizes-content'
+          },
+          media: ''
+        })
+      )
+      expect(htmlMetaElement.getAttribute('content')).toBe(
+        'initial-scale=2,interactive-widget=resizes-content,width=device-width'
+      )
+    })
+  })
+
+  describe('case where width in third argument is number', () => {
+    it('should create string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth in third argument, and set it to first argument', () => {
+      const htmlMetaElement = document.createElement('meta')
+      applyMediaSpecificParametersUnscaled(
+        htmlMetaElement,
+        () => 1024,
+        () => ({
+          content: {
+            width: 1024,
+            initialScale: 2,
+            minWidth: 414,
+            maxWidth: 768,
+            interactiveWidget: 'resizes-content'
+          },
+          media: ''
+        })
       )
       expect(htmlMetaElement.getAttribute('content')).toBe(
         'initial-scale=2,interactive-widget=resizes-content,width=1024'

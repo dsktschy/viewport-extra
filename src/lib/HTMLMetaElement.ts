@@ -6,7 +6,8 @@ import {
 import { type DeepPartial } from './DeepPartial.js'
 import {
   type GlobalParameters,
-  assignOptionalUnscaledComputing
+  assignOptionalUnscaledComputing,
+  getUnscaledComputing
 } from './GlobalParameters.js'
 import {
   type MediaAttribute,
@@ -77,11 +78,39 @@ export const setContentAttribute = (
 
 export const applyMediaSpecificParameters = (
   htmlMetaElement: HTMLMetaElement,
-  mediaSpecificParameters: MediaSpecificParameters,
-  documentClientWidth: number
+  getDocumentClientWidth: () => number,
+  getMediaSpecificParameters: () => MediaSpecificParameters,
+  globalParameters: GlobalParameters
+): void => {
+  if (getUnscaledComputing(globalParameters)) {
+    setContentAttribute(
+      htmlMetaElement,
+      createContentAttribute(undefined, getDocumentClientWidth())
+    )
+  }
+  setContentAttribute(
+    htmlMetaElement,
+    createContentAttribute(
+      getMediaSpecificParameters(),
+      getDocumentClientWidth()
+    )
+  )
+}
+
+export const applyMediaSpecificParametersUnscaled = (
+  htmlMetaElement: HTMLMetaElement,
+  getDocumentClientWidth: () => number,
+  getMediaSpecificParameters: () => MediaSpecificParameters
 ): void => {
   setContentAttribute(
     htmlMetaElement,
-    createContentAttribute(mediaSpecificParameters, documentClientWidth)
+    createContentAttribute(undefined, getDocumentClientWidth())
+  )
+  setContentAttribute(
+    htmlMetaElement,
+    createContentAttribute(
+      getMediaSpecificParameters(),
+      getDocumentClientWidth()
+    )
   )
 }

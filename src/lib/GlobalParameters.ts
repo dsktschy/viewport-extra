@@ -44,3 +44,6 @@ export const assignOptionalUnscaledComputing = (
         unscaledComputing: optionalUnscaledComputing
       }
     : partialGlobalParameters
+
+export const getUnscaledComputing = (globalParameters: GlobalParameters) =>
+  globalParameters.unscaledComputing
