@@ -82,12 +82,8 @@ export const applyMediaSpecificParameters = (
   getMediaSpecificParameters: () => MediaSpecificParameters,
   globalParameters: GlobalParameters
 ): void => {
-  if (getUnscaledComputing(globalParameters)) {
-    setContentAttribute(
-      htmlMetaElement,
-      createContentAttribute(undefined, getDocumentClientWidth())
-    )
-  }
+  if (getUnscaledComputing(globalParameters))
+    setContentAttribute(htmlMetaElement, createContentAttribute())
   setContentAttribute(
     htmlMetaElement,
     createContentAttribute(
@@ -102,10 +98,7 @@ export const applyMediaSpecificParametersUnscaled = (
   getDocumentClientWidth: () => number,
   getMediaSpecificParameters: () => MediaSpecificParameters
 ): void => {
-  setContentAttribute(
-    htmlMetaElement,
-    createContentAttribute(undefined, getDocumentClientWidth())
-  )
+  setContentAttribute(htmlMetaElement, createContentAttribute())
   setContentAttribute(
     htmlMetaElement,
     createContentAttribute(

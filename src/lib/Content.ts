@@ -79,10 +79,15 @@ export const createPartialMediaSpecificParameters = (
   content: partialContent
 })
 
-export const createContentAttribute = (
-  content: Content = { ...defaultContent },
+export function createContentAttribute(
+  content: Content,
   documentClientWidth: number
-): ContentAttribute => {
+): ContentAttribute
+export function createContentAttribute(): ContentAttribute
+export function createContentAttribute(
+  content: Content = { ...defaultContent },
+  documentClientWidth: number = 0
+): ContentAttribute {
   const { width, initialScale } = content
   const { minWidth, maxWidth, ...contentWithoutExtraProperties } = content
   if (minWidth > maxWidth) {
