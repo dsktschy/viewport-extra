@@ -144,7 +144,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
           await page.goto('/tests/e2e/__fixtures__/src/dummy.html')
         })
 
-        test.describe('case where unscaledComputing property in merged globalParameters object is false', () => {
+        test.describe('case where unscaledComputing property in merged internalGlobalParameters variable is false', () => {
           // When initial scale is 1 or less, document.documentElement.clientWidth is equal to viewport width
           test.describe('case where initial scale before running setParameters is 1 or less', () => {
             test('width of viewport is used for comparison, and initialScale property merged from current internalPartialMediaSpecificParametersList variable and first argument is applied to output initial-scale', async ({
@@ -232,7 +232,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
           })
         })
 
-        test.describe('case where unscaledComputing property in merged globalParameters object is true', () => {
+        test.describe('case where unscaledComputing property in merged internalGlobalParameters variable is true', () => {
           test.describe('case where initial scale before running setParameters is 1 or less', () => {
             test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property merged from current internalPartialMediaSpecificParametersList variable and first argument is applied to output initial-scale', async ({
               page,
@@ -318,7 +318,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
       // Following cases cannot be tested with vitest
       // Because vitest does not update size of document element when viewport element is updated
       // Run only in minimal formats and viewports because they replace unit tests of src/index.spec.ts
-      test.describe('merging current globalParameters variable and second argument', () => {
+      test.describe('merging current internalGlobalParameters variable and second argument', () => {
         test.beforeEach(async ({ page }, testInfo) => {
           testInfo.skip(formatIndex !== 0)
           testInfo.skip(!['xs'].includes(testInfo.project.name))
@@ -361,7 +361,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
         })
 
         test.describe('case where second argument is not provided', () => {
-          test('values in current globalParameters variable is used', async ({
+          test('values in current internalGlobalParameters variable is used', async ({
             page,
             viewport
           }, { config: { projects } }) => {

@@ -155,7 +155,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
       })
 
       test.describe('case where data-(extra-)unscaled-computing attribute exists in only viewport meta elements', () => {
-        test('unscaledComputing property of globalParameters variable is set to true', async ({
+        test('unscaledComputing property of internalGlobalParameters variable is set to true', async ({
           page,
           viewport
         }, { config: { projects } }) => {
@@ -188,7 +188,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
       })
 
       test.describe('case where data-(extra-)unscaled-computing attribute exists in only viewport-extra meta elements', () => {
-        test('unscaledComputing property of globalParameters variable is set to true', async ({
+        test('unscaledComputing property of internalGlobalParameters variable is set to true', async ({
           page,
           viewport
         }, { config: { projects } }) => {
@@ -221,7 +221,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
       })
 
       test.describe('case where data-(extra-)unscaled-computing attribute exists in both meta elements', () => {
-        test('unscaledComputing property of globalParameters variable is set to true', async ({
+        test('unscaledComputing property of internalGlobalParameters variable is set to true', async ({
           page,
           viewport
         }, { config: { projects } }) => {
@@ -254,7 +254,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
       })
 
       test.describe('case where data-(extra-)unscaled-computing attribute does not exist in both meta elements', () => {
-        test('unscaledComputing property of globalParameters variable is set to false', async ({
+        test('unscaledComputing property of internalGlobalParameters variable is set to false', async ({
           page,
           viewport
         }, { config: { projects } }) => {

@@ -123,7 +123,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
         await page.goto('/tests/e2e/__fixtures__/src/dummy.html')
       })
 
-      test.describe('case where unscaledComputing property in globalParameters object is false', () => {
+      test.describe('case where unscaledComputing property in internalGlobalParameters variable is false', () => {
         // When initial scale is 1 or less, document.documentElement.clientWidth is equal to viewport width
         test.describe('case where initial scale before running ViewportExtra constructor is 1 or less', () => {
           test('width of viewport is used for comparison, and initialScale property merged from current internalPartialMediaSpecificParametersList variable and argument is applied to output initial-scale', async ({
@@ -208,7 +208,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
         })
       })
 
-      test.describe('case where unscaledComputing property in globalParameters object is true', () => {
+      test.describe('case where unscaledComputing property in internalGlobalParameters variable is true', () => {
         test.describe('case where initial scale before running ViewportExtra constructor is 1 or less', () => {
           test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property merged from current internalPartialMediaSpecificParametersList variable and argument is applied to output initial-scale', async ({
             page,

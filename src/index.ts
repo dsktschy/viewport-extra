@@ -29,14 +29,14 @@ import { createPartialContent } from './lib/number.js'
 
 let viewportElement: HTMLMetaElement | null = null
 let viewportExtraElementList: HTMLMetaElement[] = []
-let globalParameters: GlobalParameters | null = null
+let internalGlobalParameters: GlobalParameters | null = null
 let internalPartialMediaSpecificParametersList: DeepPartial<MediaSpecificParameters>[] =
   []
 
 if (typeof window !== 'undefined') {
   viewportElement = ensureViewportElement(document)
   viewportExtraElementList = getViewportExtraElementList(document)
-  globalParameters = createGlobalParameters(
+  internalGlobalParameters = createGlobalParameters(
     [
       createPartialGlobalParameters(viewportElement),
       ...viewportExtraElementList.map(createPartialGlobalParameters)
@@ -72,10 +72,14 @@ export const setParameters = (
   partialMediaSpecificParametersList: DeepPartial<MediaSpecificParameters>[],
   partialGlobalParameters: Partial<GlobalParameters> = {}
 ): void => {
-  if (typeof window === 'undefined' || !viewportElement || !globalParameters)
+  if (
+    typeof window === 'undefined' ||
+    !viewportElement ||
+    !internalGlobalParameters
+  )
     return
-  globalParameters = createGlobalParameters(
-    [globalParameters, partialGlobalParameters].reduce(
+  internalGlobalParameters = createGlobalParameters(
+    [internalGlobalParameters, partialGlobalParameters].reduce(
       mergePartialGlobalParameters
     )
   )
@@ -96,12 +100,16 @@ export const setParameters = (
           createMediaSpecificParameters()
         )
       ),
-    globalParameters
+    internalGlobalParameters
   )
 }
 
 export const setContent = (partialContent: Partial<Content>): void => {
-  if (typeof window === 'undefined' || !viewportElement || !globalParameters)
+  if (
+    typeof window === 'undefined' ||
+    !viewportElement ||
+    !internalGlobalParameters
+  )
     return
   internalPartialMediaSpecificParametersList = [
     ...internalPartialMediaSpecificParametersList,
@@ -120,7 +128,7 @@ export const setContent = (partialContent: Partial<Content>): void => {
           createMediaSpecificParameters()
         )
       ),
-    globalParameters
+    internalGlobalParameters
   )
 }
 
