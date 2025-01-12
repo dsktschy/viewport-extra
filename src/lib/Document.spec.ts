@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   ensureViewportElement,
+  getDocumentClientWidth,
   getViewportExtraElementList
 } from './Document.js'
 
@@ -62,5 +63,15 @@ describe('getViewportExtraElementList', () => {
       `
       expect(getViewportExtraElementList(document).length).toBe(0)
     })
+  })
+})
+
+describe('getDocumentClientWidth', () => {
+  it('should return document.documentElement.clientWidth', () => {
+    Object.defineProperty(document.documentElement, 'clientWidth', {
+      value: 414,
+      configurable: true
+    })
+    expect(getDocumentClientWidth(document)).toBe(414)
   })
 })
