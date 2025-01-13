@@ -10,7 +10,13 @@ import {
   getUnscaledComputing
 } from './GlobalParameters.js'
 import {
+  type MediaAttribute,
+  createOptionalMedia,
+  mergeNullableMediaAttribute
+} from './MediaAttribute.js'
+import {
   type MediaSpecificParameters,
+  assignOptionalMedia,
   assignOptionalPartialContent,
   createContentAttribute
 } from './MediaSpecificParameters.js'
@@ -46,12 +52,23 @@ export const getNullableContentAttribute = (
     htmlMetaElement.getAttribute('data-extra-content')
   )
 
+export const getNullableMediaAttribute = (
+  htmlMetaElement: HTMLMetaElement
+): MediaAttribute | null =>
+  mergeNullableMediaAttribute(
+    htmlMetaElement.getAttribute('data-media'),
+    htmlMetaElement.getAttribute('data-extra-media')
+  )
+
 export const createPartialMediaSpecificParameters = (
   htmlMetaElement: HTMLMetaElement
 ): DeepPartial<MediaSpecificParameters> =>
-  assignOptionalPartialContent(
-    undefined,
-    createOptionalPartialContent(getNullableContentAttribute(htmlMetaElement))
+  assignOptionalMedia(
+    assignOptionalPartialContent(
+      undefined,
+      createOptionalPartialContent(getNullableContentAttribute(htmlMetaElement))
+    ),
+    createOptionalMedia(getNullableMediaAttribute(htmlMetaElement))
   )
 
 export const setContentAttribute = (
@@ -62,25 +79,31 @@ export const setContentAttribute = (
 export const applyMediaSpecificParameters = (
   htmlMetaElement: HTMLMetaElement,
   getDocumentClientWidth: () => number,
-  mediaSpecificParameters: MediaSpecificParameters,
+  getMediaSpecificParameters: () => MediaSpecificParameters,
   globalParameters: GlobalParameters
 ): void => {
   if (getUnscaledComputing(globalParameters))
     setContentAttribute(htmlMetaElement, createContentAttribute())
   setContentAttribute(
     htmlMetaElement,
-    createContentAttribute(mediaSpecificParameters, getDocumentClientWidth())
+    createContentAttribute(
+      getMediaSpecificParameters(),
+      getDocumentClientWidth()
+    )
   )
 }
 
 export const applyMediaSpecificParametersUnscaled = (
   htmlMetaElement: HTMLMetaElement,
   getDocumentClientWidth: () => number,
-  mediaSpecificParameters: MediaSpecificParameters
+  getMediaSpecificParameters: () => MediaSpecificParameters
 ): void => {
   setContentAttribute(htmlMetaElement, createContentAttribute())
   setContentAttribute(
     htmlMetaElement,
-    createContentAttribute(mediaSpecificParameters, getDocumentClientWidth())
+    createContentAttribute(
+      getMediaSpecificParameters(),
+      getDocumentClientWidth()
+    )
   )
 }

@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.0-rc.0](https://github.com/dsktschy/viewport-extra/compare/v2.2.0...v2.3.0-rc.0) (2025-01-05)
+
+
+### Features
+
+* enable different settings per media ([ff3ce53](https://github.com/dsktschy/viewport-extra/commit/ff3ce53066b6c4749b34e0c02ba1b0bb7b247303))
+
 ## [2.2.0](https://github.com/dsktschy/viewport-extra/compare/v2.2.0-rc.1...v2.2.0) (2025-01-05)
 
 

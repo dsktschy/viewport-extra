@@ -120,10 +120,10 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
           await page.goto('/tests/e2e/__fixtures__/src/dummy.html')
         })
 
-        test.describe('case where unscaledComputing property in globalParameters object is false', () => {
+        test.describe('case where unscaledComputing property in internalGlobalParameters variable is false', () => {
           // When initial scale is 1 or less, document.documentElement.clientWidth is equal to viewport width
           test.describe('case where initial scale before running setContent is 1 or less', () => {
-            test('width of viewport is used for comparison, and initialScale property merged from current mediaSpecificParametersList variable and argument is applied to output initial-scale', async ({
+            test('width of viewport is used for comparison, and initialScale property merged from current internalPartialMediaSpecificParametersList variable and argument is applied to output initial-scale', async ({
               page,
               viewport
             }, { config: { projects } }) => {
@@ -168,7 +168,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
 
           // When initial scale is greater than 1, document.documentElement.clientWidth is not equal to viewport width
           test.describe('case where initial scale before running setContent is greater than 1', () => {
-            test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property merged from current mediaSpecificParametersList variable and argument is applied to output initial-scale', async ({
+            test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property merged from current internalPartialMediaSpecificParametersList variable and argument is applied to output initial-scale', async ({
               page,
               viewport
             }, { config: { projects } }) => {
@@ -208,9 +208,9 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
           })
         })
 
-        test.describe('case where unscaledComputing property in globalParameters object is true', () => {
+        test.describe('case where unscaledComputing property in internalGlobalParameters variable is true', () => {
           test.describe('case where initial scale before running setContent is 1 or less', () => {
-            test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property merged from current mediaSpecificParametersList variable and argument is applied to output initial-scale', async ({
+            test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property merged from current internalPartialMediaSpecificParametersList variable and argument is applied to output initial-scale', async ({
               page,
               viewport
             }, { config: { projects } }) => {
@@ -250,7 +250,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
           })
 
           test.describe('case where initial scale before running setContent is greater than 1', () => {
-            test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property merged from current mediaSpecificParametersList variable and argument is applied to output initial-scale', async ({
+            test('width of window without scroll bars when scale is 1 is used for comparison, and initialScale property merged from current internalPartialMediaSpecificParametersList variable and argument is applied to output initial-scale', async ({
               page,
               viewport
             }, { config: { projects } }) => {
@@ -288,6 +288,59 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
               )
             })
           })
+        })
+      })
+
+      // Following cases cannot be tested with vitest
+      // Because vitest does not provide matchMedia method
+      // Run only in minimal formats and viewports because they replace unit tests of src/index.spec.ts
+      test.describe('merging current internalPartialMediaSpecificParametersList variable and argument', () => {
+        test.beforeEach(async ({ page }, testInfo) => {
+          testInfo.skip(formatIndex !== 0)
+          testInfo.skip(!['xs'].includes(testInfo.project.name))
+          await page.goto('/tests/e2e/__fixtures__/src/dummy.html')
+        })
+
+        test('properties of objects in current internalPartialMediaSpecificParametersList variable and object based on argument whose media properties match viewport are used. Object based on argument is handled as being after objects in current internalPartialMediaSpecificParametersList variable', async ({
+          page,
+          viewport
+        }, { config: { projects } }) => {
+          const smViewportWidth =
+            getViewportSize(projects, 'sm')?.use.viewport?.width ?? 0
+          const lgViewportWidth =
+            getViewportSize(projects, 'lg')?.use.viewport?.width ?? 0
+          const xlViewportWidth =
+            getViewportSize(projects, 'xl')?.use.viewport?.width ?? 0
+          const documentClientWidth = viewport ? viewport.width : undefined
+          await page.setContent(`
+            <!doctype html>
+            <html lang="en">
+              <head>
+                <meta charset="UTF-8" />
+                <title>Document</title>
+                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-unscaled-computing />
+                <meta name="viewport-extra" content="min-width=${xlViewportWidth}" data-media="(min-width: ${lgViewportWidth}px)" />
+                <meta name="viewport-extra" content="min-width=${lgViewportWidth}" data-media="(min-width: ${smViewportWidth}px)" />
+                <meta name="viewport-extra" content="min-width=${smViewportWidth + 2}" />
+                <meta name="viewport-extra" content="min-width=${smViewportWidth + 1}" />
+                <meta name="viewport-extra" content="initial-scale=0.5" />
+                <meta name="viewport-extra" content="width=device-width,initial-scale=2" data-media="(min-width: ${smViewportWidth}px)" />
+                ${moduleFlag ? '' : `<script src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>`}
+              </head>
+              <body>
+                ${usingDefaultExport ? `<script data-using-default-export></script>` : ''}
+                <script data-content='{ "minWidth": ${smViewportWidth}, "initialScale": 1 }'></script>
+                <script src="/assets/scripts/${format}/using_setContent.js" type="module"></script>
+              </body>
+            </html>
+          `)
+          expect(await getViewportContentString(page)).toBe(
+            documentClientWidth && smViewportWidth > 0
+              ? documentClientWidth < smViewportWidth
+                ? `initial-scale=${(documentClientWidth / smViewportWidth) * 1},width=${smViewportWidth}`
+                : 'initial-scale=1,width=device-width'
+              : ''
+          )
         })
       })
     })

@@ -17,38 +17,35 @@ import {
   applyMediaSpecificParametersUnscaled,
   createPartialGlobalParameters
 } from './lib/HTMLMetaElement.js'
+import { createMatchMediaPredicate } from './lib/MatchMedia.js'
 import * as MediaSpecificParametersModule from './lib/MediaSpecificParameters.js'
 import {
   type MediaSpecificParameters,
   createMediaSpecificParameters,
+  createPartialMediaSpecificParametersMerger,
   mergePartialMediaSpecificParameters
 } from './lib/MediaSpecificParameters.js'
 import { createPartialContent } from './lib/number.js'
 
 let viewportElement: HTMLMetaElement | null = null
 let viewportExtraElementList: HTMLMetaElement[] = []
-let globalParameters: GlobalParameters | null = null
-let mediaSpecificParametersList: MediaSpecificParameters[] = []
+let internalGlobalParameters: GlobalParameters | null = null
+let internalPartialMediaSpecificParametersList: DeepPartial<MediaSpecificParameters>[] =
+  []
 
 if (typeof window !== 'undefined') {
   viewportElement = ensureViewportElement(document)
   viewportExtraElementList = getViewportExtraElementList(document)
-  globalParameters = createGlobalParameters(
+  internalGlobalParameters = createGlobalParameters(
     [
       createPartialGlobalParameters(viewportElement),
       ...viewportExtraElementList.map(createPartialGlobalParameters)
     ].reduce(mergePartialGlobalParameters)
   )
-  mediaSpecificParametersList = [
-    createMediaSpecificParameters(
-      [
-        HTMLMetaElementModule.createPartialMediaSpecificParameters(
-          viewportElement
-        ),
-        ...viewportExtraElementList.map(
-          HTMLMetaElementModule.createPartialMediaSpecificParameters
-        )
-      ].reduce(mergePartialMediaSpecificParameters)
+  internalPartialMediaSpecificParametersList = [
+    HTMLMetaElementModule.createPartialMediaSpecificParameters(viewportElement),
+    ...viewportExtraElementList.map(
+      HTMLMetaElementModule.createPartialMediaSpecificParameters
     )
   ]
   // For backward compatibility,
@@ -58,7 +55,16 @@ if (typeof window !== 'undefined') {
   applyMediaSpecificParametersUnscaled(
     viewportElement,
     () => getDocumentClientWidth(document),
-    mediaSpecificParametersList[0]
+    () =>
+      createMediaSpecificParameters(
+        internalPartialMediaSpecificParametersList.reduce(
+          createPartialMediaSpecificParametersMerger(
+            createMatchMediaPredicate(matchMedia)
+          ),
+          // Value that does not need to check matching current viewport
+          createMediaSpecificParameters()
+        )
+      )
   )
 }
 
@@ -66,54 +72,80 @@ export const setParameters = (
   partialMediaSpecificParametersList: DeepPartial<MediaSpecificParameters>[],
   partialGlobalParameters: Partial<GlobalParameters> = {}
 ): void => {
-  if (typeof window === 'undefined' || !viewportElement || !globalParameters)
+  if (
+    typeof window === 'undefined' ||
+    !viewportElement ||
+    !internalGlobalParameters
+  )
     return
-  globalParameters = createGlobalParameters(
-    [globalParameters, partialGlobalParameters].reduce(
+  internalGlobalParameters = createGlobalParameters(
+    [internalGlobalParameters, partialGlobalParameters].reduce(
       mergePartialGlobalParameters
     )
   )
-  mediaSpecificParametersList = [
-    createMediaSpecificParameters(
-      [
-        mediaSpecificParametersList[0],
-        ...partialMediaSpecificParametersList
-      ].reduce(mergePartialMediaSpecificParameters)
-    )
+  internalPartialMediaSpecificParametersList = [
+    ...internalPartialMediaSpecificParametersList,
+    ...partialMediaSpecificParametersList
   ]
   applyMediaSpecificParameters(
     viewportElement,
     () => getDocumentClientWidth(document),
-    mediaSpecificParametersList[0],
-    globalParameters
+    () =>
+      createMediaSpecificParameters(
+        internalPartialMediaSpecificParametersList.reduce(
+          createPartialMediaSpecificParametersMerger(
+            createMatchMediaPredicate(matchMedia)
+          ),
+          // Value that does not need to check matching current viewport
+          createMediaSpecificParameters()
+        )
+      ),
+    internalGlobalParameters
   )
 }
 
 export const setContent = (partialContent: Partial<Content>): void => {
-  if (typeof window === 'undefined' || !viewportElement || !globalParameters)
+  if (
+    typeof window === 'undefined' ||
+    !viewportElement ||
+    !internalGlobalParameters
+  )
     return
-  mediaSpecificParametersList = [
-    createMediaSpecificParameters(
-      [
-        mediaSpecificParametersList[0],
-        ContentModule.createPartialMediaSpecificParameters(partialContent)
-      ].reduce(mergePartialMediaSpecificParameters)
-    )
+  internalPartialMediaSpecificParametersList = [
+    ...internalPartialMediaSpecificParametersList,
+    ContentModule.createPartialMediaSpecificParameters(partialContent)
   ]
   applyMediaSpecificParameters(
     viewportElement,
     () => getDocumentClientWidth(document),
-    mediaSpecificParametersList[0],
-    globalParameters
+    () =>
+      createMediaSpecificParameters(
+        internalPartialMediaSpecificParametersList.reduce(
+          createPartialMediaSpecificParametersMerger(
+            createMatchMediaPredicate(matchMedia)
+          ),
+          // Value that does not need to check matching current viewport
+          createMediaSpecificParameters()
+        )
+      ),
+    internalGlobalParameters
   )
 }
 
+/**
+ * - Merge content properties of all objects in internalPartialMediaSpecificParametersList variable and return it
+ * - Feature assuming that media properties are not used
+ * @deprecated
+ * */
 export const getContent = (): Content =>
   MediaSpecificParametersModule.getContent(
-    typeof window === 'undefined' ||
-      typeof mediaSpecificParametersList[0] === 'undefined'
-      ? createMediaSpecificParameters()
-      : mediaSpecificParametersList[0]
+    createMediaSpecificParameters(
+      internalPartialMediaSpecificParametersList.reduce(
+        mergePartialMediaSpecificParameters,
+        // For environments where no window object exists
+        createMediaSpecificParameters()
+      )
+    )
   )
 
 export const updateReference = (): void => {
