@@ -299,7 +299,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
         await page.goto('/tests/e2e/__fixtures__/src/dummy.html')
       })
 
-      test.describe('case where viewport meta element exists and viewport-extra meta element does not exist', () => {
+      test.describe('case where viewport meta elements exist and viewport-extra meta elements do not exist', () => {
         test('only attributes of first viewport meta element are used', async ({
           page,
           viewport
@@ -335,8 +335,8 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
         })
       })
 
-      test.describe('case where viewport meta element does not exist and viewport-extra meta element exists', () => {
-        test('attribute values of elements that exist later (for (data-extra-)content attributes, pairs in attribute values of elements that exist later after being decomposed into key-value pairs) in viewport-extra meta elements whose media attributes match viewport are used', async ({
+      test.describe('case where viewport meta elements do not exist and viewport-extra meta elements exist', () => {
+        test('attributes of viewport-extra meta elements whose media attributes match viewport are used. Attributes (or key-value pairs for content attributes) of elements that appear later have priority', async ({
           page,
           viewport
         }, { config: { projects } }) => {
@@ -378,7 +378,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
       })
 
       test.describe('case where both viewport and viewport-extra meta elements exist', () => {
-        test('attribute values of elements that exist later (for (data-extra-)content attributes, pairs in attribute values of elements that exist later after being decomposed into key-value pairs) in viewport and viewport-extra meta elements whose media attributes match viewport are used. Viewport-extra meta elements are handled as being after viewport meta element', async ({
+        test('attributes of first viewport meta element and viewport-extra meta elements whose media attributes match viewport are used. Attributes (or key-value pairs for content attributes) of elements that appear later have priority. Viewport-extra meta elements are handled as being after viewport meta element', async ({
           page,
           viewport
         }, { config: { projects } }) => {
@@ -412,8 +412,8 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
           )
         })
 
-        test.describe('case where missing attribute values (for (data-extra-)content attributes, missing pairs in attribute values after being decomposed into key-value pairs) are in all viewport and viewport-extra meta elements whose media attributes match viewport', () => {
-          test('default values for missing attributes and missing pairs of (data-extra-)content attributes are used', async ({
+        test.describe('missing attributes (or missing key-value pairs for content attributes) are in first viewport meta element and viewport-extra meta elements whose media attributes match viewport', () => {
+          test('default values for missing attributes (or missing key-value pairs for content attributes) are used', async ({
             page,
             viewport
           }, { config: { projects } }) => {

@@ -301,7 +301,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
           await page.goto('/tests/e2e/__fixtures__/src/dummy.html')
         })
 
-        test('properties in objects that exist later in current internalPartialMediaSpecificParametersList variable and object based on argument and their media properties match viewport, are used. Object based on argument is handled as existing later than all objects in current internalPartialMediaSpecificParametersList variable', async ({
+        test('properties of objects in current internalPartialMediaSpecificParametersList variable and object based on argument whose media properties match viewport are used. Object based on argument is handled as being after objects in current internalPartialMediaSpecificParametersList variable', async ({
           page,
           viewport
         }, { config: { projects } }) => {
