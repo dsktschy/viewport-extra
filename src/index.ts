@@ -64,7 +64,8 @@ if (typeof window !== 'undefined') {
           // Value that does not need to check matching current viewport
           createMediaSpecificParameters()
         )
-      )
+      ),
+    internalGlobalParameters
   )
 }
 

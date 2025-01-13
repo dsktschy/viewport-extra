@@ -202,7 +202,7 @@ describe('mergePartialMediaSpecificParameters', () => {
 })
 
 describe('createContentAttribute', () => {
-  describe('case where first and second arguments are undefined', () => {
+  describe('case where all arguments are undefined', () => {
     it('should return string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth in default value of Content type', () => {
       expect(createContentAttribute()).toBe(
         'initial-scale=1,width=device-width'
@@ -224,7 +224,8 @@ describe('createContentAttribute', () => {
             },
             media: '(min-width: 768px)'
           },
-          720
+          720,
+          Infinity
         )
       ).toBe(
         'initial-scale=2,interactive-widget=resizes-content,width=device-width'
@@ -246,7 +247,8 @@ describe('createContentAttribute', () => {
             },
             media: '(min-width: 768px)'
           },
-          414
+          414,
+          Infinity
         )
       ).toBe(
         'initial-scale=1.29375,interactive-widget=resizes-content,width=640'
@@ -268,7 +270,8 @@ describe('createContentAttribute', () => {
             },
             media: '(max-width: 1200px)'
           },
-          1280
+          1280,
+          Infinity
         )
       ).toBe('initial-scale=2.5,interactive-widget=resizes-content,width=1024')
     })
@@ -288,7 +291,8 @@ describe('createContentAttribute', () => {
             },
             media: '(min-width: 768px)'
           },
-          414
+          414,
+          Infinity
         )
       ).toBe(
         'initial-scale=2,interactive-widget=resizes-content,width=device-width'
@@ -310,9 +314,54 @@ describe('createContentAttribute', () => {
             },
             media: '(max-width: 1200px)'
           },
-          1280
+          1280,
+          Infinity
         )
       ).toBe('initial-scale=2,interactive-widget=resizes-content,width=1280')
+    })
+  })
+
+  describe('case where third argument is finite number', () => {
+    it('should truncate numbers in returned value to decimal places specified as third argument when converting to string after computing', () => {
+      expect(
+        createContentAttribute(
+          {
+            content: {
+              width: 'device-width',
+              initialScale: 1.123456789,
+              minWidth: 414,
+              maxWidth: Infinity,
+              minimumScale: 0.123456789
+            },
+            media: ''
+          },
+          375,
+          6
+        )
+      ).toBe('initial-scale=1.017623,minimum-scale=0.123456,width=414')
+    })
+  })
+
+  describe('case where third argument is Infinity', () => {
+    it('should not truncate numbers in return value', () => {
+      expect(
+        createContentAttribute(
+          {
+            content: {
+              width: 'device-width',
+              initialScale: 1.123456789,
+              minWidth: 414,
+              maxWidth: Infinity,
+              minimumScale: 0.123456789
+            },
+            media: ''
+          },
+          375,
+          Infinity
+        )
+      ).toBe(
+        'initial-scale=1.0176239030797103,minimum-scale=0.123456789,width=414'
+      )
     })
   })
 })

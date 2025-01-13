@@ -293,7 +293,7 @@ describe('createPartialMediaSpecificParameters', () => {
 })
 
 describe('createContentAttribute', () => {
-  describe('case where first and second arguments are undefined', () => {
+  describe('case where all arguments are undefined', () => {
     it('should return string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth in default value of Content type', () => {
       expect(createContentAttribute()).toBe(
         'initial-scale=1,width=device-width'
@@ -312,7 +312,8 @@ describe('createContentAttribute', () => {
             maxWidth: 768,
             interactiveWidget: 'resizes-content'
           },
-          640
+          640,
+          Infinity
         )
       ).toBe(
         'initial-scale=2,interactive-widget=resizes-content,width=device-width'
@@ -331,7 +332,8 @@ describe('createContentAttribute', () => {
             maxWidth: 768,
             interactiveWidget: 'resizes-content'
           },
-          375
+          375,
+          Infinity
         )
       ).toBe(
         'initial-scale=1.8115942028985508,interactive-widget=resizes-content,width=414'
@@ -350,7 +352,8 @@ describe('createContentAttribute', () => {
             maxWidth: 768,
             interactiveWidget: 'resizes-content'
           },
-          1024
+          1024,
+          Infinity
         )
       ).toBe(
         'initial-scale=2.6666666666666665,interactive-widget=resizes-content,width=768'
@@ -369,7 +372,8 @@ describe('createContentAttribute', () => {
             maxWidth: 414,
             interactiveWidget: 'resizes-content'
           },
-          375
+          375,
+          Infinity
         )
       ).toBe(
         'initial-scale=2,interactive-widget=resizes-content,width=device-width'
@@ -388,9 +392,48 @@ describe('createContentAttribute', () => {
             maxWidth: 768,
             interactiveWidget: 'resizes-content'
           },
-          1024
+          1024,
+          Infinity
         )
       ).toBe('initial-scale=2,interactive-widget=resizes-content,width=1024')
+    })
+  })
+
+  describe('case where third argument is finite number', () => {
+    it('should truncate numbers in returned value to decimal places specified as third argument when converting to string after computing', () => {
+      expect(
+        createContentAttribute(
+          {
+            width: 'device-width',
+            initialScale: 1.123456789,
+            minWidth: 414,
+            maxWidth: Infinity,
+            minimumScale: 0.123456789
+          },
+          375,
+          6
+        )
+      ).toBe('initial-scale=1.017623,minimum-scale=0.123456,width=414')
+    })
+  })
+
+  describe('case where third argument is Infinity', () => {
+    it('should not truncate numbers in return value', () => {
+      expect(
+        createContentAttribute(
+          {
+            width: 'device-width',
+            initialScale: 1.123456789,
+            minWidth: 414,
+            maxWidth: Infinity,
+            minimumScale: 0.123456789
+          },
+          375,
+          Infinity
+        )
+      ).toBe(
+        'initial-scale=1.0176239030797103,minimum-scale=0.123456789,width=414'
+      )
     })
   })
 })
