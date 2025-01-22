@@ -2,12 +2,13 @@ import '../styles/globals.css'
 import { useEffect, type FunctionComponent } from 'react'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
-import { setContent, updateReference } from 'viewport-extra'
 
 const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => {
   useEffect(() => {
-    updateReference()
-    setContent({ minWidth: 414 })
+    import('viewport-extra').then(({ setContent, updateReference }) => {
+      updateReference()
+      setContent({ minWidth: 414 })
+    })
   }, [])
 
   return (
