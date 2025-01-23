@@ -1,3 +1,3 @@
 import('viewport-extra').then(({ setContent }) => {
-  setContent({ minWidth: 414 })
+  setContent({ minWidth: 430 })
 })

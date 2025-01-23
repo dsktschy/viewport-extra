@@ -20,7 +20,7 @@
 <script setup>
 onMounted(() => {
   import('viewport-extra').then(({ setContent }) => {
-    setContent({ minWidth: 414 })
+    setContent({ minWidth: 430 })
   })
 })
 </script>

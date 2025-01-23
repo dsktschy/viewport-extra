@@ -7,7 +7,7 @@ const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => {
   useEffect(() => {
     import('viewport-extra').then(({ setContent, updateReference }) => {
       updateReference()
-      setContent({ minWidth: 414 })
+      setContent({ minWidth: 430 })
     })
   }, [])
 
