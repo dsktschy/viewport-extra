@@ -41,8 +41,8 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
           await page.goto('/tests/e2e/__fixtures__/src/dummy.html')
         })
 
-        test.describe('case where minWidth property is set in first argument', () => {
-          test('width is updated to minimum width and initial-scale is updated to value that fits minimum width into viewport, on browser whose viewport width is less than minimum width. Last minWidth in matching media queries is used', async ({
+        test.describe('case where content.minWidth and media properties is set in first argument and decimalPlaces property is set in second argument', () => {
+          test('width is updated to minimum width and initial-scale is updated to value with specified decimal places that fits minimum width into viewport, on browser whose viewport width is less than minimum width. Last minWidth in matching media queries is used', async ({
             page,
             viewport
           }, { config: { projects } }) => {
@@ -62,7 +62,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
                 </head>
                 <body>
                   ${usingDefaultExport ? `<script data-using-default-export></script>` : ''}
-                  <script data-media-specific-parameters-list='${`
+                  <script data-global-parameters='{ "decimalPlaces": 6 }' data-media-specific-parameters-list='${`
                     [
                       { "content": { "minWidth": ${smViewportWidth} } },
                       { "content": { "minWidth": ${xlViewportWidth} }, "media": "(min-width: 640px)" }
@@ -76,18 +76,18 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
               documentClientWidth && smViewportWidth > 0 && xlViewportWidth > 0
                 ? documentClientWidth < 640
                   ? documentClientWidth < smViewportWidth
-                    ? `initial-scale=${(documentClientWidth / smViewportWidth) * 1},width=${smViewportWidth}`
+                    ? `initial-scale=${Math.trunc((documentClientWidth / smViewportWidth) * 1 * 10 ** 6) / 10 ** 6},width=${smViewportWidth}`
                     : 'initial-scale=1,width=device-width'
                   : documentClientWidth < xlViewportWidth
-                    ? `initial-scale=${(documentClientWidth / xlViewportWidth) * 1},width=${xlViewportWidth}`
+                    ? `initial-scale=${Math.trunc((documentClientWidth / xlViewportWidth) * 1 * 10 ** 6) / 10 ** 6},width=${xlViewportWidth}`
                     : 'initial-scale=1,width=device-width'
                 : ''
             )
           })
         })
 
-        test.describe('case where maxWidth property is set in first argument', () => {
-          test('width is updated to maximum width and initial-scale is updated to value that fits maximum width into viewport, on browser whose viewport width is greater than maximum width. Last maxWidth in matching media queries is used', async ({
+        test.describe('case where content.maxWidth and media properties is set in first argument and decimalPlaces property is set in second argument', () => {
+          test('width is updated to maximum width and initial-scale is updated to value with specified decimal places that fits maximum width into viewport, on browser whose viewport width is greater than maximum width. Last maxWidth in matching media queries is used', async ({
             page,
             viewport
           }, { config: { projects } }) => {
@@ -107,7 +107,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
                 </head>
                 <body>
                   ${usingDefaultExport ? `<script data-using-default-export></script>` : ''}
-                  <script data-media-specific-parameters-list='${`
+                  <script data-global-parameters='{ "decimalPlaces": 6 }' data-media-specific-parameters-list='${`
                     [
                       { "content": { "maxWidth": ${xsViewportWidth} } },
                       { "content": { "maxWidth": ${lgViewportWidth} }, "media": "(min-width: 640px)" }
@@ -123,10 +123,10 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
                 lgViewportWidth < Infinity
                 ? documentClientWidth < 640
                   ? documentClientWidth > xsViewportWidth
-                    ? `initial-scale=${(documentClientWidth / xsViewportWidth) * 1},width=${xsViewportWidth}`
+                    ? `initial-scale=${Math.trunc((documentClientWidth / xsViewportWidth) * 1 * 10 ** 6) / 10 ** 6},width=${xsViewportWidth}`
                     : 'initial-scale=1,width=device-width'
                   : documentClientWidth > lgViewportWidth
-                    ? `initial-scale=${(documentClientWidth / lgViewportWidth) * 1},width=${lgViewportWidth}`
+                    ? `initial-scale=${Math.trunc((documentClientWidth / lgViewportWidth) * 1 * 10 ** 6) / 10 ** 6},width=${lgViewportWidth}`
                     : 'initial-scale=1,width=device-width'
                 : ''
             )
@@ -340,12 +340,12 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
                 <head>
                   <meta charset="UTF-8" />
                   <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-unscaled-computing />
+                  <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-unscaled-computing data-extra-decimal-places="6" />
                   ${moduleFlag ? '' : `<script src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>`}
                 </head>
                 <body>
                   ${usingDefaultExport ? `<script data-using-default-export></script>` : ''}
-                  <script data-global-parameters='{ "unscaledComputing": false }' data-media-specific-parameters-list='[{ "content": { "initialScale": 2, "minWidth": ${smViewportWidth} } }]'></script>
+                  <script data-global-parameters='{ "unscaledComputing": false, "decimalPlaces": 0 }' data-media-specific-parameters-list='[{ "content": { "initialScale": 2, "minWidth": ${smViewportWidth} } }]'></script>
                   <script src="/assets/scripts/${format}/using_setParameters.js" type="module"></script>
                 </body>
               </html>
@@ -353,7 +353,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
             expect(await getViewportContentString(page)).toBe(
               documentClientWidth && smViewportWidth > 0
                 ? documentClientWidth < smViewportWidth
-                  ? `initial-scale=${(documentClientWidth / smViewportWidth) * 2},width=${smViewportWidth}`
+                  ? `initial-scale=${Math.trunc((documentClientWidth / smViewportWidth) * 2 * 10 ** 0) / 10 ** 0},width=${smViewportWidth}`
                   : 'initial-scale=2,width=device-width'
                 : ''
             )
@@ -374,7 +374,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
                 <head>
                   <meta charset="UTF-8" />
                   <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-unscaled-computing />
+                  <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-unscaled-computing data-extra-decimal-places="6" />
                   ${moduleFlag ? '' : `<script src="/${format}/viewport-extra${minified ? '.min' : ''}.js"></script>`}
                 </head>
                 <body>
@@ -387,7 +387,7 @@ import { getViewportContentString } from '../modules/PlaywrightPage.js'
             expect(await getViewportContentString(page)).toBe(
               documentClientWidth && smViewportWidth > 0
                 ? documentClientWidth < smViewportWidth
-                  ? `initial-scale=${(documentClientWidth / smViewportWidth) * 2},width=${smViewportWidth}`
+                  ? `initial-scale=${Math.trunc((documentClientWidth / smViewportWidth) * 2 * 10 ** 6) / 10 ** 6},width=${smViewportWidth}`
                   : 'initial-scale=2,width=device-width'
                 : ''
             )

@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import {
+  assignOptionalDecimalPlaces,
   assignOptionalUnscaledComputing,
   createGlobalParameters,
+  getDecimalPlaces,
   getUnscaledComputing,
   mergePartialGlobalParameters
 } from './GlobalParameters.js'
@@ -11,10 +13,12 @@ describe('createGlobalParameters', () => {
     it('should return object that deeply inherits properties of argument', () => {
       expect(
         createGlobalParameters({
-          unscaledComputing: true
+          unscaledComputing: true,
+          decimalPlaces: 6
         })
       ).toStrictEqual({
-        unscaledComputing: true
+        unscaledComputing: true,
+        decimalPlaces: 6
       })
     })
   })
@@ -22,7 +26,8 @@ describe('createGlobalParameters', () => {
   describe('case where argument has missing properties of GlobalParameters type', () => {
     it('should return object with missing properties set to default value deeply', () => {
       expect(createGlobalParameters({})).toStrictEqual({
-        unscaledComputing: false
+        unscaledComputing: false,
+        decimalPlaces: Infinity
       })
     })
   })
@@ -30,7 +35,8 @@ describe('createGlobalParameters', () => {
   describe('case where argument is undefined', () => {
     it('should return object with all properties that have default value', () => {
       expect(createGlobalParameters()).toStrictEqual({
-        unscaledComputing: false
+        unscaledComputing: false,
+        decimalPlaces: Infinity
       })
     })
   })
@@ -42,12 +48,14 @@ describe('mergePartialGlobalParameters', () => {
       expect(
         mergePartialGlobalParameters(
           {
-            unscaledComputing: true
+            unscaledComputing: true,
+            decimalPlaces: 6
           },
           {}
         )
       ).toStrictEqual({
-        unscaledComputing: true
+        unscaledComputing: true,
+        decimalPlaces: 6
       })
     })
   })
@@ -58,29 +66,46 @@ describe('mergePartialGlobalParameters', () => {
         mergePartialGlobalParameters(
           {},
           {
-            unscaledComputing: true
+            unscaledComputing: true,
+            decimalPlaces: 6
           }
         )
       ).toStrictEqual({
-        unscaledComputing: true
+        unscaledComputing: true,
+        decimalPlaces: 6
       })
     })
   })
 
   describe('case where properties exist in both first and second arguments deeply', () => {
+    it('should return object that properties in first and second arguments are merged deeply', () => {
+      expect(
+        mergePartialGlobalParameters(
+          { unscaledComputing: true },
+          { decimalPlaces: 6 }
+        )
+      ).toStrictEqual({
+        unscaledComputing: true,
+        decimalPlaces: 6
+      })
+    })
+
     describe('case where first and second arguments have same properties deeply', () => {
       it('should return object that values of second argument are used', () => {
         expect(
           mergePartialGlobalParameters(
             {
-              unscaledComputing: true
+              unscaledComputing: true,
+              decimalPlaces: 6
             },
             {
-              unscaledComputing: false
+              unscaledComputing: false,
+              decimalPlaces: 0
             }
           )
         ).toStrictEqual({
-          unscaledComputing: false
+          unscaledComputing: false,
+          decimalPlaces: 0
         })
       })
     })
@@ -96,8 +121,11 @@ describe('mergePartialGlobalParameters', () => {
 describe('assignOptionalUnscaledComputing', () => {
   describe('case where first and second arguments are not undefined', () => {
     it('should return object that second argument is set to unscaledComputing property of first argument', () => {
-      expect(assignOptionalUnscaledComputing({}, true)).toStrictEqual({
-        unscaledComputing: true
+      expect(
+        assignOptionalUnscaledComputing({ decimalPlaces: 6 }, true)
+      ).toStrictEqual({
+        unscaledComputing: true,
+        decimalPlaces: 6
       })
     })
   })
@@ -112,7 +140,38 @@ describe('assignOptionalUnscaledComputing', () => {
 
   describe('case where second argument is undefined', () => {
     it('should do nothing', () => {
-      expect(assignOptionalUnscaledComputing({}, undefined)).toStrictEqual({})
+      expect(
+        assignOptionalUnscaledComputing({ decimalPlaces: 6 }, undefined)
+      ).toStrictEqual({ decimalPlaces: 6 })
+    })
+  })
+})
+
+describe('assignOptionalDecimalPlaces', () => {
+  describe('case where first and second arguments are not undefined', () => {
+    it('should return object that second argument is set to decimalPlaces property of first argument', () => {
+      expect(
+        assignOptionalDecimalPlaces({ unscaledComputing: true }, 6)
+      ).toStrictEqual({
+        unscaledComputing: true,
+        decimalPlaces: 6
+      })
+    })
+  })
+
+  describe('case where first argument is undefined', () => {
+    it('should return object that second argument is set to decimalPlaces property', () => {
+      expect(assignOptionalDecimalPlaces(undefined, 6)).toStrictEqual({
+        decimalPlaces: 6
+      })
+    })
+  })
+
+  describe('case where second argument is undefined', () => {
+    it('should do nothing', () => {
+      expect(
+        assignOptionalDecimalPlaces({ unscaledComputing: true }, undefined)
+      ).toStrictEqual({ unscaledComputing: true })
     })
   })
 })
@@ -121,8 +180,20 @@ describe('getUnscaledComputing', () => {
   it('should return unscaledComputing property', () => {
     expect(
       getUnscaledComputing({
-        unscaledComputing: true
+        unscaledComputing: true,
+        decimalPlaces: 6
       })
     ).toBe(true)
+  })
+})
+
+describe('getDecimalPlaces', () => {
+  it('should return decimalPlaces property', () => {
+    expect(
+      getDecimalPlaces({
+        unscaledComputing: true,
+        decimalPlaces: 6
+      })
+    ).toBe(6)
   })
 })

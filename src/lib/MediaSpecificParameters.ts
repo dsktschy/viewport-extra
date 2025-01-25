@@ -5,6 +5,7 @@ import {
   mergeOptionalPartialContent
 } from './Content.js'
 import { type ContentAttribute } from './ContentAttribute.js'
+import { type DecimalPlaces } from './DecimalPlaces.js'
 import { type DeepPartial } from './DeepPartial.js'
 import { type Media, createMedia, mergeOptionalMedia } from './Media.js'
 
@@ -43,18 +44,22 @@ export const mergePartialMediaSpecificParameters = (
 
 export function createContentAttribute(
   optionalMediaSpecificParameters: MediaSpecificParameters,
-  optionalDocumentClientWidth: number
+  optionalDocumentClientWidth: number,
+  optionalDecimalPlaces: DecimalPlaces
 ): ContentAttribute
 export function createContentAttribute(): ContentAttribute
 export function createContentAttribute(
   optionalMediaSpecificParameters?: MediaSpecificParameters,
-  optionalDocumentClientWidth?: number
+  optionalDocumentClientWidth?: number,
+  optionalDecimalPlaces?: DecimalPlaces
 ): ContentAttribute {
   return optionalMediaSpecificParameters &&
-    typeof optionalDocumentClientWidth === 'number'
+    typeof optionalDocumentClientWidth !== 'undefined' &&
+    typeof optionalDecimalPlaces !== 'undefined'
     ? ContentModule.createContentAttribute(
         optionalMediaSpecificParameters.content,
-        optionalDocumentClientWidth
+        optionalDocumentClientWidth,
+        optionalDecimalPlaces
       )
     : ContentModule.createContentAttribute()
 }

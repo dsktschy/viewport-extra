@@ -3,10 +3,17 @@ import {
   createOptionalPartialContent,
   mergeNullableContentAttributes
 } from './ContentAttribute.js'
+import {
+  type DecimalPlacesAttribute,
+  createOptionalDecimalPlaces,
+  mergeNullableDecimalPlacesAttribute
+} from './DecimalPlacesAttribute.js'
 import { type DeepPartial } from './DeepPartial.js'
 import {
   type GlobalParameters,
+  assignOptionalDecimalPlaces,
   assignOptionalUnscaledComputing,
+  getDecimalPlaces,
   getUnscaledComputing
 } from './GlobalParameters.js'
 import {
@@ -34,13 +41,26 @@ export const getNullableUnscaledComputingAttribute = (
     htmlMetaElement.getAttribute('data-extra-unscaled-computing')
   )
 
+export const getNullableDecimalPlacesAttribute = (
+  htmlMetaElement: HTMLMetaElement
+): DecimalPlacesAttribute | null =>
+  mergeNullableDecimalPlacesAttribute(
+    htmlMetaElement.getAttribute('data-decimal-places'),
+    htmlMetaElement.getAttribute('data-extra-decimal-places')
+  )
+
 export const createPartialGlobalParameters = (
   htmlMetaElement: HTMLMetaElement
 ): Partial<GlobalParameters> =>
-  assignOptionalUnscaledComputing(
-    undefined,
-    createOptionalUnscaledComputing(
-      getNullableUnscaledComputingAttribute(htmlMetaElement)
+  assignOptionalDecimalPlaces(
+    assignOptionalUnscaledComputing(
+      undefined,
+      createOptionalUnscaledComputing(
+        getNullableUnscaledComputingAttribute(htmlMetaElement)
+      )
+    ),
+    createOptionalDecimalPlaces(
+      getNullableDecimalPlacesAttribute(htmlMetaElement)
     )
   )
 
@@ -88,7 +108,8 @@ export const applyMediaSpecificParameters = (
     htmlMetaElement,
     createContentAttribute(
       getMediaSpecificParameters(),
-      getDocumentClientWidth()
+      getDocumentClientWidth(),
+      getDecimalPlaces(globalParameters)
     )
   )
 }
@@ -96,14 +117,16 @@ export const applyMediaSpecificParameters = (
 export const applyMediaSpecificParametersUnscaled = (
   htmlMetaElement: HTMLMetaElement,
   getDocumentClientWidth: () => number,
-  getMediaSpecificParameters: () => MediaSpecificParameters
+  getMediaSpecificParameters: () => MediaSpecificParameters,
+  globalParameters: GlobalParameters
 ): void => {
   setContentAttribute(htmlMetaElement, createContentAttribute())
   setContentAttribute(
     htmlMetaElement,
     createContentAttribute(
       getMediaSpecificParameters(),
-      getDocumentClientWidth()
+      getDocumentClientWidth(),
+      getDecimalPlaces(globalParameters)
     )
   )
 }

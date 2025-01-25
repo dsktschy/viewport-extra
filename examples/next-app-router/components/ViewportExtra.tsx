@@ -14,14 +14,13 @@ const ViewportExtra: FunctionComponent<{
   useLayoutEffect(() => {
     if (pathname !== previousPathname.current) {
       previousPathname.current = pathname
-      ;(async () => {
-        const { setContent, updateReference } = await import('viewport-extra')
+      import('viewport-extra').then(({ setContent, updateReference }) => {
         updateReference()
         const content: Parameters<typeof setContent>[0] = {}
         if (typeof minWidth === 'number') content.minWidth = minWidth
         if (typeof maxWidth === 'number') content.maxWidth = maxWidth
         setContent(content)
-      })()
+      })
     }
   }, [pathname, previousPathname, minWidth, maxWidth])
 

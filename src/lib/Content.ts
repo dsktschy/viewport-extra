@@ -1,6 +1,8 @@
 import { type ContentAttribute } from './ContentAttribute.js'
+import { type DecimalPlaces } from './DecimalPlaces.js'
 import { type DeepPartial } from './DeepPartial.js'
 import { type MediaSpecificParameters } from './MediaSpecificParameters.js'
+import { truncateDecimalNumber } from './number.js'
 import { kebabizeCamelCaseString } from './string.js'
 
 export type ContentWidth = number | 'device-width'
@@ -81,12 +83,14 @@ export const createPartialMediaSpecificParameters = (
 
 export function createContentAttribute(
   content: Content,
-  documentClientWidth: number
+  documentClientWidth: number,
+  decimalPlaces: DecimalPlaces
 ): ContentAttribute
 export function createContentAttribute(): ContentAttribute
 export function createContentAttribute(
   content: Content = { ...defaultContent },
-  documentClientWidth: number = 0
+  documentClientWidth: number = 0,
+  decimalPlaces: number = 0
 ): ContentAttribute {
   const { width, initialScale } = content
   const { minWidth, maxWidth, ...contentWithoutExtraProperties } = content
@@ -112,7 +116,14 @@ export function createContentAttribute(
   return Object.keys(contentWithoutExtraProperties)
     .map(
       key =>
-        `${kebabizeCamelCaseString(key)}=${contentWithoutExtraProperties[key]}`
+        `${kebabizeCamelCaseString(key)}=${
+          typeof contentWithoutExtraProperties[key] === 'number'
+            ? truncateDecimalNumber(
+                contentWithoutExtraProperties[key],
+                decimalPlaces
+              )
+            : contentWithoutExtraProperties[key]
+        }`
     )
     .sort()
     .join(',')

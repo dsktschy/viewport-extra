@@ -18,9 +18,9 @@
 </template>
 
 <script setup>
-import { setContent } from 'viewport-extra'
-
 onMounted(() => {
-  setContent({ minWidth: 414 })
+  import('viewport-extra').then(({ setContent }) => {
+    setContent({ minWidth: 430 })
+  })
 })
 </script>
