@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.0](https://github.com/dsktschy/viewport-extra/compare/v2.4.0-rc.0...v2.4.0) (2025-01-25)
+
+
+### Miscellaneous Chores
+
+* stabilize 2.4.0 ([724d49c](https://github.com/dsktschy/viewport-extra/commit/724d49c0e66c240bf9c5e3855103b78ea1d579a9))
+
 ## [2.4.0-rc.0](https://github.com/dsktschy/viewport-extra/compare/v2.3.0...v2.4.0-rc.0) (2025-01-13)
 
 
