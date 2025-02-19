@@ -27,7 +27,6 @@
     "lintstagedrc",
     "stylecheck",
     "npmjs",
-    "vercel",
-    "mobi"
+    "vercel"
   ]
 }

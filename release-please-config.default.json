@@ -21,12 +21,7 @@
         },
         {
           "type": "json",
-          "path": "examples/nuxt2/package.json",
-          "jsonpath": "$.dependencies['viewport-extra']"
-        },
-        {
-          "type": "json",
-          "path": "examples/nuxt3/package.json",
+          "path": "examples/nuxt/package.json",
           "jsonpath": "$.dependencies['viewport-extra']"
         }
       ]
