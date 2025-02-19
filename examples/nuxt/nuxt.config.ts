@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   css: ['@/assets/css/globals.css'],
   app: {
     head: {
-      title: 'Nuxt3 Example',
+      title: 'Nuxt Example',
       meta: [
         {
           name: 'description',
