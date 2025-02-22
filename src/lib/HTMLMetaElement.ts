@@ -1,132 +1,134 @@
 import {
   type ContentAttribute,
   createOptionalPartialContent,
-  mergeNullableContentAttributes
-} from './ContentAttribute.js'
+  mergeNullableContentAttributes,
+} from "./ContentAttribute.js";
 import {
   type DecimalPlacesAttribute,
   createOptionalDecimalPlaces,
-  mergeNullableDecimalPlacesAttribute
-} from './DecimalPlacesAttribute.js'
-import { type DeepPartial } from './DeepPartial.js'
+  mergeNullableDecimalPlacesAttribute,
+} from "./DecimalPlacesAttribute.js";
+import type { DeepPartial } from "./DeepPartial.js";
 import {
   type GlobalParameters,
   assignOptionalDecimalPlaces,
   assignOptionalUnscaledComputing,
   getDecimalPlaces,
-  getUnscaledComputing
-} from './GlobalParameters.js'
+  getUnscaledComputing,
+} from "./GlobalParameters.js";
 import {
   type MediaAttribute,
   createOptionalMedia,
-  mergeNullableMediaAttribute
-} from './MediaAttribute.js'
+  mergeNullableMediaAttribute,
+} from "./MediaAttribute.js";
 import {
   type MediaSpecificParameters,
   assignOptionalMedia,
   assignOptionalPartialContent,
-  createContentAttribute
-} from './MediaSpecificParameters.js'
+  createContentAttribute,
+} from "./MediaSpecificParameters.js";
 import {
   type UnscaledComputingAttribute,
   createOptionalUnscaledComputing,
-  mergeNullableUnscaledComputingAttribute
-} from './UnscaledComputingAttribute.js'
+  mergeNullableUnscaledComputingAttribute,
+} from "./UnscaledComputingAttribute.js";
 
 export const getNullableUnscaledComputingAttribute = (
-  htmlMetaElement: HTMLMetaElement
+  htmlMetaElement: HTMLMetaElement,
 ): UnscaledComputingAttribute | null =>
   mergeNullableUnscaledComputingAttribute(
-    htmlMetaElement.getAttribute('data-unscaled-computing'),
-    htmlMetaElement.getAttribute('data-extra-unscaled-computing')
-  )
+    htmlMetaElement.getAttribute("data-unscaled-computing"),
+    htmlMetaElement.getAttribute("data-extra-unscaled-computing"),
+  );
 
 export const getNullableDecimalPlacesAttribute = (
-  htmlMetaElement: HTMLMetaElement
+  htmlMetaElement: HTMLMetaElement,
 ): DecimalPlacesAttribute | null =>
   mergeNullableDecimalPlacesAttribute(
-    htmlMetaElement.getAttribute('data-decimal-places'),
-    htmlMetaElement.getAttribute('data-extra-decimal-places')
-  )
+    htmlMetaElement.getAttribute("data-decimal-places"),
+    htmlMetaElement.getAttribute("data-extra-decimal-places"),
+  );
 
 export const createPartialGlobalParameters = (
-  htmlMetaElement: HTMLMetaElement
+  htmlMetaElement: HTMLMetaElement,
 ): Partial<GlobalParameters> =>
   assignOptionalDecimalPlaces(
     assignOptionalUnscaledComputing(
       undefined,
       createOptionalUnscaledComputing(
-        getNullableUnscaledComputingAttribute(htmlMetaElement)
-      )
+        getNullableUnscaledComputingAttribute(htmlMetaElement),
+      ),
     ),
     createOptionalDecimalPlaces(
-      getNullableDecimalPlacesAttribute(htmlMetaElement)
-    )
-  )
+      getNullableDecimalPlacesAttribute(htmlMetaElement),
+    ),
+  );
 
 export const getNullableContentAttribute = (
-  htmlMetaElement: HTMLMetaElement
+  htmlMetaElement: HTMLMetaElement,
 ): ContentAttribute | null =>
   mergeNullableContentAttributes(
-    htmlMetaElement.getAttribute('content'),
-    htmlMetaElement.getAttribute('data-extra-content')
-  )
+    htmlMetaElement.getAttribute("content"),
+    htmlMetaElement.getAttribute("data-extra-content"),
+  );
 
 export const getNullableMediaAttribute = (
-  htmlMetaElement: HTMLMetaElement
+  htmlMetaElement: HTMLMetaElement,
 ): MediaAttribute | null =>
   mergeNullableMediaAttribute(
-    htmlMetaElement.getAttribute('data-media'),
-    htmlMetaElement.getAttribute('data-extra-media')
-  )
+    htmlMetaElement.getAttribute("data-media"),
+    htmlMetaElement.getAttribute("data-extra-media"),
+  );
 
 export const createPartialMediaSpecificParameters = (
-  htmlMetaElement: HTMLMetaElement
+  htmlMetaElement: HTMLMetaElement,
 ): DeepPartial<MediaSpecificParameters> =>
   assignOptionalMedia(
     assignOptionalPartialContent(
       undefined,
-      createOptionalPartialContent(getNullableContentAttribute(htmlMetaElement))
+      createOptionalPartialContent(
+        getNullableContentAttribute(htmlMetaElement),
+      ),
     ),
-    createOptionalMedia(getNullableMediaAttribute(htmlMetaElement))
-  )
+    createOptionalMedia(getNullableMediaAttribute(htmlMetaElement)),
+  );
 
 export const setContentAttribute = (
   htmlMetaElement: HTMLMetaElement,
-  contentAttribute: ContentAttribute
-): void => htmlMetaElement.setAttribute('content', contentAttribute)
+  contentAttribute: ContentAttribute,
+): void => htmlMetaElement.setAttribute("content", contentAttribute);
 
 export const applyMediaSpecificParameters = (
   htmlMetaElement: HTMLMetaElement,
   getDocumentClientWidth: () => number,
   getMediaSpecificParameters: () => MediaSpecificParameters,
-  globalParameters: GlobalParameters
+  globalParameters: GlobalParameters,
 ): void => {
   if (getUnscaledComputing(globalParameters))
-    setContentAttribute(htmlMetaElement, createContentAttribute())
+    setContentAttribute(htmlMetaElement, createContentAttribute());
   setContentAttribute(
     htmlMetaElement,
     createContentAttribute(
       getMediaSpecificParameters(),
       getDocumentClientWidth(),
-      getDecimalPlaces(globalParameters)
-    )
-  )
-}
+      getDecimalPlaces(globalParameters),
+    ),
+  );
+};
 
 export const applyMediaSpecificParametersUnscaled = (
   htmlMetaElement: HTMLMetaElement,
   getDocumentClientWidth: () => number,
   getMediaSpecificParameters: () => MediaSpecificParameters,
-  globalParameters: GlobalParameters
+  globalParameters: GlobalParameters,
 ): void => {
-  setContentAttribute(htmlMetaElement, createContentAttribute())
+  setContentAttribute(htmlMetaElement, createContentAttribute());
   setContentAttribute(
     htmlMetaElement,
     createContentAttribute(
       getMediaSpecificParameters(),
       getDocumentClientWidth(),
-      getDecimalPlaces(globalParameters)
-    )
-  )
-}
+      getDecimalPlaces(globalParameters),
+    ),
+  );
+};
