@@ -1,15 +1,15 @@
-import { type UnscaledComputing } from './UnscaledComputing.js'
+import type { UnscaledComputing } from "./UnscaledComputing.js";
 
-export type UnscaledComputingAttribute = string
+export type UnscaledComputingAttribute = string;
 
 export const mergeNullableUnscaledComputingAttribute = (
   precedingNullableUnscaledComputingAttribute: UnscaledComputingAttribute | null,
-  followingNullableUnscaledComputingAttribute: UnscaledComputingAttribute | null
+  followingNullableUnscaledComputingAttribute: UnscaledComputingAttribute | null,
 ): UnscaledComputingAttribute | null =>
   followingNullableUnscaledComputingAttribute ??
-  precedingNullableUnscaledComputingAttribute
+  precedingNullableUnscaledComputingAttribute;
 
 export const createOptionalUnscaledComputing = (
-  nullableUnscaledComputingAttribute: UnscaledComputingAttribute | null
+  nullableUnscaledComputingAttribute: UnscaledComputingAttribute | null,
 ): UnscaledComputing | undefined =>
-  nullableUnscaledComputingAttribute !== null ? true : undefined
+  nullableUnscaledComputingAttribute !== null ? true : undefined;

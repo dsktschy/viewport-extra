@@ -1,4 +1,4 @@
-name: Validate
+name: Check
 
 on:
   workflow_dispatch:
@@ -13,7 +13,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  validate:
+  check:
     timeout-minutes: 15
     runs-on: ubuntu-24.04
     steps:
@@ -23,30 +23,20 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
         with:
-          node-version-file: '.node-version'
-          cache: 'npm'
+          node-version-file: ".node-version"
+          cache: "npm"
 
       - name: Install packages
         shell: bash
         run: npm ci
 
-      - name: Generate type declaration files
-        shell: bash
-        run: npm run declare
-
       - name: Check spelling
         shell: bash
-        run: npx cspell lint .
+        run: npm run spellcheck -- .
 
-      - name: Format
+      - name: Format and lint
         shell: bash
-        run: npx prettier . '!examples/**' '!.release-please-manifest.json' '!CHANGELOG.md' --ignore-path .gitignore --check
-
-      # Disable ignoring filenames that starts with dot
-      # https://stackoverflow.com/a/71829427
-      - name: Lint
-        shell: bash
-        run: npx eslint . --ignore-pattern '/examples/' --ignore-path .gitignore --ignore-pattern '!.*' --max-warnings 0
+        run: npm run stylecheck -- --no-errors-on-unmatched
 
       - name: Check types
         shell: bash
@@ -54,4 +44,4 @@ jobs:
 
       - name: Test
         shell: bash
-        run: npm t
+        run: npm run test

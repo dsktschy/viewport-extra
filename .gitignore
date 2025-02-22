@@ -151,3 +151,4 @@ dist
 /examples/*/package-lock.json
 /types/
 /.types/
+/.biome.jsonc

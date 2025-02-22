@@ -1,13 +1,13 @@
-import { type Media } from './Media.js'
+import type { Media } from "./Media.js";
 
-export type MediaAttribute = string
+export type MediaAttribute = string;
 
 export const mergeNullableMediaAttribute = (
   precedingNullableMediaAttribute: MediaAttribute | null,
-  followingNullableMediaAttribute: MediaAttribute | null
+  followingNullableMediaAttribute: MediaAttribute | null,
 ): MediaAttribute | null =>
-  followingNullableMediaAttribute ?? precedingNullableMediaAttribute
+  followingNullableMediaAttribute ?? precedingNullableMediaAttribute;
 
 export const createOptionalMedia = (
-  nullableMediaAttribute: MediaAttribute | null
-): Media | undefined => nullableMediaAttribute ?? undefined
+  nullableMediaAttribute: MediaAttribute | null,
+): Media | undefined => nullableMediaAttribute ?? undefined;

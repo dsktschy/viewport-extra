@@ -28,15 +28,11 @@ The following codes will scale the page down in mobile device browsers that disp
 
 #### Using module
 
-<!-- prettier-ignore-start -->
-
 ```ts
-import('viewport-extra').then(({ setContent }) => {
-  setContent({ minWidth: 430 })
-})
+import("viewport-extra").then(({ setContent }) => {
+  setContent({ minWidth: 430 });
+});
 ```
-
-<!-- prettier-ignore-end -->
 
 #### Results
 
@@ -80,15 +76,11 @@ The following codes will scale the page up in mobile device browsers that displa
 
 #### Using module
 
-<!-- prettier-ignore-start -->
-
 ```ts
-import('viewport-extra').then(({ setContent }) => {
-  setContent({ maxWidth: 393 })
-})
+import("viewport-extra").then(({ setContent }) => {
+  setContent({ maxWidth: 393 });
+});
 ```
-
-<!-- prettier-ignore-end -->
 
 #### Results
 
@@ -133,18 +125,14 @@ The following codes will scale the page down in mobile device browsers that disp
 
 #### Using module
 
-<!-- prettier-ignore-start -->
-
 ```js
-import('viewport-extra').then(({ setParameters }) => {
+import("viewport-extra").then(({ setParameters }) => {
   setParameters([
     { content: { minWidth: 430 } },
-    { content: { minWidth: 1024 }, media: '(min-width: 744px)' }
-  ])
-})
+    { content: { minWidth: 1024 }, media: "(min-width: 744px)" },
+  ]);
+});
 ```
-
-<!-- prettier-ignore-end -->
 
 #### Results
 
@@ -182,17 +170,17 @@ The following codes will scale the page not only when it is displayed, but also 
 
 <script>
   const handleOrientationChange = () => {
-    if (!ViewportExtra) return
+    if (!ViewportExtra) return;
     window.addEventListener(
-      'resize',
+      "resize",
       () => ViewportExtra.setParameters([]),
       { once: true }
-    )
-  }
+    );
+  };
   if (screen && screen.orientation) {
-    screen.orientation.addEventListener('change', handleOrientationChange)
+    screen.orientation.addEventListener("change", handleOrientationChange);
   } else {
-    window.addEventListener('orientationchange', handleOrientationChange)
+    window.addEventListener("orientationchange", handleOrientationChange);
   }
 </script>
 ```
@@ -202,34 +190,26 @@ The following codes will scale the page not only when it is displayed, but also 
 
 #### Using module
 
-<!-- prettier-ignore-start -->
-
 ```js
-import('viewport-extra').then(({ setParameters }) => {
+import("viewport-extra").then(({ setParameters }) => {
   setParameters(
     [
       { content: { minWidth: 430 } },
-      { content: { minWidth: 744 }, media: '(min-width: 640px)' }
+      { content: { minWidth: 744 }, media: "(min-width: 640px)" },
     ],
-    { unscaledComputing: true }
-  )
+    { unscaledComputing: true },
+  );
 
   const handleOrientationChange = () => {
-    window.addEventListener(
-      'resize',
-      () => setParameters([]),
-      { once: true }
-    )
-  }
+    window.addEventListener("resize", () => setParameters([]), { once: true });
+  };
   if (screen && screen.orientation) {
-    screen.orientation.addEventListener('change', handleOrientationChange)
+    screen.orientation.addEventListener("change", handleOrientationChange);
   } else {
-    window.addEventListener('orientationchange', handleOrientationChange)
+    window.addEventListener("orientationchange", handleOrientationChange);
   }
-})
+});
 ```
-
-<!-- prettier-ignore-end -->
 
 #### Results
 
@@ -264,14 +244,14 @@ The following codes will truncate numbers in the content attribute of the viewpo
 <!-- prettier-ignore-start -->
 
 ```ts
-import('viewport-extra').then(({ setParameters }) => {
+import("viewport-extra").then(({ setParameters }) => {
   setParameters(
     [
       { content: { minWidth: 430 } }
     ],
     { decimalPlaces: 6 }
-  )
-})
+  );
+});
 ```
 
 <!-- prettier-ignore-end -->
@@ -324,11 +304,11 @@ All of the parameter settings below have the same meaning, even if the width and
 
 ```ts
 setContent({
-  width: 'device-width',
+  width: "device-width",
   initialScale: 1,
   minWidth: 430,
-  maxWidth: 640
-})
+  maxWidth: 640,
+});
 ```
 
 ### Using setParameters function
@@ -337,13 +317,13 @@ setContent({
 setParameters([
   {
     content: {
-      width: 'device-width',
+      width: "device-width",
       initialScale: 1,
       minWidth: 430,
-      maxWidth: 640
-    }
-  }
-])
+      maxWidth: 640,
+    },
+  },
+]);
 ```
 
 ## Notes
