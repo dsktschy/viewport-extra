@@ -1,15 +1,15 @@
-import '../styles/globals.css'
-import { useEffect, type FunctionComponent } from 'react'
-import type { AppProps } from 'next/app'
-import Head from 'next/head'
+import "../styles/globals.css";
+import type { AppProps } from "next/app";
+import Head from "next/head";
+import { type FunctionComponent, useEffect } from "react";
 
 const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => {
   useEffect(() => {
-    import('viewport-extra').then(({ setContent, updateReference }) => {
-      updateReference()
-      setContent({ minWidth: 430 })
-    })
-  }, [])
+    import("viewport-extra").then(({ setContent, updateReference }) => {
+      updateReference();
+      setContent({ minWidth: 430 });
+    });
+  }, []);
 
   return (
     <>
@@ -27,7 +27,7 @@ const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => {
 
       <Component {...pageProps} />
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;

@@ -1,14 +1,14 @@
-import ViewportExtra, { getContent } from '@@/dist/cjs/index.js'
-import { convertToJsonString } from '@@/tests/e2e/modules/NumberStringRecord.js'
+import ViewportExtra, { getContent } from "@@/dist/cjs/index.js";
+import { convertToJsonString } from "@@/tests/e2e/modules/NumberStringRecord.js";
 
 const usingDefaultExport = document
-  .querySelector('[data-using-default-export]')
-  ?.hasAttribute('data-using-default-export')
+  .querySelector("[data-using-default-export]")
+  ?.hasAttribute("data-using-default-export");
 document
-  .querySelector('[data-get-content-result]')
+  .querySelector("[data-get-content-result]")
   ?.setAttribute(
-    'data-get-content-result',
+    "data-get-content-result",
     convertToJsonString(
-      (usingDefaultExport ? ViewportExtra.getContent : getContent)()
-    )
-  )
+      (usingDefaultExport ? ViewportExtra.getContent : getContent)(),
+    ),
+  );

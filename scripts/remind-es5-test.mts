@@ -1,7 +1,6 @@
 /**
  * Show message reminding to test in environments that do not support ES2015
  */
-// eslint-disable-next-line no-console
 console.log(`
 ********************************************************
 *                                                      *
@@ -9,4 +8,4 @@ console.log(`
 *    in environments that do not support ES2015.       *
 *                                                      *
 ********************************************************
-`)
+`);

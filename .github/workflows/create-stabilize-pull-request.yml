@@ -61,6 +61,6 @@ jobs:
       - name: Create pull request
         uses: peter-evans/create-pull-request@6d6857d36972b65feb161a90e484f2984215f83e # v6.0.5
         with:
-          title: 'chore: stabilize ${{ needs.define_variables_to_stabilize.outputs.stable_version }}'
+          title: "chore: stabilize ${{ needs.define_variables_to_stabilize.outputs.stable_version }}"
           body: Created by the create-stabilize-pull-request workflow.
           labels: stabilize
