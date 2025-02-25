@@ -31,10 +31,7 @@
     "polyfillcheck:install": "npm install --no-save @babel/core @babel/cli @babel/preset-env",
     "polyfillcheck:preprocess": "tsx --no-warnings=ExperimentalWarning scripts/create-babelrc.mts",
     "polyfillcheck:build": "babel dist/iife --ignore=**/*.min.js --out-dir=.polyfillcheck --config-file=./.polyfillcheck/.babelrc.json --verbose",
-    "lintstaged": "npm-run-all --sequential lintstaged:stylecheck typecheck test lintstaged:remind-es5-test",
-    "lintstaged:stylecheck": "lint-staged --config=.lintstagedrc.check.mjs",
-    "lintstaged:remind-es5-test": "lint-staged --config=.lintstagedrc.remind-es5-test.mjs --verbose",
-    "prepare": "husky"
+    "remind-es5-test": "tsx scripts/remind-es5-test.mts"
   },
   "repository": {
     "type": "git",
@@ -70,10 +67,9 @@
     "@rollup/plugin-typescript": "12.1.0",
     "@types/node": "22.5.2",
     "cspell": "8.18.0",
-    "husky": "9.1.4",
     "jsdom": "26.0.0",
     "jsonc-parser": "3.3.1",
-    "lint-staged": "15.2.9",
+    "lefthook": "1.11.0",
     "npm-run-all2": "7.0.2",
     "rimraf": "6.0.1",
     "rollup": "4.24.0",
