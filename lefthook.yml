@@ -1,0 +1,22 @@
+commit-msg:
+  jobs:
+    - run: npx commitlint --edit {1}
+
+pre-commit:
+  jobs:
+    - group:
+        piped: true
+        jobs:
+          - run: npm run spellcheck -- {staged_files}
+          - run: npm run stylecheck -- --no-errors-on-unmatched --write {staged_files}
+            stage_fixed: true
+          - run: npm run typecheck
+          - run: npm run test
+    - run: npm run remind-es5-test
+      glob:
+        - "src/*.ts"
+        - "src/**/*.ts"
+        - "rollup.config.*.mjs"
+      exclude:
+        - "src/*.spec.ts"
+        - "src/**/*.spec.ts"

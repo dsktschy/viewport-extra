@@ -24,10 +24,10 @@
     "dotenv",
     "vuepress",
     "commitlint",
-    "lintstagedrc",
     "stylecheck",
     "npmjs",
     "vercel",
-    "lintstaged"
+    "rollup",
+    "lefthook"
   ]
 }
