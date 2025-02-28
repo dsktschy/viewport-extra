@@ -1,4 +1,4 @@
-import ViewportExtra, { setParameters } from "@@/dist/es/index.js";
+import ViewportExtra, { setParameters } from "@@/dist/esm/index.js";
 
 const globalParametersAttribute = document
   .querySelector("[data-global-parameters]")

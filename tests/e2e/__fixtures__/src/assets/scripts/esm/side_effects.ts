@@ -1,4 +1,4 @@
-import { setParameters } from "@@/dist/es/index.js";
+import { setParameters } from "@@/dist/esm/index.js";
 
 const mediaSpecificParametersListAttribute = document
   .querySelector("[data-media-specific-parameters-list]")

@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import { getViewportSize } from "../modules/PlaywrightFullProjectList.js";
 import { getViewportContentString } from "../modules/PlaywrightPage.js";
 [
-  { format: "es", moduleFlag: true, minified: false },
+  { format: "esm", moduleFlag: true, minified: false },
   { format: "cjs", moduleFlag: true, minified: false },
   { format: "iife", moduleFlag: false, minified: false },
   { format: "iife", moduleFlag: false, minified: true },

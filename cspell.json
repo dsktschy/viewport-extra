@@ -27,7 +27,9 @@
     "stylecheck",
     "npmjs",
     "vercel",
-    "rollup",
-    "lefthook"
+    "lefthook",
+    "tsup",
+    "postbuild",
+    "postdeclare"
   ]
 }

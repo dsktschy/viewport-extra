@@ -13,7 +13,7 @@ pre-commit:
       glob:
         - "src/*.ts"
         - "src/**/*.ts"
-        - "rollup.config.*.mjs"
+        - "tsup.config.mts"
       exclude:
         - "src/*.spec.ts"
         - "src/**/*.spec.ts"
@@ -24,4 +24,4 @@ pre-commit:
           - run: npm run stylecheck -- --no-errors-on-unmatched --write {staged_files}
             stage_fixed: true
           - run: npm run typecheck
-          - run: npm run test
+    - run: npm run test

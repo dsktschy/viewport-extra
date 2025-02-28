@@ -4,12 +4,17 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
 
 for (const { format, moduleFlag, minified, usingDefaultExport } of [
   {
-    format: "es",
+    format: "esm",
     moduleFlag: true,
     minified: false,
     usingDefaultExport: false,
   },
-  { format: "es", moduleFlag: true, minified: false, usingDefaultExport: true },
+  {
+    format: "esm",
+    moduleFlag: true,
+    minified: false,
+    usingDefaultExport: true,
+  },
   {
     format: "cjs",
     moduleFlag: true,

@@ -1,4 +1,4 @@
-import ViewportExtra, { setContent } from "@@/dist/es/index.js";
+import ViewportExtra, { setContent } from "@@/dist/esm/index.js";
 
 const contentAttribute = document
   .querySelector("[data-content]")

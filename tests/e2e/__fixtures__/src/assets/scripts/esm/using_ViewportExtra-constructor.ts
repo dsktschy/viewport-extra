@@ -1,4 +1,4 @@
-import ViewportExtra from "@@/dist/es/index.js";
+import ViewportExtra from "@@/dist/esm/index.js";
 
 const usingNumberArgument = document
   .querySelector("[data-using-number-argument]")

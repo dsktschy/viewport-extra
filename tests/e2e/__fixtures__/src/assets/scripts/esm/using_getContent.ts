@@ -1,4 +1,4 @@
-import ViewportExtra, { getContent } from "@@/dist/es/index.js";
+import ViewportExtra, { getContent } from "@@/dist/esm/index.js";
 import { convertToJsonString } from "@@/tests/e2e/modules/NumberStringRecord.js";
 
 const usingDefaultExport = document

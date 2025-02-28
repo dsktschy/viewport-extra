@@ -1,7 +1,7 @@
 import ViewportExtra, {
   setContent,
   updateReference,
-} from "@@/dist/es/index.js";
+} from "@@/dist/esm/index.js";
 
 const firstViewportMetaElement = document.querySelector(
   'meta[name="viewport"]',
