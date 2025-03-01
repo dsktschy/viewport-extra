@@ -17,11 +17,7 @@ for (const options of tsupConfig) {
         >
       )();
       const outPath = `${options.outDir}/${basenameWithoutExtension}${outExtension ?? ""}`;
-      const out = await fs.readFile(outPath, "utf8");
       if (options.sourcemap) {
-        const sourceMappingURLIndex = out.lastIndexOf("//# sourceMappingURL=");
-        if (sourceMappingURLIndex !== -1)
-          await fs.writeFile(outPath, out.slice(0, sourceMappingURLIndex));
         const mapPath = `${outPath}.map`;
         const map = JSON.parse(await fs.readFile(mapPath, "utf8")) as {
           sources: string[];
