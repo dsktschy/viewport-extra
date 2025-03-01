@@ -1,5 +1,5 @@
 import * as ContentModule from "./lib/Content.js";
-import type { Content, ContentMinWidth } from "./lib/Content.js";
+import type { Content } from "./lib/Content.js";
 import type { DeepPartial } from "./lib/DeepPartial.js";
 import {
   ensureViewportElement,
@@ -25,7 +25,6 @@ import {
   createPartialMediaSpecificParametersMerger,
   mergePartialMediaSpecificParameters,
 } from "./lib/MediaSpecificParameters.js";
-import { createPartialContent } from "./lib/number.js";
 
 let viewportElement: HTMLMetaElement | null = null;
 let viewportExtraElementList: HTMLMetaElement[] = [];
@@ -153,23 +152,3 @@ export const updateReference = (): void => {
   if (typeof window === "undefined") return;
   viewportElement = ensureViewportElement(document);
 };
-
-/**
- * - For compatibility with v1
- * @deprecated
- */
-export default class ViewportExtra {
-  constructor(
-    partialContentOrContentMinWidth: Partial<Content> | ContentMinWidth,
-  ) {
-    setContent(
-      typeof partialContentOrContentMinWidth === "number"
-        ? createPartialContent(partialContentOrContentMinWidth)
-        : partialContentOrContentMinWidth,
-    );
-  }
-  static setParameters = setParameters;
-  static setContent = setContent;
-  static getContent = getContent;
-  static updateReference = updateReference;
-}

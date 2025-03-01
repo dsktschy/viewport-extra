@@ -5,7 +5,7 @@ interface CustomWindow extends Window {
 }
 
 const ViewportExtra = (window as CustomWindow).ViewportExtra;
-if (typeof ViewportExtra === "function") {
+if (ViewportExtra) {
   const firstViewportMetaElement = document.querySelector(
     'meta[name="viewport"]',
   );

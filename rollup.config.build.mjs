@@ -15,10 +15,6 @@ const banner = `/*!
  * Released under the MIT License.
  */`;
 
-// Enable to use class constructor without default key for iife
-// https://github.com/rollup/rollup/issues/1961#issuecomment-534977678
-const outro = "exports = exports.default;\n" + "exports.default = exports;";
-
 // Global variable name for iife
 const name = "ViewportExtra";
 
@@ -43,7 +39,6 @@ export default {
       exports: "named",
       sourcemap: true,
       banner,
-      outro,
     },
     {
       file: nonMinifiedJsdelivrPath,
@@ -51,7 +46,6 @@ export default {
       exports: "named",
       sourcemap: true,
       banner,
-      outro,
       name,
     },
     {
@@ -59,7 +53,6 @@ export default {
       format: "iife",
       exports: "named",
       sourcemap: false,
-      outro,
       name,
       plugins: [
         rollupPluginTerser({
