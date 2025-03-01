@@ -5,7 +5,7 @@ interface CustomWindow extends Window {
 }
 
 const ViewportExtra = (window as CustomWindow).ViewportExtra;
-if (typeof ViewportExtra === "function") {
+if (ViewportExtra) {
   const mediaSpecificParametersListAttribute = document
     .querySelector("[data-media-specific-parameters-list]")
     ?.getAttribute("data-media-specific-parameters-list");

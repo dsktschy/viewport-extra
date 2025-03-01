@@ -1,11 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { createPartialContent, truncateDecimalNumber } from "./number.js";
-
-describe("createPartialContent", () => {
-  it("should return object whose min-width property is argument value", () => {
-    expect(createPartialContent(414)).toStrictEqual({ minWidth: 414 });
-  });
-});
+import { truncateDecimalNumber } from "./number.js";
 
 describe("truncateDecimalNumber", () => {
   describe("case where second argument is finite", () => {

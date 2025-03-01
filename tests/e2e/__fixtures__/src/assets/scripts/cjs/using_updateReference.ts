@@ -1,7 +1,4 @@
-import ViewportExtra, {
-  setContent,
-  updateReference,
-} from "@@/dist/cjs/index.js";
+import { setContent, updateReference } from "@@/dist/cjs/index.js";
 
 const firstViewportMetaElement = document.querySelector(
   'meta[name="viewport"]',
@@ -10,10 +7,7 @@ if (firstViewportMetaElement) {
   const secondViewportMetaElement = firstViewportMetaElement.cloneNode();
   document.head.removeChild(firstViewportMetaElement);
   document.head.appendChild(secondViewportMetaElement);
-  const usingDefaultExport = document
-    .querySelector("[data-using-default-export]")
-    ?.hasAttribute("data-using-default-export");
-  (usingDefaultExport ? ViewportExtra.updateReference : updateReference)();
+  updateReference();
   const contentAfterUpdateReferenceAttribute = document
     .querySelector("[data-content-after-update-reference]")
     ?.getAttribute("data-content-after-update-reference");

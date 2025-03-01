@@ -20,7 +20,6 @@ export default defineConfig([
     target: "es5",
     globalName,
     banner: { js: jsBanner },
-    footer: undefined,
   },
   {
     format: "cjs",
@@ -33,9 +32,6 @@ export default defineConfig([
     target: "es5",
     globalName,
     banner: { js: jsBanner },
-    footer: {
-      js: "module.exports = module.exports.default;\nmodule.exports.default = module.exports;",
-    },
   },
   {
     format: "iife",
@@ -48,9 +44,6 @@ export default defineConfig([
     target: "es5",
     globalName,
     banner: { js: jsBanner },
-    footer: {
-      js: "ViewportExtra = ViewportExtra.default;ViewportExtra.default = ViewportExtra;",
-    },
   },
   {
     format: "iife",
@@ -63,8 +56,5 @@ export default defineConfig([
     target: "es5",
     globalName,
     banner: { js: jsBanner },
-    footer: {
-      js: "ViewportExtra = ViewportExtra.default;ViewportExtra.default = ViewportExtra;",
-    },
   },
 ]);
