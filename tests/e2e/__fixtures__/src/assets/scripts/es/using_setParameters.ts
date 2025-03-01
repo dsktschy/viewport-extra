@@ -1,4 +1,4 @@
-import ViewportExtra, { setParameters } from "@@/dist/es/index.js";
+import { setParameters } from "@@/dist/es/index.js";
 
 const globalParametersAttribute = document
   .querySelector("[data-global-parameters]")
@@ -18,7 +18,5 @@ if (typeof mediaSpecificParametersListAttribute === "string") {
         typeof setParameters
       >[1],
     );
-  (document.querySelector("[data-using-default-export]")
-    ? ViewportExtra.setParameters
-    : setParameters)(...argumentList);
+  setParameters(...argumentList);
 }

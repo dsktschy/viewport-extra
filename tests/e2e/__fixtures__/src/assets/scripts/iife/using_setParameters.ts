@@ -5,7 +5,7 @@ interface CustomWindow extends Window {
 }
 
 const ViewportExtra = (window as CustomWindow).ViewportExtra;
-if (typeof ViewportExtra === "function") {
+if (ViewportExtra) {
   const globalParametersAttribute = document
     .querySelector("[data-global-parameters]")
     ?.getAttribute("data-global-parameters");

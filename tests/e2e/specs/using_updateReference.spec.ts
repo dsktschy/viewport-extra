@@ -2,40 +2,13 @@ import { expect, test } from "@playwright/test";
 import { getMaximumWidthViewportSize } from "../modules/PlaywrightFullProjectList.js";
 import { getViewportContentString } from "../modules/PlaywrightPage.js";
 
-for (const { format, moduleFlag, minified, usingDefaultExport } of [
-  {
-    format: "es",
-    moduleFlag: true,
-    minified: false,
-    usingDefaultExport: false,
-  },
-  { format: "es", moduleFlag: true, minified: false, usingDefaultExport: true },
-  {
-    format: "cjs",
-    moduleFlag: true,
-    minified: false,
-    usingDefaultExport: false,
-  },
-  {
-    format: "cjs",
-    moduleFlag: true,
-    minified: false,
-    usingDefaultExport: true,
-  },
-  {
-    format: "iife",
-    moduleFlag: false,
-    minified: false,
-    usingDefaultExport: false,
-  },
-  {
-    format: "iife",
-    moduleFlag: false,
-    minified: true,
-    usingDefaultExport: false,
-  },
+for (const { format, moduleFlag, minified } of [
+  { format: "es", moduleFlag: true, minified: false },
+  { format: "cjs", moduleFlag: true, minified: false },
+  { format: "iife", moduleFlag: false, minified: false },
+  { format: "iife", moduleFlag: false, minified: true },
 ]) {
-  test.describe(`using ${usingDefaultExport ? "default export of" : ""} ${(minified ? "minified " : "") + format} output`, () => {
+  test.describe(`using ${(minified ? "minified " : "") + format} output`, () => {
     test.beforeEach(async ({ page }) => {
       await page.goto("/tests/e2e/__fixtures__/src/dummy.html");
     });
@@ -59,7 +32,6 @@ for (const { format, moduleFlag, minified, usingDefaultExport } of [
             ${moduleFlag ? "" : `<script src="/${format}/viewport-extra${minified ? ".min" : ""}.js"></script>`}
           </head>
           <body>
-            ${usingDefaultExport ? "<script data-using-default-export></script>" : ""}
             <script data-content-after-update-reference='{ "minWidth": ${maxViewportWidthPlusOne} }'></script>
             <script src="/assets/scripts/${format}/using_updateReference.js" type="module"></script>
           </body>

@@ -5,7 +5,7 @@ interface CustomWindow extends Window {
 }
 
 const ViewportExtra = (window as CustomWindow).ViewportExtra;
-if (typeof ViewportExtra === "function") {
+if (ViewportExtra) {
   const contentAttribute = document
     .querySelector("[data-content]")
     ?.getAttribute("data-content");
