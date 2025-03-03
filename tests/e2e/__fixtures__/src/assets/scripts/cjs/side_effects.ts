@@ -1,4 +1,4 @@
-import { setParameters } from "@@/dist/cjs/index.js";
+import { setParameters } from "@@/dist/viewport-extra.cjs";
 
 const mediaSpecificParametersListAttribute = document
   .querySelector("[data-media-specific-parameters-list]")

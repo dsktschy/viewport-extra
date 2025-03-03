@@ -1,4 +1,4 @@
-import { setContent, updateReference } from "@@/dist/viewport-extra.cjs";
+import { setContent, updateReference } from "@@/dist/viewport-extra.mjs";
 
 const firstViewportMetaElement = document.querySelector(
   'meta[name="viewport"]',

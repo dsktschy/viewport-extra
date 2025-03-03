@@ -2,17 +2,29 @@
   "name": "viewport-extra",
   "version": "2.4.1",
   "description": "Enable to set min-width and max-width to viewport",
-  "main": "dist/cjs/index.js",
-  "module": "dist/es/index.js",
-  "browser": "dist/es/index.js",
-  "jsdelivr": "dist/iife/viewport-extra.min.js",
-  "unpkg": "dist/iife/viewport-extra.min.js",
-  "types": "types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/viewport-extra.d.mts",
+        "default": "./dist/viewport-extra.mjs"
+      },
+      "require": {
+        "types": "./dist/viewport-extra.d.cts",
+        "default": "./dist/viewport-extra.cjs"
+      }
+    }
+  },
+  "main": "./dist/viewport-extra.cjs",
+  "module": "./dist/viewport-extra.mjs",
+  "browser": "./dist/viewport-extra.mjs",
+  "jsdelivr": "./dist/viewport-extra.min.js",
+  "unpkg": "./dist/viewport-extra.min.js",
+  "types": "./dist/viewport-extra.d.mts",
   "scripts": {
     "build": "NODE_OPTIONS=--no-warnings=ExperimentalWarning rollup --config rollup.config.build.mjs --environment NODE_ENV:production",
     "declare": "npm-run-all --sequential declare:clean declare:execute declare:bundle declare:clean",
     "declare:clean": "rimraf .types",
-    "declare:execute": "tsc src/index.ts --declaration --emitDeclarationOnly --outDir .types --resolveJsonModule",
+    "declare:execute": "tsc src/viewport-extra.mts --declaration --emitDeclarationOnly --outDir .types --resolveJsonModule",
     "declare:bundle": "NODE_OPTIONS=--no-warnings=ExperimentalWarning rollup --config rollup.config.declare.mjs --environment NODE_ENV:production",
     "spellcheck": "cspell lint",
     "stylecheck": "tsx --no-warnings=ExperimentalWarning scripts/biome-with-recursive-gitignore.mts",
@@ -32,9 +44,7 @@
     "url": "git+https://github.com/dsktschy/viewport-extra.git"
   },
   "files": [
-    "dist/**/*.js",
-    "dist/**/*.js.map",
-    "types"
+    "dist"
   ],
   "keywords": [
     "viewport",

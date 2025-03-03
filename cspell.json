@@ -25,6 +25,7 @@
     "stylecheck",
     "npmjs",
     "vercel",
-    "lefthook"
+    "lefthook",
+    "nodenext"
   ]
 }

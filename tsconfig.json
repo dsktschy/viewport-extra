@@ -1,18 +1,16 @@
 {
   "compilerOptions": {
-    "module": "esnext",
+    "module": "nodenext",
     "lib": ["es2020", "dom"],
     "strict": true,
-    "moduleResolution": "node10",
+    "moduleResolution": "nodenext",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "paths": {
-      "@@/*": ["./*"],
-      "rollup/parseAst": ["./node_modules/rollup/dist/parseAst"]
-    },
-    "target": "esnext"
+      "@@/*": ["./*"]
+    }
   },
-  "exclude": ["**/node_modules", "examples", "**/dist", "types", ".types"],
+  "exclude": ["**/node_modules", "examples", "**/dist", ".types"],
   "include": [
     "**/*.ts",
     "**/*.mts",

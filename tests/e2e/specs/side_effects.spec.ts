@@ -32,7 +32,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
                 <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-decimal-places="6" />
                 <meta name="viewport-extra" content="min-width=${smViewportWidth}" />
                 <meta name="viewport-extra" content="min-width=${xlViewportWidth}" data-media="(min-width: 640px)" />
-                ${moduleFlag ? "" : `<script async src="/${format}/viewport-extra${minified ? ".min" : ""}.js"></script>`}
+                ${moduleFlag ? "" : `<script async src="/viewport-extra${minified ? ".min" : ""}.js"></script>`}
               </head>
               <body>
                 ${moduleFlag ? `<script src="/assets/scripts/${format}/side_effects.js" type="module"></script>` : ""}
@@ -72,7 +72,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
                 <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-decimal-places="6" />
                 <meta name="viewport-extra" content="max-width=${xsViewportWidth}" />
                 <meta name="viewport-extra" content="max-width=${lgViewportWidth}" data-media="(min-width: 640px)" />
-                ${moduleFlag ? "" : `<script async src="/${format}/viewport-extra${minified ? ".min" : ""}.js"></script>`}
+                ${moduleFlag ? "" : `<script async src="/viewport-extra${minified ? ".min" : ""}.js"></script>`}
               </head>
               <body>
                 ${moduleFlag ? `<script src="/assets/scripts/${format}/side_effects.js" type="module"></script>` : ""}
@@ -96,9 +96,9 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
       });
     });
 
-    // Following cases cannot be tested with vitest
-    // Because vitest does not update size of document element when viewport element is updated
-    // Run only in minimal formats and viewports because they replace unit tests of src/index.spec.ts
+    // Following cases cannot be tested with Vitest,
+    // as it does not update size of document element when viewport element is updated
+    // Run only in minimal formats and viewports because E2E testing is not goal
     test.describe("comparison with min-width and max-width, and computation of output initial-scale", () => {
       test.beforeEach(async ({ page }, testInfo) => {
         testInfo.skip(formatIndex !== 0);
@@ -124,7 +124,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
               <title>Document</title>
               <meta name="viewport" content="width=device-width,initial-scale=0.5"/>
               <meta name="viewport-extra" content="min-width=${smViewportWidth},max-width=${lgViewportWidth}" />
-              ${moduleFlag ? "" : `<script async src="/${format}/viewport-extra${minified ? ".min" : ""}.js"></script>`}
+              ${moduleFlag ? "" : `<script async src="/viewport-extra${minified ? ".min" : ""}.js"></script>`}
             </head>
             <body>
               ${moduleFlag ? `<script src="/assets/scripts/${format}/side_effects.js" type="module"></script>` : ""}
@@ -145,9 +145,8 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
       });
     });
 
-    // Following cases cannot be tested with vitest
-    // Because vitest does not provide matchMedia method
-    // Run only in minimal formats and viewports because they replace unit tests of src/index.spec.ts
+    // Following cases cannot be tested with Vitest, as it does not provide matchMedia method
+    // Run only in minimal formats and viewports because E2E testing is not goal
     test.describe("merging attributes for GlobalParameters, of viewport and viewport-extra meta elements", () => {
       test.beforeEach(async ({ page }, testInfo) => {
         testInfo.skip(formatIndex !== 0);
@@ -174,7 +173,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
                 <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-decimal-places="0" data-extra-content="min-width=${smViewportWidth}" />
                 <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-decimal-places="Infinity" />
                 <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-decimal-places="6" data-extra-media="(min-width: ${xsViewportWidth}px)" />
-                ${moduleFlag ? "" : `<script async src="/${format}/viewport-extra${minified ? ".min" : ""}.js"></script>`}
+                ${moduleFlag ? "" : `<script async src="/viewport-extra${minified ? ".min" : ""}.js"></script>`}
               </head>
               <body>
                 ${moduleFlag ? `<script src="/assets/scripts/${format}/side_effects.js" type="module"></script>` : ""}
@@ -208,7 +207,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
                 <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=${smViewportWidth}" data-decimal-places="0" />
                 <meta name="viewport-extra" content="width=device-width,initial-scale=1" data-decimal-places="Infinity" />
                 <meta name="viewport-extra" content="width=device-width,initial-scale=2,min-width=${smViewportWidth + 1}" data-decimal-places="6" data-media="(min-width: ${smViewportWidth}px)" />
-                ${moduleFlag ? "" : `<script async src="/${format}/viewport-extra${minified ? ".min" : ""}.js"></script>`}
+                ${moduleFlag ? "" : `<script async src="/viewport-extra${minified ? ".min" : ""}.js"></script>`}
               </head>
               <body>
                 ${moduleFlag ? `<script src="/assets/scripts/${format}/side_effects.js" type="module"></script>` : ""}
@@ -242,7 +241,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
                 <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=${smViewportWidth}" data-decimal-places="0" />
                 <meta name="viewport-extra" content="width=device-width,initial-scale=2,min-width=${smViewportWidth + 1}" data-decimal-places="6" data-media="(min-width: ${smViewportWidth}px)" />
                 <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-decimal-places="Infinity" />
-                ${moduleFlag ? "" : `<script async src="/${format}/viewport-extra${minified ? ".min" : ""}.js"></script>`}
+                ${moduleFlag ? "" : `<script async src="/viewport-extra${minified ? ".min" : ""}.js"></script>`}
               </head>
               <body>
                 ${moduleFlag ? `<script src="/assets/scripts/${format}/side_effects.js" type="module"></script>` : ""}
@@ -275,7 +274,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
                   <meta name="viewport" content="width=device-width,initial-scale=1" />
                   <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=${smViewportWidth}" />
                   <meta name="viewport-extra" content="width=device-width,initial-scale=2,min-width=${smViewportWidth + 1}" data-media="(min-width: ${smViewportWidth}px)" />
-                  ${moduleFlag ? "" : `<script async src="/${format}/viewport-extra${minified ? ".min" : ""}.js"></script>`}
+                  ${moduleFlag ? "" : `<script async src="/viewport-extra${minified ? ".min" : ""}.js"></script>`}
                 </head>
                 <body>
                   ${moduleFlag ? `<script src="/assets/scripts/${format}/side_effects.js" type="module"></script>` : ""}
@@ -294,9 +293,8 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
       });
     });
 
-    // Following cases cannot be tested with vitest
-    // Because vitest does not provide matchMedia method
-    // Run only in minimal formats and viewports because they replace unit tests of src/index.spec.ts
+    // Following cases cannot be tested with Vitest, as it does not provide matchMedia method
+    // Run only in minimal formats and viewports because E2E testing is not goal
     test.describe("merging attributes for MediaSpecificParameters, of viewport and viewport-extra meta elements", () => {
       test.beforeEach(async ({ page }, testInfo) => {
         testInfo.skip(formatIndex !== 0);
@@ -323,7 +321,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
                 <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=${smViewportWidth}" />
                 <meta name="viewport" content="width=640,initial-scale=2" />
                 <meta name="viewport" data-extra-content="min-width=${xsViewportWidth + 1}" data-extra-media="(min-width: ${xsViewportWidth}px)" />
-                ${moduleFlag ? "" : `<script async src="/${format}/viewport-extra${minified ? ".min" : ""}.js"></script>`}
+                ${moduleFlag ? "" : `<script async src="/viewport-extra${minified ? ".min" : ""}.js"></script>`}
               </head>
               <body>
                 ${moduleFlag ? `<script src="/assets/scripts/${format}/side_effects.js" type="module"></script>` : ""}
@@ -365,7 +363,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
                 <meta name="viewport-extra" content="min-width=${smViewportWidth},initial-scale=0.5" />
                 <meta name="viewport-extra" content="width=device-width,initial-scale=1" />
                 <meta name="viewport-extra" content="width=device-width,initial-scale=2" data-media="(min-width: ${smViewportWidth}px)" />
-                ${moduleFlag ? "" : `<script async src="/${format}/viewport-extra${minified ? ".min" : ""}.js"></script>`}
+                ${moduleFlag ? "" : `<script async src="/viewport-extra${minified ? ".min" : ""}.js"></script>`}
               </head>
               <body>
                 ${moduleFlag ? `<script src="/assets/scripts/${format}/side_effects.js" type="module"></script>` : ""}
@@ -401,7 +399,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
                 <meta name="viewport-extra" content="width=device-width,initial-scale=1" data-media="(min-width: ${xsViewportWidth}px)" />
                 <meta name="viewport" content="width=device-width,initial-scale=2" data-extra-content="min-width=${smViewportWidth}" />
                 <meta name="viewport-extra" content="width=device-width,initial-scale=2,min-width=${smViewportWidth + 1}" data-media="(min-width: ${smViewportWidth}px)" />
-                ${moduleFlag ? "" : `<script async src="/${format}/viewport-extra${minified ? ".min" : ""}.js"></script>`}
+                ${moduleFlag ? "" : `<script async src="/viewport-extra${minified ? ".min" : ""}.js"></script>`}
               </head>
               <body>
                 ${moduleFlag ? `<script src="/assets/scripts/${format}/side_effects.js" type="module"></script>` : ""}
@@ -436,7 +434,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
                   <meta name="viewport" content="width=device-width" />
                   <meta name="viewport-extra" content="min-width=${smViewportWidth}" data-media="(min-width: ${xsViewportWidth}px)" />
                   <meta name="viewport-extra" content="width=device-width,initial-scale=2,min-width=${smViewportWidth + 1}" data-media="(min-width: ${smViewportWidth}px)" />
-                  ${moduleFlag ? "" : `<script async src="/${format}/viewport-extra${minified ? ".min" : ""}.js"></script>`}
+                  ${moduleFlag ? "" : `<script async src="/viewport-extra${minified ? ".min" : ""}.js"></script>`}
                 </head>
                 <body>
                   ${moduleFlag ? `<script src="/assets/scripts/${format}/side_effects.js" type="module"></script>` : ""}
