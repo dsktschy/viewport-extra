@@ -1,6 +1,0 @@
-import { getContent } from "@@/dist/es/index.js";
-import { convertToJsonString } from "@@/tests/e2e/modules/NumberStringRecord.js";
-
-document
-  .querySelector("[data-get-content-result]")
-  ?.setAttribute("data-get-content-result", convertToJsonString(getContent()));

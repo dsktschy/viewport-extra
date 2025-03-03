@@ -1,4 +1,4 @@
-import { setContent } from "@@/dist/viewport-extra.cjs";
+import { setContent } from "@@/dist/viewport-extra.mjs";
 
 const contentAttribute = document
   .querySelector("[data-content]")

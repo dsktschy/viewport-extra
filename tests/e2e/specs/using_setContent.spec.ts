@@ -28,7 +28,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
                 <meta charset="UTF-8" />
                 <title>Document</title>
                 <meta name="viewport" content="width=device-width,initial-scale=1" />
-                ${moduleFlag ? "" : `<script src="/${format}/viewport-extra${minified ? ".min" : ""}.js"></script>`}
+                ${moduleFlag ? "" : `<script src="/viewport-extra${minified ? ".min" : ""}.js"></script>`}
               </head>
               <body>
                 <script data-content='{ "minWidth": ${smViewportWidth} }'></script>
@@ -62,7 +62,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
                 <meta charset="UTF-8" />
                 <title>Document</title>
                 <meta name="viewport" content="width=device-width,initial-scale=1" />
-                ${moduleFlag ? "" : `<script src="/${format}/viewport-extra${minified ? ".min" : ""}.js"></script>`}
+                ${moduleFlag ? "" : `<script src="/viewport-extra${minified ? ".min" : ""}.js"></script>`}
               </head>
               <body>
                 <script data-content='{ "maxWidth": ${lgViewportWidth} }'></script>
@@ -81,9 +81,9 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
       });
     });
 
-    // Following cases cannot be tested with vitest
-    // Because vitest does not update size of document element when viewport element is updated
-    // Run only in minimal formats and viewports because they replace unit tests of src/index.spec.ts
+    // Following cases cannot be tested with Vitest,
+    // as it does not update size of document element when viewport element is updated
+    // Run only in minimal formats and viewports because E2E testing is not goal
     test.describe("comparison with minWidth and maxWidth, and computation of output initial-scale", () => {
       test.beforeEach(async ({ page }, testInfo) => {
         testInfo.skip(formatIndex !== 0);
@@ -113,7 +113,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
                   <meta charset="UTF-8" />
                   <title>Document</title>
                   <meta name="viewport" content="width=device-width,initial-scale=0.5" />
-                  ${moduleFlag ? "" : `<script src="/${format}/viewport-extra${minified ? ".min" : ""}.js"></script>`}
+                  ${moduleFlag ? "" : `<script src="/viewport-extra${minified ? ".min" : ""}.js"></script>`}
                 </head>
                 <body>
                   <script data-content='{ "initialScale": 2, "minWidth": ${smViewportWidth}, "maxWidth": ${lgViewportWidth} }'></script>
@@ -154,7 +154,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
                   <meta charset="UTF-8" />
                   <title>Document</title>
                   <meta name="viewport" content="width=device-width,initial-scale=2" />
-                  ${moduleFlag ? "" : `<script src="/${format}/viewport-extra${minified ? ".min" : ""}.js"></script>`}
+                  ${moduleFlag ? "" : `<script src="/viewport-extra${minified ? ".min" : ""}.js"></script>`}
                 </head>
                 <body>
                   <script data-content='{ "initialScale": 0.5, "minWidth": ${smViewportWidth}, "maxWidth": ${lgViewportWidth} }'></script>
@@ -196,7 +196,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
                   <meta charset="UTF-8" />
                   <title>Document</title>
                   <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-unscaled-computing />
-                  ${moduleFlag ? "" : `<script src="/${format}/viewport-extra${minified ? ".min" : ""}.js"></script>`}
+                  ${moduleFlag ? "" : `<script src="/viewport-extra${minified ? ".min" : ""}.js"></script>`}
                 </head>
                 <body>
                   <script data-content='{ "initialScale": 2, "minWidth": ${smViewportWidth}, "maxWidth": ${lgViewportWidth} }'></script>
@@ -236,7 +236,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
                   <meta charset="UTF-8" />
                   <title>Document</title>
                   <meta name="viewport" content="width=device-width,initial-scale=2" data-extra-unscaled-computing />
-                  ${moduleFlag ? "" : `<script src="/${format}/viewport-extra${minified ? ".min" : ""}.js"></script>`}
+                  ${moduleFlag ? "" : `<script src="/viewport-extra${minified ? ".min" : ""}.js"></script>`}
                 </head>
                 <body>
                   <script data-content='{ "initialScale": 0.5, "minWidth": ${smViewportWidth}, "maxWidth": ${lgViewportWidth} }'></script>
@@ -260,9 +260,8 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
       });
     });
 
-    // Following cases cannot be tested with vitest
-    // Because vitest does not provide matchMedia method
-    // Run only in minimal formats and viewports because they replace unit tests of src/index.spec.ts
+    // Following cases cannot be tested with Vitest, as it does not provide matchMedia method
+    // Run only in minimal formats and viewports because E2E testing is not goal
     test.describe("merging current internalPartialMediaSpecificParametersList variable and argument", () => {
       test.beforeEach(async ({ page }, testInfo) => {
         testInfo.skip(formatIndex !== 0);
@@ -294,7 +293,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
               <meta name="viewport-extra" content="min-width=${smViewportWidth + 1}" />
               <meta name="viewport-extra" content="initial-scale=0.5" />
               <meta name="viewport-extra" content="width=device-width,initial-scale=2" data-media="(min-width: ${smViewportWidth}px)" />
-              ${moduleFlag ? "" : `<script src="/${format}/viewport-extra${minified ? ".min" : ""}.js"></script>`}
+              ${moduleFlag ? "" : `<script src="/viewport-extra${minified ? ".min" : ""}.js"></script>`}
             </head>
             <body>
               <script data-content='{ "minWidth": ${smViewportWidth}, "initialScale": 1 }'></script>

@@ -1,4 +1,4 @@
-import { getContent } from "@@/dist/viewport-extra.cjs";
+import { getContent } from "@@/dist/viewport-extra.mjs";
 import { convertToJsonString } from "@@/tests/e2e/modules/NumberStringRecord.js";
 
 document

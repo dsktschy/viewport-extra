@@ -28,7 +28,7 @@ for (const { format, moduleFlag, minified } of [
             <meta charset="UTF-8" />
             <title>Document</title>
             <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=${smViewportWidth},max-width=${lgViewportWidth}" />
-            ${moduleFlag ? "" : `<script src="/${format}/viewport-extra${minified ? ".min" : ""}.js"></script>`}
+            ${moduleFlag ? "" : `<script src="/viewport-extra${minified ? ".min" : ""}.js"></script>`}
           </head>
           <body>
             <script data-get-content-result></script>

@@ -18,13 +18,19 @@ const banner = `/*!
 // Global variable name for iife
 const name = "ViewportExtra";
 
-const importDefaultPath = path.resolve(__dirname, packageJson.module);
-const requireDefaultPath = path.resolve(__dirname, packageJson.main);
+const importDefaultPath = path.resolve(
+  __dirname,
+  packageJson.exports["."].import.default,
+);
+const requireDefaultPath = path.resolve(
+  __dirname,
+  packageJson.exports["."].require.default,
+);
 const jsdelivrPath = path.resolve(__dirname, packageJson.jsdelivr);
 const nonMinifiedJsdelivrPath = jsdelivrPath.replace(/\.min\.js$/, ".js");
 
 export default {
-  input: path.resolve(__dirname, "src/index.ts"),
+  input: path.resolve(__dirname, "src/viewport-extra.mts"),
   output: [
     {
       file: importDefaultPath,

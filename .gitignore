@@ -148,6 +148,5 @@ dist
 
 # viewport-extra
 /examples/*/package-lock.json
-/types/
 /.types/
 /.biome.jsonc
