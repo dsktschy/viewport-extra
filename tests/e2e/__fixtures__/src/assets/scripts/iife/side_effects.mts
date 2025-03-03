@@ -1,4 +1,4 @@
-import type TViewportExtra from "@@/types/index.d.ts";
+import type * as TViewportExtra from "@@/dist/viewport-extra.d.mts";
 
 interface CustomWindow extends Window {
   ViewportExtra?: typeof TViewportExtra;

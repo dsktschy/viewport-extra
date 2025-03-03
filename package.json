@@ -2,19 +2,31 @@
   "name": "viewport-extra",
   "version": "2.4.1",
   "description": "Enable to set min-width and max-width to viewport",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "browser": "dist/esm/index.js",
-  "jsdelivr": "dist/iife/viewport-extra.min.js",
-  "unpkg": "dist/iife/viewport-extra.min.js",
-  "types": "types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/viewport-extra.d.mts",
+        "default": "./dist/viewport-extra.mjs"
+      },
+      "require": {
+        "types": "./dist/viewport-extra.d.cts",
+        "default": "./dist/viewport-extra.cjs"
+      }
+    }
+  },
+  "main": "./dist/viewport-extra.cjs",
+  "module": "./dist/viewport-extra.mjs",
+  "browser": "./dist/viewport-extra.mjs",
+  "jsdelivr": "./dist/viewport-extra.min.js",
+  "unpkg": "./dist/viewport-extra.min.js",
+  "types": "./dist/viewport-extra.d.mts",
   "scripts": {
     "build": "npm-run-all --sequential build:execute build:postprocess",
     "build:execute": "tsup",
-    "build:postprocess": "tsx --no-warnings=ExperimentalWarning scripts/postbuild.mts",
+    "build:postprocess": "tsx --no-warnings=ExperimentalWarning scripts/adjust-paths-in-maps.mts",
     "declare": "npm-run-all --sequential declare:execute declare:postprocess",
     "declare:execute": "tsup --dts-only",
-    "declare:postprocess": "tsx --no-warnings=ExperimentalWarning scripts/postdeclare.mts",
+    "declare:postprocess": "tsx --no-warnings=ExperimentalWarning scripts/adjust-dts-extensions.mts",
     "spellcheck": "cspell lint",
     "stylecheck": "tsx --no-warnings=ExperimentalWarning scripts/biome-with-recursive-gitignore.mts",
     "typecheck": "npm-run-all --sequential declare typecheck:execute",
@@ -29,7 +41,7 @@
     "polyfillcheck": "npm-run-all --parallel polyfillcheck:install polyfillcheck:preprocess --sequential polyfillcheck:build",
     "polyfillcheck:install": "npm install --no-save @babel/core @babel/cli @babel/preset-env",
     "polyfillcheck:preprocess": "tsx --no-warnings=ExperimentalWarning scripts/create-babelrc.mts",
-    "polyfillcheck:build": "babel dist/iife --ignore=**/*.min.js --out-dir=.polyfillcheck --config-file=./.polyfillcheck/.babelrc.json --verbose",
+    "polyfillcheck:build": "babel dist/viewport-extra.js --out-dir=.polyfillcheck --config-file=./.polyfillcheck/.babelrc.json --verbose",
     "confirm-es5-tested": "tsx scripts/confirm-es5-tested.mts"
   },
   "repository": {
@@ -37,9 +49,7 @@
     "url": "git+https://github.com/dsktschy/viewport-extra.git"
   },
   "files": [
-    "dist/**/*.js",
-    "dist/**/*.js.map",
-    "types"
+    "dist"
   ],
   "keywords": [
     "viewport",

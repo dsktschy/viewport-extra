@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   createOptionalMedia,
   mergeNullableMediaAttribute,
-} from "./MediaAttribute";
+} from "./MediaAttribute.js";
 
 describe("mergeNullableMediaAttribute", () => {
   describe("case where only first argument is not null", () => {

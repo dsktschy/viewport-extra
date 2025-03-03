@@ -29,7 +29,6 @@
     "vercel",
     "lefthook",
     "tsup",
-    "postbuild",
-    "postdeclare"
+    "nodenext"
   ]
 }

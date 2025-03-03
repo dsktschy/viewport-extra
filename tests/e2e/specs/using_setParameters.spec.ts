@@ -30,7 +30,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
                 <meta charset="UTF-8" />
                 <title>Document</title>
                 <meta name="viewport" content="width=device-width,initial-scale=1" />
-                ${moduleFlag ? "" : `<script src="/${format}/viewport-extra${minified ? ".min" : ""}.js"></script>`}
+                ${moduleFlag ? "" : `<script src="/viewport-extra${minified ? ".min" : ""}.js"></script>`}
               </head>
               <body>
                 <script data-global-parameters='{ "decimalPlaces": 6 }' data-media-specific-parameters-list='${`
@@ -74,7 +74,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
                 <meta charset="UTF-8" />
                 <title>Document</title>
                 <meta name="viewport" content="width=device-width,initial-scale=1" />
-                ${moduleFlag ? "" : `<script src="/${format}/viewport-extra${minified ? ".min" : ""}.js"></script>`}
+                ${moduleFlag ? "" : `<script src="/viewport-extra${minified ? ".min" : ""}.js"></script>`}
               </head>
               <body>
                 <script data-global-parameters='{ "decimalPlaces": 6 }' data-media-specific-parameters-list='${`
@@ -136,7 +136,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
                   <meta charset="UTF-8" />
                   <title>Document</title>
                   <meta name="viewport" content="width=device-width,initial-scale=0.5" />
-                  ${moduleFlag ? "" : `<script src="/${format}/viewport-extra${minified ? ".min" : ""}.js"></script>`}
+                  ${moduleFlag ? "" : `<script src="/viewport-extra${minified ? ".min" : ""}.js"></script>`}
                 </head>
                 <body>
                   <script data-media-specific-parameters-list='[{ "content": { "initialScale": 2, "minWidth": ${smViewportWidth}, "maxWidth": ${lgViewportWidth} } }]'></script>
@@ -177,7 +177,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
                   <meta charset="UTF-8" />
                   <title>Document</title>
                   <meta name="viewport" content="width=device-width,initial-scale=2" />
-                  ${moduleFlag ? "" : `<script src="/${format}/viewport-extra${minified ? ".min" : ""}.js"></script>`}
+                  ${moduleFlag ? "" : `<script src="/viewport-extra${minified ? ".min" : ""}.js"></script>`}
                 </head>
                 <body>
                   <script data-media-specific-parameters-list='[{ "content": { "initialScale": 0.5, "minWidth": ${smViewportWidth}, "maxWidth": ${lgViewportWidth} } }]'></script>
@@ -219,7 +219,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
                   <meta charset="UTF-8" />
                   <title>Document</title>
                   <meta name="viewport" content="width=device-width,initial-scale=0.5" />
-                  ${moduleFlag ? "" : `<script src="/${format}/viewport-extra${minified ? ".min" : ""}.js"></script>`}
+                  ${moduleFlag ? "" : `<script src="/viewport-extra${minified ? ".min" : ""}.js"></script>`}
                 </head>
                 <body>
                   <script data-global-parameters='{ "unscaledComputing": true }' data-media-specific-parameters-list='[{ "content": { "initialScale": 2, "minWidth": ${smViewportWidth}, "maxWidth": ${lgViewportWidth} } }]'></script>
@@ -259,7 +259,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
                   <meta charset="UTF-8" />
                   <title>Document</title>
                   <meta name="viewport" content="width=device-width,initial-scale=2" />
-                  ${moduleFlag ? "" : `<script src="/${format}/viewport-extra${minified ? ".min" : ""}.js"></script>`}
+                  ${moduleFlag ? "" : `<script src="/viewport-extra${minified ? ".min" : ""}.js"></script>`}
                 </head>
                 <body>
                   <script data-global-parameters='{ "unscaledComputing": true }' data-media-specific-parameters-list='[{ "content": { "initialScale": 0.5, "minWidth": ${smViewportWidth}, "maxWidth": ${lgViewportWidth} } }]'></script>
@@ -309,7 +309,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
                 <meta charset="UTF-8" />
                 <title>Document</title>
                 <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-unscaled-computing data-extra-decimal-places="6" />
-                ${moduleFlag ? "" : `<script src="/${format}/viewport-extra${minified ? ".min" : ""}.js"></script>`}
+                ${moduleFlag ? "" : `<script src="/viewport-extra${minified ? ".min" : ""}.js"></script>`}
               </head>
               <body>
                 <script data-global-parameters='{ "unscaledComputing": false, "decimalPlaces": 0 }' data-media-specific-parameters-list='[{ "content": { "initialScale": 2, "minWidth": ${smViewportWidth} } }]'></script>
@@ -342,7 +342,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
                 <meta charset="UTF-8" />
                 <title>Document</title>
                 <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-unscaled-computing data-extra-decimal-places="6" />
-                ${moduleFlag ? "" : `<script src="/${format}/viewport-extra${minified ? ".min" : ""}.js"></script>`}
+                ${moduleFlag ? "" : `<script src="/viewport-extra${minified ? ".min" : ""}.js"></script>`}
               </head>
               <body>
                 <script data-media-specific-parameters-list='[{ "content": { "initialScale": 2, "minWidth": ${smViewportWidth} } }]'></script>
@@ -391,7 +391,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
               <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-unscaled-computing />
               <meta name="viewport-extra" content="min-width=${xlViewportWidth}" data-media="(min-width: ${lgViewportWidth}px)" />
               <meta name="viewport-extra" content="min-width=${lgViewportWidth}" data-media="(min-width: ${smViewportWidth}px)" />
-              ${moduleFlag ? "" : `<script src="/${format}/viewport-extra${minified ? ".min" : ""}.js"></script>`}
+              ${moduleFlag ? "" : `<script src="/viewport-extra${minified ? ".min" : ""}.js"></script>`}
             </head>
             <body>
               <script data-media-specific-parameters-list='${`

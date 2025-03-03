@@ -20,7 +20,7 @@ The following codes will scale the page down in mobile device browsers that disp
 ```html
 <meta name="viewport-extra" content="min-width=430" />
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/iife/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/viewport-extra.min.js"></script>
 ```
 
 <!-- prettier-ignore-end -->
@@ -68,7 +68,7 @@ The following codes will scale the page up in mobile device browsers that displa
 ```html
 <meta name="viewport-extra" content="max-width=393" />
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/iife/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/viewport-extra.min.js"></script>
 ```
 
 <!-- prettier-ignore-end -->
@@ -117,7 +117,7 @@ The following codes will scale the page down in mobile device browsers that disp
 <meta name="viewport-extra" content="min-width=430" />
 <meta name="viewport-extra" content="min-width=1024" data-media="(min-width: 744px)" />
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/iife/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/viewport-extra.min.js"></script>
 ```
 
 <!-- prettier-ignore-end -->
@@ -166,7 +166,7 @@ The following codes will scale the page not only when it is displayed, but also 
 <meta name="viewport-extra" content="min-width=430" />
 <meta name="viewport-extra" content="min-width=744" data-media="(min-width: 640px)" />
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/iife/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/viewport-extra.min.js"></script>
 
 <script>
   const handleOrientationChange = () => {
@@ -233,7 +233,7 @@ The following codes will truncate numbers in the content attribute of the viewpo
 ```html
 <meta name="viewport-extra" content="min-width=430" data-decimal-places="6" />
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/iife/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/viewport-extra.min.js"></script>
 ```
 
 <!-- prettier-ignore-end -->

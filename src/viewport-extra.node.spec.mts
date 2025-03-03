@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 describe("side effects", () => {
   describe("running in environments where no window object exists", () => {
     it("does not throw error", async () => {
-      await expect(import("./index.js")).resolves.not.toThrowError();
+      await expect(import("./viewport-extra.js")).resolves.not.toThrowError();
     });
   });
 });
@@ -11,7 +11,7 @@ describe("side effects", () => {
 describe("setParameters", () => {
   describe("running in environments where no window object exists", () => {
     it("does not throw error", async () => {
-      const { setParameters } = await import("./index.js");
+      const { setParameters } = await import("./viewport-extra.js");
       expect(() => {
         setParameters([{ content: { minWidth: 414 } }]);
       }).not.toThrowError();
@@ -22,7 +22,7 @@ describe("setParameters", () => {
 describe("setContent", () => {
   describe("running in environments where no window object exists", () => {
     it("does not throw error", async () => {
-      const { setContent } = await import("./index.js");
+      const { setContent } = await import("./viewport-extra.js");
       expect(() => {
         setContent({ minWidth: 414 });
       }).not.toThrowError();
@@ -33,7 +33,7 @@ describe("setContent", () => {
 describe("getContent", () => {
   describe("running in environments where no window object exists", () => {
     it("returns default Content object", async () => {
-      const { getContent } = await import("./index.js");
+      const { getContent } = await import("./viewport-extra.js");
       expect(getContent()).toStrictEqual({
         width: "device-width",
         initialScale: 1,
@@ -47,7 +47,7 @@ describe("getContent", () => {
 describe("updateReference", () => {
   describe("running in environments where no window object exists", () => {
     it("does not throw error", async () => {
-      const { updateReference } = await import("./index.js");
+      const { updateReference } = await import("./viewport-extra.js");
       expect(() => {
         updateReference();
       }).not.toThrowError();

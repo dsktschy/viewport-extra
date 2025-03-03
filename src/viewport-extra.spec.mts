@@ -13,7 +13,7 @@ describe("side effects", () => {
           <meta charset="utf-8" />
           <meta name="viewport" content="width=device-width,initial-scale=1" />
         `;
-        await import("./index.js");
+        await import("./viewport-extra.js");
         expect(document.querySelectorAll('meta[name="viewport"]')).toHaveLength(
           1,
         );
@@ -25,7 +25,7 @@ describe("side effects", () => {
         document.head.innerHTML = `
           <meta charset="utf-8" />
         `;
-        await import("./index.js");
+        await import("./viewport-extra.js");
         expect(document.querySelectorAll('meta[name="viewport"]')).toHaveLength(
           1,
         );
@@ -45,7 +45,7 @@ describe("side effects", () => {
           <meta name="viewport" content="width=device-width,initial-scale=1" />
           <meta name="viewport-extra" content="min-width=414" />
         `;
-        await import("./index.js");
+        await import("./viewport-extra.js");
         expect(
           document
             .querySelector('meta[name="viewport"]')
@@ -65,7 +65,7 @@ describe("side effects", () => {
           <meta name="viewport" content="width=device-width,initial-scale=1" />
           <meta name="viewport-extra" content="max-width=768" />
         `;
-        await import("./index.js");
+        await import("./viewport-extra.js");
         expect(
           document
             .querySelector('meta[name="viewport"]')
@@ -86,7 +86,7 @@ describe("side effects", () => {
           <meta name="viewport" content="" />
           <meta name="viewport-extra" content="min-width=414" />
         `;
-        await import("./index.js");
+        await import("./viewport-extra.js");
         const viewportElementList = document.querySelectorAll(
           'meta[name="viewport"]',
         );
@@ -112,7 +112,7 @@ describe("setParameters", () => {
           <meta name="viewport" content="width=device-width,initial-scale=1" />
           <meta name="viewport-extra" content="interactive-widget=resizes-visual" />
         `;
-        const { setParameters } = await import("./index.js");
+        const { setParameters } = await import("./viewport-extra.js");
         setParameters([
           { content: { minWidth: 375 } },
           { content: { minWidth: 414 } },
@@ -138,7 +138,7 @@ describe("setParameters", () => {
           <meta name="viewport" content="width=device-width,initial-scale=1" />
           <meta name="viewport-extra" content="interactive-widget=resizes-visual" />
         `;
-        const { setParameters } = await import("./index.js");
+        const { setParameters } = await import("./viewport-extra.js");
         setParameters([
           { content: { maxWidth: 640 } },
           { content: { maxWidth: 768 } },
@@ -164,7 +164,7 @@ describe("setParameters", () => {
           <meta name="viewport" content="width=device-width,initial-scale=1" />
           <meta name="viewport" content="" />
         `;
-        const { setParameters } = await import("./index.js");
+        const { setParameters } = await import("./viewport-extra.js");
         setParameters([{ content: { minWidth: 414 } }]);
         const viewportElementList = document.querySelectorAll(
           'meta[name="viewport"]',
@@ -191,7 +191,7 @@ describe("setContent", () => {
           <meta name="viewport" content="width=device-width,initial-scale=1" />
           <meta name="viewport-extra" content="interactive-widget=resizes-visual" />
         `;
-        const { setContent } = await import("./index.js");
+        const { setContent } = await import("./viewport-extra.js");
         setContent({ minWidth: 414 });
         expect(
           document
@@ -214,7 +214,7 @@ describe("setContent", () => {
           <meta name="viewport" content="width=device-width,initial-scale=1" />
           <meta name="viewport-extra" content="interactive-widget=resizes-visual" />
         `;
-        const { setContent } = await import("./index.js");
+        const { setContent } = await import("./viewport-extra.js");
         setContent({ maxWidth: 768 });
         expect(
           document
@@ -237,7 +237,7 @@ describe("setContent", () => {
           <meta name="viewport" content="width=device-width,initial-scale=1" />
           <meta name="viewport" content="" />
         `;
-        const { setContent } = await import("./index.js");
+        const { setContent } = await import("./viewport-extra.js");
         setContent({ minWidth: 414 });
         const viewportElementList = document.querySelectorAll(
           'meta[name="viewport"]',
@@ -258,7 +258,7 @@ describe("getContent", () => {
       <meta name="viewport" content="width=640,initial-scale=2" />
       <meta name="viewport-extra" content="min-width=414,max-width=768" />
     `;
-    const { getContent } = await import("./index.js");
+    const { getContent } = await import("./viewport-extra.js");
     expect(getContent()).toStrictEqual({
       width: 640,
       initialScale: 2,
@@ -279,7 +279,9 @@ describe("updateReference", () => {
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
       `;
-      const { updateReference, setContent } = await import("./index.js");
+      const { updateReference, setContent } = await import(
+        "./viewport-extra.js"
+      );
       const firstViewportMetaElement = document.querySelector(
         'meta[name="viewport"]',
       );
@@ -306,7 +308,9 @@ describe("updateReference", () => {
           <meta name="viewport" content="width=device-width,initial-scale=1" />
           <meta name="viewport" content="" />
         `;
-        const { updateReference, setContent } = await import("./index.js");
+        const { updateReference, setContent } = await import(
+          "./viewport-extra.js"
+        );
         const firstViewportMetaElement = document.querySelector(
           'meta[name="viewport"]',
         );
@@ -337,7 +341,9 @@ describe("updateReference", () => {
         <meta name="viewport" content="width=640,initial-scale=2" />
         <meta name="viewport-extra" content="min-width=414,max-width=768" />
       `;
-      const { updateReference, getContent } = await import("./index.js");
+      const { updateReference, getContent } = await import(
+        "./viewport-extra.js"
+      );
       const firstViewportMetaElement = document.querySelector(
         'meta[name="viewport"]',
       );
