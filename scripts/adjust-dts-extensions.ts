@@ -6,13 +6,15 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import type { Format } from "tsup";
-import tsupConfig from "../tsup.config.mjs";
+import pkg from "../package.json" with { type: "json" };
+import tsupConfig from "../tsup.config.js";
 
 if (!Array.isArray(tsupConfig)) process.exit(0);
+const esmFlag = pkg.type === "module";
 const createDefaultOutExtensions = (format: Format, minify: boolean) =>
   ({
-    esm: { js: ".mjs", dts: ".d.mts" },
-    cjs: { js: ".js", dts: ".d.ts" },
+    esm: esmFlag ? { js: ".js", dts: ".d.ts" } : { js: ".mjs", dts: ".d.mts" },
+    cjs: esmFlag ? { js: ".cjs", dts: ".d.cts" } : { js: ".js", dts: ".d.ts" },
     iife: minify ? { js: ".global.min.js" } : { js: ".global.js" },
   })[format];
 for (const options of tsupConfig) {

@@ -9,11 +9,10 @@ export default defineConfig({
     rollupOptions: {
       input: {
         "dummy.html": path.resolve(import.meta.dirname, `${srcDir}dummy.html`),
-        ...globSync(`${srcDir}**/*.{ts,mts}`).reduce<Record<string, string>>(
+        ...globSync(`${srcDir}**/*.ts`).reduce<Record<string, string>>(
           (result, relativePath) => {
-            result[
-              relativePath.replace(srcDir, "").replace(/\.(ts|mts)$/, ".js")
-            ] = path.resolve(import.meta.dirname, relativePath);
+            result[relativePath.replace(srcDir, "").replace(/\.ts$/, ".js")] =
+              path.resolve(import.meta.dirname, relativePath);
             return result;
           },
           {},

@@ -1,4 +1,4 @@
-import type { Media } from "./Media";
+import type { Media } from "./Media.js";
 
 export type MatchMedia = (query: string) => MediaQueryList;
 

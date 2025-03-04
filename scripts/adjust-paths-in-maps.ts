@@ -3,7 +3,7 @@
  * They are included when target option of tsup is es5
  */
 import fs from "node:fs/promises";
-import tsupConfig from "../tsup.config.mjs";
+import tsupConfig from "../tsup.config.js";
 
 if (!Array.isArray(tsupConfig)) process.exit(0);
 for (const outDir of new Set(

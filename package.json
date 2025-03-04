@@ -2,6 +2,7 @@
   "name": "viewport-extra",
   "version": "2.4.1",
   "description": "Enable to set min-width and max-width to viewport",
+  "type": "module",
   "exports": {
     ".": {
       "import": {
@@ -23,26 +24,26 @@
   "scripts": {
     "build": "npm-run-all --sequential build:execute build:postprocess",
     "build:execute": "tsup",
-    "build:postprocess": "tsx --no-warnings=ExperimentalWarning scripts/adjust-paths-in-maps.mts",
+    "build:postprocess": "tsx --no-warnings=ExperimentalWarning scripts/adjust-paths-in-maps.ts",
     "declare": "npm-run-all --sequential declare:execute declare:postprocess",
     "declare:execute": "tsup --dts-only",
-    "declare:postprocess": "tsx --no-warnings=ExperimentalWarning scripts/adjust-dts-extensions.mts",
+    "declare:postprocess": "tsx --no-warnings=ExperimentalWarning scripts/adjust-dts-extensions.ts",
     "spellcheck": "cspell lint",
-    "stylecheck": "tsx --no-warnings=ExperimentalWarning scripts/biome-with-recursive-gitignore.mts",
+    "stylecheck": "tsx --no-warnings=ExperimentalWarning scripts/biome-with-recursive-gitignore.ts",
     "typecheck": "npm-run-all --sequential declare typecheck:execute",
     "typecheck:execute": "tsc --noEmit",
     "test": "npm-run-all --parallel test:*",
     "test:unit": "vitest run",
     "test:e2e": "npm-run-all --parallel test:e2e:install build --sequential test:e2e:build test:e2e:execute",
     "test:e2e:install": "playwright install --with-deps",
-    "test:e2e:build": "NODE_OPTIONS=--no-warnings=ExperimentalWarning vite build --config vite.config.e2e.mts",
+    "test:e2e:build": "NODE_OPTIONS=--no-warnings=ExperimentalWarning vite build --config vite.config.e2e.ts",
     "test:e2e:execute": "playwright test --pass-with-no-tests",
-    "preview-e2e": "NODE_OPTIONS=--no-warnings=ExperimentalWarning vite preview --config vite.config.e2e.mts --strictPort --port 3000",
+    "preview-e2e": "NODE_OPTIONS=--no-warnings=ExperimentalWarning vite preview --config vite.config.e2e.ts --strictPort --port 3000",
     "polyfillcheck": "npm-run-all --parallel polyfillcheck:install polyfillcheck:preprocess --sequential polyfillcheck:build",
     "polyfillcheck:install": "npm install --no-save @babel/core @babel/cli @babel/preset-env",
-    "polyfillcheck:preprocess": "tsx --no-warnings=ExperimentalWarning scripts/create-babelrc.mts",
+    "polyfillcheck:preprocess": "tsx --no-warnings=ExperimentalWarning scripts/create-babelrc.ts",
     "polyfillcheck:build": "babel dist/viewport-extra.js --out-dir=.polyfillcheck --config-file=./.polyfillcheck/.babelrc.json --verbose",
-    "confirm-es5-tested": "tsx scripts/confirm-es5-tested.mts"
+    "confirm-es5-tested": "tsx scripts/confirm-es5-tested.ts"
   },
   "repository": {
     "type": "git",

@@ -13,7 +13,7 @@ pre-commit:
       glob:
         - "src/*.ts"
         - "src/**/*.ts"
-        - "tsup.config.mts"
+        - "tsup.config.ts"
       exclude:
         - "src/*.spec.ts"
         - "src/**/*.spec.ts"
