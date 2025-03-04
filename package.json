@@ -2,6 +2,7 @@
   "name": "viewport-extra",
   "version": "2.4.1",
   "description": "Enable to set min-width and max-width to viewport",
+  "type": "module",
   "exports": {
     ".": {
       "import": {
@@ -21,23 +22,23 @@
   "unpkg": "./dist/viewport-extra.min.js",
   "types": "./dist/viewport-extra.d.mts",
   "scripts": {
-    "build": "NODE_OPTIONS=--no-warnings=ExperimentalWarning rollup --config rollup.config.build.mjs --environment NODE_ENV:production",
+    "build": "NODE_OPTIONS=--no-warnings=ExperimentalWarning rollup --config rollup.config.build.js --environment NODE_ENV:production",
     "declare": "npm-run-all --sequential declare:clean declare:execute declare:bundle declare:clean",
     "declare:clean": "rimraf .types",
-    "declare:execute": "tsc src/viewport-extra.mts --declaration --emitDeclarationOnly --outDir .types --resolveJsonModule",
-    "declare:bundle": "NODE_OPTIONS=--no-warnings=ExperimentalWarning rollup --config rollup.config.declare.mjs --environment NODE_ENV:production",
+    "declare:execute": "tsc src/viewport-extra.ts --declaration --emitDeclarationOnly --outDir .types --resolveJsonModule",
+    "declare:bundle": "NODE_OPTIONS=--no-warnings=ExperimentalWarning rollup --config rollup.config.declare.js --environment NODE_ENV:production",
     "spellcheck": "cspell lint",
-    "stylecheck": "tsx --no-warnings=ExperimentalWarning scripts/biome-with-recursive-gitignore.mts",
-    "es5check": "NODE_OPTIONS=--no-warnings=ExperimentalWarning eslint 'src/**/*' --ignore-pattern 'src/**/*.spec.*' --no-warn-ignored --config eslint.config.es5.mjs",
+    "stylecheck": "tsx --no-warnings=ExperimentalWarning scripts/biome-with-recursive-gitignore.ts",
+    "es5check": "NODE_OPTIONS=--no-warnings=ExperimentalWarning eslint 'src/**/*' --ignore-pattern 'src/**/*.spec.*' --no-warn-ignored --config eslint.config.es5.js",
     "typecheck": "npm-run-all --sequential declare typecheck:execute",
     "typecheck:execute": "tsc --noEmit",
     "test": "npm-run-all --parallel test:*",
     "test:unit": "vitest run",
     "test:e2e": "npm-run-all --parallel test:e2e:install build --sequential test:e2e:build test:e2e:execute",
     "test:e2e:install": "playwright install --with-deps",
-    "test:e2e:build": "NODE_OPTIONS=--no-warnings=ExperimentalWarning vite build --config vite.config.e2e.mts",
+    "test:e2e:build": "NODE_OPTIONS=--no-warnings=ExperimentalWarning vite build --config vite.config.e2e.ts",
     "test:e2e:execute": "playwright test --pass-with-no-tests",
-    "preview-e2e": "NODE_OPTIONS=--no-warnings=ExperimentalWarning vite preview --config vite.config.e2e.mts --strictPort --port 3000"
+    "preview-e2e": "NODE_OPTIONS=--no-warnings=ExperimentalWarning vite preview --config vite.config.e2e.ts --strictPort --port 3000"
   },
   "repository": {
     "type": "git",
