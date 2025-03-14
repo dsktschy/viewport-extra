@@ -6,9 +6,22 @@ export default defineConfig({
     include: [
       path.resolve(import.meta.dirname, 'src/**/*.{test,spec}.?(c|m)[jt]s')
     ],
-    environmentMatchGlobs: [
-      ['**/*.node.{test,spec}.?(c|m)[jt]s', 'node'],
-      ['**/*.{test,spec}.?(c|m)[jt]s', 'jsdom']
+    workspace: [
+      {
+        test: {
+          name: 'node',
+          environment: 'node',
+          include: ['src/**/*.node.{test,spec}.?(c|m)[jt]s']
+        }
+      },
+      {
+        test: {
+          name: 'jsdom',
+          environment: 'jsdom',
+          include: ['src/**/*.{test,spec}.?(c|m)[jt]s'],
+          exclude: ['src/**/*.node.{test,spec}.?(c|m)[jt]s']
+        }
+      }
     ],
     passWithNoTests: true
   }
