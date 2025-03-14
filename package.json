@@ -21,7 +21,9 @@
     "build:e2e": "NODE_OPTIONS=--no-warnings=ExperimentalWarning vite build --config vite.config.e2e.mts",
     "prebuild:e2e": "npm run build",
     "preview:e2e": "NODE_OPTIONS=--no-warnings=ExperimentalWarning vite preview --config vite.config.e2e.mts --strictPort --port 3000",
-    "prepare": "husky"
+    "prepare": "husky",
+    "polyfillcheck": "npm i --no-save @babel/core @babel/cli @babel/preset-env && babel dist/iife --ignore=**/*.min.js --out-dir=.polyfillcheck --config-file=./.polyfillcheck/.babelrc.json --verbose",
+    "prepolyfillcheck": "tsx --no-warnings=ExperimentalWarning scripts/create-babelrc.mts"
   },
   "repository": {
     "type": "git",
@@ -68,6 +70,7 @@
     "rollup-plugin-delete": "2.1.0",
     "rollup-plugin-dts": "6.1.1",
     "tslib": "2.6.3",
+    "tsx": "4.19.3",
     "typescript": "5.5.4",
     "vite": "6.2.3",
     "vitest": "3.0.8"
