@@ -9,7 +9,12 @@ export const ensureViewportElement = (doc: Document): HTMLMetaElement => {
   return metaElement
 }
 
-export const getViewportExtraElementList = (doc: Document): HTMLMetaElement[] =>
-  Array.from(
+export const getViewportExtraElementList = (
+  doc: Document
+): HTMLMetaElement[] => {
+  const arrayFrom = <T>(arrayLike: ArrayLike<T>): T[] =>
+    (Array.prototype as T[]).slice.call(arrayLike)
+  return arrayFrom(
     doc.querySelectorAll<HTMLMetaElement>('meta[name="viewport-extra"]')
   )
+}
