@@ -7,7 +7,9 @@ export const createPartialContent = (num: number): Partial<Content> => ({
 export const truncateDecimalNumber = (
   num: number,
   decimalPlaces: number
-): number =>
-  isFinite(decimalPlaces)
-    ? Math.trunc(num * 10 ** decimalPlaces) / 10 ** decimalPlaces
+): number => {
+  const mathTrunc = (x: number): number => (x < 0 ? Math.ceil : Math.floor)(x)
+  return isFinite(decimalPlaces)
+    ? mathTrunc(num * 10 ** decimalPlaces) / 10 ** decimalPlaces
     : num
+}
