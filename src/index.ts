@@ -27,6 +27,16 @@ import {
 } from './lib/MediaSpecificParameters.js'
 import { createPartialContent } from './lib/number.js'
 
+// Polyfill for Array.from that only has feature to convert NodeList to Array
+Array.from =
+  Array.from ||
+  (<T>(arrayLike: ArrayLike<T>): T[] =>
+    (Array.prototype as T[]).slice.call(arrayLike))
+
+// Polyfill for Math.trunc
+Math.trunc =
+  Math.trunc || ((x: number): number => (x < 0 ? Math.ceil : Math.floor)(x))
+
 let viewportElement: HTMLMetaElement | null = null
 let viewportExtraElementList: HTMLMetaElement[] = []
 let internalGlobalParameters: GlobalParameters | null = null
