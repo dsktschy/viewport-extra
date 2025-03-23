@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.1-rc.0](https://github.com/dsktschy/viewport-extra/compare/v2.2.0...v2.2.1-rc.0) (2025-03-23)
+
+
+### Bug Fixes
+
+* recover IE11 compatibility ([181350c](https://github.com/dsktschy/viewport-extra/commit/181350c636ae79399f9b49b2041b87086f51970c))
+
 ## [2.2.0](https://github.com/dsktschy/viewport-extra/compare/v2.2.0-rc.1...v2.2.0) (2025-01-05)
 
 
