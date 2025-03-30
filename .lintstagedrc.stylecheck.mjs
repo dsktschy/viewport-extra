@@ -1,10 +1,32 @@
+import path from 'node:path'
+
+/** @type {import('lint-staged').Config} */
 export default {
-  '{*.(js|ts),!(examples)/**/*.(js|ts)}': [
-    'prettier --write',
-    // Disable ignoring filenames that starts with dot
-    // https://stackoverflow.com/a/71829427
-    'eslint --fix --ignore-pattern "!.*" --max-warnings 0'
-  ],
-  '{*.!(js|ts),!(examples)/**/*.!(js|ts)},!.release-please-manifest.json,!CHANGELOG.md':
-    [`prettier --write --ignore-unknown`]
+  '(*.js|*.mjs|*.cjs|*.ts|*.mts|*.cts)': absolutePathList => {
+    const relativePaths = absolutePathList
+      .map(absolutePath => path.relative(process.cwd(), absolutePath))
+      .filter(relativePath => !relativePath.startsWith('examples/'))
+      .join(' ')
+    if (!relativePaths) return []
+    return [
+      `prettier --write ${relativePaths}`,
+      // Disable ignoring filenames that starts with dot
+      // https://stackoverflow.com/a/71829427
+      `eslint --fix --ignore-pattern "!.*" --max-warnings 0 ${relativePaths}`
+    ]
+  },
+  '!(*.js|*.mjs|*.cjs|*.ts|*.mts|*.cts)': absolutePathList => {
+    const relativePaths = absolutePathList
+      .map(absolutePath => path.relative(process.cwd(), absolutePath))
+      .filter(relativePath => !relativePath.startsWith('examples/'))
+      .filter(
+        relativePath =>
+          !['.release-please-manifest.json', 'CHANGELOG.md'].includes(
+            relativePath
+          )
+      )
+      .join(' ')
+    if (!relativePaths) return []
+    return [`prettier --write --ignore-unknown ${relativePaths}`]
+  }
 }
