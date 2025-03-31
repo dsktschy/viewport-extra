@@ -1,0 +1,16 @@
+{
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+  "version": "0.2",
+  "language": "en",
+  "useGitignore": true,
+  "words": [
+    "nuxt",
+    "dsktschy",
+    "polyfillcheck",
+    "autorelease",
+    "corejs",
+    "kebabize",
+    "viewports",
+    "orientationchange"
+  ]
+}

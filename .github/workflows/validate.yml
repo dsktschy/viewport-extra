@@ -34,6 +34,10 @@ jobs:
         shell: bash
         run: npm run declare
 
+      - name: Check spelling
+        shell: bash
+        run: npx cspell lint .
+
       - name: Format
         shell: bash
         run: npx prettier . '!examples/**' '!.release-please-manifest.json' '!CHANGELOG.md' --ignore-path .gitignore --check
