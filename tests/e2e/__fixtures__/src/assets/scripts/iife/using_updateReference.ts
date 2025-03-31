@@ -6,12 +6,12 @@ interface CustomWindow extends Window {
 
 const ViewportExtra = (window as CustomWindow).ViewportExtra
 if (typeof ViewportExtra === 'function') {
-  const fitstViewportMetaElement = document.querySelector(
+  const firstViewportMetaElement = document.querySelector(
     'meta[name="viewport"]'
   )
-  if (fitstViewportMetaElement) {
-    const secondViewportMetaElement = fitstViewportMetaElement.cloneNode()
-    document.head.removeChild(fitstViewportMetaElement)
+  if (firstViewportMetaElement) {
+    const secondViewportMetaElement = firstViewportMetaElement.cloneNode()
+    document.head.removeChild(firstViewportMetaElement)
     document.head.appendChild(secondViewportMetaElement)
     ViewportExtra.updateReference()
     const contentAfterUpdateReferenceAttribute = document
