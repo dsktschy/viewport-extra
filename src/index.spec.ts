@@ -285,13 +285,13 @@ describe('updateReference', () => {
       <meta name="viewport" content="width=device-width,initial-scale=1" />
     `
     const { updateReference, setContent } = await import('./index.js')
-    const fitstViewportMetaElement = document.querySelector(
+    const firstViewportMetaElement = document.querySelector(
       'meta[name="viewport"]'
     )
-    if (!fitstViewportMetaElement) expect.fail()
-    const secondViewportMetaElement = fitstViewportMetaElement.cloneNode()
+    if (!firstViewportMetaElement) expect.fail()
+    const secondViewportMetaElement = firstViewportMetaElement.cloneNode()
     if (!(secondViewportMetaElement instanceof Element)) expect.fail()
-    document.head.removeChild(fitstViewportMetaElement)
+    document.head.removeChild(firstViewportMetaElement)
     document.head.appendChild(secondViewportMetaElement)
     updateReference()
     setContent({ minWidth: 414 })
@@ -308,17 +308,17 @@ describe('updateReference', () => {
         <meta name="viewport-extra" content="min-width=414,max-width=768" />
       `
       const { updateReference, getContent } = await import('./index.js')
-      const fitstViewportMetaElement = document.querySelector(
+      const firstViewportMetaElement = document.querySelector(
         'meta[name="viewport"]'
       )
-      if (!fitstViewportMetaElement) expect.fail()
-      const secondViewportMetaElement = fitstViewportMetaElement.cloneNode()
+      if (!firstViewportMetaElement) expect.fail()
+      const secondViewportMetaElement = firstViewportMetaElement.cloneNode()
       if (!(secondViewportMetaElement instanceof Element)) expect.fail()
       secondViewportMetaElement.setAttribute(
         'content',
         'width=device-width,initial-scale=1'
       )
-      document.head.removeChild(fitstViewportMetaElement)
+      document.head.removeChild(firstViewportMetaElement)
       document.head.appendChild(secondViewportMetaElement)
       updateReference()
       expect(getContent()).toStrictEqual({
@@ -577,13 +577,13 @@ describe('updateReference method of ViewportExtra class', () => {
       <meta name="viewport" content="width=device-width,initial-scale=1" />
     `
     const { default: ViewportExtra, setContent } = await import('./index.js')
-    const fitstViewportMetaElement = document.querySelector(
+    const firstViewportMetaElement = document.querySelector(
       'meta[name="viewport"]'
     )
-    if (!fitstViewportMetaElement) expect.fail()
-    const secondViewportMetaElement = fitstViewportMetaElement.cloneNode()
+    if (!firstViewportMetaElement) expect.fail()
+    const secondViewportMetaElement = firstViewportMetaElement.cloneNode()
     if (!(secondViewportMetaElement instanceof Element)) expect.fail()
-    document.head.removeChild(fitstViewportMetaElement)
+    document.head.removeChild(firstViewportMetaElement)
     document.head.appendChild(secondViewportMetaElement)
     ViewportExtra.updateReference()
     setContent({ minWidth: 414 })
@@ -600,17 +600,17 @@ describe('updateReference method of ViewportExtra class', () => {
         <meta name="viewport-extra" content="min-width=414,max-width=768" />
       `
       const { default: ViewportExtra, getContent } = await import('./index.js')
-      const fitstViewportMetaElement = document.querySelector(
+      const firstViewportMetaElement = document.querySelector(
         'meta[name="viewport"]'
       )
-      if (!fitstViewportMetaElement) expect.fail()
-      const secondViewportMetaElement = fitstViewportMetaElement.cloneNode()
+      if (!firstViewportMetaElement) expect.fail()
+      const secondViewportMetaElement = firstViewportMetaElement.cloneNode()
       if (!(secondViewportMetaElement instanceof Element)) expect.fail()
       secondViewportMetaElement.setAttribute(
         'content',
         'width=device-width,initial-scale=1'
       )
-      document.head.removeChild(fitstViewportMetaElement)
+      document.head.removeChild(firstViewportMetaElement)
       document.head.appendChild(secondViewportMetaElement)
       ViewportExtra.updateReference()
       expect(getContent()).toStrictEqual({
