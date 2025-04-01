@@ -19,7 +19,7 @@ For example, in browsers on mobile devices with a display width less than 375px 
 
 ```html
 <script
-  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.3.0/dist/iife/viewport-extra.min.js"
+  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.3.1-rc.0/dist/iife/viewport-extra.min.js"
   async
 ></script>
 ```
@@ -139,7 +139,7 @@ See also [examples](https://github.com/dsktschy/viewport-extra/tree/master/examp
 
 ```html
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<script src="https://cdn.jsdelivr.net/npm/viewport-extra@2.3.0/dist/iife/viewport-extra.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/viewport-extra@2.3.1-rc.0/dist/iife/viewport-extra.min.js"></script>
 <script>
   // Shorthand if maxWidth is not required
   new ViewportExtra(375)
