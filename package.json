@@ -1,6 +1,6 @@
 {
   "name": "viewport-extra",
-  "version": "2.3.1-rc.0",
+  "version": "2.3.1",
   "description": "Enable to set min-width and max-width to viewport",
   "main": "dist/cjs/index.js",
   "module": "dist/es/index.js",
