@@ -1,9 +1,9 @@
 import ViewportExtra, { setContent, updateReference } from '@@/dist/es/index.js'
 
-const fitstViewportMetaElement = document.querySelector('meta[name="viewport"]')
-if (fitstViewportMetaElement) {
-  const secondViewportMetaElement = fitstViewportMetaElement.cloneNode()
-  document.head.removeChild(fitstViewportMetaElement)
+const firstViewportMetaElement = document.querySelector('meta[name="viewport"]')
+if (firstViewportMetaElement) {
+  const secondViewportMetaElement = firstViewportMetaElement.cloneNode()
+  document.head.removeChild(firstViewportMetaElement)
   document.head.appendChild(secondViewportMetaElement)
   const usingDefaultExport = document
     .querySelector('[data-using-default-export]')
