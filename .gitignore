@@ -143,6 +143,9 @@ dist
 # VS Code
 .vscode/
 
+# Git
+/.git/
+
 # viewport-extra
 /.polyfillcheck
 /examples/*/package-lock.json
