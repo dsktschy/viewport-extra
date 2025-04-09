@@ -3,6 +3,7 @@
   "version": "0.2",
   "language": "en",
   "useGitignore": true,
+  "enableGlobDot": true,
   "words": [
     "nuxt",
     "dsktschy",
@@ -11,6 +12,22 @@
     "corejs",
     "kebabize",
     "viewports",
-    "orientationchange"
+    "orientationchange",
+    "stabilizable",
+    "pids",
+    "jscoverage",
+    "wscript",
+    "jspm",
+    "eslintcache",
+    "stylelintcache",
+    "Microbundle",
+    "dotenv",
+    "vuepress",
+    "commitlint",
+    "lintstagedrc",
+    "stylecheck",
+    "npmjs",
+    "vercel",
+    "mobi"
   ]
 }
