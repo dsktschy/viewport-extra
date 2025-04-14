@@ -27,6 +27,7 @@
     "lintstagedrc",
     "stylecheck",
     "npmjs",
-    "vercel"
+    "vercel",
+    "lintstaged"
   ]
 }
