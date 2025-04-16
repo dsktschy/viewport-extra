@@ -31,7 +31,7 @@
     "polyfillcheck:install": "npm install --no-save @babel/core @babel/cli @babel/preset-env",
     "polyfillcheck:preprocess": "tsx --no-warnings=ExperimentalWarning scripts/create-babelrc.mts",
     "polyfillcheck:build": "babel dist/iife --ignore=**/*.min.js --out-dir=.polyfillcheck --config-file=./.polyfillcheck/.babelrc.json --verbose",
-    "remind-es5-test": "tsx scripts/remind-es5-test.mts"
+    "confirm-es5-tested": "tsx scripts/confirm-es5-tested.mts"
   },
   "repository": {
     "type": "git",

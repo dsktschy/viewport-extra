@@ -4,7 +4,19 @@ commit-msg:
 
 pre-commit:
   parallel: false
+  piped: true
   jobs:
+    # Pressing Enter twice is required to continue because of `piped: true`
+    - run: npm run confirm-es5-tested -- --message "Please press Enter again."
+      use_stdin: true
+      interactive: true
+      glob:
+        - "src/*.ts"
+        - "src/**/*.ts"
+        - "rollup.config.*.mjs"
+      exclude:
+        - "src/*.spec.ts"
+        - "src/**/*.spec.ts"
     - group:
         parallel: true
         jobs:
@@ -13,11 +25,3 @@ pre-commit:
             stage_fixed: true
           - run: npm run typecheck
           - run: npm run test
-    - run: npm run remind-es5-test
-      glob:
-        - "src/*.ts"
-        - "src/**/*.ts"
-        - "rollup.config.*.mjs"
-      exclude:
-        - "src/*.spec.ts"
-        - "src/**/*.spec.ts"
