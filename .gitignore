@@ -147,7 +147,6 @@ dist
 /.git/
 
 # viewport-extra
-/.polyfillcheck
 /examples/*/package-lock.json
 /types/
 /.types/

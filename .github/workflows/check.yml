@@ -38,6 +38,10 @@ jobs:
         shell: bash
         run: npm run stylecheck -- --no-errors-on-unmatched
 
+      - name: Check ES5 artifacts
+        shell: bash
+        run: npm run es5check
+
       - name: Check types
         shell: bash
         run: npm run typecheck

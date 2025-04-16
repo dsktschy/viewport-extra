@@ -7,9 +7,7 @@
   "words": [
     "nuxt",
     "dsktschy",
-    "polyfillcheck",
     "autorelease",
-    "corejs",
     "kebabize",
     "viewports",
     "orientationchange",
@@ -27,7 +25,6 @@
     "stylecheck",
     "npmjs",
     "vercel",
-    "rollup",
     "lefthook"
   ]
 }
