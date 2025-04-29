@@ -1,5 +1,7 @@
-import { setContent, updateReference } from "@@/dist/viewport-extra.mjs";
-
+const { setContent, updateReference } =
+  __TYPESCRIPT_TARGET__ !== "es5"
+    ? await import("@@/dist/viewport-extra.mjs")
+    : await import("@@/dist/es5/viewport-extra.mjs");
 const firstViewportMetaElement = document.querySelector(
   'meta[name="viewport"]',
 );
@@ -18,3 +20,6 @@ if (firstViewportMetaElement) {
       >[0],
     );
 }
+document
+  .querySelector("[data-asset-script]")
+  ?.setAttribute("data-status", "complete");

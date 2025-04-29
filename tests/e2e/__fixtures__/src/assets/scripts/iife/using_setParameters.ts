@@ -27,3 +27,6 @@ if (ViewportExtra) {
     ViewportExtra.setParameters(...argumentList);
   }
 }
+document
+  .querySelector("[data-asset-script]")
+  ?.setAttribute("data-status", "complete");

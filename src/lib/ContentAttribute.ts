@@ -1,4 +1,5 @@
 import type { Content } from "./Content.js";
+import { numberIsNaN } from "./number.js";
 import { camelizeKebabCaseString } from "./string.js";
 
 export type ContentAttribute = string;
@@ -29,8 +30,6 @@ export const createOptionalPartialContent = (
           const trimmedValue = value.trim();
           if (!trimmedValue) return partialContent;
           const numberValue = +trimmedValue;
-          // biome-ignore lint/suspicious/noSelfCompare: polyfill for Number.isNaN
-          const numberIsNaN = (x: unknown) => x !== x;
           partialContent[camelizeKebabCaseString(trimmedKey)] = numberIsNaN(
             numberValue,
           )

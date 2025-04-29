@@ -1,3 +1,5 @@
+import { arrayFrom } from "./ArrayLike.js";
+
 export const ensureViewportElement = (doc: Document): HTMLMetaElement => {
   const viewportElement = doc.querySelector<HTMLMetaElement>(
     'meta[name="viewport"]',
@@ -9,16 +11,10 @@ export const ensureViewportElement = (doc: Document): HTMLMetaElement => {
   return metaElement;
 };
 
-export const getViewportExtraElementList = (
-  doc: Document,
-): HTMLMetaElement[] => {
-  // biome-ignore lint/complexity/noUselessTypeConstraint: to avoid errors when building
-  const arrayFrom = <T extends unknown>(arrayLike: ArrayLike<T>): T[] =>
-    (Array.prototype as T[]).slice.call(arrayLike);
-  return arrayFrom(
+export const getViewportExtraElementList = (doc: Document): HTMLMetaElement[] =>
+  arrayFrom(
     doc.querySelectorAll<HTMLMetaElement>('meta[name="viewport-extra"]'),
   );
-};
 
 export const getDocumentClientWidth = (doc: Document): number =>
   doc.documentElement.clientWidth;

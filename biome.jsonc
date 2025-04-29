@@ -29,5 +29,8 @@
         "noEmptyBlockStatements": "error"
       }
     }
+  },
+  "javascript": {
+    "globals": ["__TYPESCRIPT_TARGET__"]
   }
 }
