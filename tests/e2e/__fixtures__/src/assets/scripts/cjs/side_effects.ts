@@ -1,13 +1,6 @@
-import { setParameters } from "@@/dist/viewport-extra.cjs";
-
-const mediaSpecificParametersListAttribute = document
-  .querySelector("[data-media-specific-parameters-list]")
-  ?.getAttribute("data-media-specific-parameters-list");
-if (typeof mediaSpecificParametersListAttribute === "string") {
-  const argumentList: Parameters<typeof setParameters> = [
-    JSON.parse(mediaSpecificParametersListAttribute) as Parameters<
-      typeof setParameters
-    >[0],
-  ];
-  setParameters(...argumentList);
-}
+__TYPESCRIPT_TARGET__ !== "es5"
+  ? await import("@@/dist/viewport-extra.cjs")
+  : await import("@@/dist/es5/viewport-extra.cjs");
+document
+  .querySelector("[data-asset-script]")
+  ?.setAttribute("data-status", "complete");

@@ -16,3 +16,6 @@ if (ViewportExtra) {
       >[0],
     );
 }
+document
+  .querySelector("[data-asset-script]")
+  ?.setAttribute("data-status", "complete");

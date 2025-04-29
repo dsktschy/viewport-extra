@@ -13,6 +13,16 @@
         "types": "./dist/viewport-extra.d.cts",
         "default": "./dist/viewport-extra.cjs"
       }
+    },
+    "./es5": {
+      "import": {
+        "types": "./dist/es5/viewport-extra.d.mts",
+        "default": "./dist/es5/viewport-extra.mjs"
+      },
+      "require": {
+        "types": "./dist/es5/viewport-extra.d.cts",
+        "default": "./dist/es5/viewport-extra.cjs"
+      }
     }
   },
   "main": "./dist/viewport-extra.cjs",
@@ -25,7 +35,7 @@
     "build": "NODE_OPTIONS=--no-warnings=ExperimentalWarning rollup --config rollup.config.build.js --environment NODE_ENV:production",
     "declare": "npm-run-all --sequential declare:clean declare:execute declare:bundle declare:clean",
     "declare:clean": "rimraf .types",
-    "declare:execute": "tsc src/viewport-extra.ts --declaration --emitDeclarationOnly --outDir .types --resolveJsonModule",
+    "declare:execute": "tsx --no-warnings=ExperimentalWarning scripts/create-declaration-with-dts.ts src/viewport-extra.ts --output-directory .types",
     "declare:bundle": "NODE_OPTIONS=--no-warnings=ExperimentalWarning rollup --config rollup.config.declare.js --environment NODE_ENV:production",
     "spellcheck": "cspell lint",
     "stylecheck": "tsx --no-warnings=ExperimentalWarning scripts/biome-with-recursive-gitignore.ts",
@@ -69,6 +79,7 @@
     "@commitlint/config-conventional": "19.2.2",
     "@eslint/compat": "1.2.8",
     "@playwright/test": "1.46.1",
+    "@rollup/plugin-replace": "6.0.2",
     "@rollup/plugin-terser": "0.4.4",
     "@rollup/plugin-typescript": "12.1.0",
     "@types/node": "22.5.2",

@@ -1,5 +1,34 @@
 import { describe, expect, it } from "vitest";
-import { truncateDecimalNumber } from "./number.js";
+import {
+  mathTrunc,
+  numberIsFinite,
+  numberIsNaN,
+  truncateDecimalNumber,
+} from "./number.js";
+
+describe("numberIsFinite", () => {
+  describe("case where target of TypeScript is not es5", () => {
+    it("should return Number.isFinite", async () => {
+      expect(numberIsFinite).toBe(Number.isFinite);
+    });
+  });
+});
+
+describe("mathTrunc", () => {
+  describe("case where target of TypeScript is not es5", () => {
+    it("should return Math.trunc", async () => {
+      expect(mathTrunc).toBe(Math.trunc);
+    });
+  });
+});
+
+describe("numberIsNaN", () => {
+  describe("case where target of TypeScript is not es5", () => {
+    it("should return Number.isNaN", async () => {
+      expect(numberIsNaN).toBe(Number.isNaN);
+    });
+  });
+});
 
 describe("truncateDecimalNumber", () => {
   describe("case where second argument is finite", () => {

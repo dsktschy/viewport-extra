@@ -1,5 +1,7 @@
-import { setParameters } from "@@/dist/viewport-extra.cjs";
-
+const { setParameters } =
+  __TYPESCRIPT_TARGET__ !== "es5"
+    ? await import("@@/dist/viewport-extra.cjs")
+    : await import("@@/dist/es5/viewport-extra.cjs");
 const globalParametersAttribute = document
   .querySelector("[data-global-parameters]")
   ?.getAttribute("data-global-parameters");
@@ -20,3 +22,6 @@ if (typeof mediaSpecificParametersListAttribute === "string") {
     );
   setParameters(...argumentList);
 }
+document
+  .querySelector("[data-asset-script]")
+  ?.setAttribute("data-status", "complete");

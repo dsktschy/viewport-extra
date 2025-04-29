@@ -14,3 +14,6 @@ if (ViewportExtra) {
       convertToJsonString(ViewportExtra.getContent()),
     );
 }
+document
+  .querySelector("[data-asset-script]")
+  ?.setAttribute("data-status", "complete");
