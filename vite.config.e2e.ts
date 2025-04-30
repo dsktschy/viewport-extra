@@ -9,15 +9,12 @@ export default defineConfig({
     target: "es2022",
     rollupOptions: {
       input: {
-        "dummy.html": path.resolve(
-          import.meta.dirname,
-          `${sourceDirectory}dummy.html`,
-        ),
+        "dummy.html": `${sourceDirectory}dummy.html`,
         ...globSync(`${sourceDirectory}**/*.ts`).reduce<Record<string, string>>(
           (result, relativePath) => {
             result[
               relativePath.replace(sourceDirectory, "").replace(/\.ts$/, ".js")
-            ] = path.resolve(import.meta.dirname, relativePath);
+            ] = relativePath;
             return result;
           },
           {},
@@ -55,9 +52,9 @@ export default defineConfig({
         ],
       })),
     },
-    outDir: path.resolve(import.meta.dirname, "tests/e2e/__fixtures__/dist"),
+    outDir: "tests/e2e/__fixtures__/dist",
   },
-  publicDir: path.resolve(import.meta.dirname, "dist"),
+  publicDir: "dist",
   resolve: {
     alias: {
       "@@": import.meta.dirname,
