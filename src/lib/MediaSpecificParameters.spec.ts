@@ -5,7 +5,6 @@ import {
   createContentAttribute,
   createMediaSpecificParameters,
   createPartialMediaSpecificParametersMerger,
-  getContent,
   mergePartialMediaSpecificParameters,
 } from "./MediaSpecificParameters.js";
 
@@ -435,29 +434,6 @@ describe("assignOptionalMedia", () => {
   describe("case where second argument is undefined", () => {
     it("should do nothing", () => {
       expect(assignOptionalMedia({}, undefined)).toStrictEqual({});
-    });
-  });
-});
-
-describe("getContent", () => {
-  it("should return content property of argument", () => {
-    expect(
-      getContent({
-        content: {
-          width: "device-width",
-          initialScale: 2,
-          minWidth: 414,
-          maxWidth: 768,
-          interactiveWidget: "resizes-content",
-        },
-        media: "",
-      }),
-    ).toStrictEqual({
-      width: "device-width",
-      initialScale: 2,
-      minWidth: 414,
-      maxWidth: 768,
-      interactiveWidget: "resizes-content",
     });
   });
 });

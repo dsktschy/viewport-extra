@@ -29,28 +29,3 @@ describe("setContent", () => {
     });
   });
 });
-
-describe("getContent", () => {
-  describe("running in environments where no window object exists", () => {
-    it("returns default Content object", async () => {
-      const { getContent } = await import("./viewport-extra.js");
-      expect(getContent()).toStrictEqual({
-        width: "device-width",
-        initialScale: 1,
-        minWidth: 0,
-        maxWidth: Number.POSITIVE_INFINITY,
-      });
-    });
-  });
-});
-
-describe("updateReference", () => {
-  describe("running in environments where no window object exists", () => {
-    it("does not throw error", async () => {
-      const { updateReference } = await import("./viewport-extra.js");
-      expect(() => {
-        updateReference();
-      }).not.toThrowError();
-    });
-  });
-});

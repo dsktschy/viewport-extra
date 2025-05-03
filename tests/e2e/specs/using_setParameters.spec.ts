@@ -190,10 +190,10 @@ import {
           await page.goto("/tests/e2e/__fixtures__/src/dummy.html");
         });
 
-        test.describe("case where unscaledComputing property in merged internalGlobalParameters variable is false", () => {
+        test.describe("case where unscaledComputing property in second argument is false", () => {
           // When initial scale is 1 or less, document.documentElement.clientWidth is equal to viewport width
           test.describe("case where initial scale before running setParameters is 1 or less", () => {
-            test("width of viewport is used for comparison, and initialScale property merged from current internalPartialMediaSpecificParametersList variable and first argument is applied to output initial-scale", async ({
+            test("width of viewport is used for comparison, and initialScale property merged from items in first argument is applied to output initial-scale", async ({
               page,
               viewport,
             }, { config: { projects } }) => {
@@ -238,7 +238,7 @@ import {
 
           // When initial scale is greater than 1, document.documentElement.clientWidth is not equal to viewport width
           test.describe("case where initial scale before running setParameters is greater than 1", () => {
-            test("width of window without scroll bars when scale is 1 is used for comparison, and initialScale property merged from current internalPartialMediaSpecificParametersList variable and first argument is applied to output initial-scale", async ({
+            test("width of window without scroll bars when scale is 1 is used for comparison, and initialScale property merged from items in first argument is applied to output initial-scale", async ({
               page,
               viewport,
             }, { config: { projects } }) => {
@@ -279,9 +279,9 @@ import {
           });
         });
 
-        test.describe("case where unscaledComputing property in merged internalGlobalParameters variable is true", () => {
+        test.describe("case where unscaledComputing property in second argument is true", () => {
           test.describe("case where initial scale before running setParameters is 1 or less", () => {
-            test("width of window without scroll bars when scale is 1 is used for comparison, and initialScale property merged from current internalPartialMediaSpecificParametersList variable and first argument is applied to output initial-scale", async ({
+            test("width of window without scroll bars when scale is 1 is used for comparison, and initialScale property merged from items in first argument is applied to output initial-scale", async ({
               page,
               viewport,
             }, { config: { projects } }) => {
@@ -322,7 +322,7 @@ import {
           });
 
           test.describe("case where initial scale before running setParameters is greater than 1", () => {
-            test("width of window without scroll bars when scale is 1 is used for comparison, and initialScale property merged from current internalPartialMediaSpecificParametersList variable and first argument is applied to output initial-scale", async ({
+            test("width of window without scroll bars when scale is 1 is used for comparison, and initialScale property merged from items in first argument is applied to output initial-scale", async ({
               page,
               viewport,
             }, { config: { projects } }) => {
@@ -364,96 +364,16 @@ import {
         });
       });
 
-      // Following cases cannot be tested with Vitest,
-      // as it does not update size of document element when viewport element is updated
-      // Run only in minimal outputs and viewports because E2E testing is not goal
-      test.describe("merging current internalGlobalParameters variable and second argument", () => {
-        test.beforeEach(async ({ page }, testInfo) => {
-          testInfo.skip(outputIndex !== 0);
-          testInfo.skip(!["xs"].includes(testInfo.project.name));
-          await page.goto("/tests/e2e/__fixtures__/src/dummy.html");
-        });
-
-        test.describe("case where second argument is provided", () => {
-          test("values in second argument is used", async ({ page, viewport }, {
-            config: { projects },
-          }) => {
-            const smViewportWidth =
-              (getViewportSize(projects, "sm")?.use.viewport?.width ?? 0) / 0.5;
-            const documentClientWidth = viewport
-              ? viewport.width / 0.5
-              : undefined;
-            await page.setContent(`
-              <!doctype html>
-              <html lang="en">
-                <head>
-                  <meta charset="UTF-8" />
-                  <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-unscaled-computing data-extra-decimal-places="6" />
-                  ${moduleFlag ? "" : `<script src="/${outputSubDirectory}viewport-extra${minified ? ".min" : ""}.js"></script>`}
-                </head>
-                <body>
-                  <script data-global-parameters='{ "unscaledComputing": false, "decimalPlaces": 0 }' data-media-specific-parameters-list='[{ "content": { "initialScale": 2, "minWidth": ${smViewportWidth} } }]'></script>
-                  <script src="/assets/scripts/${assetSubDirectory}using_setParameters.js" type="module" data-asset-script data-status="incomplete"></script>
-                </body>
-              </html>
-            `);
-            await waitForAssetScriptComplete(page);
-            expect(await getViewportContentString(page)).toBe(
-              documentClientWidth && smViewportWidth > 0
-                ? documentClientWidth < smViewportWidth
-                  ? `initial-scale=${Math.trunc((documentClientWidth / smViewportWidth) * 2 * 10 ** 0) / 10 ** 0},width=${smViewportWidth}`
-                  : "initial-scale=2,width=device-width"
-                : "",
-            );
-          });
-        });
-
-        test.describe("case where second argument is not provided", () => {
-          test("values in current internalGlobalParameters variable is used", async ({
-            page,
-            viewport,
-          }, { config: { projects } }) => {
-            const smViewportWidth =
-              getViewportSize(projects, "sm")?.use.viewport?.width ?? 0;
-            const documentClientWidth = viewport ? viewport.width : undefined;
-            await page.setContent(`
-              <!doctype html>
-              <html lang="en">
-                <head>
-                  <meta charset="UTF-8" />
-                  <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-unscaled-computing data-extra-decimal-places="6" />
-                  ${moduleFlag ? "" : `<script src="/${outputSubDirectory}viewport-extra${minified ? ".min" : ""}.js"></script>`}
-                </head>
-                <body>
-                  <script data-media-specific-parameters-list='[{ "content": { "initialScale": 2, "minWidth": ${smViewportWidth} } }]'></script>
-                  <script src="/assets/scripts/${assetSubDirectory}using_setParameters.js" type="module" data-asset-script data-status="incomplete"></script>
-                </body>
-              </html>
-            `);
-            await waitForAssetScriptComplete(page);
-            expect(await getViewportContentString(page)).toBe(
-              documentClientWidth && smViewportWidth > 0
-                ? documentClientWidth < smViewportWidth
-                  ? `initial-scale=${Math.trunc((documentClientWidth / smViewportWidth) * 2 * 10 ** 6) / 10 ** 6},width=${smViewportWidth}`
-                  : "initial-scale=2,width=device-width"
-                : "",
-            );
-          });
-        });
-      });
-
       // Following cases cannot be tested with Vitest, as it does not provide matchMedia method
       // Run only in minimal outputs and viewports because E2E testing is not goal
-      test.describe("merging current internalPartialMediaSpecificParametersList variable and first argument", () => {
+      test.describe("merging items in first argument", () => {
         test.beforeEach(async ({ page }, testInfo) => {
           testInfo.skip(outputIndex !== 0);
           testInfo.skip(!["xs"].includes(testInfo.project.name));
           await page.goto("/tests/e2e/__fixtures__/src/dummy.html");
         });
 
-        test("properties of objects in current internalPartialMediaSpecificParametersList variable and first argument whose media properties match viewport are used. First argument is handled as being after objects in current internalPartialMediaSpecificParametersList variable", async ({
+        test("items in first argument whose media properties match viewport are used", async ({
           page,
           viewport,
         }, { config: { projects } }) => {
@@ -470,14 +390,14 @@ import {
               <head>
                 <meta charset="UTF-8" />
                 <title>Document</title>
-                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-unscaled-computing />
-                <meta name="viewport-extra" content="min-width=${xlViewportWidth}" data-media="(min-width: ${lgViewportWidth}px)" />
-                <meta name="viewport-extra" content="min-width=${lgViewportWidth}" data-media="(min-width: ${smViewportWidth}px)" />
+                <meta name="viewport" content="width=device-width,initial-scale=1" />
                 ${moduleFlag ? "" : `<script src="/${outputSubDirectory}viewport-extra${minified ? ".min" : ""}.js"></script>`}
               </head>
               <body>
-                <script data-media-specific-parameters-list='${`
+                <script data-global-parameters='{ "unscaledComputing": true }' data-media-specific-parameters-list='${`
                   [
+                    { "content": { "minWidth": ${xlViewportWidth} }, "media": "(min-width: ${lgViewportWidth}px)" },
+                    { "content": { "minWidth": ${lgViewportWidth} }, "media": "(min-width: ${smViewportWidth}px)" },
                     { "content": { "minWidth": ${smViewportWidth + 2} } },
                     { "content": { "minWidth": ${smViewportWidth + 1} } },
                     { "content": { "minWidth": ${smViewportWidth}, "initialScale": 0.5 } },

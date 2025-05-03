@@ -1,7 +1,5 @@
-"use client";
-
 import { usePathname } from "next/navigation";
-import { type FunctionComponent, useLayoutEffect, useRef } from "react";
+import { type FunctionComponent, useEffect, useRef } from "react";
 
 const ViewportExtra: FunctionComponent<{
   minWidth?: number;
@@ -11,7 +9,7 @@ const ViewportExtra: FunctionComponent<{
 
   const previousPathname = useRef("");
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (pathname !== previousPathname.current) {
       previousPathname.current = pathname;
       import("viewport-extra").then(({ setContent }) => {

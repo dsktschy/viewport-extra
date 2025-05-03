@@ -90,10 +90,6 @@ export const assignOptionalMedia = (
       }
     : (optionalPartialMediaSpecificParameters ?? {});
 
-export const getContent = (
-  mediaSpecificParameters: MediaSpecificParameters,
-): Content => mediaSpecificParameters.content;
-
 export const createPartialMediaSpecificParametersMerger =
   (isMatchingCurrentViewport: (media?: Media) => boolean) =>
   (
