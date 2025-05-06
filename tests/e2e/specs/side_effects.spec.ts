@@ -172,173 +172,19 @@ import {
         });
       });
 
-      // Following cases cannot be tested with Vitest,
-      // as it does not update size of document element when viewport element is updated
-      // Run only in minimal outputs and viewports because E2E testing is not goal
-      test.describe("comparison with min-width and max-width, and computation of output initial-scale", () => {
-        test.beforeEach(async ({ page }, testInfo) => {
-          testInfo.skip(outputIndex !== 0);
-          testInfo.skip(!["xs", "xl"].includes(testInfo.project.name));
-          await page.goto("/tests/e2e/__fixtures__/src/dummy.html");
-        });
-
-        test("width of window without scroll bars when scale is 1 is used for comparison, and initial-scale merged from viewport and viewport-extra meta elements is applied to output initial-scale", async ({
-          page,
-          viewport,
-        }, { config: { projects } }) => {
-          const smViewportWidth =
-            getViewportSize(projects, "sm")?.use.viewport?.width ?? 0;
-          const lgViewportWidth =
-            getViewportSize(projects, "lg")?.use.viewport?.width ??
-            Number.POSITIVE_INFINITY;
-          const documentClientWidth = viewport ? viewport.width : undefined;
-          await page.setContent(`
-            <!doctype html>
-            <html lang="en">
-              <head>
-                <meta charset="UTF-8" />
-                <title>Document</title>
-                <meta name="viewport" content="width=device-width,initial-scale=0.5"/>
-                <meta name="viewport-extra" content="min-width=${smViewportWidth},max-width=${lgViewportWidth}" />
-                ${moduleFlag ? "" : `<script src="/${outputSubDirectory}viewport-extra${minified ? ".min" : ""}.js"></script>`}
-              </head>
-              <body>
-                <script src="/assets/scripts/${assetSubDirectory}side_effects.js" type="module" data-asset-script data-status="incomplete"></script>
-              </body>
-            </html>
-          `);
-          await waitForAssetScriptComplete(page);
-          expect(await getViewportContentString(page)).toBe(
-            documentClientWidth &&
-              smViewportWidth > 0 &&
-              lgViewportWidth < Number.POSITIVE_INFINITY
-              ? documentClientWidth < smViewportWidth
-                ? `initial-scale=${(documentClientWidth / smViewportWidth) * 0.5},width=${smViewportWidth}`
-                : documentClientWidth > lgViewportWidth
-                  ? `initial-scale=${(documentClientWidth / lgViewportWidth) * 0.5},width=${lgViewportWidth}`
-                  : "initial-scale=0.5,width=device-width"
-              : "",
-          );
-        });
-      });
-
-      // Following cases cannot be tested with Vitest, as it does not provide matchMedia method
-      // Run only in minimal outputs and viewports because E2E testing is not goal
-      test.describe("merging attributes for GlobalParameters, of viewport and viewport-extra meta elements", () => {
-        test.beforeEach(async ({ page }, testInfo) => {
-          testInfo.skip(outputIndex !== 0);
-          testInfo.skip(!["xs"].includes(testInfo.project.name));
-          await page.goto("/tests/e2e/__fixtures__/src/dummy.html");
-        });
-
-        test.describe("case where viewport meta elements exist and viewport-extra meta elements do not exist", () => {
-          test("only attributes of first viewport meta element are used", async ({
-            page,
-            viewport,
-          }, { config: { projects } }) => {
-            const xsViewportWidth =
-              getViewportSize(projects, "xs")?.use.viewport?.width ?? 0;
-            const smViewportWidth =
-              getViewportSize(projects, "sm")?.use.viewport?.width ?? 0;
-            const documentClientWidth = viewport ? viewport.width : undefined;
-            await page.setContent(`
-              <!doctype html>
-              <html lang="en">
-                <head>
-                  <meta charset="UTF-8" />
-                  <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-decimal-places="0" data-extra-content="min-width=${smViewportWidth}" />
-                  <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-decimal-places="Infinity" />
-                  <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-decimal-places="6" data-extra-media="(min-width: ${xsViewportWidth}px)" />
-                  ${moduleFlag ? "" : `<script src="/${outputSubDirectory}viewport-extra${minified ? ".min" : ""}.js"></script>`}
-                </head>
-                <body>
-                  <script src="/assets/scripts/${assetSubDirectory}side_effects.js" type="module" data-asset-script data-status="incomplete"></script>
-                </body>
-              </html>
-            `);
-            await waitForAssetScriptComplete(page);
-            expect(await getViewportContentString(page)).toBe(
-              documentClientWidth && smViewportWidth > 0
-                ? documentClientWidth < smViewportWidth
-                  ? `initial-scale=${Math.trunc((documentClientWidth / smViewportWidth) * 1 * 10 ** 0) / 10 ** 0},width=${smViewportWidth}`
-                  : "initial-scale=1,width=device-width"
-                : "",
-            );
-          });
-        });
-
-        test.describe("case where viewport meta elements do not exist and viewport-extra meta elements exist", () => {
-          test("attributes of all viewport-extra meta elements are used. Attributes of elements that appear later have priority", async ({
-            page,
-            viewport,
-          }, { config: { projects } }) => {
-            const smViewportWidth =
-              getViewportSize(projects, "sm")?.use.viewport?.width ?? 0;
-            const documentClientWidth = viewport ? viewport.width : undefined;
-            await page.setContent(`
-              <!doctype html>
-              <html lang="en">
-                <head>
-                  <meta charset="UTF-8" />
-                  <title>Document</title>
-                  <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=${smViewportWidth}" data-decimal-places="0" />
-                  <meta name="viewport-extra" content="width=device-width,initial-scale=1" data-decimal-places="Infinity" />
-                  <meta name="viewport-extra" content="width=device-width,initial-scale=2,min-width=${smViewportWidth + 1}" data-decimal-places="6" data-media="(min-width: ${smViewportWidth}px)" />
-                  ${moduleFlag ? "" : `<script src="/${outputSubDirectory}viewport-extra${minified ? ".min" : ""}.js"></script>`}
-                </head>
-                <body>
-                  <script src="/assets/scripts/${assetSubDirectory}side_effects.js" type="module" data-asset-script data-status="incomplete"></script>
-                </body>
-              </html>
-            `);
-            await waitForAssetScriptComplete(page);
-            expect(await getViewportContentString(page)).toBe(
-              documentClientWidth && smViewportWidth > 0
-                ? documentClientWidth < smViewportWidth
-                  ? `initial-scale=${Math.trunc((documentClientWidth / smViewportWidth) * 1 * 10 ** 6) / 10 ** 6},width=${smViewportWidth}`
-                  : "initial-scale=1,width=device-width"
-                : "",
-            );
-          });
-        });
-
-        test.describe("case where both viewport and viewport-extra meta elements exist", () => {
-          test("attributes of first viewport meta element and all viewport-extra meta elements are used. Attributes of elements that appear later have priority. Viewport-extra meta elements are handled as being after viewport meta element", async ({
-            page,
-            viewport,
-          }, { config: { projects } }) => {
-            const smViewportWidth =
-              getViewportSize(projects, "sm")?.use.viewport?.width ?? 0;
-            const documentClientWidth = viewport ? viewport.width : undefined;
-            await page.setContent(`
-              <!doctype html>
-              <html lang="en">
-                <head>
-                  <meta charset="UTF-8" />
-                  <title>Document</title>
-                  <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=${smViewportWidth}" data-decimal-places="0" />
-                  <meta name="viewport-extra" content="width=device-width,initial-scale=2,min-width=${smViewportWidth + 1}" data-decimal-places="6" data-media="(min-width: ${smViewportWidth}px)" />
-                  <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-decimal-places="Infinity" />
-                  ${moduleFlag ? "" : `<script src="/${outputSubDirectory}viewport-extra${minified ? ".min" : ""}.js"></script>`}
-                </head>
-                <body>
-                  <script src="/assets/scripts/${assetSubDirectory}side_effects.js" type="module" data-asset-script data-status="incomplete"></script>
-                </body>
-              </html>
-            `);
-            await waitForAssetScriptComplete(page);
-            expect(await getViewportContentString(page)).toBe(
-              documentClientWidth && smViewportWidth > 0
-                ? documentClientWidth < smViewportWidth
-                  ? `initial-scale=${Math.trunc((documentClientWidth / smViewportWidth) * 1 * 10 ** 6) / 10 ** 6},width=${smViewportWidth}`
-                  : "initial-scale=1,width=device-width"
-                : "",
-            );
+      test.describe("behavior according to attributes of viewport(-extra) meta elements", () => {
+        // Following cases cannot be tested with Vitest,
+        // as it does not provide matchMedia method
+        test.describe("data-(extra-)media attribute", () => {
+          // Run only in minimal outputs and viewports
+          test.beforeEach(async ({ page }, testInfo) => {
+            testInfo.skip(outputIndex !== 0);
+            testInfo.skip(!["xs"].includes(testInfo.project.name));
+            await page.goto("/tests/e2e/__fixtures__/src/dummy.html");
           });
 
-          test.describe("missing attributes are in first viewport meta element and all viewport-extra meta elements", () => {
-            test("default values for missing attributes are used", async ({
+          test.describe("case where value is media query that matches viewport width", () => {
+            test("(data-extra-)content attribute of same element is used for computing", async ({
               page,
               viewport,
             }, { config: { projects } }) => {
@@ -351,9 +197,79 @@ import {
                   <head>
                     <meta charset="UTF-8" />
                     <title>Document</title>
-                    <meta name="viewport" content="width=device-width,initial-scale=1" />
-                    <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=${smViewportWidth}" />
-                    <meta name="viewport-extra" content="width=device-width,initial-scale=2,min-width=${smViewportWidth + 1}" data-media="(min-width: ${smViewportWidth}px)" />
+                    <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=${smViewportWidth}" data-extra-media="(max-width: ${smViewportWidth}px)" />
+                    ${moduleFlag ? "" : `<script src="/${outputSubDirectory}viewport-extra${minified ? ".min" : ""}.js"></script>`}
+                  </head>
+                  <body>
+                    <script src="/assets/scripts/${assetSubDirectory}side_effects.js" type="module" data-asset-script data-status="incomplete"></script>
+                  </body>
+                </html>
+              `);
+              await waitForAssetScriptComplete(page);
+              expect(await getViewportContentString(page)).toBe(
+                documentClientWidth && smViewportWidth > 0
+                  ? documentClientWidth <= smViewportWidth
+                    ? documentClientWidth < smViewportWidth
+                      ? `initial-scale=${(documentClientWidth / smViewportWidth) * 1},width=${smViewportWidth}`
+                      : "initial-scale=1,width=device-width"
+                    : "initial-scale=1,width=device-width"
+                  : "",
+              );
+            });
+          });
+
+          test.describe("case where value is media query that does not match viewport width", () => {
+            test("(data-extra-)content attribute of same element is not used for computing", async ({
+              page,
+              viewport,
+            }, { config: { projects } }) => {
+              const lgViewportWidth =
+                getViewportSize(projects, "lg")?.use.viewport?.width ?? 0;
+              const xlViewportWidth =
+                getViewportSize(projects, "xl")?.use.viewport?.width ?? 0;
+              const documentClientWidth = viewport ? viewport.width : undefined;
+              await page.setContent(`
+                <!doctype html>
+                <html lang="en">
+                  <head>
+                    <meta charset="UTF-8" />
+                    <title>Document</title>
+                    <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=${xlViewportWidth}" data-extra-media="(min-width: ${lgViewportWidth}px)" />
+                    ${moduleFlag ? "" : `<script src="/${outputSubDirectory}viewport-extra${minified ? ".min" : ""}.js"></script>`}
+                  </head>
+                  <body>
+                    <script src="/assets/scripts/${assetSubDirectory}side_effects.js" type="module" data-asset-script data-status="incomplete"></script>
+                  </body>
+                </html>
+              `);
+              await waitForAssetScriptComplete(page);
+              expect(await getViewportContentString(page)).toBe(
+                documentClientWidth && xlViewportWidth > 0
+                  ? documentClientWidth >= lgViewportWidth
+                    ? documentClientWidth < xlViewportWidth
+                      ? `initial-scale=${(documentClientWidth / xlViewportWidth) * 1},width=${xlViewportWidth}`
+                      : "initial-scale=1,width=device-width"
+                    : "initial-scale=1,width=device-width"
+                  : "",
+              );
+            });
+          });
+
+          test.describe("case where attribute is not set", () => {
+            test("(data-extra-)content attribute of same element is used for computing", async ({
+              page,
+              viewport,
+            }, { config: { projects } }) => {
+              const smViewportWidth =
+                getViewportSize(projects, "sm")?.use.viewport?.width ?? 0;
+              const documentClientWidth = viewport ? viewport.width : undefined;
+              await page.setContent(`
+                <!doctype html>
+                <html lang="en">
+                  <head>
+                    <meta charset="UTF-8" />
+                    <title>Document</title>
+                    <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=${smViewportWidth}" />
                     ${moduleFlag ? "" : `<script src="/${outputSubDirectory}viewport-extra${minified ? ".min" : ""}.js"></script>`}
                   </head>
                   <body>
@@ -372,140 +288,162 @@ import {
             });
           });
         });
+
+        // Following cases cannot be tested with Vitest,
+        // as it does not update size of document element when viewport element is updated
+        test.describe("data-(extra-)unscaled-computing attribute", () => {
+          // Run only in minimal outputs and viewports
+          test.beforeEach(async ({ page }, testInfo) => {
+            testInfo.skip(outputIndex !== 0);
+            testInfo.skip(!["xs", "xl"].includes(testInfo.project.name));
+            await page.goto("/tests/e2e/__fixtures__/src/dummy.html");
+          });
+
+          test.describe("case where attribute is set", () => {
+            test("window width without scroll bars when scale is 1 is used for comparison with min-width and max-width", async ({
+              page,
+              viewport,
+            }, { config: { projects } }) => {
+              const smViewportWidth =
+                getViewportSize(projects, "sm")?.use.viewport?.width ?? 0;
+              const lgViewportWidth =
+                getViewportSize(projects, "lg")?.use.viewport?.width ??
+                Number.POSITIVE_INFINITY;
+              const documentClientWidth = viewport ? viewport.width : undefined;
+              await page.setContent(`
+                <!doctype html>
+                <html lang="en">
+                  <head>
+                    <meta charset="UTF-8" />
+                    <title>Document</title>
+                    <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-content="min-width=${smViewportWidth},max-width=${lgViewportWidth}" data-extra-unscaled-computing />
+                    ${moduleFlag ? "" : `<script src="/${outputSubDirectory}viewport-extra${minified ? ".min" : ""}.js"></script>`}
+                  </head>
+                  <body>
+                    <script src="/assets/scripts/${assetSubDirectory}side_effects.js" type="module" data-asset-script data-status="incomplete"></script>
+                  </body>
+                </html>
+              `);
+              await waitForAssetScriptComplete(page);
+              expect(await getViewportContentString(page)).toBe(
+                documentClientWidth &&
+                  smViewportWidth > 0 &&
+                  lgViewportWidth < Number.POSITIVE_INFINITY
+                  ? documentClientWidth < smViewportWidth
+                    ? `initial-scale=${(documentClientWidth / smViewportWidth) * 0.5},width=${smViewportWidth}`
+                    : documentClientWidth > lgViewportWidth
+                      ? `initial-scale=${(documentClientWidth / lgViewportWidth) * 0.5},width=${lgViewportWidth}`
+                      : "initial-scale=0.5,width=device-width"
+                  : "",
+              );
+            });
+          });
+
+          test.describe("case where attribute is not set", () => {
+            test("window width without scroll bars when scale is 1 is used for comparison with min-width and max-width", async ({
+              page,
+              viewport,
+            }, { config: { projects } }) => {
+              const smViewportWidth =
+                getViewportSize(projects, "sm")?.use.viewport?.width ?? 0;
+              const lgViewportWidth =
+                getViewportSize(projects, "lg")?.use.viewport?.width ??
+                Number.POSITIVE_INFINITY;
+              const documentClientWidth = viewport ? viewport.width : undefined;
+              await page.setContent(`
+                <!doctype html>
+                <html lang="en">
+                  <head>
+                    <meta charset="UTF-8" />
+                    <title>Document</title>
+                    <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-content="min-width=${smViewportWidth},max-width=${lgViewportWidth}" />
+                    ${moduleFlag ? "" : `<script src="/${outputSubDirectory}viewport-extra${minified ? ".min" : ""}.js"></script>`}
+                  </head>
+                  <body>
+                    <script src="/assets/scripts/${assetSubDirectory}side_effects.js" type="module" data-asset-script data-status="incomplete"></script>
+                  </body>
+                </html>
+              `);
+              await waitForAssetScriptComplete(page);
+              expect(await getViewportContentString(page)).toBe(
+                documentClientWidth &&
+                  smViewportWidth > 0 &&
+                  lgViewportWidth < Number.POSITIVE_INFINITY
+                  ? documentClientWidth < smViewportWidth
+                    ? `initial-scale=${(documentClientWidth / smViewportWidth) * 0.5},width=${smViewportWidth}`
+                    : documentClientWidth > lgViewportWidth
+                      ? `initial-scale=${(documentClientWidth / lgViewportWidth) * 0.5},width=${lgViewportWidth}`
+                      : "initial-scale=0.5,width=device-width"
+                  : "",
+              );
+            });
+          });
+        });
       });
 
-      // Following cases cannot be tested with Vitest, as it does not provide matchMedia method
-      // Run only in minimal outputs and viewports because E2E testing is not goal
-      test.describe("merging attributes for MediaSpecificParameters, of viewport and viewport-extra meta elements", () => {
+      // Following cases cannot be tested with Vitest,
+      // as it does not provide matchMedia method
+      test.describe("determination of value to apply from multiple viewport(-extra) meta elements", () => {
+        // Run only in minimal outputs and viewports
         test.beforeEach(async ({ page }, testInfo) => {
           testInfo.skip(outputIndex !== 0);
           testInfo.skip(!["xs"].includes(testInfo.project.name));
           await page.goto("/tests/e2e/__fixtures__/src/dummy.html");
         });
 
-        test.describe("case where viewport meta elements exist and viewport-extra meta elements do not exist", () => {
-          test("only attributes of first viewport meta element are used", async ({
-            page,
-            viewport,
-          }, { config: { projects } }) => {
-            const xsViewportWidth =
-              getViewportSize(projects, "xs")?.use.viewport?.width ?? 0;
-            const smViewportWidth =
-              getViewportSize(projects, "sm")?.use.viewport?.width ?? 0;
-            const documentClientWidth = viewport ? viewport.width : undefined;
-            await page.setContent(`
-              <!doctype html>
-              <html lang="en">
-                <head>
-                  <meta charset="UTF-8" />
-                  <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=${smViewportWidth}" />
-                  <meta name="viewport" content="width=640,initial-scale=2" />
-                  <meta name="viewport" data-extra-content="min-width=${xsViewportWidth + 1}" data-extra-media="(min-width: ${xsViewportWidth}px)" />
-                  ${moduleFlag ? "" : `<script src="/${outputSubDirectory}viewport-extra${minified ? ".min" : ""}.js"></script>`}
-                </head>
-                <body>
-                  <script src="/assets/scripts/${assetSubDirectory}side_effects.js" type="module" data-asset-script data-status="incomplete"></script>
-                </body>
-              </html>
-            `);
-            await waitForAssetScriptComplete(page);
-            expect(await getViewportContentString(page)).toBe(
-              documentClientWidth && smViewportWidth > 0
-                ? documentClientWidth < smViewportWidth
-                  ? `initial-scale=${(documentClientWidth / smViewportWidth) * 1},width=${smViewportWidth}`
-                  : "initial-scale=1,width=device-width"
-                : "",
-            );
-          });
-        });
-
-        test.describe("case where viewport meta elements do not exist and viewport-extra meta elements exist", () => {
-          test("attributes of viewport-extra meta elements whose media attributes match viewport are used. Attributes (or key-value pairs for content attributes) of elements that appear later have priority", async ({
-            page,
-            viewport,
-          }, { config: { projects } }) => {
-            const smViewportWidth =
-              getViewportSize(projects, "sm")?.use.viewport?.width ?? 0;
-            const lgViewportWidth =
-              getViewportSize(projects, "lg")?.use.viewport?.width ?? 0;
-            const xlViewportWidth =
-              getViewportSize(projects, "xl")?.use.viewport?.width ?? 0;
-            const documentClientWidth = viewport ? viewport.width : undefined;
-            await page.setContent(`
-              <!doctype html>
-              <html lang="en">
-                <head>
-                  <meta charset="UTF-8" />
-                  <title>Document</title>
-                  <meta name="viewport-extra" content="min-width=${xlViewportWidth}" data-media="(min-width: ${lgViewportWidth}px)" />
-                  <meta name="viewport-extra" content="min-width=${lgViewportWidth}" data-media="(min-width: ${smViewportWidth}px)" />
-                  <meta name="viewport-extra" content="min-width=${smViewportWidth + 2}" />
-                  <meta name="viewport-extra" content="min-width=${smViewportWidth + 1}" />
-                  <meta name="viewport-extra" content="min-width=${smViewportWidth},initial-scale=0.5" />
-                  <meta name="viewport-extra" content="width=device-width,initial-scale=1" />
-                  <meta name="viewport-extra" content="width=device-width,initial-scale=2" data-media="(min-width: ${smViewportWidth}px)" />
-                  ${moduleFlag ? "" : `<script src="/${outputSubDirectory}viewport-extra${minified ? ".min" : ""}.js"></script>`}
-                </head>
-                <body>
-                  <script src="/assets/scripts/${assetSubDirectory}side_effects.js" type="module" data-asset-script data-status="incomplete"></script>
-                </body>
-              </html>
-            `);
-            await waitForAssetScriptComplete(page);
-            expect(await getViewportContentString(page)).toBe(
-              documentClientWidth && smViewportWidth > 0
-                ? documentClientWidth < smViewportWidth
-                  ? `initial-scale=${(documentClientWidth / smViewportWidth) * 1},width=${smViewportWidth}`
-                  : "initial-scale=1,width=device-width"
-                : "",
-            );
-          });
-        });
-
-        test.describe("case where both viewport and viewport-extra meta elements exist", () => {
-          test("attributes of first viewport meta element and viewport-extra meta elements whose media attributes match viewport are used. Attributes (or key-value pairs for content attributes) of elements that appear later have priority. Viewport-extra meta elements are handled as being after viewport meta element", async ({
-            page,
-            viewport,
-          }, { config: { projects } }) => {
-            const xsViewportWidth =
-              getViewportSize(projects, "xs")?.use.viewport?.width ?? 0;
-            const smViewportWidth =
-              getViewportSize(projects, "sm")?.use.viewport?.width ?? 0;
-            const documentClientWidth = viewport ? viewport.width : undefined;
-            await page.setContent(`
-              <!doctype html>
-              <html lang="en">
-                <head>
-                  <meta charset="UTF-8" />
-                  <title>Document</title>
-                  <meta name="viewport-extra" content="width=device-width,initial-scale=1" data-media="(min-width: ${xsViewportWidth}px)" />
-                  <meta name="viewport" content="width=device-width,initial-scale=2" data-extra-content="min-width=${smViewportWidth}" />
-                  <meta name="viewport-extra" content="width=device-width,initial-scale=2,min-width=${smViewportWidth + 1}" data-media="(min-width: ${smViewportWidth}px)" />
-                  ${moduleFlag ? "" : `<script src="/${outputSubDirectory}viewport-extra${minified ? ".min" : ""}.js"></script>`}
-                </head>
-                <body>
-                  <script src="/assets/scripts/${assetSubDirectory}side_effects.js" type="module" data-asset-script data-status="incomplete"></script>
-                </body>
-              </html>
-            `);
-            await waitForAssetScriptComplete(page);
-            expect(await getViewportContentString(page)).toBe(
-              documentClientWidth && smViewportWidth > 0
-                ? documentClientWidth < smViewportWidth
-                  ? `initial-scale=${(documentClientWidth / smViewportWidth) * 1},width=${smViewportWidth}`
-                  : "initial-scale=1,width=device-width"
-                : "",
-            );
-          });
-
-          test.describe("missing attributes (or missing key-value pairs for content attributes) are in first viewport meta element and viewport-extra meta elements whose media attributes match viewport", () => {
-            test("default values for missing attributes (or missing key-value pairs for content attributes) are used", async ({
+        test.describe("(data-extra-)content attributes", () => {
+          test.describe("case where media attributes of first viewport meta element and all viewport-extra meta elements are set", () => {
+            test("filtering elements whose data-(extra-)media attribute matches viewport width from first viewport meta element and all viewport-extra meta elements, and merging only their attributes recursively. viewport-extra meta elements are handled as if they are set later than viewport meta element", async ({
               page,
               viewport,
             }, { config: { projects } }) => {
-              const xsViewportWidth =
-                getViewportSize(projects, "xs")?.use.viewport?.width ?? 0;
+              const smViewportWidth =
+                getViewportSize(projects, "sm")?.use.viewport?.width ?? 0;
+              const lgViewportWidth =
+                getViewportSize(projects, "lg")?.use.viewport?.width ?? 0;
+              const documentClientWidth = viewport ? viewport.width : undefined;
+              await page.setContent(`
+                <!doctype html>
+                <html lang="en">
+                  <head>
+                    <meta charset="UTF-8" />
+                    <title>Document</title>
+                    <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=0,minimum-scale=1" />
+                    <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=${smViewportWidth}" data-media="(max-width: ${smViewportWidth}px)" />
+                    <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=${lgViewportWidth}" data-media="not (max-width: ${smViewportWidth}px)" />
+                    <meta name="viewport" content="width=device-width,initial-scale=2,maximum-scale=5" data-extra-media="(max-width: ${smViewportWidth}px)" />
+                    <meta name="viewport" content="width=device-width,initial-scale=2,maximum-scale=10" data-extra-media="(max-width: ${smViewportWidth}px)" />
+                    ${moduleFlag ? "" : `<script src="/${outputSubDirectory}viewport-extra${minified ? ".min" : ""}.js"></script>`}
+                  </head>
+                  <body>
+                    <script src="/assets/scripts/${assetSubDirectory}side_effects.js" type="module" data-asset-script data-status="incomplete"></script>
+                  </body>
+                </html>
+              `);
+              await waitForAssetScriptComplete(page);
+              expect(await getViewportContentString(page)).toBe(
+                documentClientWidth &&
+                  smViewportWidth > 0 &&
+                  lgViewportWidth > 0
+                  ? documentClientWidth <= smViewportWidth
+                    ? documentClientWidth < smViewportWidth
+                      ? `initial-scale=${(documentClientWidth / smViewportWidth) * 1},maximum-scale=5,minimum-scale=1,width=${smViewportWidth}`
+                      : "initial-scale=1,minimum-scale=1,width=device-width"
+                    : documentClientWidth < lgViewportWidth
+                      ? `initial-scale=${(documentClientWidth / lgViewportWidth) * 1},minimum-scale=1,width=${lgViewportWidth}`
+                      : "initial-scale=1,minimum-scale=1,width=device-width"
+                  : "",
+              );
+            });
+          });
+        });
+
+        test.describe("data-(extra-)decimal-places attributes", () => {
+          test.describe("case where media attributes of first viewport meta element and all viewport-extra meta elements are set", () => {
+            test("merging attributes of first viewport meta element and all viewport-extra meta elements recursively. viewport-extra meta elements are handled as if they are set later than viewport meta element", async ({
+              page,
+              viewport,
+            }, { config: { projects } }) => {
               const smViewportWidth =
                 getViewportSize(projects, "sm")?.use.viewport?.width ?? 0;
               const documentClientWidth = viewport ? viewport.width : undefined;
@@ -515,9 +453,10 @@ import {
                   <head>
                     <meta charset="UTF-8" />
                     <title>Document</title>
-                    <meta name="viewport" content="width=device-width" />
-                    <meta name="viewport-extra" content="min-width=${smViewportWidth}" data-media="(min-width: ${xsViewportWidth}px)" />
-                    <meta name="viewport-extra" content="width=device-width,initial-scale=2,min-width=${smViewportWidth + 1}" data-media="(min-width: ${smViewportWidth}px)" />
+                    <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=${smViewportWidth}" data-decimal-places="7" />
+                    <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=${smViewportWidth}" data-media="(min-width: ${smViewportWidth}px)" data-decimal-places="6" />
+                    <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=${smViewportWidth}" data-extra-media="(min-width: ${smViewportWidth}px)" data-decimal-places="5" />
+                    <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=${smViewportWidth}" data-decimal-places="4" />
                     ${moduleFlag ? "" : `<script src="/${outputSubDirectory}viewport-extra${minified ? ".min" : ""}.js"></script>`}
                   </head>
                   <body>
@@ -529,7 +468,7 @@ import {
               expect(await getViewportContentString(page)).toBe(
                 documentClientWidth && smViewportWidth > 0
                   ? documentClientWidth < smViewportWidth
-                    ? `initial-scale=${(documentClientWidth / smViewportWidth) * 1},width=${smViewportWidth}`
+                    ? `initial-scale=${Math.trunc((documentClientWidth / smViewportWidth) * 1 * 10 ** 6) / 10 ** 6},width=${smViewportWidth}`
                     : "initial-scale=1,width=device-width"
                   : "",
               );
