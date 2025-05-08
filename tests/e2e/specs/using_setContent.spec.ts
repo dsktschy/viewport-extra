@@ -202,7 +202,7 @@ import {
         });
 
         // Following cases cannot be tested with Vitest,
-        // as it does not update size of document element when viewport element is updated
+        // as it does not update size of document element when viewport meta element is updated
         test.describe("unscaledComputing property", () => {
           // Run only in minimal outputs and viewports
           test.beforeEach(async ({ page }, testInfo) => {
