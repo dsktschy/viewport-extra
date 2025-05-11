@@ -20,7 +20,7 @@ The following codes will scale the page down in mobile device browsers that disp
 ```html
 <meta name="viewport-extra" content="min-width=430" />
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1"></script>
 ```
 
 <!-- prettier-ignore-end -->
@@ -72,7 +72,7 @@ The following codes will scale the page up in mobile device browsers that displa
 ```html
 <meta name="viewport-extra" content="max-width=393" />
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1"></script>
 ```
 
 <!-- prettier-ignore-end -->
@@ -125,7 +125,7 @@ The following codes will scale the page down in mobile device browsers that disp
 <meta name="viewport-extra" content="min-width=430" />
 <meta name="viewport-extra" content="min-width=1024" data-media="(min-width: 744px)" />
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1"></script>
 ```
 
 <!-- prettier-ignore-end -->
@@ -174,25 +174,41 @@ The following codes will scale the page not only when it is displayed, but also 
 <!-- prettier-ignore-start -->
 
 ```html
-<meta name="viewport" content="width=device-width,initial-scale=1" data-extra-unscaled-computing />
-<meta name="viewport-extra" content="min-width=430" />
-<meta name="viewport-extra" content="min-width=744" data-media="(min-width: 640px)" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1" id="viewport-extra-script"></script>
 
 <script>
+  const mediaSpecificParamsList = [
+    { content: { minWidth: 430 } },
+    { content: { minWidth: 744 }, media: "(min-width: 640px)" },
+  ]
+
+  const globalParams = { unscaledComputing: true }
+
   const handleOrientationChange = () => {
-    if (!ViewportExtra) return;
     window.addEventListener(
       "resize",
-      () => ViewportExtra.setParameters([]),
+      () => ViewportExtra.setParameters(mediaSpecificParamsList, globalParams),
       { once: true }
     );
   };
-  if (screen && screen.orientation) {
-    screen.orientation.addEventListener("change", handleOrientationChange);
+
+  const handleLoad = () => {
+    ViewportExtra.setParameters(mediaSpecificParamsList, globalParams);
+    if (screen && screen.orientation) {
+      screen.orientation.addEventListener("change", handleOrientationChange);
+    } else {
+      window.addEventListener("orientationchange", handleOrientationChange);
+    }
+  }
+
+  if (window.ViewportExtra) {
+    handleLoad()
   } else {
-    window.addEventListener("orientationchange", handleOrientationChange);
+    document
+      .getElementById("viewport-extra-script")
+      .addEventListener("load", handleLoad)
   }
 </script>
 ```
@@ -206,21 +222,22 @@ The following codes will scale the page not only when it is displayed, but also 
 
 ```js
 import("viewport-extra").then(({ setParameters }) => {
-  setParameters(
-    [
-      { content: { minWidth: 430 } },
-      { content: { minWidth: 744 }, media: "(min-width: 640px)" },
-    ],
-    { unscaledComputing: true },
-  );
+  const mediaSpecificParamsList = [
+    { content: { minWidth: 430 } },
+    { content: { minWidth: 744 }, media: "(min-width: 640px)" },
+  ]
+
+  const globalParams = { unscaledComputing: true }
 
   const handleOrientationChange = () => {
     window.addEventListener(
       "resize",
-      () => setParameters([]),
+      () => setParameters(mediaSpecificParamsList, globalParams),
       { once: true }
     );
   };
+
+  setParameters(mediaSpecificParamsList, globalParams);
   if (screen && screen.orientation) {
     screen.orientation.addEventListener("change", handleOrientationChange);
   } else {
@@ -253,7 +270,7 @@ The following codes will truncate numbers in the content attribute of the viewpo
 ```html
 <meta name="viewport-extra" content="min-width=430" data-decimal-places="6" />
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1"></script>
 ```
 
 <!-- prettier-ignore-end -->

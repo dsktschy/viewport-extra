@@ -3,8 +3,25 @@ import rollupPluginDelete from "rollup-plugin-delete";
 import rollupPluginDts from "rollup-plugin-dts";
 
 export default defineConfig(
-  [{ subDirectory: "" }, { subDirectory: "es5/" }].map(({ subDirectory }) => ({
-    input: ".types/viewport-extra.d.ts",
+  [
+    {
+      input: ".types/entries/viewport-extra.d.ts",
+      subDirectory: "",
+    },
+    {
+      input: ".types/entries/viewport-extra.d.ts",
+      subDirectory: "es5/",
+    },
+    {
+      input: ".types/entries/immediate/viewport-extra.d.ts",
+      subDirectory: "immediate/",
+    },
+    {
+      input: ".types/entries/immediate/viewport-extra.d.ts",
+      subDirectory: "immediate/es5/",
+    },
+  ].map(({ input, subDirectory }) => ({
+    input,
     output: [
       {
         file: `dist/${subDirectory}viewport-extra.d.mts`,
