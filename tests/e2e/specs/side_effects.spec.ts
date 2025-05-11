@@ -6,72 +6,81 @@ import {
 } from "../modules/PlaywrightPage.js";
 [
   {
+    entryName: "immediate",
     typescriptTarget: "es2022",
     format: "es",
     moduleFlag: true,
     minified: false,
-    outputSubDirectory: "",
-    assetSubDirectory: "es/",
+    outputSubDirectory: "immediate/",
+    assetSubDirectory: "immediate/es/",
   },
   {
+    entryName: "immediate",
     typescriptTarget: "es2022",
     format: "cjs",
     moduleFlag: true,
     minified: false,
-    outputSubDirectory: "",
-    assetSubDirectory: "cjs/",
+    outputSubDirectory: "immediate/",
+    assetSubDirectory: "immediate/cjs/",
   },
   {
+    entryName: "immediate",
     typescriptTarget: "es2022",
     format: "iife",
     moduleFlag: false,
     minified: false,
-    outputSubDirectory: "",
-    assetSubDirectory: "iife/",
+    outputSubDirectory: "immediate/",
+    assetSubDirectory: "immediate/iife/",
   },
   {
+    entryName: "immediate",
     typescriptTarget: "es2022",
     format: "iife",
     moduleFlag: false,
     minified: true,
-    outputSubDirectory: "",
-    assetSubDirectory: "iife/",
+    outputSubDirectory: "immediate/",
+    assetSubDirectory: "immediate/iife/",
   },
   {
+    entryName: "immediate",
     typescriptTarget: "es5",
     format: "es",
     moduleFlag: true,
     minified: false,
-    outputSubDirectory: "es5/",
-    assetSubDirectory: "es/es5/",
+    outputSubDirectory: "immediate/es5/",
+    assetSubDirectory: "immediate/es/es5/",
   },
   {
+    entryName: "immediate",
     typescriptTarget: "es5",
     format: "cjs",
     moduleFlag: true,
     minified: false,
-    outputSubDirectory: "es5/",
-    assetSubDirectory: "cjs/es5/",
+    outputSubDirectory: "immediate/es5/",
+    assetSubDirectory: "immediate/cjs/es5/",
   },
   {
+    entryName: "immediate",
     typescriptTarget: "es5",
     format: "iife",
     moduleFlag: false,
     minified: false,
-    outputSubDirectory: "es5/",
-    assetSubDirectory: "iife/es5/",
+    outputSubDirectory: "immediate/es5/",
+    assetSubDirectory: "immediate/iife/es5/",
   },
   {
+    entryName: "immediate",
     typescriptTarget: "es5",
     format: "iife",
     moduleFlag: false,
     minified: true,
-    outputSubDirectory: "es5/",
-    assetSubDirectory: "iife/es5/",
+    outputSubDirectory: "immediate/es5/",
+    assetSubDirectory: "immediate/iife/es5/",
   },
 ].forEach(
   (
     {
+      entryName,
       typescriptTarget,
       format,
       moduleFlag,
@@ -81,7 +90,7 @@ import {
     },
     outputIndex,
   ) => {
-    test.describe(`using ${minified ? "minified " : ""}${typescriptTarget} ${format} output`, () => {
+    test.describe(`using ${minified ? "minified " : ""}${typescriptTarget} ${format} output for ${entryName} entry`, () => {
       test.describe("updating content attribute of viewport meta element", () => {
         test.beforeEach(async ({ page }) => {
           await page.goto("/tests/e2e/__fixtures__/src/dummy.html");
@@ -171,14 +180,17 @@ import {
           });
         });
       });
+    });
 
+    // Run only in minimal outputs
+    if (outputIndex !== 0) return;
+    // Following cases cannot be tested with Vitest
+    test.describe("activateMetaElements", () => {
       test.describe("behavior according to attributes of viewport(-extra) meta elements", () => {
-        // Following cases cannot be tested with Vitest,
-        // as it does not provide matchMedia method
+        // In Vitest, matchMedia method is not provided
         test.describe("data-(extra-)media attribute", () => {
-          // Run only in minimal outputs and viewports
+          // Run only in minimal viewports
           test.beforeEach(async ({ page }, testInfo) => {
-            testInfo.skip(outputIndex !== 0);
             testInfo.skip(!["xs"].includes(testInfo.project.name));
             await page.goto("/tests/e2e/__fixtures__/src/dummy.html");
           });
@@ -289,12 +301,10 @@ import {
           });
         });
 
-        // Following cases cannot be tested with Vitest,
-        // as it does not update size of document element when viewport meta element is updated
+        // In Vitest, size of document element is not updated when viewport meta element is updated
         test.describe("data-(extra-)unscaled-computing attribute", () => {
-          // Run only in minimal outputs and viewports
+          // Run only in minimal viewports
           test.beforeEach(async ({ page }, testInfo) => {
-            testInfo.skip(outputIndex !== 0);
             testInfo.skip(!["xs", "xl"].includes(testInfo.project.name));
             await page.goto("/tests/e2e/__fixtures__/src/dummy.html");
           });
@@ -381,12 +391,10 @@ import {
         });
       });
 
-      // Following cases cannot be tested with Vitest,
-      // as it does not provide matchMedia method
+      // In Vitest, matchMedia method is not provided
       test.describe("determination of value to apply from multiple viewport(-extra) meta elements", () => {
-        // Run only in minimal outputs and viewports
+        // Run only in minimal viewports
         test.beforeEach(async ({ page }, testInfo) => {
-          testInfo.skip(outputIndex !== 0);
           testInfo.skip(!["xs"].includes(testInfo.project.name));
           await page.goto("/tests/e2e/__fixtures__/src/dummy.html");
         });

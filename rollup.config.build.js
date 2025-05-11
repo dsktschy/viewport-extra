@@ -19,15 +19,27 @@ const name = "ViewportExtra";
 export default defineConfig(
   [
     {
+      input: "src/entries/viewport-extra.ts",
       typescriptTarget: "es2022",
       subDirectory: "",
     },
     {
+      input: "src/entries/viewport-extra.ts",
       typescriptTarget: "es5",
       subDirectory: "es5/",
     },
-  ].map(({ typescriptTarget, subDirectory }) => ({
-    input: "src/viewport-extra.ts",
+    {
+      input: "src/entries/immediate/viewport-extra.ts",
+      typescriptTarget: "es2022",
+      subDirectory: "immediate/",
+    },
+    {
+      input: "src/entries/immediate/viewport-extra.ts",
+      typescriptTarget: "es5",
+      subDirectory: "immediate/es5/",
+    },
+  ].map(({ input, typescriptTarget, subDirectory }) => ({
+    input,
     output: [
       {
         file: `dist/${subDirectory}viewport-extra.mjs`,

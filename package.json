@@ -23,19 +23,45 @@
         "types": "./dist/es5/viewport-extra.d.cts",
         "default": "./dist/es5/viewport-extra.cjs"
       }
+    },
+    "./immediate": {
+      "import": {
+        "types": "./dist/immediate/viewport-extra.d.mts",
+        "default": "./dist/immediate/viewport-extra.mjs"
+      },
+      "require": {
+        "types": "./dist/immediate/viewport-extra.d.cts",
+        "default": "./dist/immediate/viewport-extra.cjs"
+      }
+    },
+    "./immediate/es5": {
+      "import": {
+        "types": "./dist/immediate/es5/viewport-extra.d.mts",
+        "default": "./dist/immediate/es5/viewport-extra.mjs"
+      },
+      "require": {
+        "types": "./dist/immediate/es5/viewport-extra.d.cts",
+        "default": "./dist/immediate/es5/viewport-extra.cjs"
+      }
     }
   },
   "main": "./dist/viewport-extra.cjs",
   "module": "./dist/viewport-extra.mjs",
   "browser": "./dist/viewport-extra.mjs",
-  "jsdelivr": "./dist/viewport-extra.min.js",
-  "unpkg": "./dist/viewport-extra.min.js",
+  "jsdelivr": "./dist/immediate/viewport-extra.min.js",
+  "unpkg": "./dist/immediate/viewport-extra.min.js",
   "types": "./dist/viewport-extra.d.mts",
+  "sideEffects": [
+    "./dist/immediate/viewport-extra.mjs",
+    "./dist/immediate/viewport-extra.cjs",
+    "./dist/immediate/es5/viewport-extra.mjs",
+    "./dist/immediate/es5/viewport-extra.cjs"
+  ],
   "scripts": {
     "build": "NODE_OPTIONS=--no-warnings=ExperimentalWarning rollup --config rollup.config.build.js --environment NODE_ENV:production",
     "declare": "npm-run-all --sequential declare:clean declare:execute declare:bundle declare:clean",
     "declare:clean": "rimraf .types",
-    "declare:execute": "tsx --no-warnings=ExperimentalWarning scripts/create-declaration-with-dts.ts src/viewport-extra.ts --output-directory .types",
+    "declare:execute": "tsx --no-warnings=ExperimentalWarning scripts/create-declaration-with-dts.ts 'src/entries/**/*.ts' --output-directory .types",
     "declare:bundle": "NODE_OPTIONS=--no-warnings=ExperimentalWarning rollup --config rollup.config.declare.js --environment NODE_ENV:production",
     "spellcheck": "cspell lint --no-must-find-files",
     "stylecheck": "tsx --no-warnings=ExperimentalWarning scripts/biome-with-recursive-gitignore.ts",
