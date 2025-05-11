@@ -8,7 +8,7 @@ import {
   mergePartialGlobalParameters,
 } from "../lib/GlobalParameters.js";
 import {
-  applyMediaSpecificParametersUnscaled,
+  applyMediaSpecificParameters,
   createPartialGlobalParameters,
   createPartialMediaSpecificParameters,
 } from "../lib/HTMLMetaElement.js";
@@ -33,11 +33,7 @@ export const activateMetaElements = (): void => {
       createPartialMediaSpecificParameters(viewportMetaElement),
       ...viewportExtraMetaElementList.map(createPartialMediaSpecificParameters),
     ];
-    // For backward compatibility,
-    // side effects force unscaled computing regardless of data-(extra-)unscaled-computing attributes
-    // It's so that document.documentElement.clientWidth can work
-    // in the case where viewport meta element does not exist
-    applyMediaSpecificParametersUnscaled(
+    applyMediaSpecificParameters(
       viewportMetaElement,
       () => getDocumentClientWidth(document),
       () =>
