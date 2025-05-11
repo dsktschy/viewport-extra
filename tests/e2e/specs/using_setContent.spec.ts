@@ -243,50 +243,9 @@ import {
     if (outputIndex !== 0) return;
     // Following cases cannot be tested with Vitest
     test.describe("setContent", () => {
-      test.describe("behavior according to properties that cannot be specified with arguments", () => {
-        // In Vitest, matchMedia method is not provided
-        test.describe("media property", () => {
-          // Run only in minimal viewports
-          test.beforeEach(async ({ page }, testInfo) => {
-            testInfo.skip(!["xs"].includes(testInfo.project.name));
-            await page.goto("/tests/e2e/__fixtures__/src/dummy.html");
-          });
-
-          test("argument is always used for computing", async ({
-            page,
-            viewport,
-          }, { config: { projects } }) => {
-            const smViewportWidth =
-              getViewportSize(projects, "sm")?.use.viewport?.width ?? 0;
-            const documentClientWidth = viewport ? viewport.width : undefined;
-            await page.setContent(`
-              <!doctype html>
-              <html lang="en">
-                <head>
-                  <meta charset="UTF-8" />
-                  <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=1" />
-                  ${moduleFlag ? "" : `<script src="/${outputSubDirectory}viewport-extra${minified ? ".min" : ""}.js"></script>`}
-                </head>
-                <body>
-                  <script data-content='{ "minWidth": ${smViewportWidth} }'></script>
-                  <script src="/assets/scripts/${assetSubDirectory}using_setContent.js" type="module" data-asset-script data-status="incomplete"></script>
-                </body>
-              </html>
-            `);
-            await waitForAssetScriptComplete(page);
-            expect(await getViewportContentString(page)).toBe(
-              documentClientWidth && smViewportWidth > 0
-                ? documentClientWidth < smViewportWidth
-                  ? `initial-scale=${(documentClientWidth / smViewportWidth) * 1},width=${smViewportWidth}`
-                  : "initial-scale=1,width=device-width"
-                : "",
-            );
-          });
-        });
-
+      test.describe("behavior according to attributes of viewport(-extra) meta elements", () => {
         // In Vitest, size of document element is not updated when viewport meta element is updated
-        test.describe("unscaledComputing property", () => {
+        test.describe("(data-extra-)content attribute", () => {
           // Run only in minimal viewports
           test.beforeEach(async ({ page }, testInfo) => {
             testInfo.skip(!["xs", "xl"].includes(testInfo.project.name));
@@ -294,19 +253,16 @@ import {
           });
 
           test.describe("case where initial-scale before running setContent is 1 or less", () => {
-            test("viewport width is used for comparison with minWidth and maxWidth", async ({
+            test("window width without scroll bars when scale is 1 is used for comparison with minWidth and maxWidth", async ({
               page,
               viewport,
             }, { config: { projects } }) => {
               const smViewportWidth =
-                (getViewportSize(projects, "sm")?.use.viewport?.width ?? 0) /
-                0.5;
+                getViewportSize(projects, "sm")?.use.viewport?.width ?? 0;
               const lgViewportWidth =
-                (getViewportSize(projects, "lg")?.use.viewport?.width ??
-                  Number.POSITIVE_INFINITY) / 0.5;
-              const documentClientWidth = viewport
-                ? viewport.width / 0.5
-                : undefined;
+                getViewportSize(projects, "lg")?.use.viewport?.width ??
+                Number.POSITIVE_INFINITY;
+              const documentClientWidth = viewport ? viewport.width : undefined;
               await page.setContent(`
                 <!doctype html>
                 <html lang="en">
@@ -376,6 +332,49 @@ import {
                   : "",
               );
             });
+          });
+        });
+      });
+
+      test.describe("behavior according to properties that cannot be specified with arguments", () => {
+        // In Vitest, matchMedia method is not provided
+        test.describe("media property", () => {
+          // Run only in minimal viewports
+          test.beforeEach(async ({ page }, testInfo) => {
+            testInfo.skip(!["xs"].includes(testInfo.project.name));
+            await page.goto("/tests/e2e/__fixtures__/src/dummy.html");
+          });
+
+          test("argument is always used for computing", async ({
+            page,
+            viewport,
+          }, { config: { projects } }) => {
+            const smViewportWidth =
+              getViewportSize(projects, "sm")?.use.viewport?.width ?? 0;
+            const documentClientWidth = viewport ? viewport.width : undefined;
+            await page.setContent(`
+              <!doctype html>
+              <html lang="en">
+                <head>
+                  <meta charset="UTF-8" />
+                  <title>Document</title>
+                  <meta name="viewport" content="width=device-width,initial-scale=1" />
+                  ${moduleFlag ? "" : `<script src="/${outputSubDirectory}viewport-extra${minified ? ".min" : ""}.js"></script>`}
+                </head>
+                <body>
+                  <script data-content='{ "minWidth": ${smViewportWidth} }'></script>
+                  <script src="/assets/scripts/${assetSubDirectory}using_setContent.js" type="module" data-asset-script data-status="incomplete"></script>
+                </body>
+              </html>
+            `);
+            await waitForAssetScriptComplete(page);
+            expect(await getViewportContentString(page)).toBe(
+              documentClientWidth && smViewportWidth > 0
+                ? documentClientWidth < smViewportWidth
+                  ? `initial-scale=${(documentClientWidth / smViewportWidth) * 1},width=${smViewportWidth}`
+                  : "initial-scale=1,width=device-width"
+                : "",
+            );
           });
         });
       });

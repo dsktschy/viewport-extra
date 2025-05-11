@@ -12,9 +12,7 @@ import type { DeepPartial } from "./DeepPartial.js";
 import {
   type GlobalParameters,
   assignOptionalDecimalPlaces,
-  assignOptionalUnscaledComputing,
   getDecimalPlaces,
-  getUnscaledComputing,
 } from "./GlobalParameters.js";
 import {
   type MediaAttribute,
@@ -27,19 +25,6 @@ import {
   assignOptionalPartialContent,
   createContentAttribute,
 } from "./MediaSpecificParameters.js";
-import {
-  type UnscaledComputingAttribute,
-  createOptionalUnscaledComputing,
-  mergeNullableUnscaledComputingAttribute,
-} from "./UnscaledComputingAttribute.js";
-
-export const getNullableUnscaledComputingAttribute = (
-  htmlMetaElement: HTMLMetaElement,
-): UnscaledComputingAttribute | null =>
-  mergeNullableUnscaledComputingAttribute(
-    htmlMetaElement.getAttribute("data-unscaled-computing"),
-    htmlMetaElement.getAttribute("data-extra-unscaled-computing"),
-  );
 
 export const getNullableDecimalPlacesAttribute = (
   htmlMetaElement: HTMLMetaElement,
@@ -53,12 +38,7 @@ export const createPartialGlobalParameters = (
   htmlMetaElement: HTMLMetaElement,
 ): Partial<GlobalParameters> =>
   assignOptionalDecimalPlaces(
-    assignOptionalUnscaledComputing(
-      undefined,
-      createOptionalUnscaledComputing(
-        getNullableUnscaledComputingAttribute(htmlMetaElement),
-      ),
-    ),
+    undefined,
     createOptionalDecimalPlaces(
       getNullableDecimalPlacesAttribute(htmlMetaElement),
     ),
@@ -99,24 +79,6 @@ export const setContentAttribute = (
 ): void => htmlMetaElement.setAttribute("content", contentAttribute);
 
 export const applyMediaSpecificParameters = (
-  htmlMetaElement: HTMLMetaElement,
-  getDocumentClientWidth: () => number,
-  getMediaSpecificParameters: () => MediaSpecificParameters,
-  globalParameters: GlobalParameters,
-): void => {
-  if (getUnscaledComputing(globalParameters))
-    setContentAttribute(htmlMetaElement, createContentAttribute());
-  setContentAttribute(
-    htmlMetaElement,
-    createContentAttribute(
-      getMediaSpecificParameters(),
-      getDocumentClientWidth(),
-      getDecimalPlaces(globalParameters),
-    ),
-  );
-};
-
-export const applyMediaSpecificParametersUnscaled = (
   htmlMetaElement: HTMLMetaElement,
   getDocumentClientWidth: () => number,
   getMediaSpecificParameters: () => MediaSpecificParameters,

@@ -179,23 +179,19 @@ The following codes will scale the page not only when it is displayed, but also 
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1" id="viewport-extra-script"></script>
 
 <script>
-  const mediaSpecificParamsList = [
+  const paramsList = [
     { content: { minWidth: 430 } },
     { content: { minWidth: 744 }, media: "(min-width: 640px)" },
   ]
-
-  const globalParams = { unscaledComputing: true }
-
   const handleOrientationChange = () => {
     window.addEventListener(
       "resize",
-      () => ViewportExtra.setParameters(mediaSpecificParamsList, globalParams),
+      () => ViewportExtra.setParameters(paramsList),
       { once: true }
     );
   };
-
   const handleLoad = () => {
-    ViewportExtra.setParameters(mediaSpecificParamsList, globalParams);
+    ViewportExtra.setParameters(paramsList);
     if (screen && screen.orientation) {
       screen.orientation.addEventListener("change", handleOrientationChange);
     } else {
@@ -222,22 +218,19 @@ The following codes will scale the page not only when it is displayed, but also 
 
 ```js
 import("viewport-extra").then(({ setParameters }) => {
-  const mediaSpecificParamsList = [
+  const paramsList = [
     { content: { minWidth: 430 } },
     { content: { minWidth: 744 }, media: "(min-width: 640px)" },
   ]
-
-  const globalParams = { unscaledComputing: true }
-
   const handleOrientationChange = () => {
     window.addEventListener(
       "resize",
-      () => setParameters(mediaSpecificParamsList, globalParams),
+      () => setParameters(paramsList),
       { once: true }
     );
   };
 
-  setParameters(mediaSpecificParamsList, globalParams);
+  setParameters(paramsList);
   if (screen && screen.orientation) {
     screen.orientation.addEventListener("change", handleOrientationChange);
   } else {
