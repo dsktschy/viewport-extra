@@ -400,8 +400,8 @@ import {
         });
 
         test.describe("(data-extra-)content attributes", () => {
-          test.describe("case where media attributes of first viewport meta element and all viewport-extra meta elements are set", () => {
-            test("filtering elements whose data-(extra-)media attribute matches viewport width from first viewport meta element and all viewport-extra meta elements, and merging only their attributes recursively. viewport-extra meta elements are handled as if they are set later than viewport meta element", async ({
+          test.describe("case where media attributes are set", () => {
+            test("filtering elements whose data-(extra-)media attribute matches viewport width from all viewport and viewport-extra meta elements, and merging only their attributes recursively", async ({
               page,
               viewport,
             }, { config: { projects } }) => {
@@ -416,11 +416,10 @@ import {
                   <head>
                     <meta charset="UTF-8" />
                     <title>Document</title>
-                    <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=0,minimum-scale=1" />
-                    <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=${smViewportWidth}" data-media="(max-width: ${smViewportWidth}px)" />
-                    <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=${lgViewportWidth}" data-media="not (max-width: ${smViewportWidth}px)" />
-                    <meta name="viewport" content="width=device-width,initial-scale=2,maximum-scale=5" data-extra-media="(max-width: ${smViewportWidth}px)" />
-                    <meta name="viewport" content="width=device-width,initial-scale=2,maximum-scale=10" data-extra-media="(max-width: ${smViewportWidth}px)" />
+                    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1" data-extra-content="min-width=0" />
+                    <meta name="viewport-extra" content="width=device-width,initial-scale=2,min-width=${smViewportWidth}" data-media="(max-width: ${smViewportWidth}px)" />
+                    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5" data-extra-media="(max-width: ${smViewportWidth}px)" />
+                    <meta name="viewport-extra" content="width=device-width,initial-scale=2,min-width=${lgViewportWidth}" data-media="not (max-width: ${smViewportWidth}px)" />
                     ${moduleFlag ? "" : `<script src="/${outputSubDirectory}viewport-extra${minified ? ".min" : ""}.js"></script>`}
                   </head>
                   <body>
@@ -447,8 +446,8 @@ import {
         });
 
         test.describe("data-(extra-)decimal-places attributes", () => {
-          test.describe("case where media attributes of first viewport meta element and all viewport-extra meta elements are set", () => {
-            test("merging attributes of first viewport meta element and all viewport-extra meta elements recursively. viewport-extra meta elements are handled as if they are set later than viewport meta element", async ({
+          test.describe("case where media attributes are set", () => {
+            test("merging attributes of all viewport and viewport-extra meta elements", async ({
               page,
               viewport,
             }, { config: { projects } }) => {
@@ -461,10 +460,10 @@ import {
                   <head>
                     <meta charset="UTF-8" />
                     <title>Document</title>
-                    <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=${smViewportWidth}" data-decimal-places="7" />
-                    <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=${smViewportWidth}" data-media="(min-width: ${smViewportWidth}px)" data-decimal-places="6" />
-                    <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=${smViewportWidth}" data-extra-media="(min-width: ${smViewportWidth}px)" data-decimal-places="5" />
+                    <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=${smViewportWidth}" data-decimal-places="3" />
                     <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=${smViewportWidth}" data-decimal-places="4" />
+                    <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=${smViewportWidth}" data-media="(min-width: ${smViewportWidth}px)" data-decimal-places="5" />
+                    <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=${smViewportWidth}" data-extra-media="(min-width: ${smViewportWidth}px)" data-decimal-places="6" />
                     ${moduleFlag ? "" : `<script src="/${outputSubDirectory}viewport-extra${minified ? ".min" : ""}.js"></script>`}
                   </head>
                   <body>

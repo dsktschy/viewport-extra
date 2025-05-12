@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   ensureViewportMetaElement,
   getDocumentClientWidth,
-  getViewportExtraMetaElementList,
+  getMetaElementList,
 } from "./Document.js";
 
 describe("ensureViewportMetaElement", () => {
@@ -33,35 +33,35 @@ describe("ensureViewportMetaElement", () => {
   });
 });
 
-describe("getViewportExtraMetaElementList", () => {
-  describe("case where viewport meta elements exist", () => {
-    it("should return existing viewport-extra meta elements without viewport meta element", () => {
+describe("getMetaElementList", () => {
+  describe("case where viewport and viewport-extra meta elements exist", () => {
+    it("should return all existing viewport and viewport-extra meta elements as array", () => {
       document.head.innerHTML = `
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="initial-scale=1" />
         <meta name="viewport-extra" content="min-width=414" />
         <meta name="viewport-extra" content="max-width=768" />
       `;
-      const selectedViewportMetaElementList = document.querySelectorAll(
-        'meta[name="viewport-extra"]',
-      );
-      getViewportExtraMetaElementList(document).forEach(
-        (returnedViewportExtraMetaElement, index) => {
-          expect(returnedViewportExtraMetaElement).toBe(
-            selectedViewportMetaElementList[index],
-          );
-        },
-      );
+      expect(
+        getMetaElementList(document).map(
+          (returnedMetaElement) => returnedMetaElement.outerHTML,
+        ),
+      ).toStrictEqual([
+        '<meta name="viewport" content="width=device-width">',
+        '<meta name="viewport" content="initial-scale=1">',
+        '<meta name="viewport-extra" content="min-width=414">',
+        '<meta name="viewport-extra" content="max-width=768">',
+      ]);
     });
   });
 
-  describe("case where viewport meta elements do not exist", () => {
+  describe("case where viewport and viewport-extra meta elements do not exist", () => {
     it("should return empty array", () => {
       document.head.innerHTML = `
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
       `;
-      expect(getViewportExtraMetaElementList(document).length).toBe(0);
+      expect(getMetaElementList(document)).toStrictEqual([]);
     });
   });
 });
