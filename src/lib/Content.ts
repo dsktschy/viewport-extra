@@ -5,35 +5,13 @@ import type { MediaSpecificParameters } from "./MediaSpecificParameters.js";
 import { truncateDecimalNumber } from "./number.js";
 import { kebabizeCamelCaseString } from "./string.js";
 
-export type ContentWidth = number | "device-width";
-export type ContentInitialScale = number;
-export type ContentMinWidth = number;
-export type ContentMaxWidth = number;
-
 export interface Content {
-  width: ContentWidth;
-  initialScale: ContentInitialScale;
-  minWidth: ContentMinWidth;
-  maxWidth: ContentMaxWidth;
+  width: number | "device-width";
+  initialScale: number;
+  minWidth: number;
+  maxWidth: number;
   [key: string]: string | number;
 }
-
-export const isContentWidth = (value: unknown): value is ContentWidth =>
-  (typeof value === "number" &&
-    value > 0 &&
-    value < Number.POSITIVE_INFINITY) ||
-  value === "device-width";
-
-export const isContentInitialScale = (
-  value: unknown,
-): value is ContentInitialScale =>
-  typeof value === "number" && value >= 0 && value <= 10;
-
-export const isContentMinWidth = (value: unknown): value is ContentMinWidth =>
-  typeof value === "number" && value >= 0 && value < Number.POSITIVE_INFINITY;
-
-export const isContentMaxWidth = (value: unknown): value is ContentMaxWidth =>
-  typeof value === "number" && value > 0 && value <= Number.POSITIVE_INFINITY;
 
 export const defaultContent = {
   width: "device-width" as const,
@@ -44,26 +22,10 @@ export const defaultContent = {
 
 export const createContent = (
   partialContent: Partial<Content> | undefined = {},
-): Content => {
-  const content: Content = { ...defaultContent };
-  for (const key of Object.keys(partialContent)) {
-    const value = partialContent[key];
-    if (
-      value == null ||
-      (key === "width" && !isContentWidth(value)) ||
-      (key === "initialScale" && !isContentInitialScale(value)) ||
-      (key === "minWidth" && !isContentMinWidth(value)) ||
-      (key === "maxWidth" && !isContentMaxWidth(value))
-    ) {
-      console.warn(
-        `Viewport Extra received invalid ${key}, so it is discarded.`,
-      );
-      continue;
-    }
-    content[key] = value;
-  }
-  return content;
-};
+): Content => ({
+  ...defaultContent,
+  ...partialContent,
+});
 
 export const mergeOptionalPartialContent = (
   precedingOptionalPartialContent: Partial<Content> | undefined,
@@ -95,22 +57,16 @@ export function createContentAttribute(
 ): ContentAttribute {
   const { width, initialScale } = content;
   const { minWidth, maxWidth, ...contentWithoutExtraProperties } = content;
-  if (minWidth > maxWidth) {
-    console.warn(
-      "Viewport Extra received minWidth that is greater than maxWidth, so they are ignored.",
-    );
-  } else if (typeof width === "number") {
-    console.warn(
-      "Viewport Extra received fixed width, so minWidth and maxWidth are ignored.",
-    );
-  } else if (documentClientWidth < minWidth) {
-    contentWithoutExtraProperties.width = minWidth;
-    contentWithoutExtraProperties.initialScale =
-      (documentClientWidth / minWidth) * initialScale;
-  } else if (documentClientWidth > maxWidth) {
-    contentWithoutExtraProperties.width = maxWidth;
-    contentWithoutExtraProperties.initialScale =
-      (documentClientWidth / maxWidth) * initialScale;
+  if (minWidth <= maxWidth && width === "device-width") {
+    if (documentClientWidth < minWidth) {
+      contentWithoutExtraProperties.width = minWidth;
+      contentWithoutExtraProperties.initialScale =
+        (documentClientWidth / minWidth) * initialScale;
+    } else if (documentClientWidth > maxWidth) {
+      contentWithoutExtraProperties.width = maxWidth;
+      contentWithoutExtraProperties.initialScale =
+        (documentClientWidth / maxWidth) * initialScale;
+    }
   }
   return Object.keys(contentWithoutExtraProperties)
     .map(

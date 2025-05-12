@@ -3,138 +3,12 @@ import {
   createContent,
   createContentAttribute,
   createPartialMediaSpecificParameters,
-  isContentInitialScale,
-  isContentMaxWidth,
-  isContentMinWidth,
-  isContentWidth,
   mergeOptionalPartialContent,
 } from "./Content.js";
 
-describe("isContentWidth", () => {
-  describe("case where argument is infinity", () => {
-    it("should return false", () => {
-      expect(isContentWidth(Number.POSITIVE_INFINITY)).toBe(false);
-    });
-  });
-
-  describe("case where argument is less than infinity and greater than 0", () => {
-    it("should return true", () => {
-      expect(isContentWidth(1024)).toBe(true);
-    });
-  });
-
-  describe("case where argument is 0", () => {
-    it("should return false", () => {
-      expect(isContentWidth(0)).toBe(false);
-    });
-  });
-
-  describe("case where argument is less than 0", () => {
-    it("should return false", () => {
-      expect(isContentWidth(-1)).toBe(false);
-    });
-  });
-
-  describe("case where argument is device-width", () => {
-    it("should return true", () => {
-      expect(isContentWidth("device-width")).toBe(true);
-    });
-  });
-
-  describe("case where argument is string other than device-width", () => {
-    it("should return false", () => {
-      expect(isContentWidth("foo")).toBe(false);
-    });
-  });
-});
-
-describe("isContentInitialScale", () => {
-  describe("case where argument is greater than 10", () => {
-    it("should return false", () => {
-      expect(isContentInitialScale(11)).toBe(false);
-    });
-  });
-
-  describe("case where argument is 10", () => {
-    it("should return true", () => {
-      expect(isContentInitialScale(10)).toBe(true);
-    });
-  });
-
-  describe("case where argument is less than 10 and greater than 0", () => {
-    it("should return true", () => {
-      expect(isContentInitialScale(1)).toBe(true);
-    });
-  });
-
-  describe("case where argument is 0", () => {
-    it("should return true", () => {
-      expect(isContentInitialScale(0)).toBe(true);
-    });
-  });
-
-  describe("case where argument is less than 0", () => {
-    it("should return false", () => {
-      expect(isContentInitialScale(-1)).toBe(false);
-    });
-  });
-});
-
-describe("isContentMinWidth", () => {
-  describe("case where argument is infinity", () => {
-    it("should return false", () => {
-      expect(isContentMinWidth(Number.POSITIVE_INFINITY)).toBe(false);
-    });
-  });
-
-  describe("case where argument is less than infinity and greater than 0", () => {
-    it("should return true", () => {
-      expect(isContentMinWidth(414)).toBe(true);
-    });
-  });
-
-  describe("case where argument is 0", () => {
-    it("should return true", () => {
-      expect(isContentMinWidth(0)).toBe(true);
-    });
-  });
-
-  describe("case where argument is less than 0", () => {
-    it("should return false", () => {
-      expect(isContentMinWidth(-1)).toBe(false);
-    });
-  });
-});
-
-describe("isContentMaxWidth", () => {
-  describe("case where argument is infinity", () => {
-    it("should return true", () => {
-      expect(isContentMaxWidth(Number.POSITIVE_INFINITY)).toBe(true);
-    });
-  });
-
-  describe("case where argument is less than infinity and greater than 0", () => {
-    it("should return true", () => {
-      expect(isContentMaxWidth(768)).toBe(true);
-    });
-  });
-
-  describe("case where argument is 0", () => {
-    it("should return false", () => {
-      expect(isContentMaxWidth(0)).toBe(false);
-    });
-  });
-
-  describe("case where argument is less than 0", () => {
-    it("should return false", () => {
-      expect(isContentMaxWidth(-1)).toBe(false);
-    });
-  });
-});
-
 describe("createContent", () => {
-  describe("case where properties of argument have valid values as Content type", () => {
-    it("should return object that inherits properties of argument have valid values as Content type", () => {
+  describe("case where argument has properties", () => {
+    it("should return object that inherits properties of argument", () => {
       expect(
         createContent({
           width: "device-width",
@@ -149,24 +23,6 @@ describe("createContent", () => {
         minWidth: 414,
         maxWidth: 768,
         interactiveWidget: "resizes-content",
-      });
-    });
-  });
-
-  describe("case where properties of argument have invalid values as Content type", () => {
-    it("should return object with default values of Content type instead of properties of argument have invalid values as Content type", () => {
-      expect(
-        createContent({
-          width: 0,
-          initialScale: -1,
-          minWidth: Number.POSITIVE_INFINITY,
-          maxWidth: 0,
-        }),
-      ).toStrictEqual({
-        width: "device-width",
-        initialScale: 1,
-        minWidth: 0,
-        maxWidth: Number.POSITIVE_INFINITY,
       });
     });
   });
