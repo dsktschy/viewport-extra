@@ -15,9 +15,9 @@ describe("activateMetaElements", () => {
         });
         document.head.innerHTML = `
           <meta charset="utf-8" />
+          <meta name="viewport" content="width=device-width,initial-scale=1" />
+          <meta name="viewport" content="width=device-width,initial-scale=1" />
           <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=414" />
-          <meta name="viewport" content="width=device-width,initial-scale=1" />
-          <meta name="viewport" content="width=device-width,initial-scale=1" />
         `;
         activateMetaElements();
         expect(
@@ -231,18 +231,18 @@ describe("activateMetaElements", () => {
 
   describe("determination of value to apply from multiple viewport(-extra) meta elements", () => {
     describe("(data-extra-)content attributes", () => {
-      describe("case where both viewport and viewport-extra meta elements exist", () => {
-        it("merges attributes of first viewport meta element and all viewport-extra meta elements recursively. viewport-extra meta elements are handled as if they are set later than viewport meta element", () => {
+      describe("case where media attributes are not set", () => {
+        it("merges attributes of all viewport and viewport-extra meta elements recursively", () => {
           Object.defineProperty(document.documentElement, "clientWidth", {
             value: 320,
             configurable: true,
           });
           document.head.innerHTML = `
             <meta charset="utf-8" />
-            <meta name="viewport-extra" content="width=device-width,initial-scale=2,min-width=320" />
-            <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=414" />
-            <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-content="min-width=768" />
-            <meta name="viewport" content="width=device-width,initial-scale=0.25" data-extra-content="min-width=1024" />
+            <meta name="viewport-extra" content="initial-scale=0.5,min-width=768" />
+            <meta name="viewport" content="width=device-width" />
+            <meta name="viewport-extra" content="min-width=414" />
+            <meta name="viewport" content="initial-scale=1" />
           `;
           activateMetaElements();
           expect(
@@ -250,86 +250,23 @@ describe("activateMetaElements", () => {
               .querySelector('meta[name="viewport"]')
               ?.getAttribute("content"),
           ).toBe("initial-scale=0.7729468599033816,width=414");
-        });
-      });
-
-      describe("case where only viewport meta element exists", () => {
-        it("uses attribute of first viewport meta element", () => {
-          Object.defineProperty(document.documentElement, "clientWidth", {
-            value: 320,
-            configurable: true,
-          });
-          document.head.innerHTML = `
-            <meta charset="utf-8" />
-            <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=414" />
-            <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=768" />
-            <meta name="viewport" content="width=device-width,initial-scale=2" />
-          `;
-          activateMetaElements();
-          expect(
-            document
-              .querySelector('meta[name="viewport"]')
-              ?.getAttribute("content"),
-          ).toBe("initial-scale=0.7729468599033816,width=414");
-        });
-      });
-
-      describe("case where only viewport-extra meta element exists", () => {
-        it("merges attributes of all viewport-extra meta elements recursively", () => {
-          Object.defineProperty(document.documentElement, "clientWidth", {
-            value: 320,
-            configurable: true,
-          });
-          document.head.innerHTML = `
-            <meta charset="utf-8" />
-            <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=414" />
-            <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=768" />
-            <meta name="viewport-extra" content="width=device-width,initial-scale=2" />
-          `;
-          activateMetaElements();
-          expect(
-            document
-              .querySelector('meta[name="viewport"]')
-              ?.getAttribute("content"),
-          ).toBe("initial-scale=0.8333333333333334,width=768");
         });
       });
     });
 
     describe("data-(extra-)decimal-places attributes", () => {
-      describe("case where both viewport and viewport-extra meta elements exist", () => {
-        it("uses attribute that is set latest of first viewport meta element and all viewport-extra meta elements. viewport-extra meta elements are handled as if they are set later than viewport meta element", () => {
+      describe("case where media attributes are not set", () => {
+        it("uses attribute that is set latest of all viewport and viewport-extra meta elements", () => {
           Object.defineProperty(document.documentElement, "clientWidth", {
             value: 320,
             configurable: true,
           });
           document.head.innerHTML = `
             <meta charset="utf-8" />
-            <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=414" data-decimal-places="7" />
-            <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=414" data-decimal-places="6" />
-            <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=414" data-extra-decimal-places="5" />
+            <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=414" data-decimal-places="3" />
             <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=414" data-extra-decimal-places="4" />
-          `;
-          activateMetaElements();
-          expect(
-            document
-              .querySelector('meta[name="viewport"]')
-              ?.getAttribute("content"),
-          ).toBe("initial-scale=0.772946,width=414");
-        });
-      });
-
-      describe("case where only viewport meta element exists", () => {
-        it("uses attribute of first viewport meta element", () => {
-          Object.defineProperty(document.documentElement, "clientWidth", {
-            value: 320,
-            configurable: true,
-          });
-          document.head.innerHTML = `
-            <meta charset="utf-8" />
+            <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=414" data-decimal-places="5" />
             <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=414" data-extra-decimal-places="6" />
-            <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=414" data-extra-decimal-places="1" />
-            <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=414" />
           `;
           activateMetaElements();
           expect(
@@ -337,27 +274,6 @@ describe("activateMetaElements", () => {
               .querySelector('meta[name="viewport"]')
               ?.getAttribute("content"),
           ).toBe("initial-scale=0.772946,width=414");
-        });
-      });
-
-      describe("case where only viewport-extra meta element exists", () => {
-        it("uses attribute that is set latest of all viewport-extra meta elements", () => {
-          Object.defineProperty(document.documentElement, "clientWidth", {
-            value: 320,
-            configurable: true,
-          });
-          document.head.innerHTML = `
-            <meta charset="utf-8" />
-            <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=414" data-decimal-places="6" />
-            <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=414" data-decimal-places="1" />
-            <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=414" />
-          `;
-          activateMetaElements();
-          expect(
-            document
-              .querySelector('meta[name="viewport"]')
-              ?.getAttribute("content"),
-          ).toBe("initial-scale=0.7,width=414");
         });
       });
     });

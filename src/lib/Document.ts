@@ -11,11 +11,11 @@ export const ensureViewportMetaElement = (doc: Document): HTMLMetaElement => {
   return htmlMetaElement;
 };
 
-export const getViewportExtraMetaElementList = (
-  doc: Document,
-): HTMLMetaElement[] =>
+export const getMetaElementList = (doc: Document): HTMLMetaElement[] =>
   arrayFrom(
-    doc.querySelectorAll<HTMLMetaElement>('meta[name="viewport-extra"]'),
+    doc.querySelectorAll<HTMLMetaElement>(
+      'meta[name="viewport"],meta[name="viewport-extra"]',
+    ),
   );
 
 export const getDocumentClientWidth = (doc: Document): number =>

@@ -1,7 +1,7 @@
 import {
   ensureViewportMetaElement,
   getDocumentClientWidth,
-  getViewportExtraMetaElementList,
+  getMetaElementList,
 } from "../lib/Document.js";
 import {
   createGlobalParameters,
@@ -21,18 +21,15 @@ import {
 export const activateMetaElements = (): void => {
   if (typeof window !== "undefined") {
     const viewportMetaElement = ensureViewportMetaElement(document);
-    const viewportExtraMetaElementList =
-      getViewportExtraMetaElementList(document);
+    const metaElementList = getMetaElementList(document);
     const globalParameters = createGlobalParameters(
-      [
-        createPartialGlobalParameters(viewportMetaElement),
-        ...viewportExtraMetaElementList.map(createPartialGlobalParameters),
-      ].reduce(mergePartialGlobalParameters),
+      metaElementList
+        .map(createPartialGlobalParameters)
+        .reduce(mergePartialGlobalParameters),
     );
-    const partialMediaSpecificParametersList = [
-      createPartialMediaSpecificParameters(viewportMetaElement),
-      ...viewportExtraMetaElementList.map(createPartialMediaSpecificParameters),
-    ];
+    const partialMediaSpecificParametersList = metaElementList.map(
+      createPartialMediaSpecificParameters,
+    );
     applyMediaSpecificParameters(
       viewportMetaElement,
       () => getDocumentClientWidth(document),
