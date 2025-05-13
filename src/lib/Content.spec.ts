@@ -2,7 +2,6 @@ import { describe, expect, it } from "vitest";
 import {
   createContent,
   createContentAttribute,
-  createPartialMediaSpecificParameters,
   mergeOptionalPartialContent,
 } from "./Content.js";
 
@@ -137,14 +136,6 @@ describe("mergeOptionalPartialContent", () => {
     it("should return undefined", () => {
       expect(mergeOptionalPartialContent(undefined, undefined)).toBe(undefined);
     });
-  });
-});
-
-describe("createPartialMediaSpecificParameters", () => {
-  it("should return object with argument value as content property", () => {
-    expect(
-      createPartialMediaSpecificParameters({ minWidth: 414 }),
-    ).toStrictEqual({ content: { minWidth: 414 } });
   });
 });
 

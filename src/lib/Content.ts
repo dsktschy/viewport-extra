@@ -1,7 +1,5 @@
 import type { ContentAttribute } from "./ContentAttribute.js";
 import type { DecimalPlaces } from "./DecimalPlaces.js";
-import type { DeepPartial } from "./DeepPartial.js";
-import type { MediaSpecificParameters } from "./MediaSpecificParameters.js";
 import { truncateDecimalNumber } from "./number.js";
 import { kebabizeCamelCaseString } from "./string.js";
 
@@ -37,12 +35,6 @@ export const mergeOptionalPartialContent = (
         ...(followingOptionalPartialContent ?? {}),
       }
     : followingOptionalPartialContent;
-
-export const createPartialMediaSpecificParameters = (
-  partialContent: Partial<Content>,
-): DeepPartial<MediaSpecificParameters> => ({
-  content: partialContent,
-});
 
 export function createContentAttribute(
   content: Content,
