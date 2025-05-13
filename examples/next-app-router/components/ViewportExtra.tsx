@@ -14,11 +14,12 @@ const ViewportExtra: FunctionComponent<{
   useLayoutEffect(() => {
     if (pathname !== previousPathname.current) {
       previousPathname.current = pathname;
-      import("viewport-extra").then(({ setContent }) => {
-        const content: Parameters<typeof setContent>[0] = {};
+      import("viewport-extra").then(({ setParameters }) => {
+        const content: Parameters<typeof setParameters>[0][number]["content"] =
+          {};
         if (typeof minWidth === "number") content.minWidth = minWidth;
         if (typeof maxWidth === "number") content.maxWidth = maxWidth;
-        setContent(content);
+        setParameters([{ content }]);
       });
     }
   }, [pathname, minWidth, maxWidth]);

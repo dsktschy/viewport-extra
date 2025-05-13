@@ -31,8 +31,8 @@ The following codes will scale the page down in mobile device browsers that disp
 <!-- prettier-ignore-start -->
 
 ```ts
-import("viewport-extra").then(({ setContent }) => {
-  setContent({ minWidth: 430 });
+import("viewport-extra").then(({ setParameters }) => {
+  setParameters([{ content: { minWidth: 430 } }]);
 });
 ```
 
@@ -83,8 +83,8 @@ The following codes will scale the page up in mobile device browsers that displa
 <!-- prettier-ignore-start -->
 
 ```ts
-import("viewport-extra").then(({ setContent }) => {
-  setContent({ maxWidth: 393 });
+import("viewport-extra").then(({ setParameters }) => {
+  setParameters([{ content: { maxWidth: 393 } }]);
 });
 ```
 
@@ -328,17 +328,6 @@ All of the parameter settings below have the same meaning, even if the width and
 ```html
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <meta name="viewport-extra" content="min-width=430,max-width=640" />
-```
-
-### Using setContent function
-
-```ts
-setContent({
-  width: "device-width",
-  initialScale: 1,
-  minWidth: 430,
-  maxWidth: 640,
-});
 ```
 
 ### Using setParameters function
