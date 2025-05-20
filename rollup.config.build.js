@@ -29,6 +29,16 @@ export default defineConfig(
       subDirectory: "es5/",
     },
     {
+      input: "src/entries/extended/viewport-extra.ts",
+      typescriptTarget: "es2022",
+      subDirectory: "extended/",
+    },
+    {
+      input: "src/entries/extended/viewport-extra.ts",
+      typescriptTarget: "es5",
+      subDirectory: "extended/es5/",
+    },
+    {
       input: "src/entries/immediate/viewport-extra.ts",
       typescriptTarget: "es2022",
       subDirectory: "immediate/",
@@ -37,6 +47,16 @@ export default defineConfig(
       input: "src/entries/immediate/viewport-extra.ts",
       typescriptTarget: "es5",
       subDirectory: "immediate/es5/",
+    },
+    {
+      input: "src/entries/immediate/extended/viewport-extra.ts",
+      typescriptTarget: "es2022",
+      subDirectory: "immediate/extended/",
+    },
+    {
+      input: "src/entries/immediate/extended/viewport-extra.ts",
+      typescriptTarget: "es5",
+      subDirectory: "immediate/extended/es5/",
     },
   ].map(({ input, typescriptTarget, subDirectory }) => ({
     input,

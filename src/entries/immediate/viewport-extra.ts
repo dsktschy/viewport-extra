@@ -1,5 +1,5 @@
-import { activateMetaElements } from "../../apis/activateMetaElements.js";
+import { activateMediaSpecificAttributes } from "../../apis/activateMediaSpecificAttributes.js";
 
-activateMetaElements();
+activateMediaSpecificAttributes();
 
-export { setParameters } from "../../apis/setParameters.js";
+export { setMediaSpecificParametersList as apply } from "../../apis/setMediaSpecificParametersList.js";

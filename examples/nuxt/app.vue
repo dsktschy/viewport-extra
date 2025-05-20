@@ -20,8 +20,8 @@
 import { onMounted } from "vue";
 
 onMounted(() => {
-  import("viewport-extra").then(({ setParameters }) => {
-    setParameters([{ content: { minWidth: 430 } }]);
+  import("viewport-extra").then(({ apply }) => {
+    apply([{ content: { minWidth: 430 } }]);
   });
 });
 </script>

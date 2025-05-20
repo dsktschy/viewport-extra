@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { activateMetaElements } from "./activateMetaElements.js";
+import { activateMediaSpecificAttributes } from "./activateMediaSpecificAttributes.js";
 
 beforeEach(() => {
   document.documentElement.innerHTML = "<head></head><body></body>";
 });
 
-describe("activateMetaElements", () => {
+describe("activateMediaSpecificAttributes", () => {
   describe("viewport meta element to be updated", () => {
     describe("case where viewport meta elements exist", () => {
       it("updates existing first viewport meta element", () => {
@@ -19,7 +19,7 @@ describe("activateMetaElements", () => {
           <meta name="viewport" content="width=device-width,initial-scale=1" />
           <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=414" />
         `;
-        activateMetaElements();
+        activateMediaSpecificAttributes();
         expect(
           Array.from(document.querySelectorAll('meta[name="viewport"]')).map(
             (element) => element.getAttribute("content"),
@@ -42,7 +42,7 @@ describe("activateMetaElements", () => {
           <meta charset="utf-8" />
           <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=414" />
         `;
-        activateMetaElements();
+        activateMediaSpecificAttributes();
         expect(
           document
             .querySelector('meta[name="viewport"]')
@@ -64,7 +64,7 @@ describe("activateMetaElements", () => {
             <meta charset="utf-8" />
             <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=414" />
           `;
-          activateMetaElements();
+          activateMediaSpecificAttributes();
           expect(
             document
               .querySelector('meta[name="viewport"]')
@@ -83,7 +83,7 @@ describe("activateMetaElements", () => {
             <meta charset="utf-8" />
             <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="max-width=768" />
           `;
-          activateMetaElements();
+          activateMediaSpecificAttributes();
           expect(
             document
               .querySelector('meta[name="viewport"]')
@@ -102,7 +102,7 @@ describe("activateMetaElements", () => {
             <meta charset="utf-8" />
             <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=414,max-width=768" />
           `;
-          activateMetaElements();
+          activateMediaSpecificAttributes();
           expect(
             document
               .querySelector('meta[name="viewport"]')
@@ -121,7 +121,7 @@ describe("activateMetaElements", () => {
             <meta charset="utf-8" />
             <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-content="min-width=414" />
           `;
-          activateMetaElements();
+          activateMediaSpecificAttributes();
           expect(
             document
               .querySelector('meta[name="viewport"]')
@@ -140,7 +140,7 @@ describe("activateMetaElements", () => {
             <meta charset="utf-8" />
             <meta name="viewport" />
           `;
-          activateMetaElements();
+          activateMediaSpecificAttributes();
           expect(
             document
               .querySelector('meta[name="viewport"]')
@@ -159,71 +159,12 @@ describe("activateMetaElements", () => {
             <meta charset="utf-8" />
             <meta name="viewport" content="" data-extra-content="" />
           `;
-          activateMetaElements();
+          activateMediaSpecificAttributes();
           expect(
             document
               .querySelector('meta[name="viewport"]')
               ?.getAttribute("content"),
           ).toBe("initial-scale=1,width=device-width");
-        });
-      });
-    });
-
-    describe("data-(extra-)decimal-places attribute", () => {
-      describe("case where value is finite", () => {
-        it("removes digits less than specified value from calculated content attribute", () => {
-          Object.defineProperty(document.documentElement, "clientWidth", {
-            value: 320,
-            configurable: true,
-          });
-          document.head.innerHTML = `
-            <meta charset="utf-8" />
-            <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=414" data-decimal-places="6" />
-          `;
-          activateMetaElements();
-          expect(
-            document
-              .querySelector('meta[name="viewport"]')
-              ?.getAttribute("content"),
-          ).toBe("initial-scale=0.772946,width=414");
-        });
-      });
-
-      describe("case where value is infinite", () => {
-        it("does not update decimal places of calculated content attribute", () => {
-          Object.defineProperty(document.documentElement, "clientWidth", {
-            value: 320,
-            configurable: true,
-          });
-          document.head.innerHTML = `
-            <meta charset="utf-8" />
-            <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=414" data-decimal-places="Infinity" />
-          `;
-          activateMetaElements();
-          expect(
-            document
-              .querySelector('meta[name="viewport"]')
-              ?.getAttribute("content"),
-          ).toBe("initial-scale=0.7729468599033816,width=414");
-        });
-      });
-
-      describe("case where attribute is not set", () => {
-        it("does not update decimal places of calculated content attribute", () => {
-          Object.defineProperty(document.documentElement, "clientWidth", {
-            value: 320,
-            configurable: true,
-          });
-          document.head.innerHTML = `
-            <meta charset="utf-8" />
-            <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=414" />
-          `;
-          activateMetaElements();
-          expect(
-            document
-              .querySelector('meta[name="viewport"]')
-              ?.getAttribute("content"),
-          ).toBe("initial-scale=0.7729468599033816,width=414");
         });
       });
     });
@@ -244,36 +185,12 @@ describe("activateMetaElements", () => {
             <meta name="viewport-extra" content="min-width=414" />
             <meta name="viewport" content="initial-scale=1" />
           `;
-          activateMetaElements();
+          activateMediaSpecificAttributes();
           expect(
             document
               .querySelector('meta[name="viewport"]')
               ?.getAttribute("content"),
           ).toBe("initial-scale=0.7729468599033816,width=414");
-        });
-      });
-    });
-
-    describe("data-(extra-)decimal-places attributes", () => {
-      describe("case where media attributes are not set", () => {
-        it("uses attribute that is set latest of all viewport and viewport-extra meta elements", () => {
-          Object.defineProperty(document.documentElement, "clientWidth", {
-            value: 320,
-            configurable: true,
-          });
-          document.head.innerHTML = `
-            <meta charset="utf-8" />
-            <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=414" data-decimal-places="3" />
-            <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=414" data-extra-decimal-places="4" />
-            <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=414" data-decimal-places="5" />
-            <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=414" data-extra-decimal-places="6" />
-          `;
-          activateMetaElements();
-          expect(
-            document
-              .querySelector('meta[name="viewport"]')
-              ?.getAttribute("content"),
-          ).toBe("initial-scale=0.772946,width=414");
         });
       });
     });

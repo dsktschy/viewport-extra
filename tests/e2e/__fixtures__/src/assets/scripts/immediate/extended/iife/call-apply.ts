@@ -1,30 +1,27 @@
-import type * as TViewportExtra from "@@/dist/immediate/viewport-extra.d.mts";
+import type * as TViewportExtra from "@@/dist/immediate/extended/viewport-extra.d.mts";
 
 interface CustomWindow extends Window {
   ViewportExtra?: typeof TViewportExtra;
 }
+type ApplyParameters = Parameters<typeof TViewportExtra.apply>;
 
 const ViewportExtra = (window as CustomWindow).ViewportExtra;
 if (ViewportExtra) {
-  const globalParametersAttribute = document
-    .querySelector("[data-global-parameters]")
-    ?.getAttribute("data-global-parameters");
   const mediaSpecificParametersListAttribute = document
     .querySelector("[data-media-specific-parameters-list]")
     ?.getAttribute("data-media-specific-parameters-list");
   if (typeof mediaSpecificParametersListAttribute === "string") {
-    const argumentList: Parameters<typeof ViewportExtra.setParameters> = [
-      JSON.parse(mediaSpecificParametersListAttribute) as Parameters<
-        typeof ViewportExtra.setParameters
-      >[0],
+    const argumentList: ApplyParameters = [
+      JSON.parse(mediaSpecificParametersListAttribute) as ApplyParameters[0],
     ];
+    const globalParametersAttribute = document
+      .querySelector("[data-global-parameters]")
+      ?.getAttribute("data-global-parameters");
     if (typeof globalParametersAttribute === "string")
       argumentList.push(
-        JSON.parse(globalParametersAttribute) as Parameters<
-          typeof ViewportExtra.setParameters
-        >[1],
+        JSON.parse(globalParametersAttribute) as ApplyParameters[1],
       );
-    ViewportExtra.setParameters(...argumentList);
+    ViewportExtra.apply(...argumentList);
   }
 }
 document

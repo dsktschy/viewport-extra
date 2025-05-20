@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   applyMediaSpecificParameters,
+  applyMediaSpecificParametersTruncated,
   createPartialGlobalParameters,
   createPartialMediaSpecificParameters,
   getNullableContentAttribute,
@@ -363,7 +364,6 @@ describe("applyMediaSpecificParameters", () => {
           },
           media: "",
         }),
-        { decimalPlaces: Number.POSITIVE_INFINITY },
       );
       expect(htmlMetaElement.getAttribute("content")).toBe(
         "initial-scale=2,interactive-widget=resizes-content,width=device-width",
@@ -387,7 +387,6 @@ describe("applyMediaSpecificParameters", () => {
           },
           media: "",
         }),
-        { decimalPlaces: Number.POSITIVE_INFINITY },
       );
       expect(htmlMetaElement.getAttribute("content")).toBe(
         "initial-scale=1.8115942028985508,interactive-widget=resizes-content,width=414",
@@ -411,7 +410,6 @@ describe("applyMediaSpecificParameters", () => {
           },
           media: "",
         }),
-        { decimalPlaces: Number.POSITIVE_INFINITY },
       );
       expect(htmlMetaElement.getAttribute("content")).toBe(
         "initial-scale=2.6666666666666665,interactive-widget=resizes-content,width=768",
@@ -435,7 +433,6 @@ describe("applyMediaSpecificParameters", () => {
           },
           media: "",
         }),
-        { decimalPlaces: Number.POSITIVE_INFINITY },
       );
       expect(htmlMetaElement.getAttribute("content")).toBe(
         "initial-scale=2,interactive-widget=resizes-content,width=device-width",
@@ -459,6 +456,163 @@ describe("applyMediaSpecificParameters", () => {
           },
           media: "",
         }),
+      );
+      expect(htmlMetaElement.getAttribute("content")).toBe(
+        "initial-scale=2,interactive-widget=resizes-content,width=1024",
+      );
+    });
+  });
+
+  describe("case where width is not device-width or initial-scale is not 1, of content attribute in viewport meta element", () => {
+    it("should get width with second argument after updating width to device-width and initial-scale to 1, of content attribute in viewport meta element", () => {
+      const htmlMetaElement = document.createElement("meta");
+      htmlMetaElement.setAttribute(
+        "content",
+        "width=device-width,initial-scale=0.5",
+      );
+      applyMediaSpecificParameters(
+        htmlMetaElement,
+        // Reproduces behavior of document.documentElement.clientWidth
+        () => {
+          const initialScale = Number.parseFloat(
+            htmlMetaElement
+              .getAttribute("content")
+              ?.split(",")
+              .find((property) => property.split("=")[0] === "initial-scale")
+              ?.split("=")[1] ?? "0",
+          );
+          return initialScale <= 1 ? 320 / initialScale : 320;
+        },
+        () => ({
+          content: {
+            width: "device-width",
+            initialScale: 1,
+            minWidth: 414,
+            maxWidth: Number.POSITIVE_INFINITY,
+          },
+          media: "",
+        }),
+      );
+      expect(htmlMetaElement.getAttribute("content")).toBe(
+        "initial-scale=0.7729468599033816,width=414",
+      );
+    });
+  });
+});
+
+describe("applyMediaSpecificParametersTruncated", () => {
+  describe("case where return value of second argument is greater than minWidth and less than maxWidth in third argument", () => {
+    it("should create string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth in third argument, and set it to first argument", () => {
+      const htmlMetaElement = document.createElement("meta");
+      applyMediaSpecificParametersTruncated(
+        htmlMetaElement,
+        () => 640,
+        () => ({
+          content: {
+            width: "device-width",
+            initialScale: 2,
+            minWidth: 414,
+            maxWidth: 768,
+            interactiveWidget: "resizes-content",
+          },
+          media: "",
+        }),
+        { decimalPlaces: Number.POSITIVE_INFINITY },
+      );
+      expect(htmlMetaElement.getAttribute("content")).toBe(
+        "initial-scale=2,interactive-widget=resizes-content,width=device-width",
+      );
+    });
+  });
+
+  describe("case where return value of second argument is less than minWidth in third argument", () => {
+    it("should compute width and initialScale from first argument and return value of second argument to fit minimum width into viewport, create string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth, and set it to first argument", () => {
+      const htmlMetaElement = document.createElement("meta");
+      applyMediaSpecificParametersTruncated(
+        htmlMetaElement,
+        () => 375,
+        () => ({
+          content: {
+            width: "device-width",
+            initialScale: 2,
+            minWidth: 414,
+            maxWidth: 768,
+            interactiveWidget: "resizes-content",
+          },
+          media: "",
+        }),
+        { decimalPlaces: Number.POSITIVE_INFINITY },
+      );
+      expect(htmlMetaElement.getAttribute("content")).toBe(
+        "initial-scale=1.8115942028985508,interactive-widget=resizes-content,width=414",
+      );
+    });
+  });
+
+  describe("case where return value of second argument is greater than maxWidth in third argument", () => {
+    it("should compute width and initialScale from first argument and return value of second argument to fit maximum width into viewport, create string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth, and set it to first argument", () => {
+      const htmlMetaElement = document.createElement("meta");
+      applyMediaSpecificParametersTruncated(
+        htmlMetaElement,
+        () => 1024,
+        () => ({
+          content: {
+            width: "device-width",
+            initialScale: 2,
+            minWidth: 414,
+            maxWidth: 768,
+            interactiveWidget: "resizes-content",
+          },
+          media: "",
+        }),
+        { decimalPlaces: Number.POSITIVE_INFINITY },
+      );
+      expect(htmlMetaElement.getAttribute("content")).toBe(
+        "initial-scale=2.6666666666666665,interactive-widget=resizes-content,width=768",
+      );
+    });
+  });
+
+  describe("case where minWidth is greater than maxWidth in third argument", () => {
+    it("should create string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth in third argument, and set it to first argument", () => {
+      const htmlMetaElement = document.createElement("meta");
+      applyMediaSpecificParametersTruncated(
+        htmlMetaElement,
+        () => 375,
+        () => ({
+          content: {
+            width: "device-width",
+            initialScale: 2,
+            minWidth: 768,
+            maxWidth: 414,
+            interactiveWidget: "resizes-content",
+          },
+          media: "",
+        }),
+        { decimalPlaces: Number.POSITIVE_INFINITY },
+      );
+      expect(htmlMetaElement.getAttribute("content")).toBe(
+        "initial-scale=2,interactive-widget=resizes-content,width=device-width",
+      );
+    });
+  });
+
+  describe("case where width in third argument is number", () => {
+    it("should create string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth in third argument, and set it to first argument", () => {
+      const htmlMetaElement = document.createElement("meta");
+      applyMediaSpecificParametersTruncated(
+        htmlMetaElement,
+        () => 1024,
+        () => ({
+          content: {
+            width: 1024,
+            initialScale: 2,
+            minWidth: 414,
+            maxWidth: 768,
+            interactiveWidget: "resizes-content",
+          },
+          media: "",
+        }),
         { decimalPlaces: Number.POSITIVE_INFINITY },
       );
       expect(htmlMetaElement.getAttribute("content")).toBe(
@@ -470,7 +624,7 @@ describe("applyMediaSpecificParameters", () => {
   describe("case where decimalPlaces property in fourth argument is finite number", () => {
     it("should truncate numbers in returned value to decimal places specified as third argument when converting to string after computing", () => {
       const htmlMetaElement = document.createElement("meta");
-      applyMediaSpecificParameters(
+      applyMediaSpecificParametersTruncated(
         htmlMetaElement,
         () => 375,
         () => ({
@@ -494,7 +648,7 @@ describe("applyMediaSpecificParameters", () => {
   describe("case where decimalPlaces property in fourth argument is Infinity", () => {
     it("should not truncate numbers in return value", () => {
       const htmlMetaElement = document.createElement("meta");
-      applyMediaSpecificParameters(
+      applyMediaSpecificParametersTruncated(
         htmlMetaElement,
         () => 375,
         () => ({
@@ -522,7 +676,7 @@ describe("applyMediaSpecificParameters", () => {
         "content",
         "width=device-width,initial-scale=0.5",
       );
-      applyMediaSpecificParameters(
+      applyMediaSpecificParametersTruncated(
         htmlMetaElement,
         // Reproduces behavior of document.documentElement.clientWidth
         () => {

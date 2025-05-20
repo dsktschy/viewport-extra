@@ -8,7 +8,7 @@ import {
   mergePartialGlobalParameters,
 } from "../lib/GlobalParameters.js";
 import {
-  applyMediaSpecificParameters,
+  applyMediaSpecificParametersTruncated,
   createPartialGlobalParameters,
   createPartialMediaSpecificParameters,
 } from "../lib/HTMLMetaElement.js";
@@ -18,7 +18,7 @@ import {
   createPartialMediaSpecificParametersMerger,
 } from "../lib/MediaSpecificParameters.js";
 
-export const activateMetaElements = (): void => {
+export const activateAttributes = (): void => {
   if (typeof window !== "undefined") {
     const viewportMetaElement = ensureViewportMetaElement(document);
     const metaElementList = getMetaElementList(document);
@@ -30,7 +30,7 @@ export const activateMetaElements = (): void => {
     const partialMediaSpecificParametersList = metaElementList.map(
       createPartialMediaSpecificParameters,
     );
-    applyMediaSpecificParameters(
+    applyMediaSpecificParametersTruncated(
       viewportMetaElement,
       () => getDocumentClientWidth(document),
       () =>
