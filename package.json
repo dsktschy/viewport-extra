@@ -24,6 +24,26 @@
         "default": "./dist/es5/viewport-extra.cjs"
       }
     },
+    "./extended": {
+      "import": {
+        "types": "./dist/extended/viewport-extra.d.mts",
+        "default": "./dist/extended/viewport-extra.mjs"
+      },
+      "require": {
+        "types": "./dist/extended/viewport-extra.d.cts",
+        "default": "./dist/extended/viewport-extra.cjs"
+      }
+    },
+    "./extended/es5": {
+      "import": {
+        "types": "./dist/extended/es5/viewport-extra.d.mts",
+        "default": "./dist/extended/es5/viewport-extra.mjs"
+      },
+      "require": {
+        "types": "./dist/extended/es5/viewport-extra.d.cts",
+        "default": "./dist/extended/es5/viewport-extra.cjs"
+      }
+    },
     "./immediate": {
       "import": {
         "types": "./dist/immediate/viewport-extra.d.mts",
@@ -43,6 +63,26 @@
         "types": "./dist/immediate/es5/viewport-extra.d.cts",
         "default": "./dist/immediate/es5/viewport-extra.cjs"
       }
+    },
+    "./immediate/extended": {
+      "import": {
+        "types": "./dist/immediate/extended/viewport-extra.d.mts",
+        "default": "./dist/immediate/extended/viewport-extra.mjs"
+      },
+      "require": {
+        "types": "./dist/immediate/extended/viewport-extra.d.cts",
+        "default": "./dist/immediate/extended/viewport-extra.cjs"
+      }
+    },
+    "./immediate/extended/es5": {
+      "import": {
+        "types": "./dist/immediate/extended/es5/viewport-extra.d.mts",
+        "default": "./dist/immediate/extended/es5/viewport-extra.mjs"
+      },
+      "require": {
+        "types": "./dist/immediate/extended/es5/viewport-extra.d.cts",
+        "default": "./dist/immediate/extended/es5/viewport-extra.cjs"
+      }
     }
   },
   "main": "./dist/viewport-extra.cjs",
@@ -55,7 +95,11 @@
     "./dist/immediate/viewport-extra.mjs",
     "./dist/immediate/viewport-extra.cjs",
     "./dist/immediate/es5/viewport-extra.mjs",
-    "./dist/immediate/es5/viewport-extra.cjs"
+    "./dist/immediate/es5/viewport-extra.cjs",
+    "./dist/immediate/extended/viewport-extra.mjs",
+    "./dist/immediate/extended/viewport-extra.cjs",
+    "./dist/immediate/extended/es5/viewport-extra.mjs",
+    "./dist/immediate/extended/es5/viewport-extra.cjs"
   ],
   "scripts": {
     "build": "NODE_OPTIONS=--no-warnings=ExperimentalWarning rollup --config rollup.config.build.js --environment NODE_ENV:production",

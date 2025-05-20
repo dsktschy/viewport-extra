@@ -82,6 +82,22 @@ export const applyMediaSpecificParameters = (
   htmlMetaElement: HTMLMetaElement,
   getDocumentClientWidth: () => number,
   getMediaSpecificParameters: () => MediaSpecificParameters,
+): void => {
+  setContentAttribute(htmlMetaElement, createContentAttribute());
+  setContentAttribute(
+    htmlMetaElement,
+    createContentAttribute(
+      getMediaSpecificParameters(),
+      getDocumentClientWidth(),
+      Number.POSITIVE_INFINITY,
+    ),
+  );
+};
+
+export const applyMediaSpecificParametersTruncated = (
+  htmlMetaElement: HTMLMetaElement,
+  getDocumentClientWidth: () => number,
+  getMediaSpecificParameters: () => MediaSpecificParameters,
   globalParameters: GlobalParameters,
 ): void => {
   setContentAttribute(htmlMetaElement, createContentAttribute());

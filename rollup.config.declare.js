@@ -13,12 +13,28 @@ export default defineConfig(
       subDirectory: "es5/",
     },
     {
+      input: ".types/entries/extended/viewport-extra.d.ts",
+      subDirectory: "extended/",
+    },
+    {
+      input: ".types/entries/extended/viewport-extra.d.ts",
+      subDirectory: "extended/es5/",
+    },
+    {
       input: ".types/entries/immediate/viewport-extra.d.ts",
       subDirectory: "immediate/",
     },
     {
       input: ".types/entries/immediate/viewport-extra.d.ts",
       subDirectory: "immediate/es5/",
+    },
+    {
+      input: ".types/entries/immediate/extended/viewport-extra.d.ts",
+      subDirectory: "immediate/extended/",
+    },
+    {
+      input: ".types/entries/immediate/extended/viewport-extra.d.ts",
+      subDirectory: "immediate/extended/es5/",
     },
   ].map(({ input, subDirectory }) => ({
     input,

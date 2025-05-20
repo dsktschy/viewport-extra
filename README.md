@@ -31,8 +31,8 @@ The following codes will scale the page down in mobile device browsers that disp
 <!-- prettier-ignore-start -->
 
 ```ts
-import("viewport-extra").then(({ setParameters }) => {
-  setParameters([{ content: { minWidth: 430 } }]);
+import("viewport-extra").then(({ apply }) => {
+  apply([{ content: { minWidth: 430 } }]);
 });
 ```
 
@@ -83,8 +83,8 @@ The following codes will scale the page up in mobile device browsers that displa
 <!-- prettier-ignore-start -->
 
 ```ts
-import("viewport-extra").then(({ setParameters }) => {
-  setParameters([{ content: { maxWidth: 393 } }]);
+import("viewport-extra").then(({ apply }) => {
+  apply([{ content: { maxWidth: 393 } }]);
 });
 ```
 
@@ -136,8 +136,8 @@ The following codes will scale the page down in mobile device browsers that disp
 <!-- prettier-ignore-start -->
 
 ```js
-import("viewport-extra").then(({ setParameters }) => {
-  setParameters([
+import("viewport-extra").then(({ apply }) => {
+  apply([
     { content: { minWidth: 430 } },
     { content: { minWidth: 1024 }, media: "(min-width: 744px)" },
   ]);
@@ -186,12 +186,12 @@ The following codes will scale the page not only when it is displayed, but also 
   const handleOrientationChange = () => {
     window.addEventListener(
       "resize",
-      () => ViewportExtra.setParameters(paramsList),
+      () => ViewportExtra.apply(paramsList),
       { once: true }
     );
   };
   const handleLoad = () => {
-    ViewportExtra.setParameters(paramsList);
+    ViewportExtra.apply(paramsList);
     if (screen && screen.orientation) {
       screen.orientation.addEventListener("change", handleOrientationChange);
     } else {
@@ -217,7 +217,7 @@ The following codes will scale the page not only when it is displayed, but also 
 <!-- prettier-ignore-start -->
 
 ```js
-import("viewport-extra").then(({ setParameters }) => {
+import("viewport-extra").then(({ apply }) => {
   const paramsList = [
     { content: { minWidth: 430 } },
     { content: { minWidth: 744 }, media: "(min-width: 640px)" },
@@ -225,12 +225,12 @@ import("viewport-extra").then(({ setParameters }) => {
   const handleOrientationChange = () => {
     window.addEventListener(
       "resize",
-      () => setParameters(paramsList),
+      () => apply(paramsList),
       { once: true }
     );
   };
 
-  setParameters(paramsList);
+  apply(paramsList);
   if (screen && screen.orientation) {
     screen.orientation.addEventListener("change", handleOrientationChange);
   } else {
@@ -263,7 +263,7 @@ The following codes will truncate numbers in the content attribute of the viewpo
 ```html
 <meta name="viewport-extra" content="min-width=430" data-decimal-places="6" />
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/immediate/extended/viewport-extra.min.js"></script>
 ```
 
 <!-- prettier-ignore-end -->
@@ -274,8 +274,8 @@ The following codes will truncate numbers in the content attribute of the viewpo
 <!-- prettier-ignore-start -->
 
 ```ts
-import("viewport-extra").then(({ setParameters }) => {
-  setParameters(
+import("viewport-extra/extended").then(({ apply }) => {
+  apply(
     [
       { content: { minWidth: 430 } }
     ],
@@ -330,10 +330,10 @@ All of the parameter settings below have the same meaning, even if the width and
 <meta name="viewport-extra" content="min-width=430,max-width=640" />
 ```
 
-### Using setParameters function
+### Using apply function
 
 ```ts
-setParameters([
+apply([
   {
     content: {
       width: "device-width",

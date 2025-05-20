@@ -3,11 +3,7 @@ import {
   ensureViewportMetaElement,
   getDocumentClientWidth,
 } from "../lib/Document.js";
-import {
-  type GlobalParameters,
-  createGlobalParameters,
-} from "../lib/GlobalParameters.js";
-import { applyMediaSpecificParametersTruncated } from "../lib/HTMLMetaElement.js";
+import { applyMediaSpecificParameters } from "../lib/HTMLMetaElement.js";
 import { createMatchMediaPredicate } from "../lib/MatchMedia.js";
 import {
   type MediaSpecificParameters,
@@ -15,14 +11,12 @@ import {
   createPartialMediaSpecificParametersMerger,
 } from "../lib/MediaSpecificParameters.js";
 
-export const setParameters = (
+export const setMediaSpecificParametersList = (
   partialMediaSpecificParametersList: DeepPartial<MediaSpecificParameters>[],
-  partialGlobalParameters: Partial<GlobalParameters> = {},
 ): void => {
   if (typeof window === "undefined") return;
   const viewportMetaElement = ensureViewportMetaElement(document);
-  const globalParameters = createGlobalParameters(partialGlobalParameters);
-  applyMediaSpecificParametersTruncated(
+  applyMediaSpecificParameters(
     viewportMetaElement,
     () => getDocumentClientWidth(document),
     () =>
@@ -35,6 +29,5 @@ export const setParameters = (
           createMediaSpecificParameters(),
         ),
       ),
-    globalParameters,
   );
 };

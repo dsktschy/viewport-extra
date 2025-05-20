@@ -1,1 +1,1 @@
-export { setParameters } from "../apis/setParameters.js";
+export { setMediaSpecificParametersList as apply } from "../apis/setMediaSpecificParametersList.js";

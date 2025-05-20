@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { activateMetaElements } from "./activateMetaElements.js";
+import { activateAttributes } from "./activateAttributes.js";
 
-describe("activateMetaElements", () => {
+describe("activateAttributes", () => {
   describe("running in environments where no window object exists", () => {
     it("does not throw error", () => {
-      expect(activateMetaElements).not.toThrowError();
+      expect(activateAttributes).not.toThrowError();
     });
   });
 });
