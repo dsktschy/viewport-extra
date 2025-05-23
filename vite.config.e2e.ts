@@ -2,7 +2,7 @@ import { globSync } from "node:fs";
 import path from "node:path";
 import { defineConfig } from "vite";
 
-const sourceDirectory = "tests/e2e/__fixtures__/src/";
+const sourceDirectory = "tests/__fixtures__/src/";
 
 export default defineConfig({
   build: {
@@ -52,7 +52,7 @@ export default defineConfig({
         ],
       })),
     },
-    outDir: "tests/e2e/__fixtures__/dist",
+    outDir: "tests/__fixtures__/dist",
   },
   publicDir: "dist",
   resolve: {
