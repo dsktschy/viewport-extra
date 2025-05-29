@@ -4,9 +4,9 @@ import { usePathname } from "next/navigation";
 import { type FunctionComponent, useLayoutEffect, useRef } from "react";
 
 const ViewportExtra: FunctionComponent<{
-  minWidth?: number;
-  maxWidth?: number;
-}> = ({ minWidth, maxWidth }) => {
+  minimumWidth?: number;
+  maximumWidth?: number;
+}> = ({ minimumWidth, maximumWidth }) => {
   const pathname = usePathname();
 
   const previousPathname = useRef("");
@@ -16,12 +16,14 @@ const ViewportExtra: FunctionComponent<{
       previousPathname.current = pathname;
       import("viewport-extra").then(({ apply }) => {
         const content: Parameters<typeof apply>[0][number]["content"] = {};
-        if (typeof minWidth === "number") content.minWidth = minWidth;
-        if (typeof maxWidth === "number") content.maxWidth = maxWidth;
+        if (typeof minimumWidth === "number")
+          content.minimumWidth = minimumWidth;
+        if (typeof maximumWidth === "number")
+          content.maximumWidth = maximumWidth;
         apply([{ content }]);
       });
     }
-  }, [pathname, minWidth, maxWidth]);
+  }, [pathname, minimumWidth, maximumWidth]);
 
   return <></>;
 };

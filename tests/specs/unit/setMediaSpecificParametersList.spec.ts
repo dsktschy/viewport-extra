@@ -30,7 +30,7 @@ test.describe("setMediaSpecificParametersList", () => {
             <body>
               <script data-media-specific-parameters-list='${`
                 [
-                  { "content": { "minWidth": ${smViewportWidth} } }
+                  { "content": { "minimumWidth": ${smViewportWidth} } }
                 ]
               `}'></script>
               <script src="/assets/scripts/unit/call-setMediaSpecificParametersList.js" type="module"></script>
@@ -63,7 +63,7 @@ test.describe("setMediaSpecificParametersList", () => {
             <body>
               <script data-media-specific-parameters-list='${`
                 [
-                  { "content": { "minWidth": ${smViewportWidth} } }
+                  { "content": { "minimumWidth": ${smViewportWidth} } }
                 ]
               `}'></script>
               <script src="/assets/scripts/unit/call-setMediaSpecificParametersList.js" type="module"></script>
@@ -82,7 +82,7 @@ test.describe("setMediaSpecificParametersList", () => {
   test.describe("behavior according to attributes of viewport(-extra) meta elements", () => {
     test.describe("(data-extra-)content attribute", () => {
       test.describe("case where initial-scale before running setMediaSpecificParametersList is 1 or less", () => {
-        test.describe("comparison with minWidth", () => {
+        test.describe("comparison with minimumWidth", () => {
           test("window width without scroll bars when scale is 1 is used", async ({
             page,
             viewport,
@@ -102,7 +102,7 @@ test.describe("setMediaSpecificParametersList", () => {
                 <body>
                   <script data-media-specific-parameters-list='${`
                     [
-                      { "content": { "initialScale": 2, "minWidth": ${xsViewportWidth + 1} } }
+                      { "content": { "initialScale": 2, "minimumWidth": ${xsViewportWidth + 1} } }
                     ]
                   `}'></script>
                   <script src="/assets/scripts/unit/call-setMediaSpecificParametersList.js" type="module"></script>
@@ -117,7 +117,7 @@ test.describe("setMediaSpecificParametersList", () => {
           });
         });
 
-        test.describe("comparison with maxWidth", () => {
+        test.describe("comparison with maximumWidth", () => {
           test("window width without scroll bars when scale is 1 is used", async ({
             page,
             viewport,
@@ -137,7 +137,7 @@ test.describe("setMediaSpecificParametersList", () => {
                 <body>
                   <script data-media-specific-parameters-list='${`
                     [
-                      { "content": { "initialScale": 2, "maxWidth": ${xsViewportWidth - 1} } }
+                      { "content": { "initialScale": 2, "maximumWidth": ${xsViewportWidth - 1} } }
                     ]
                   `}'></script>
                   <script src="/assets/scripts/unit/call-setMediaSpecificParametersList.js" type="module"></script>
@@ -154,7 +154,7 @@ test.describe("setMediaSpecificParametersList", () => {
       });
 
       test.describe("case where initial-scale before running setMediaSpecificParametersList is greater than 1", () => {
-        test.describe("comparison with minWidth", () => {
+        test.describe("comparison with minimumWidth", () => {
           test("window width without scroll bars when scale is 1 is used", async ({
             page,
             viewport,
@@ -174,7 +174,7 @@ test.describe("setMediaSpecificParametersList", () => {
                 <body>
                   <script data-media-specific-parameters-list='${`
                     [
-                      { "content": { "initialScale": 0.5, "minWidth": ${xsViewportWidth + 1} } }
+                      { "content": { "initialScale": 0.5, "minimumWidth": ${xsViewportWidth + 1} } }
                     ]
                   `}'></script>
                   <script src="/assets/scripts/unit/call-setMediaSpecificParametersList.js" type="module"></script>
@@ -189,7 +189,7 @@ test.describe("setMediaSpecificParametersList", () => {
           });
         });
 
-        test.describe("comparison with maxWidth", () => {
+        test.describe("comparison with maximumWidth", () => {
           test("window width without scroll bars when scale is 1 is used", async ({
             page,
             viewport,
@@ -209,7 +209,7 @@ test.describe("setMediaSpecificParametersList", () => {
                 <body>
                   <script data-media-specific-parameters-list='${`
                     [
-                      { "content": { "initialScale": 0.5, "maxWidth": ${xsViewportWidth - 1} } }
+                      { "content": { "initialScale": 0.5, "maximumWidth": ${xsViewportWidth - 1} } }
                     ]
                   `}'></script>
                   <script src="/assets/scripts/unit/call-setMediaSpecificParametersList.js" type="module"></script>
@@ -229,8 +229,8 @@ test.describe("setMediaSpecificParametersList", () => {
 
   test.describe("behavior according to argument", () => {
     test.describe("content property", () => {
-      test.describe("case where minWidth property is greater than viewport width", () => {
-        test("updates width to minWidth and initial-scale to value that minWidth fits into viewport", async ({
+      test.describe("case where minimumWidth property is greater than viewport width", () => {
+        test("updates width to minimumWidth and initial-scale to value that minimumWidth fits into viewport", async ({
           page,
           viewport,
         }, { config: { projects } }) => {
@@ -248,7 +248,7 @@ test.describe("setMediaSpecificParametersList", () => {
               <body>
                 <script data-media-specific-parameters-list='${`
                   [
-                    { "content": { "minWidth": ${xsViewportWidth + 1} } }
+                    { "content": { "minimumWidth": ${xsViewportWidth + 1} } }
                   ]
                 `}'></script>
                 <script src="/assets/scripts/unit/call-setMediaSpecificParametersList.js" type="module"></script>
@@ -263,8 +263,8 @@ test.describe("setMediaSpecificParametersList", () => {
         });
       });
 
-      test.describe("case where maxWidth property is less than viewport width", () => {
-        test("updates width to maxWidth and initial-scale to value that maxWidth fits into viewport", async ({
+      test.describe("case where maximumWidth property is less than viewport width", () => {
+        test("updates width to maximumWidth and initial-scale to value that maximumWidth fits into viewport", async ({
           page,
           viewport,
         }, { config: { projects } }) => {
@@ -282,7 +282,7 @@ test.describe("setMediaSpecificParametersList", () => {
               <body>
                 <script data-media-specific-parameters-list='${`
                   [
-                    { "content": { "maxWidth": ${xsViewportWidth - 1} } }
+                    { "content": { "maximumWidth": ${xsViewportWidth - 1} } }
                   ]
                 `}'></script>
                 <script src="/assets/scripts/unit/call-setMediaSpecificParametersList.js" type="module"></script>
@@ -297,7 +297,7 @@ test.describe("setMediaSpecificParametersList", () => {
         });
       });
 
-      test.describe("case where minWidth property is less than viewport width and maxWidth property is greater than viewport width", () => {
+      test.describe("case where minimumWidth property is less than viewport width and maximumWidth property is greater than viewport width", () => {
         test("does not update width and initial-scale", async ({
           page,
           viewport,
@@ -316,7 +316,7 @@ test.describe("setMediaSpecificParametersList", () => {
               <body>
                 <script data-media-specific-parameters-list='${`
                   [
-                    { "content": { "minWidth": ${xsViewportWidth - 1}, "maxWidth": ${xsViewportWidth + 1} } }
+                    { "content": { "minimumWidth": ${xsViewportWidth - 1}, "maximumWidth": ${xsViewportWidth + 1} } }
                   ]
                 `}'></script>
                 <script src="/assets/scripts/unit/call-setMediaSpecificParametersList.js" type="module"></script>
@@ -350,7 +350,7 @@ test.describe("setMediaSpecificParametersList", () => {
               <body>
                 <script data-media-specific-parameters-list='${`
                   [
-                    { "content": { "initialScale": 0.5, "minWidth": ${smViewportWidth} } }
+                    { "content": { "initialScale": 0.5, "minimumWidth": ${smViewportWidth} } }
                   ]
                 `}'></script>
                 <script src="/assets/scripts/unit/call-setMediaSpecificParametersList.js" type="module"></script>
@@ -436,7 +436,7 @@ test.describe("setMediaSpecificParametersList", () => {
               <body>
                 <script data-media-specific-parameters-list='${`
                   [
-                    { "content": { "minWidth": ${smViewportWidth} }, "media": "(max-width: ${smViewportWidth}px)" }
+                    { "content": { "minimumWidth": ${smViewportWidth} }, "media": "(max-width: ${smViewportWidth}px)" }
                   ]
                 `}'></script>
                 <script src="/assets/scripts/unit/call-setMediaSpecificParametersList.js" type="module"></script>
@@ -472,7 +472,7 @@ test.describe("setMediaSpecificParametersList", () => {
               <body>
                 <script data-media-specific-parameters-list='${`
                   [
-                    { "content": { "minWidth": ${xlViewportWidth} }, "media": "(min-width: ${lgViewportWidth}px)" }
+                    { "content": { "minimumWidth": ${xlViewportWidth} }, "media": "(min-width: ${lgViewportWidth}px)" }
                   ]
                 `}'></script>
                 <script src="/assets/scripts/unit/call-setMediaSpecificParametersList.js" type="module"></script>
@@ -508,7 +508,7 @@ test.describe("setMediaSpecificParametersList", () => {
               <body>
                 <script data-media-specific-parameters-list='${`
                   [
-                    { "content": { "minWidth": ${smViewportWidth} } }
+                    { "content": { "minimumWidth": ${smViewportWidth} } }
                   ]
                 `}'></script>
                 <script src="/assets/scripts/unit/call-setMediaSpecificParametersList.js" type="module"></script>
@@ -550,9 +550,9 @@ test.describe("setMediaSpecificParametersList", () => {
               <body>
                 <script data-media-specific-parameters-list='${`
                   [
-                    { "content": { "initialScale": 0.25, "minWidth": ${xlViewportWidth} } },
-                    { "content": { "initialScale": 0.5, "minWidth": ${lgViewportWidth} } },
-                    { "content": { "initialScale": 1, "minWidth": ${smViewportWidth} } }
+                    { "content": { "initialScale": 0.25, "minimumWidth": ${xlViewportWidth} } },
+                    { "content": { "initialScale": 0.5, "minimumWidth": ${lgViewportWidth} } },
+                    { "content": { "initialScale": 1, "minimumWidth": ${smViewportWidth} } }
                   ]
                 `}'></script>
                 <script src="/assets/scripts/unit/call-setMediaSpecificParametersList.js" type="module"></script>
@@ -591,10 +591,10 @@ test.describe("setMediaSpecificParametersList", () => {
               <body>
                 <script data-media-specific-parameters-list='${`
                   [
-                    { "content": { "initialScale": 2, "minWidth": ${smViewportWidth}, "maximumScale": 5 }, "media": "(max-width: ${smViewportWidth}px)" },
-                    { "content": { "initialScale": 1, "minWidth": 0, "minimumScale": 1 } },
-                    { "content": { "initialScale": 1, "minWidth": ${smViewportWidth} }, "media": "(max-width: ${smViewportWidth}px)" },
-                    { "content": { "initialScale": 1, "minWidth": ${lgViewportWidth} }, "media": "not (max-width: ${smViewportWidth}px)" }
+                    { "content": { "initialScale": 2, "minimumWidth": ${smViewportWidth}, "maximumScale": 5 }, "media": "(max-width: ${smViewportWidth}px)" },
+                    { "content": { "initialScale": 1, "minimumWidth": 0, "minimumScale": 1 } },
+                    { "content": { "initialScale": 1, "minimumWidth": ${smViewportWidth} }, "media": "(max-width: ${smViewportWidth}px)" },
+                    { "content": { "initialScale": 1, "minimumWidth": ${lgViewportWidth} }, "media": "not (max-width: ${smViewportWidth}px)" }
                   ]
                 `}'></script>
                 <script src="/assets/scripts/unit/call-setMediaSpecificParametersList.js" type="module"></script>

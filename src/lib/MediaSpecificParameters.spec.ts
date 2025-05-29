@@ -16,8 +16,8 @@ describe("createMediaSpecificParameters", () => {
           content: {
             width: "device-width",
             initialScale: 1,
-            minWidth: 1024,
-            maxWidth: Number.POSITIVE_INFINITY,
+            minimumWidth: 1024,
+            maximumWidth: Number.POSITIVE_INFINITY,
             interactiveWidget: "resizes-content",
           },
           media: "(min-width: 768px)",
@@ -26,8 +26,8 @@ describe("createMediaSpecificParameters", () => {
         content: {
           width: "device-width",
           initialScale: 1,
-          minWidth: 1024,
-          maxWidth: Number.POSITIVE_INFINITY,
+          minimumWidth: 1024,
+          maximumWidth: Number.POSITIVE_INFINITY,
           interactiveWidget: "resizes-content",
         },
         media: "(min-width: 768px)",
@@ -41,8 +41,8 @@ describe("createMediaSpecificParameters", () => {
         content: {
           width: "device-width",
           initialScale: 1,
-          minWidth: 0,
-          maxWidth: Number.POSITIVE_INFINITY,
+          minimumWidth: 0,
+          maximumWidth: Number.POSITIVE_INFINITY,
         },
         media: "",
       });
@@ -55,8 +55,8 @@ describe("createMediaSpecificParameters", () => {
         content: {
           width: "device-width",
           initialScale: 1,
-          minWidth: 0,
-          maxWidth: Number.POSITIVE_INFINITY,
+          minimumWidth: 0,
+          maximumWidth: Number.POSITIVE_INFINITY,
         },
         media: "",
       });
@@ -73,8 +73,8 @@ describe("mergePartialMediaSpecificParameters", () => {
             content: {
               width: "device-width",
               initialScale: 2,
-              minWidth: 768,
-              maxWidth: 1024,
+              minimumWidth: 768,
+              maximumWidth: 1024,
               interactiveWidget: "resizes-content",
             },
             media: "(min-width: 640px)",
@@ -85,8 +85,8 @@ describe("mergePartialMediaSpecificParameters", () => {
         content: {
           width: "device-width",
           initialScale: 2,
-          minWidth: 768,
-          maxWidth: 1024,
+          minimumWidth: 768,
+          maximumWidth: 1024,
           interactiveWidget: "resizes-content",
         },
         media: "(min-width: 640px)",
@@ -103,8 +103,8 @@ describe("mergePartialMediaSpecificParameters", () => {
             content: {
               width: "device-width",
               initialScale: 2,
-              minWidth: 768,
-              maxWidth: 1024,
+              minimumWidth: 768,
+              maximumWidth: 1024,
               interactiveWidget: "resizes-content",
             },
             media: "(min-width: 640px)",
@@ -114,8 +114,8 @@ describe("mergePartialMediaSpecificParameters", () => {
         content: {
           width: "device-width",
           initialScale: 2,
-          minWidth: 768,
-          maxWidth: 1024,
+          minimumWidth: 768,
+          maximumWidth: 1024,
           interactiveWidget: "resizes-content",
         },
         media: "(min-width: 640px)",
@@ -136,8 +136,8 @@ describe("mergePartialMediaSpecificParameters", () => {
           },
           {
             content: {
-              minWidth: 768,
-              maxWidth: 1024,
+              minimumWidth: 768,
+              maximumWidth: 1024,
             },
             media: "(min-width: 640px)",
           },
@@ -147,8 +147,8 @@ describe("mergePartialMediaSpecificParameters", () => {
           width: 1280,
           initialScale: 2,
           interactiveWidget: "resizes-content",
-          minWidth: 768,
-          maxWidth: 1024,
+          minimumWidth: 768,
+          maximumWidth: 1024,
         },
         media: "(min-width: 640px)",
       });
@@ -162,8 +162,8 @@ describe("mergePartialMediaSpecificParameters", () => {
               content: {
                 width: "device-width",
                 initialScale: 1,
-                minWidth: 0,
-                maxWidth: Number.POSITIVE_INFINITY,
+                minimumWidth: 0,
+                maximumWidth: Number.POSITIVE_INFINITY,
                 interactiveWidget: "resizes-content",
               },
               media: "(min-width: 768px)",
@@ -172,8 +172,8 @@ describe("mergePartialMediaSpecificParameters", () => {
               content: {
                 width: 1280,
                 initialScale: 2,
-                minWidth: 414,
-                maxWidth: 768,
+                minimumWidth: 414,
+                maximumWidth: 768,
                 interactiveWidget: "overlays-content",
               },
               media: "(min-width: 640px)",
@@ -183,8 +183,8 @@ describe("mergePartialMediaSpecificParameters", () => {
           content: {
             width: 1280,
             initialScale: 2,
-            minWidth: 414,
-            maxWidth: 768,
+            minimumWidth: 414,
+            maximumWidth: 768,
             interactiveWidget: "overlays-content",
           },
           media: "(min-width: 640px)",
@@ -202,23 +202,23 @@ describe("mergePartialMediaSpecificParameters", () => {
 
 describe("createContentAttribute", () => {
   describe("case where all arguments are undefined", () => {
-    it("should return string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth in default value of Content type", () => {
+    it("should return string where keys and values are connected with equals and properties are connected with commas for properties other than minimumWidth and maximumWidth in default value of Content type", () => {
       expect(createContentAttribute()).toBe(
         "initial-scale=1,width=device-width",
       );
     });
   });
 
-  describe("case where second argument is greater than minWidth and less than maxWidth in first argument", () => {
-    it("should return string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth in first argument, and ignore media property in first argument", () => {
+  describe("case where second argument is greater than minimumWidth and less than maximumWidth in first argument", () => {
+    it("should return string where keys and values are connected with equals and properties are connected with commas for properties other than minimumWidth and maximumWidth in first argument, and ignore media property in first argument", () => {
       expect(
         createContentAttribute(
           {
             content: {
               width: "device-width",
               initialScale: 2,
-              minWidth: 640,
-              maxWidth: 1024,
+              minimumWidth: 640,
+              maximumWidth: 1024,
               interactiveWidget: "resizes-content",
             },
             media: "(min-width: 768px)",
@@ -232,16 +232,16 @@ describe("createContentAttribute", () => {
     });
   });
 
-  describe("case where second argument is less than minWidth in first argument", () => {
-    it("should compute width and initialScale from first and second argument to fit minimum width into viewport, create string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth, return it, and ignore media property in first argument", () => {
+  describe("case where second argument is less than minimumWidth in first argument", () => {
+    it("should compute width and initialScale from first and second argument to fit minimum width into viewport, create string where keys and values are connected with equals and properties are connected with commas for properties other than minimumWidth and maximumWidth, return it, and ignore media property in first argument", () => {
       expect(
         createContentAttribute(
           {
             content: {
               width: "device-width",
               initialScale: 2,
-              minWidth: 640,
-              maxWidth: 1024,
+              minimumWidth: 640,
+              maximumWidth: 1024,
               interactiveWidget: "resizes-content",
             },
             media: "(min-width: 768px)",
@@ -255,16 +255,16 @@ describe("createContentAttribute", () => {
     });
   });
 
-  describe("case where second argument is greater than maxWidth in first argument", () => {
-    it("should compute width and initialScale from first and second argument to fit maximum width into viewport, create string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth, return it, and ignore media property in first argument", () => {
+  describe("case where second argument is greater than maximumWidth in first argument", () => {
+    it("should compute width and initialScale from first and second argument to fit maximum width into viewport, create string where keys and values are connected with equals and properties are connected with commas for properties other than minimumWidth and maximumWidth, return it, and ignore media property in first argument", () => {
       expect(
         createContentAttribute(
           {
             content: {
               width: "device-width",
               initialScale: 2,
-              minWidth: 640,
-              maxWidth: 1024,
+              minimumWidth: 640,
+              maximumWidth: 1024,
               interactiveWidget: "resizes-content",
             },
             media: "(max-width: 1200px)",
@@ -276,16 +276,16 @@ describe("createContentAttribute", () => {
     });
   });
 
-  describe("case where minWidth is greater than maxWidth in first argument", () => {
-    it("should return string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth in first argument, and ignore media property in first argument", () => {
+  describe("case where minimumWidth is greater than maximumWidth in first argument", () => {
+    it("should return string where keys and values are connected with equals and properties are connected with commas for properties other than minimumWidth and maximumWidth in first argument, and ignore media property in first argument", () => {
       expect(
         createContentAttribute(
           {
             content: {
               width: "device-width",
               initialScale: 2,
-              minWidth: 1024,
-              maxWidth: 640,
+              minimumWidth: 1024,
+              maximumWidth: 640,
               interactiveWidget: "resizes-content",
             },
             media: "(min-width: 768px)",
@@ -300,15 +300,15 @@ describe("createContentAttribute", () => {
   });
 
   describe("case where width is number in first argument", () => {
-    it("should return string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth in first argument, and ignore media property in first argument", () => {
+    it("should return string where keys and values are connected with equals and properties are connected with commas for properties other than minimumWidth and maximumWidth in first argument, and ignore media property in first argument", () => {
       expect(
         createContentAttribute(
           {
             content: {
               width: 1280,
               initialScale: 2,
-              minWidth: 640,
-              maxWidth: 1024,
+              minimumWidth: 640,
+              maximumWidth: 1024,
               interactiveWidget: "resizes-content",
             },
             media: "(max-width: 1200px)",
@@ -328,8 +328,8 @@ describe("createContentAttribute", () => {
             content: {
               width: "device-width",
               initialScale: 1.123456789,
-              minWidth: 414,
-              maxWidth: Number.POSITIVE_INFINITY,
+              minimumWidth: 414,
+              maximumWidth: Number.POSITIVE_INFINITY,
               minimumScale: 0.123456789,
             },
             media: "",
@@ -349,8 +349,8 @@ describe("createContentAttribute", () => {
             content: {
               width: "device-width",
               initialScale: 1.123456789,
-              minWidth: 414,
-              maxWidth: Number.POSITIVE_INFINITY,
+              minimumWidth: 414,
+              maximumWidth: Number.POSITIVE_INFINITY,
               minimumScale: 0.123456789,
             },
             media: "",
@@ -373,14 +373,14 @@ describe("assignOptionalPartialContent", () => {
           {},
           {
             width: "device-width",
-            minWidth: 414,
+            minimumWidth: 414,
             interactiveWidget: "resizes-content",
           },
         ),
       ).toStrictEqual({
         content: {
           width: "device-width",
-          minWidth: 414,
+          minimumWidth: 414,
           interactiveWidget: "resizes-content",
         },
       });
@@ -392,13 +392,13 @@ describe("assignOptionalPartialContent", () => {
       expect(
         assignOptionalPartialContent(undefined, {
           width: "device-width",
-          minWidth: 414,
+          minimumWidth: 414,
           interactiveWidget: "resizes-content",
         }),
       ).toStrictEqual({
         content: {
           width: "device-width",
-          minWidth: 414,
+          minimumWidth: 414,
           interactiveWidget: "resizes-content",
         },
       });
@@ -447,12 +447,12 @@ describe("createPartialMediaSpecificParametersMerger", () => {
             content: {
               width: "device-width",
               initialScale: 1,
-              minWidth: 414,
+              minimumWidth: 414,
             },
           },
           {
             content: {
-              minWidth: 768,
+              minimumWidth: 768,
             },
             media: "(min-width: 640px)",
           },
@@ -461,7 +461,7 @@ describe("createPartialMediaSpecificParametersMerger", () => {
         content: {
           width: "device-width",
           initialScale: 1,
-          minWidth: 768,
+          minimumWidth: 768,
         },
         media: "(min-width: 640px)",
       });
@@ -476,12 +476,12 @@ describe("createPartialMediaSpecificParametersMerger", () => {
             content: {
               width: "device-width",
               initialScale: 1,
-              minWidth: 414,
+              minimumWidth: 414,
             },
           },
           {
             content: {
-              minWidth: 768,
+              minimumWidth: 768,
             },
             media: "(min-width: 640px)",
           },
@@ -490,7 +490,7 @@ describe("createPartialMediaSpecificParametersMerger", () => {
         content: {
           width: "device-width",
           initialScale: 1,
-          minWidth: 414,
+          minimumWidth: 414,
         },
       });
     });

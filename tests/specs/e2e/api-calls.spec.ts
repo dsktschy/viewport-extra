@@ -313,8 +313,8 @@ for (const {
         await page.goto("/tests/__fixtures__/src/dummy.html");
       });
 
-      test.describe("case where content.minWidth and media properties is set in first argument", () => {
-        test("width is updated to minimum width and initial-scale is updated to value that fits minimum width into viewport, on browser whose viewport width is less than minimum width. Last minWidth in matching media queries is used", async ({
+      test.describe("case where content.minimumWidth and media properties is set in first argument", () => {
+        test("width is updated to minimum width and initial-scale is updated to value that fits minimum width into viewport, on browser whose viewport width is less than minimum width. Last minimumWidth in matching media queries is used", async ({
           page,
           viewport,
         }, { config: { projects } }) => {
@@ -335,8 +335,8 @@ for (const {
               <body>
                 <script data-media-specific-parameters-list='${`
                   [
-                    { "content": { "minWidth": ${smViewportWidth} } },
-                    { "content": { "minWidth": ${xlViewportWidth} }, "media": "(min-width: 640px)" }
+                    { "content": { "minimumWidth": ${smViewportWidth} } },
+                    { "content": { "minimumWidth": ${xlViewportWidth} }, "media": "(min-width: 640px)" }
                   ]
                 `}'></script>
                 <script src="${assetScriptSrc}" type="module" data-asset-script data-status="incomplete"></script>
@@ -358,8 +358,8 @@ for (const {
         });
       });
 
-      test.describe("case where content.maxWidth and media properties is set in first argument", () => {
-        test("width is updated to maximum width and initial-scale is updated to value that fits maximum width into viewport, on browser whose viewport width is greater than maximum width. Last maxWidth in matching media queries is used", async ({
+      test.describe("case where content.maximumWidth and media properties is set in first argument", () => {
+        test("width is updated to maximum width and initial-scale is updated to value that fits maximum width into viewport, on browser whose viewport width is greater than maximum width. Last maximumWidth in matching media queries is used", async ({
           page,
           viewport,
         }, { config: { projects } }) => {
@@ -380,8 +380,8 @@ for (const {
               <body>
                 <script data-media-specific-parameters-list='${`
                   [
-                    { "content": { "maxWidth": ${xsViewportWidth} } },
-                    { "content": { "maxWidth": ${lgViewportWidth} }, "media": "(min-width: 640px)" }
+                    { "content": { "maximumWidth": ${xsViewportWidth} } },
+                    { "content": { "maximumWidth": ${lgViewportWidth} }, "media": "(min-width: 640px)" }
                   ]
                 `}'></script>
                 <script src="${assetScriptSrc}" type="module" data-asset-script data-status="incomplete"></script>

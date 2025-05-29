@@ -14,7 +14,7 @@ const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
       />
     </Head>
     <Component {...pageProps} />
-    <ViewportExtra minWidth={430} />
+    <ViewportExtra minimumWidth={430} />
   </>
 );
 

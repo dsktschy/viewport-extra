@@ -6,16 +6,16 @@ import { kebabizeCamelCaseString } from "./string.js";
 export interface Content {
   width: number | "device-width";
   initialScale: number;
-  minWidth: number;
-  maxWidth: number;
+  minimumWidth: number;
+  maximumWidth: number;
   [key: string]: string | number;
 }
 
 export const defaultContent = {
   width: "device-width" as const,
   initialScale: 1,
-  minWidth: 0,
-  maxWidth: Number.POSITIVE_INFINITY,
+  minimumWidth: 0,
+  maximumWidth: Number.POSITIVE_INFINITY,
 };
 
 export const createContent = (
@@ -48,16 +48,17 @@ export function createContentAttribute(
   decimalPlaces = 0,
 ): ContentAttribute {
   const { width, initialScale } = content;
-  const { minWidth, maxWidth, ...contentWithoutExtraProperties } = content;
-  if (minWidth <= maxWidth && width === "device-width") {
-    if (documentClientWidth < minWidth) {
-      contentWithoutExtraProperties.width = minWidth;
+  const { minimumWidth, maximumWidth, ...contentWithoutExtraProperties } =
+    content;
+  if (minimumWidth <= maximumWidth && width === "device-width") {
+    if (documentClientWidth < minimumWidth) {
+      contentWithoutExtraProperties.width = minimumWidth;
       contentWithoutExtraProperties.initialScale =
-        (documentClientWidth / minWidth) * initialScale;
-    } else if (documentClientWidth > maxWidth) {
-      contentWithoutExtraProperties.width = maxWidth;
+        (documentClientWidth / minimumWidth) * initialScale;
+    } else if (documentClientWidth > maximumWidth) {
+      contentWithoutExtraProperties.width = maximumWidth;
       contentWithoutExtraProperties.initialScale =
-        (documentClientWidth / maxWidth) * initialScale;
+        (documentClientWidth / maximumWidth) * initialScale;
     }
   }
   return Object.keys(contentWithoutExtraProperties)
