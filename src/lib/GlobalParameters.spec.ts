@@ -18,7 +18,7 @@ describe("createGlobalParameters", () => {
   describe("case where argument has missing properties of GlobalParameters type", () => {
     it("should return object with missing properties set to default value deeply", () => {
       expect(createGlobalParameters({})).toStrictEqual({
-        decimalPlaces: Number.POSITIVE_INFINITY,
+        decimalPlaces: Infinity,
       });
     });
   });
@@ -26,7 +26,7 @@ describe("createGlobalParameters", () => {
   describe("case where argument is undefined", () => {
     it("should return object with all properties that have default value", () => {
       expect(createGlobalParameters()).toStrictEqual({
-        decimalPlaces: Number.POSITIVE_INFINITY,
+        decimalPlaces: Infinity,
       });
     });
   });

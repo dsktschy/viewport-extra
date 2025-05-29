@@ -391,8 +391,8 @@ for (const {
           await waitForAssetScriptComplete(page);
           expect(await getViewportContentString(page)).toBe(
             documentClientWidth &&
-              xsViewportWidth < Number.POSITIVE_INFINITY &&
-              lgViewportWidth < Number.POSITIVE_INFINITY
+              xsViewportWidth < Infinity &&
+              lgViewportWidth < Infinity
               ? documentClientWidth < 640
                 ? documentClientWidth > xsViewportWidth
                   ? `initial-scale=${(documentClientWidth / xsViewportWidth) * 1},width=${xsViewportWidth}`

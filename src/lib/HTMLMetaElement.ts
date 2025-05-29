@@ -89,7 +89,7 @@ export const applyMediaSpecificParameters = (
     createContentAttribute(
       getMediaSpecificParameters(),
       getDocumentClientWidth(),
-      Number.POSITIVE_INFINITY,
+      Infinity,
     ),
   );
 };

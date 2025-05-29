@@ -7,11 +7,7 @@ import packageJson from "./package.json" with { type: "json" };
 import tsconfigJson from "./tsconfig.json" with { type: "json" };
 
 // Copyright
-const banner = `/*!
- * Viewport Extra v${packageJson.version}
- * (c) dsktschy
- * Released under the MIT License.
- */`;
+const banner = `/*! Viewport Extra v${packageJson.version} | (c) dsktschy | MIT License */`;
 
 // Global variable name for iife
 const name = "ViewportExtra";
@@ -91,11 +87,16 @@ export default defineConfig(
         name,
         plugins: [
           rollupPluginTerser({
+            compress: {
+              passes: 3,
+              pure_getters: true,
+            },
             format: {
               // Copyright of tslib is not required
               // https://github.com/microsoft/tslib/pull/96
               comments: false,
               preamble: banner,
+              wrap_func_args: false,
             },
           }),
         ],

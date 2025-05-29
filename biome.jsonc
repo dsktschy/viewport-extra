@@ -23,7 +23,9 @@
         "useArrayLiterals": "error"
       },
       "style": {
-        "noNamespace": "error"
+        "noNamespace": "error",
+        // To reduce artifact sizes
+        "useNumberNamespace": "off"
       },
       "suspicious": {
         "noEmptyBlockStatements": "error"

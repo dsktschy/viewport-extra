@@ -488,7 +488,7 @@ describe("applyMediaSpecificParameters", () => {
             width: "device-width",
             initialScale: 1,
             minimumWidth: 414,
-            maximumWidth: Number.POSITIVE_INFINITY,
+            maximumWidth: Infinity,
           },
           media: "",
         }),
@@ -517,7 +517,7 @@ describe("applyMediaSpecificParametersTruncated", () => {
           },
           media: "",
         }),
-        { decimalPlaces: Number.POSITIVE_INFINITY },
+        { decimalPlaces: Infinity },
       );
       expect(htmlMetaElement.getAttribute("content")).toBe(
         "initial-scale=2,interactive-widget=resizes-content,width=device-width",
@@ -541,7 +541,7 @@ describe("applyMediaSpecificParametersTruncated", () => {
           },
           media: "",
         }),
-        { decimalPlaces: Number.POSITIVE_INFINITY },
+        { decimalPlaces: Infinity },
       );
       expect(htmlMetaElement.getAttribute("content")).toBe(
         "initial-scale=1.8115942028985508,interactive-widget=resizes-content,width=414",
@@ -565,7 +565,7 @@ describe("applyMediaSpecificParametersTruncated", () => {
           },
           media: "",
         }),
-        { decimalPlaces: Number.POSITIVE_INFINITY },
+        { decimalPlaces: Infinity },
       );
       expect(htmlMetaElement.getAttribute("content")).toBe(
         "initial-scale=2.6666666666666665,interactive-widget=resizes-content,width=768",
@@ -589,7 +589,7 @@ describe("applyMediaSpecificParametersTruncated", () => {
           },
           media: "",
         }),
-        { decimalPlaces: Number.POSITIVE_INFINITY },
+        { decimalPlaces: Infinity },
       );
       expect(htmlMetaElement.getAttribute("content")).toBe(
         "initial-scale=2,interactive-widget=resizes-content,width=device-width",
@@ -613,7 +613,7 @@ describe("applyMediaSpecificParametersTruncated", () => {
           },
           media: "",
         }),
-        { decimalPlaces: Number.POSITIVE_INFINITY },
+        { decimalPlaces: Infinity },
       );
       expect(htmlMetaElement.getAttribute("content")).toBe(
         "initial-scale=2,interactive-widget=resizes-content,width=1024",
@@ -632,7 +632,7 @@ describe("applyMediaSpecificParametersTruncated", () => {
             width: "device-width",
             initialScale: 1.123456789,
             minimumWidth: 414,
-            maximumWidth: Number.POSITIVE_INFINITY,
+            maximumWidth: Infinity,
             minimumScale: 0.123456789,
           },
           media: "",
@@ -656,12 +656,12 @@ describe("applyMediaSpecificParametersTruncated", () => {
             width: "device-width",
             initialScale: 1.123456789,
             minimumWidth: 414,
-            maximumWidth: Number.POSITIVE_INFINITY,
+            maximumWidth: Infinity,
             minimumScale: 0.123456789,
           },
           media: "",
         }),
-        { decimalPlaces: Number.POSITIVE_INFINITY },
+        { decimalPlaces: Infinity },
       );
       expect(htmlMetaElement.getAttribute("content")).toBe(
         "initial-scale=1.0176239030797103,minimum-scale=0.123456789,width=414",
@@ -694,11 +694,11 @@ describe("applyMediaSpecificParametersTruncated", () => {
             width: "device-width",
             initialScale: 1,
             minimumWidth: 414,
-            maximumWidth: Number.POSITIVE_INFINITY,
+            maximumWidth: Infinity,
           },
           media: "",
         }),
-        { decimalPlaces: Number.POSITIVE_INFINITY },
+        { decimalPlaces: Infinity },
       );
       expect(htmlMetaElement.getAttribute("content")).toBe(
         "initial-scale=0.7729468599033816,width=414",

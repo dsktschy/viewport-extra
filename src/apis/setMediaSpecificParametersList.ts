@@ -15,9 +15,8 @@ export const setMediaSpecificParametersList = (
   partialMediaSpecificParametersList: DeepPartial<MediaSpecificParameters>[],
 ): void => {
   if (typeof window === "undefined") return;
-  const viewportMetaElement = ensureViewportMetaElement(document);
   applyMediaSpecificParameters(
-    viewportMetaElement,
+    ensureViewportMetaElement(document),
     () => getDocumentClientWidth(document),
     () =>
       createMediaSpecificParameters(

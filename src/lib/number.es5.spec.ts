@@ -1,29 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-  mathTrunc,
-  numberIsFinite,
-  numberIsNaN,
-  truncateDecimalNumber,
-} from "./number.js";
-
-describe("numberIsFinite", () => {
-  describe("case where target of TypeScript is es5", () => {
-    it("should not return Number.isFinite", async () => {
-      expect(numberIsFinite).not.toBe(Number.isFinite);
-    });
-
-    it("should behave same as Number.isFinite", async () => {
-      // biome-ignore lint/style/useNumberNamespace:
-      expect(numberIsFinite(Infinity)).toBe(Number.isFinite(Infinity));
-      // biome-ignore lint/style/useNumberNamespace:
-      expect(numberIsFinite(NaN)).toBe(Number.isFinite(NaN));
-      expect(numberIsFinite("0.123456789")).toBe(
-        Number.isFinite("0.123456789"),
-      );
-      expect(numberIsFinite(0.123456789)).toBe(Number.isFinite(0.123456789));
-    });
-  });
-});
+import { mathTrunc, truncateDecimalNumber } from "./number.js";
 
 describe("mathTrunc", () => {
   describe("case where target of TypeScript is es5", () => {
@@ -38,23 +14,6 @@ describe("mathTrunc", () => {
   });
 });
 
-describe("numberIsNaN", () => {
-  describe("case where target of TypeScript is es5", () => {
-    it("should not return Number.isNaN", async () => {
-      expect(numberIsNaN).not.toBe(Number.isNaN);
-    });
-
-    it("should behave same as Number.isNaN", async () => {
-      expect(numberIsNaN(0.123456789)).toBe(Number.isNaN(0.123456789));
-      // biome-ignore lint/style/useNumberNamespace:
-      expect(numberIsNaN(Infinity)).toBe(Number.isNaN(Infinity));
-      expect(numberIsNaN("NaN")).toBe(Number.isNaN("NaN"));
-      // biome-ignore lint/style/useNumberNamespace:
-      expect(numberIsNaN(NaN)).toBe(Number.isNaN(NaN));
-    });
-  });
-});
-
 describe("truncateDecimalNumber", () => {
   describe("case where second argument is finite", () => {
     it("should return truncated number", () => {
@@ -64,9 +23,7 @@ describe("truncateDecimalNumber", () => {
 
   describe("case where second argument is infinite", () => {
     it("should return second argument", () => {
-      expect(truncateDecimalNumber(0.123456789, Number.POSITIVE_INFINITY)).toBe(
-        0.123456789,
-      );
+      expect(truncateDecimalNumber(0.123456789, Infinity)).toBe(0.123456789);
     });
   });
 });

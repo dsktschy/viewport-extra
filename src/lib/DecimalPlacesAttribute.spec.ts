@@ -39,9 +39,7 @@ describe("createOptionalDecimalPlaces", () => {
 
   describe("case where argument string is Infinity", () => {
     it("should convert argument to number type and return it", () => {
-      expect(createOptionalDecimalPlaces("Infinity")).toBe(
-        Number.POSITIVE_INFINITY,
-      );
+      expect(createOptionalDecimalPlaces("Infinity")).toBe(Infinity);
     });
   });
 
