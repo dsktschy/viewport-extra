@@ -15,7 +15,7 @@ export const defaultContent = {
   width: "device-width" as const,
   initialScale: 1,
   minimumWidth: 0,
-  maximumWidth: Number.POSITIVE_INFINITY,
+  maximumWidth: Infinity,
 };
 
 export const createContent = (
@@ -36,17 +36,19 @@ export const mergeOptionalPartialContent = (
       }
     : followingOptionalPartialContent;
 
-export function createContentAttribute(
-  content: Content,
-  documentClientWidth: number,
-  decimalPlaces: DecimalPlaces,
-): ContentAttribute;
-export function createContentAttribute(): ContentAttribute;
-export function createContentAttribute(
+export const createContentAttribute: {
+  (
+    content: Content,
+    documentClientWidth: number,
+    decimalPlaces: DecimalPlaces,
+  ): ContentAttribute;
+  (): ContentAttribute;
+} = (
   content: Content = { ...defaultContent },
-  documentClientWidth = 0,
-  decimalPlaces = 0,
-): ContentAttribute {
+  // biome-ignore lint/style/noInferrableTypes:
+  documentClientWidth: number = 0,
+  decimalPlaces: DecimalPlaces = 0,
+) => {
   const { width, initialScale } = content;
   const { minimumWidth, maximumWidth, ...contentWithoutExtraProperties } =
     content;
@@ -75,4 +77,4 @@ export function createContentAttribute(
     )
     .sort()
     .join(",");
-}
+};

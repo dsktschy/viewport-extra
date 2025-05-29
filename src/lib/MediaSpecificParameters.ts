@@ -42,27 +42,27 @@ export const mergePartialMediaSpecificParameters = (
   return partialMediaSpecificParameters;
 };
 
-export function createContentAttribute(
-  optionalMediaSpecificParameters: MediaSpecificParameters,
-  optionalDocumentClientWidth: number,
-  optionalDecimalPlaces: DecimalPlaces,
-): ContentAttribute;
-export function createContentAttribute(): ContentAttribute;
-export function createContentAttribute(
+export const createContentAttribute: {
+  (
+    optionalMediaSpecificParameters: MediaSpecificParameters,
+    optionalDocumentClientWidth: number,
+    optionalDecimalPlaces: DecimalPlaces,
+  ): ContentAttribute;
+  (): ContentAttribute;
+} = (
   optionalMediaSpecificParameters?: MediaSpecificParameters,
   optionalDocumentClientWidth?: number,
   optionalDecimalPlaces?: DecimalPlaces,
-): ContentAttribute {
-  return optionalMediaSpecificParameters &&
-    typeof optionalDocumentClientWidth !== "undefined" &&
-    typeof optionalDecimalPlaces !== "undefined"
+) =>
+  optionalMediaSpecificParameters &&
+  typeof optionalDocumentClientWidth !== "undefined" &&
+  typeof optionalDecimalPlaces !== "undefined"
     ? ContentModule.createContentAttribute(
         optionalMediaSpecificParameters.content,
         optionalDocumentClientWidth,
         optionalDecimalPlaces,
       )
     : ContentModule.createContentAttribute();
-}
 
 export const assignOptionalPartialContent = (
   optionalPartialMediaSpecificParameters:

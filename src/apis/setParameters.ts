@@ -20,10 +20,8 @@ export const setParameters = (
   partialGlobalParameters: Partial<GlobalParameters> = {},
 ): void => {
   if (typeof window === "undefined") return;
-  const viewportMetaElement = ensureViewportMetaElement(document);
-  const globalParameters = createGlobalParameters(partialGlobalParameters);
   applyMediaSpecificParametersTruncated(
-    viewportMetaElement,
+    ensureViewportMetaElement(document),
     () => getDocumentClientWidth(document),
     () =>
       createMediaSpecificParameters(
@@ -35,6 +33,6 @@ export const setParameters = (
           createMediaSpecificParameters(),
         ),
       ),
-    globalParameters,
+    createGlobalParameters(partialGlobalParameters),
   );
 };

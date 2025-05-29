@@ -13,7 +13,7 @@ describe("createDecimalPlaces", () => {
 
   describe("case where argument is undefined", () => {
     it("should return default value", () => {
-      expect(createDecimalPlaces(undefined)).toBe(Number.POSITIVE_INFINITY);
+      expect(createDecimalPlaces(undefined)).toBe(Infinity);
     });
   });
 });

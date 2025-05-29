@@ -1,5 +1,4 @@
 import type { Content } from "./Content.js";
-import { numberIsNaN } from "./number.js";
 import { camelizeKebabCaseString } from "./string.js";
 
 export type ContentAttribute = string;
@@ -24,17 +23,16 @@ export const createOptionalPartialContent = (
     ? nullableContentAttribute
         .split(",")
         .reduce<Partial<Content>>((partialContent, equalSeparatedContent) => {
-          const [key, value] = equalSeparatedContent.split("=");
-          const trimmedKey = key.trim();
-          if (!trimmedKey) return partialContent;
-          const trimmedValue = value.trim();
-          if (!trimmedValue) return partialContent;
-          const numberValue = +trimmedValue;
-          partialContent[camelizeKebabCaseString(trimmedKey)] = numberIsNaN(
-            numberValue,
-          )
-            ? trimmedValue
-            : numberValue;
+          const [key, value] = equalSeparatedContent
+            .split("=")
+            .map((keyOrValue) => keyOrValue.trim());
+          if (key && value) {
+            const numberValue = +value;
+            // biome-ignore lint/suspicious/noGlobalIsNan: isNaN is safe to use here
+            partialContent[camelizeKebabCaseString(key)] = isNaN(numberValue)
+              ? value
+              : numberValue;
+          }
           return partialContent;
         }, {})
     : undefined;

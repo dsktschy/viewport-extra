@@ -1,6 +1,6 @@
 export type DecimalPlaces = number;
 
-export const defaultDecimalPlaces = Number.POSITIVE_INFINITY;
+export const defaultDecimalPlaces = Infinity;
 
 export const createDecimalPlaces = (
   optionalDecimalPlaces: DecimalPlaces | undefined,
