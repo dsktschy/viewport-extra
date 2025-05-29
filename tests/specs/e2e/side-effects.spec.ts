@@ -162,8 +162,8 @@ for (const {
         await page.goto("/tests/__fixtures__/src/dummy.html");
       });
 
-      test.describe("case where (data-extra-)content attribute with min-width, data-(extra-)media attribute are set in viewport(-extra) meta element", () => {
-        test("width is updated to minimum width and initial-scale is updated to value that fits minimum width into viewport, on browser whose viewport width is less than minimum width. Last min-width in matching media queries is used", async ({
+      test.describe("case where (data-extra-)content attribute with minimum-width, data-(extra-)media attribute are set in viewport(-extra) meta element", () => {
+        test("width is updated to minimum width and initial-scale is updated to value that fits minimum width into viewport, on browser whose viewport width is less than minimum width. Last minimum-width in matching media queries is used", async ({
           page,
           viewport,
         }, { config: { projects } }) => {
@@ -179,8 +179,8 @@ for (const {
                 <meta charset="UTF-8" />
                 <title>Document</title>
                 <meta name="viewport" content="width=device-width,initial-scale=1" />
-                <meta name="viewport-extra" content="min-width=${smViewportWidth}" />
-                <meta name="viewport-extra" content="min-width=${xlViewportWidth}" data-media="(min-width: 640px)" />
+                <meta name="viewport-extra" content="minimum-width=${smViewportWidth}" />
+                <meta name="viewport-extra" content="minimum-width=${xlViewportWidth}" data-media="(min-width: 640px)" />
                 ${outputScriptSrc ? `<script src="${outputScriptSrc}"></script>` : ""}
               </head>
               <body>
@@ -203,8 +203,8 @@ for (const {
         });
       });
 
-      test.describe("case where (data-extra-)content attribute with max-width, data-(extra-)media attribute are set in viewport(-extra) meta element", () => {
-        test("width is updated to maximum width and initial-scale is updated to value that fits maximum width into viewport, on browser whose viewport width is greater than maximum width. Last max-width in matching media queries is used", async ({
+      test.describe("case where (data-extra-)content attribute with maximum-width, data-(extra-)media attribute are set in viewport(-extra) meta element", () => {
+        test("width is updated to maximum width and initial-scale is updated to value that fits maximum width into viewport, on browser whose viewport width is greater than maximum width. Last maximum-width in matching media queries is used", async ({
           page,
           viewport,
         }, { config: { projects } }) => {
@@ -220,8 +220,8 @@ for (const {
                 <meta charset="UTF-8" />
                 <title>Document</title>
                 <meta name="viewport" content="width=device-width,initial-scale=1" />
-                <meta name="viewport-extra" content="max-width=${xsViewportWidth}" />
-                <meta name="viewport-extra" content="max-width=${lgViewportWidth}" data-media="(min-width: 640px)" />
+                <meta name="viewport-extra" content="maximum-width=${xsViewportWidth}" />
+                <meta name="viewport-extra" content="maximum-width=${lgViewportWidth}" data-media="(min-width: 640px)" />
                 ${outputScriptSrc ? `<script src="${outputScriptSrc}"></script>` : ""}
               </head>
               <body>

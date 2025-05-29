@@ -8,16 +8,22 @@ describe("mergeNullableContentAttributes", () => {
   describe("case where only first argument is not null", () => {
     it("should return first argument", () => {
       expect(
-        mergeNullableContentAttributes("min-width=414,max-width=768", null),
-      ).toBe("min-width=414,max-width=768");
+        mergeNullableContentAttributes(
+          "minimum-width=414,maximum-width=768",
+          null,
+        ),
+      ).toBe("minimum-width=414,maximum-width=768");
     });
   });
 
   describe("case where only second argument is not null", () => {
     it("should return second argument", () => {
       expect(
-        mergeNullableContentAttributes(null, "min-width=414,max-width=768"),
-      ).toBe("min-width=414,max-width=768");
+        mergeNullableContentAttributes(
+          null,
+          "minimum-width=414,maximum-width=768",
+        ),
+      ).toBe("minimum-width=414,maximum-width=768");
     });
   });
 
@@ -26,10 +32,10 @@ describe("mergeNullableContentAttributes", () => {
       expect(
         mergeNullableContentAttributes(
           "width=device-width,initial-scale=1,interactive-widget=resizes-content",
-          "min-width=414,max-width=768",
+          "minimum-width=414,maximum-width=768",
         ),
       ).toBe(
-        "width=device-width,initial-scale=1,interactive-widget=resizes-content,min-width=414,max-width=768",
+        "width=device-width,initial-scale=1,interactive-widget=resizes-content,minimum-width=414,maximum-width=768",
       );
     });
   });

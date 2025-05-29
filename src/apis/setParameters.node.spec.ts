@@ -5,7 +5,7 @@ describe("setParameters", () => {
   describe("running in environments where no window object exists", () => {
     it("does not throw error", () => {
       expect(() => {
-        setParameters([{ content: { minWidth: 414 } }]);
+        setParameters([{ content: { minimumWidth: 414 } }]);
       }).not.toThrowError();
     });
   });

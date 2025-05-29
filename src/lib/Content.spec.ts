@@ -12,15 +12,15 @@ describe("createContent", () => {
         createContent({
           width: "device-width",
           initialScale: 1,
-          minWidth: 414,
-          maxWidth: 768,
+          minimumWidth: 414,
+          maximumWidth: 768,
           interactiveWidget: "resizes-content",
         }),
       ).toStrictEqual({
         width: "device-width",
         initialScale: 1,
-        minWidth: 414,
-        maxWidth: 768,
+        minimumWidth: 414,
+        maximumWidth: 768,
         interactiveWidget: "resizes-content",
       });
     });
@@ -31,8 +31,8 @@ describe("createContent", () => {
       expect(createContent({})).toStrictEqual({
         width: "device-width",
         initialScale: 1,
-        minWidth: 0,
-        maxWidth: Number.POSITIVE_INFINITY,
+        minimumWidth: 0,
+        maximumWidth: Number.POSITIVE_INFINITY,
       });
     });
   });
@@ -42,8 +42,8 @@ describe("createContent", () => {
       expect(createContent()).toStrictEqual({
         width: "device-width",
         initialScale: 1,
-        minWidth: 0,
-        maxWidth: Number.POSITIVE_INFINITY,
+        minimumWidth: 0,
+        maximumWidth: Number.POSITIVE_INFINITY,
       });
     });
   });
@@ -56,14 +56,14 @@ describe("mergeOptionalPartialContent", () => {
         mergeOptionalPartialContent(
           {
             width: "device-width",
-            minWidth: 414,
+            minimumWidth: 414,
             interactiveWidget: "resizes-content",
           },
           undefined,
         ),
       ).toStrictEqual({
         width: "device-width",
-        minWidth: 414,
+        minimumWidth: 414,
         interactiveWidget: "resizes-content",
       });
     });
@@ -74,12 +74,12 @@ describe("mergeOptionalPartialContent", () => {
       expect(
         mergeOptionalPartialContent(undefined, {
           width: "device-width",
-          minWidth: 414,
+          minimumWidth: 414,
           interactiveWidget: "resizes-content",
         }),
       ).toStrictEqual({
         width: "device-width",
-        minWidth: 414,
+        minimumWidth: 414,
         interactiveWidget: "resizes-content",
       });
     });
@@ -94,16 +94,16 @@ describe("mergeOptionalPartialContent", () => {
             initialScale: 1,
           },
           {
-            minWidth: 414,
-            maxWidth: 768,
+            minimumWidth: 414,
+            maximumWidth: 768,
             interactiveWidget: "resizes-content",
           },
         ),
       ).toStrictEqual({
         width: "device-width",
         initialScale: 1,
-        minWidth: 414,
-        maxWidth: 768,
+        minimumWidth: 414,
+        maximumWidth: 768,
         interactiveWidget: "resizes-content",
       });
     });
@@ -141,22 +141,22 @@ describe("mergeOptionalPartialContent", () => {
 
 describe("createContentAttribute", () => {
   describe("case where all arguments are undefined", () => {
-    it("should return string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth in default value of Content type", () => {
+    it("should return string where keys and values are connected with equals and properties are connected with commas for properties other than minimumWidth and maximumWidth in default value of Content type", () => {
       expect(createContentAttribute()).toBe(
         "initial-scale=1,width=device-width",
       );
     });
   });
 
-  describe("case where second argument is greater than minWidth and less than maxWidth in first argument", () => {
-    it("should return string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth in first argument", () => {
+  describe("case where second argument is greater than minimumWidth and less than maximumWidth in first argument", () => {
+    it("should return string where keys and values are connected with equals and properties are connected with commas for properties other than minimumWidth and maximumWidth in first argument", () => {
       expect(
         createContentAttribute(
           {
             width: "device-width",
             initialScale: 2,
-            minWidth: 414,
-            maxWidth: 768,
+            minimumWidth: 414,
+            maximumWidth: 768,
             interactiveWidget: "resizes-content",
           },
           640,
@@ -168,15 +168,15 @@ describe("createContentAttribute", () => {
     });
   });
 
-  describe("case where second argument is less than minWidth in first argument", () => {
-    it("should compute width and initialScale from first and second argument to fit minimum width into viewport, create string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth, and return it", () => {
+  describe("case where second argument is less than minimumWidth in first argument", () => {
+    it("should compute width and initialScale from first and second argument to fit minimum width into viewport, create string where keys and values are connected with equals and properties are connected with commas for properties other than minimumWidth and maximumWidth, and return it", () => {
       expect(
         createContentAttribute(
           {
             width: "device-width",
             initialScale: 2,
-            minWidth: 414,
-            maxWidth: 768,
+            minimumWidth: 414,
+            maximumWidth: 768,
             interactiveWidget: "resizes-content",
           },
           375,
@@ -188,15 +188,15 @@ describe("createContentAttribute", () => {
     });
   });
 
-  describe("case where second argument is greater than maxWidth in first argument", () => {
-    it("should compute width and initialScale from first and second argument to fit maximum width into viewport, create string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth, and return it", () => {
+  describe("case where second argument is greater than maximumWidth in first argument", () => {
+    it("should compute width and initialScale from first and second argument to fit maximum width into viewport, create string where keys and values are connected with equals and properties are connected with commas for properties other than minimumWidth and maximumWidth, and return it", () => {
       expect(
         createContentAttribute(
           {
             width: "device-width",
             initialScale: 2,
-            minWidth: 414,
-            maxWidth: 768,
+            minimumWidth: 414,
+            maximumWidth: 768,
             interactiveWidget: "resizes-content",
           },
           1024,
@@ -208,15 +208,15 @@ describe("createContentAttribute", () => {
     });
   });
 
-  describe("case where minWidth is greater than maxWidth in first argument", () => {
-    it("should return string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth in first argument", () => {
+  describe("case where minimumWidth is greater than maximumWidth in first argument", () => {
+    it("should return string where keys and values are connected with equals and properties are connected with commas for properties other than minimumWidth and maximumWidth in first argument", () => {
       expect(
         createContentAttribute(
           {
             width: "device-width",
             initialScale: 2,
-            minWidth: 768,
-            maxWidth: 414,
+            minimumWidth: 768,
+            maximumWidth: 414,
             interactiveWidget: "resizes-content",
           },
           375,
@@ -229,14 +229,14 @@ describe("createContentAttribute", () => {
   });
 
   describe("case where width is number in first argument", () => {
-    it("should return string where keys and values are connected with equals and properties are connected with commas for properties other than minWidth and maxWidth in first argument", () => {
+    it("should return string where keys and values are connected with equals and properties are connected with commas for properties other than minimumWidth and maximumWidth in first argument", () => {
       expect(
         createContentAttribute(
           {
             width: 1024,
             initialScale: 2,
-            minWidth: 414,
-            maxWidth: 768,
+            minimumWidth: 414,
+            maximumWidth: 768,
             interactiveWidget: "resizes-content",
           },
           1024,
@@ -253,8 +253,8 @@ describe("createContentAttribute", () => {
           {
             width: "device-width",
             initialScale: 1.123456789,
-            minWidth: 414,
-            maxWidth: Number.POSITIVE_INFINITY,
+            minimumWidth: 414,
+            maximumWidth: Number.POSITIVE_INFINITY,
             minimumScale: 0.123456789,
           },
           375,
@@ -271,8 +271,8 @@ describe("createContentAttribute", () => {
           {
             width: "device-width",
             initialScale: 1.123456789,
-            minWidth: 414,
-            maxWidth: Number.POSITIVE_INFINITY,
+            minimumWidth: 414,
+            maximumWidth: Number.POSITIVE_INFINITY,
             minimumScale: 0.123456789,
           },
           375,

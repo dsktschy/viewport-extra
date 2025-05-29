@@ -25,7 +25,7 @@ test.describe("activateMediaSpecificAttributes", () => {
               <title>Document</title>
               <meta name="viewport" content="width=device-width,initial-scale=1" />
               <meta name="viewport" content="width=device-width,initial-scale=1" />
-              <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=${smViewportWidth}" />
+              <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="minimum-width=${smViewportWidth}" />
             </head>
             <body>
               <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
@@ -54,7 +54,7 @@ test.describe("activateMediaSpecificAttributes", () => {
             <head>
               <meta charset="UTF-8" />
               <title>Document</title>
-              <meta name="viewport-extra" content="width=device-width,initial-scale=1,min-width=${smViewportWidth}" />
+              <meta name="viewport-extra" content="width=device-width,initial-scale=1,minimum-width=${smViewportWidth}" />
             </head>
             <body>
               <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
@@ -72,8 +72,8 @@ test.describe("activateMediaSpecificAttributes", () => {
 
   test.describe("behavior according to attributes of viewport(-extra) meta elements", () => {
     test.describe("(data-extra-)content attribute", () => {
-      test.describe("case where min-width value is greater than viewport width", () => {
-        test("updates width to min-width and initial-scale to value that min-width fits into viewport", async ({
+      test.describe("case where minimum-width value is greater than viewport width", () => {
+        test("updates width to minimum-width and initial-scale to value that minimum-width fits into viewport", async ({
           page,
           viewport,
         }, { config: { projects } }) => {
@@ -86,7 +86,7 @@ test.describe("activateMediaSpecificAttributes", () => {
               <head>
                 <meta charset="UTF-8" />
                 <title>Document</title>
-                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=${xsViewportWidth + 1}" />
+                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="minimum-width=${xsViewportWidth + 1}" />
               </head>
               <body>
                 <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
@@ -101,8 +101,8 @@ test.describe("activateMediaSpecificAttributes", () => {
         });
       });
 
-      test.describe("case where max-width value is less than viewport width", () => {
-        test("updates width to max-width and initial-scale to value that max-width fits into viewport", async ({
+      test.describe("case where maximum-width value is less than viewport width", () => {
+        test("updates width to maximum-width and initial-scale to value that maximum-width fits into viewport", async ({
           page,
           viewport,
         }, { config: { projects } }) => {
@@ -115,7 +115,7 @@ test.describe("activateMediaSpecificAttributes", () => {
               <head>
                 <meta charset="UTF-8" />
                 <title>Document</title>
-                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="max-width=${xsViewportWidth - 1}" />
+                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="maximum-width=${xsViewportWidth - 1}" />
               </head>
               <body>
                 <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
@@ -130,7 +130,7 @@ test.describe("activateMediaSpecificAttributes", () => {
         });
       });
 
-      test.describe("case where min-width value is less than viewport width and max-width value is greater than viewport width", () => {
+      test.describe("case where minimum-width value is less than viewport width and maximum-width value is greater than viewport width", () => {
         test("does not update width and initial-scale", async ({
           page,
           viewport,
@@ -144,7 +144,7 @@ test.describe("activateMediaSpecificAttributes", () => {
               <head>
                 <meta charset="UTF-8" />
                 <title>Document</title>
-                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=${xsViewportWidth - 1},max-width=${xsViewportWidth + 1}" />
+                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="minimum-width=${xsViewportWidth - 1},maximum-width=${xsViewportWidth + 1}" />
               </head>
               <body>
                 <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
@@ -173,7 +173,7 @@ test.describe("activateMediaSpecificAttributes", () => {
               <head>
                 <meta charset="UTF-8" />
                 <title>Document</title>
-                <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-content="min-width=${smViewportWidth}" />
+                <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-content="minimum-width=${smViewportWidth}" />
               </head>
               <body>
                 <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
@@ -233,7 +233,7 @@ test.describe("activateMediaSpecificAttributes", () => {
       });
 
       test.describe("case where initial-scale before running activateMediaSpecificAttributes is 1 or less", () => {
-        test.describe("comparison with min-width", () => {
+        test.describe("comparison with minimum-width", () => {
           test("window width without scroll bars when scale is 1 is used", async ({
             page,
             viewport,
@@ -248,7 +248,7 @@ test.describe("activateMediaSpecificAttributes", () => {
                 <head>
                   <meta charset="UTF-8" />
                   <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-content="min-width=${xsViewportWidth + 1}" />
+                  <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-content="minimum-width=${xsViewportWidth + 1}" />
                 </head>
                 <body>
                   <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
@@ -263,7 +263,7 @@ test.describe("activateMediaSpecificAttributes", () => {
           });
         });
 
-        test.describe("comparison with max-width", () => {
+        test.describe("comparison with maximum-width", () => {
           test("window width without scroll bars when scale is 1 is used", async ({
             page,
             viewport,
@@ -278,7 +278,7 @@ test.describe("activateMediaSpecificAttributes", () => {
                 <head>
                   <meta charset="UTF-8" />
                   <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-content="max-width=${xsViewportWidth - 1}" />
+                  <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-content="maximum-width=${xsViewportWidth - 1}" />
                 </head>
                 <body>
                   <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
@@ -295,7 +295,7 @@ test.describe("activateMediaSpecificAttributes", () => {
       });
 
       test.describe("case where initial-scale before running activateMediaSpecificAttributes is greater than 1", () => {
-        test.describe("comparison with min-width", () => {
+        test.describe("comparison with minimum-width", () => {
           test("window width without scroll bars when scale is 1 is used", async ({
             page,
             viewport,
@@ -310,7 +310,7 @@ test.describe("activateMediaSpecificAttributes", () => {
                 <head>
                   <meta charset="UTF-8" />
                   <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=2" data-extra-content="min-width=${xsViewportWidth + 1}" />
+                  <meta name="viewport" content="width=device-width,initial-scale=2" data-extra-content="minimum-width=${xsViewportWidth + 1}" />
                 </head>
                 <body>
                   <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
@@ -325,7 +325,7 @@ test.describe("activateMediaSpecificAttributes", () => {
           });
         });
 
-        test.describe("comparison with max-width", () => {
+        test.describe("comparison with maximum-width", () => {
           test("window width without scroll bars when scale is 1 is used", async ({
             page,
             viewport,
@@ -340,7 +340,7 @@ test.describe("activateMediaSpecificAttributes", () => {
                 <head>
                   <meta charset="UTF-8" />
                   <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=2" data-extra-content="max-width=${xsViewportWidth - 1}" />
+                  <meta name="viewport" content="width=device-width,initial-scale=2" data-extra-content="maximum-width=${xsViewportWidth - 1}" />
                 </head>
                 <body>
                   <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
@@ -372,7 +372,7 @@ test.describe("activateMediaSpecificAttributes", () => {
               <head>
                 <meta charset="UTF-8" />
                 <title>Document</title>
-                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=${smViewportWidth}" data-extra-media="(max-width: ${smViewportWidth}px)" />
+                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="minimum-width=${smViewportWidth}" data-extra-media="(max-width: ${smViewportWidth}px)" />
               </head>
               <body>
                 <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
@@ -403,7 +403,7 @@ test.describe("activateMediaSpecificAttributes", () => {
               <head>
                 <meta charset="UTF-8" />
                 <title>Document</title>
-                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=${xlViewportWidth}" data-extra-media="(min-width: ${lgViewportWidth}px)" />
+                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="minimum-width=${xlViewportWidth}" data-extra-media="(min-width: ${lgViewportWidth}px)" />
               </head>
               <body>
                 <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
@@ -434,7 +434,7 @@ test.describe("activateMediaSpecificAttributes", () => {
               <head>
                 <meta charset="UTF-8" />
                 <title>Document</title>
-                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=${smViewportWidth}" />
+                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="minimum-width=${smViewportWidth}" />
               </head>
               <body>
                 <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
@@ -469,9 +469,9 @@ test.describe("activateMediaSpecificAttributes", () => {
               <head>
                 <meta charset="UTF-8" />
                 <title>Document</title>
-                <meta name="viewport-extra" content="initial-scale=0.5,min-width=${lgViewportWidth}" />
+                <meta name="viewport-extra" content="initial-scale=0.5,minimum-width=${lgViewportWidth}" />
                 <meta name="viewport" content="width=device-width" />
-                <meta name="viewport-extra" content="min-width=${smViewportWidth}" />
+                <meta name="viewport-extra" content="minimum-width=${smViewportWidth}" />
                 <meta name="viewport" content="initial-scale=1" />
               </head>
               <body>
@@ -505,10 +505,10 @@ test.describe("activateMediaSpecificAttributes", () => {
               <head>
                 <meta charset="UTF-8" />
                 <title>Document</title>
-                <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1" data-extra-content="min-width=0" />
-                <meta name="viewport-extra" content="width=device-width,initial-scale=2,min-width=${smViewportWidth}" data-media="(max-width: ${smViewportWidth}px)" />
+                <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1" data-extra-content="minimum-width=0" />
+                <meta name="viewport-extra" content="width=device-width,initial-scale=2,minimum-width=${smViewportWidth}" data-media="(max-width: ${smViewportWidth}px)" />
                 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5" data-extra-media="(max-width: ${smViewportWidth}px)" />
-                <meta name="viewport-extra" content="width=device-width,initial-scale=2,min-width=${lgViewportWidth}" data-media="not (max-width: ${smViewportWidth}px)" />
+                <meta name="viewport-extra" content="width=device-width,initial-scale=2,minimum-width=${lgViewportWidth}" data-media="not (max-width: ${smViewportWidth}px)" />
               </head>
               <body>
                 <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>

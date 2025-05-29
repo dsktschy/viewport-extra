@@ -18,7 +18,7 @@ const RootLayout: FunctionComponent<{ children: ReactNode }> = ({
   <html lang="en">
     <body className={openSans.className}>
       <div className="page">{children}</div>
-      <ViewportExtra minWidth={430} />
+      <ViewportExtra minimumWidth={430} />
     </body>
   </html>
 );

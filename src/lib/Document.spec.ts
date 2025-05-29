@@ -40,8 +40,8 @@ describe("getMetaElementList", () => {
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width" />
         <meta name="viewport" content="initial-scale=1" />
-        <meta name="viewport-extra" content="min-width=414" />
-        <meta name="viewport-extra" content="max-width=768" />
+        <meta name="viewport-extra" content="minimum-width=414" />
+        <meta name="viewport-extra" content="maximum-width=768" />
       `;
       expect(
         getMetaElementList(document).map(
@@ -50,8 +50,8 @@ describe("getMetaElementList", () => {
       ).toStrictEqual([
         '<meta name="viewport" content="width=device-width">',
         '<meta name="viewport" content="initial-scale=1">',
-        '<meta name="viewport-extra" content="min-width=414">',
-        '<meta name="viewport-extra" content="max-width=768">',
+        '<meta name="viewport-extra" content="minimum-width=414">',
+        '<meta name="viewport-extra" content="maximum-width=768">',
       ]);
     });
   });

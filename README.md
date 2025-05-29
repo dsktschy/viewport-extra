@@ -18,7 +18,7 @@ The following codes will scale the page down in mobile device browsers that disp
 <!-- prettier-ignore-start -->
 
 ```html
-<meta name="viewport-extra" content="min-width=430" />
+<meta name="viewport-extra" content="minimum-width=430" />
 
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1"></script>
 ```
@@ -32,7 +32,7 @@ The following codes will scale the page down in mobile device browsers that disp
 
 ```ts
 import("viewport-extra").then(({ apply }) => {
-  apply([{ content: { minWidth: 430 } }]);
+  apply([{ content: { minimumWidth: 430 } }]);
 });
 ```
 
@@ -70,7 +70,7 @@ The following codes will scale the page up in mobile device browsers that displa
 <!-- prettier-ignore-start -->
 
 ```html
-<meta name="viewport-extra" content="max-width=393" />
+<meta name="viewport-extra" content="maximum-width=393" />
 
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1"></script>
 ```
@@ -84,7 +84,7 @@ The following codes will scale the page up in mobile device browsers that displa
 
 ```ts
 import("viewport-extra").then(({ apply }) => {
-  apply([{ content: { maxWidth: 393 } }]);
+  apply([{ content: { maximumWidth: 393 } }]);
 });
 ```
 
@@ -122,8 +122,8 @@ The following codes will scale the page down in mobile device browsers that disp
 <!-- prettier-ignore-start -->
 
 ```html
-<meta name="viewport-extra" content="min-width=430" />
-<meta name="viewport-extra" content="min-width=1024" data-media="(min-width: 744px)" />
+<meta name="viewport-extra" content="minimum-width=430" />
+<meta name="viewport-extra" content="minimum-width=1024" data-media="(min-width: 744px)" />
 
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1"></script>
 ```
@@ -138,8 +138,8 @@ The following codes will scale the page down in mobile device browsers that disp
 ```js
 import("viewport-extra").then(({ apply }) => {
   apply([
-    { content: { minWidth: 430 } },
-    { content: { minWidth: 1024 }, media: "(min-width: 744px)" },
+    { content: { minimumWidth: 430 } },
+    { content: { minimumWidth: 1024 }, media: "(min-width: 744px)" },
   ]);
 });
 ```
@@ -180,8 +180,8 @@ The following codes will scale the page not only when it is displayed, but also 
 
 <script>
   const paramsList = [
-    { content: { minWidth: 430 } },
-    { content: { minWidth: 744 }, media: "(min-width: 640px)" },
+    { content: { minimumWidth: 430 } },
+    { content: { minimumWidth: 744 }, media: "(min-width: 640px)" },
   ]
   const handleOrientationChange = () => {
     window.addEventListener(
@@ -219,8 +219,8 @@ The following codes will scale the page not only when it is displayed, but also 
 ```js
 import("viewport-extra").then(({ apply }) => {
   const paramsList = [
-    { content: { minWidth: 430 } },
-    { content: { minWidth: 744 }, media: "(min-width: 640px)" },
+    { content: { minimumWidth: 430 } },
+    { content: { minimumWidth: 744 }, media: "(min-width: 640px)" },
   ]
   const handleOrientationChange = () => {
     window.addEventListener(
@@ -261,7 +261,7 @@ The following codes will truncate numbers in the content attribute of the viewpo
 <!-- prettier-ignore-start -->
 
 ```html
-<meta name="viewport-extra" content="min-width=430" data-decimal-places="6" />
+<meta name="viewport-extra" content="minimum-width=430" data-decimal-places="6" />
 
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/immediate/extended/viewport-extra.min.js"></script>
 ```
@@ -277,7 +277,7 @@ The following codes will truncate numbers in the content attribute of the viewpo
 import("viewport-extra/extended").then(({ apply }) => {
   apply(
     [
-      { content: { minWidth: 430 } }
+      { content: { minimumWidth: 430 } }
     ],
     { decimalPlaces: 6 }
   );
@@ -309,7 +309,7 @@ All of the parameter settings below have the same meaning, even if the width and
 ```html
 <meta
   name="viewport-extra"
-  content="width=device-width,initial-scale=1,min-width=430,max-width=640"
+  content="width=device-width,initial-scale=1,minimum-width=430,maximum-width=640"
 />
 ```
 
@@ -319,7 +319,7 @@ All of the parameter settings below have the same meaning, even if the width and
 <meta
   name="viewport"
   content="width=device-width,initial-scale=1"
-  data-extra-content="min-width=430,max-width=640"
+  data-extra-content="minimum-width=430,maximum-width=640"
 />
 ```
 
@@ -327,7 +327,7 @@ All of the parameter settings below have the same meaning, even if the width and
 
 ```html
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="viewport-extra" content="min-width=430,max-width=640" />
+<meta name="viewport-extra" content="minimum-width=430,maximum-width=640" />
 ```
 
 ### Using apply function
@@ -338,8 +338,8 @@ apply([
     content: {
       width: "device-width",
       initialScale: 1,
-      minWidth: 430,
-      maxWidth: 640,
+      minimumWidth: 430,
+      maximumWidth: 640,
     },
   },
 ]);
