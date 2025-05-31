@@ -1,15 +1,15 @@
-import type { DeepPartial } from "../lib/DeepPartial.js";
+import type { DeepPartial } from "../internal/DeepPartial.js";
 import {
   ensureViewportMetaElement,
   getDocumentClientWidth,
-} from "../lib/Document.js";
-import { applyMediaSpecificParameters } from "../lib/HTMLMetaElement.js";
-import { createMatchMediaPredicate } from "../lib/MatchMedia.js";
+} from "../internal/Document.js";
+import { applyMediaSpecificParameters } from "../internal/HTMLMetaElement.js";
+import { createMatchMediaPredicate } from "../internal/MatchMedia.js";
 import {
   type MediaSpecificParameters,
   createMediaSpecificParameters,
   createPartialMediaSpecificParametersMerger,
-} from "../lib/MediaSpecificParameters.js";
+} from "../internal/MediaSpecificParameters.js";
 
 export const setMediaSpecificParametersList = (
   partialMediaSpecificParametersList: DeepPartial<MediaSpecificParameters>[],
