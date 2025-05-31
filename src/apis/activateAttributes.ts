@@ -1,9 +1,9 @@
-import { getMetaElementList } from "../lib/Document.js";
-import { mergePartialGlobalParameters } from "../lib/GlobalParameters.js";
+import { getMetaElementList } from "../internal/Document.js";
+import { mergePartialGlobalParameters } from "../internal/GlobalParameters.js";
 import {
   createPartialGlobalParameters,
   createPartialMediaSpecificParameters,
-} from "../lib/HTMLMetaElement.js";
+} from "../internal/HTMLMetaElement.js";
 import { setParameters } from "./setParameters.js";
 
 export const activateAttributes = (): void => {
