@@ -9,7 +9,7 @@ export default {
       .join(' ')
     if (!relativePaths) return []
     return [
-      `cspell lint ${relativePaths}`,
+      `cspell lint --no-must-find-files ${relativePaths}`,
       `prettier --write ${relativePaths}`,
       // Disable ignoring filenames that starts with dot
       // https://stackoverflow.com/a/71829427
@@ -29,7 +29,7 @@ export default {
       .join(' ')
     if (!relativePaths) return []
     return [
-      `cspell lint ${relativePaths}`,
+      `cspell lint --no-must-find-files ${relativePaths}`,
       `prettier --write --ignore-unknown ${relativePaths}`
     ]
   }
