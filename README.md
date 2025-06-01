@@ -356,5 +356,3 @@ apply([
   ```
 
   It prevents unintentional text size adjustments by browsers. See also [the issue](https://github.com/dsktschy/viewport-extra/issues/17).
-
-- Viewport Extra v2 does not support AMD. If it is needed use v1.
