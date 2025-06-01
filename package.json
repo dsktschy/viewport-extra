@@ -87,7 +87,6 @@
   },
   "main": "./dist/viewport-extra.cjs",
   "module": "./dist/viewport-extra.mjs",
-  "browser": "./dist/viewport-extra.mjs",
   "jsdelivr": "./dist/immediate/viewport-extra.min.js",
   "unpkg": "./dist/immediate/viewport-extra.min.js",
   "types": "./dist/viewport-extra.d.mts",
