@@ -20,7 +20,7 @@ The following codes will scale the page down in mobile device browsers that disp
 ```html
 <meta name="viewport-extra" content="minimum-width=430" />
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0"></script>
 ```
 
 <!-- prettier-ignore-end -->
@@ -72,7 +72,7 @@ The following codes will scale the page up in mobile device browsers that displa
 ```html
 <meta name="viewport-extra" content="maximum-width=393" />
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0"></script>
 ```
 
 <!-- prettier-ignore-end -->
@@ -125,7 +125,7 @@ The following codes will scale the page down in mobile device browsers that disp
 <meta name="viewport-extra" content="minimum-width=430" />
 <meta name="viewport-extra" content="minimum-width=1024" data-media="(min-width: 744px)" />
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0"></script>
 ```
 
 <!-- prettier-ignore-end -->
@@ -176,7 +176,7 @@ The following codes will scale the page not only when it is displayed, but also 
 ```html
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1" id="viewport-extra-script"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0" id="viewport-extra-script"></script>
 
 <script>
   const paramsList = [
@@ -263,7 +263,7 @@ The following codes will truncate numbers in the content attribute of the viewpo
 ```html
 <meta name="viewport-extra" content="minimum-width=430" data-decimal-places="6" />
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/immediate/extended/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0/dist/immediate/extended/viewport-extra.min.js"></script>
 ```
 
 <!-- prettier-ignore-end -->

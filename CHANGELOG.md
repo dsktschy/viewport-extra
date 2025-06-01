@@ -1,5 +1,49 @@
 # Changelog
 
+## [3.0.0-rc.0](https://github.com/dsktschy/viewport-extra/compare/v2.4.1...v3.0.0-rc.0) (2025-06-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* fallback to main/module fields for bundlers that do not support exports field, instead of browser field
+* rename min-width/max-width in content attribute to minimum-width/maximum-width
+* provide artifacts with and without GlobalParameters support
+* remove setContent function
+* use attributes of all viewport meta elements as parameters
+* do not warn or fall back to defaults for invalid Content values
+* always use width of window when scale is 1 for comparison with minimum and maximum width
+* provide artifacts with and without side effects
+* avoid retaining state
+* provide ES2022 and ES5 artifacts
+* handle .ts and .js extensions as ES modules
+* aggregate artifacts into one directory
+* remove ViewportExtra class
+
+### Features
+
+* provide artifacts with and without GlobalParameters support ([52fd329](https://github.com/dsktschy/viewport-extra/commit/52fd3292e16bdb606d7514beda12b163dab07a96))
+* provide artifacts with and without side effects ([f796bde](https://github.com/dsktschy/viewport-extra/commit/f796bde09bfa72a2d466786d7ba112c97378c8a1))
+* provide ES2022 and ES5 artifacts ([4a776e5](https://github.com/dsktschy/viewport-extra/commit/4a776e55db79fd426c2c9ebccb09ed45a5fd4f48))
+
+
+### Bug Fixes
+
+* fallback to main/module fields for bundlers that do not support exports field, instead of browser field ([a6803a3](https://github.com/dsktschy/viewport-extra/commit/a6803a34bbcd8afc899addf11097acd7f7d10413))
+* link artifacts and source maps with sourceMappingURL ([8807520](https://github.com/dsktschy/viewport-extra/commit/880752000dd5fa627d827a51e3e0407f23dc2f35))
+
+
+### Miscellaneous Chores
+
+* aggregate artifacts into one directory ([419303a](https://github.com/dsktschy/viewport-extra/commit/419303a9977283c3ce23bb97d83f70a15158e1f3))
+* always use width of window when scale is 1 for comparison with minimum and maximum width ([4188ad1](https://github.com/dsktschy/viewport-extra/commit/4188ad100123bde8eded31dae053d80704b76407))
+* avoid retaining state ([01a1106](https://github.com/dsktschy/viewport-extra/commit/01a1106847dd3db0459b071c1ed12d883a450934))
+* do not warn or fall back to defaults for invalid Content values ([edd5152](https://github.com/dsktschy/viewport-extra/commit/edd5152321c2fad6825af4824bbb4ffe839175ed))
+* handle .ts and .js extensions as ES modules ([90c72ab](https://github.com/dsktschy/viewport-extra/commit/90c72ab7e950889600c9995efa45a03ac3d96372))
+* remove setContent function ([0f8591f](https://github.com/dsktschy/viewport-extra/commit/0f8591f984fad53ea4081e341f9ded8ef0dad620))
+* remove ViewportExtra class ([018a299](https://github.com/dsktschy/viewport-extra/commit/018a299b8bba685b2679d32f18bc90fba5a34a63))
+* rename min-width/max-width in content attribute to minimum-width/maximum-width ([d7d0b01](https://github.com/dsktschy/viewport-extra/commit/d7d0b01a89266945f92bdc2d63bc8355424674dc))
+* use attributes of all viewport meta elements as parameters ([aae1c12](https://github.com/dsktschy/viewport-extra/commit/aae1c1244e0adc721ae4781d6622f59486519f0c))
+
 ## [2.4.1](https://github.com/dsktschy/viewport-extra/compare/v2.4.1-rc.0...v2.4.1) (2025-04-05)
 
 
