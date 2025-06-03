@@ -18,7 +18,10 @@
     "shrink",
     "expand"
   ],
-  "repository": "dsktschy/viewport-extra",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dsktschy/viewport-extra.git"
+  },
   "files": [
     "dist"
   ],
