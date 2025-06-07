@@ -80,7 +80,11 @@ jobs:
 
       - name: Build
         shell: bash
-        run: npm run build & npm run declare
+        run: npm run build
+
+      - name: Generate type declaration files
+        shell: bash
+        run: npm run declare
 
       - name: Publish to npm
         shell: bash
@@ -116,7 +120,11 @@ jobs:
 
       - name: Build
         shell: bash
-        run: npm run build & npm run declare
+        run: npm run build
+
+      - name: Generate type declaration files
+        shell: bash
+        run: npm run declare
 
       - name: Publish to npm
         shell: bash
