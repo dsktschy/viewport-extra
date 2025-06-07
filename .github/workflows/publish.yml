@@ -73,7 +73,11 @@ jobs:
 
       - name: Build
         shell: bash
-        run: npm run build & npm run declare
+        run: npm run build
+
+      - name: Generate type declaration files
+        shell: bash
+        run: npm run declare
 
       - name: Publish to npm
         if: needs.define_variables_to_publish.outputs.with_next_tag == 'no'
@@ -110,7 +114,11 @@ jobs:
 
       - name: Build
         shell: bash
-        run: npm run build & npm run declare
+        run: npm run build
+
+      - name: Generate type declaration files
+        shell: bash
+        run: npm run declare
 
       - name: Publish to npm
         if: needs.define_variables_to_publish.outputs.with_next_tag == 'no'
