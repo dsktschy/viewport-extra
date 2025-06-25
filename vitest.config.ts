@@ -9,7 +9,7 @@ export default defineConfig({
           environment: "node",
           include: ["src/**/*.node.{test,spec}.?(c|m)[jt]s"],
         },
-        define: { __TYPESCRIPT_TARGET__: '"es2022"' },
+        define: { __TYPESCRIPT_TARGET__: '"es2021"' },
       },
       {
         test: {
@@ -29,7 +29,7 @@ export default defineConfig({
             "src/**/*.es5.{test,spec}.?(c|m)[jt]s",
           ],
         },
-        define: { __TYPESCRIPT_TARGET__: '"es2022"' },
+        define: { __TYPESCRIPT_TARGET__: '"es2021"' },
       },
     ],
     passWithNoTests: true,

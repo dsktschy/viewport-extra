@@ -6,7 +6,8 @@ const sourceDirectory = "tests/__fixtures__/src/";
 
 export default defineConfig({
   build: {
-    target: "es2022",
+    // npx playwright install --dry-run
+    target: ["chrome128", "safari18"],
     rollupOptions: {
       input: {
         "dummy.html": `${sourceDirectory}dummy.html`,
@@ -23,7 +24,7 @@ export default defineConfig({
       // Set array in output because rollupOptions does not accept array
       output: [
         {
-          typescriptTarget: "es2022",
+          typescriptTarget: "es2021",
           subDirectory: "",
         },
         {
