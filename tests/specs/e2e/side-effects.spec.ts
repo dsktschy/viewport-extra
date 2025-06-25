@@ -15,7 +15,7 @@ for (const {
 } of [
   {
     extended: false,
-    typescriptTarget: "es2022",
+    typescriptTarget: "es2021",
     format: "es",
     minified: false,
     outputScriptSrc: "/immediate/viewport-extra.js",
@@ -23,7 +23,7 @@ for (const {
   },
   {
     extended: false,
-    typescriptTarget: "es2022",
+    typescriptTarget: "es2021",
     format: "cjs",
     minified: false,
     outputScriptSrc: "/immediate/viewport-extra.js",
@@ -31,7 +31,7 @@ for (const {
   },
   {
     extended: false,
-    typescriptTarget: "es2022",
+    typescriptTarget: "es2021",
     format: "iife",
     minified: false,
     outputScriptSrc: "/immediate/viewport-extra.js",
@@ -40,7 +40,7 @@ for (const {
   },
   {
     extended: false,
-    typescriptTarget: "es2022",
+    typescriptTarget: "es2021",
     format: "iife",
     minified: true,
     outputScriptSrc: "/immediate/viewport-extra.min.js",
@@ -85,7 +85,7 @@ for (const {
   },
   {
     extended: true,
-    typescriptTarget: "es2022",
+    typescriptTarget: "es2021",
     format: "es",
     minified: false,
     outputScriptSrc: "/immediate/extended/viewport-extra.js",
@@ -94,7 +94,7 @@ for (const {
   },
   {
     extended: true,
-    typescriptTarget: "es2022",
+    typescriptTarget: "es2021",
     format: "cjs",
     minified: false,
     outputScriptSrc: "/immediate/extended/viewport-extra.js",
@@ -103,7 +103,7 @@ for (const {
   },
   {
     extended: true,
-    typescriptTarget: "es2022",
+    typescriptTarget: "es2021",
     format: "iife",
     minified: false,
     outputScriptSrc: "/immediate/extended/viewport-extra.js",
@@ -112,7 +112,7 @@ for (const {
   },
   {
     extended: true,
-    typescriptTarget: "es2022",
+    typescriptTarget: "es2021",
     format: "iife",
     minified: true,
     outputScriptSrc: "/immediate/extended/viewport-extra.min.js",

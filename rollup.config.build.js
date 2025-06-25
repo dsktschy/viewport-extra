@@ -16,7 +16,7 @@ export default defineConfig(
   [
     {
       input: "src/entries/viewport-extra.ts",
-      typescriptTarget: "es2022",
+      typescriptTarget: "es2021",
       subDirectory: "",
     },
     {
@@ -26,7 +26,7 @@ export default defineConfig(
     },
     {
       input: "src/entries/extended/viewport-extra.ts",
-      typescriptTarget: "es2022",
+      typescriptTarget: "es2021",
       subDirectory: "extended/",
     },
     {
@@ -36,7 +36,7 @@ export default defineConfig(
     },
     {
       input: "src/entries/immediate/viewport-extra.ts",
-      typescriptTarget: "es2022",
+      typescriptTarget: "es2021",
       subDirectory: "immediate/",
     },
     {
@@ -46,7 +46,7 @@ export default defineConfig(
     },
     {
       input: "src/entries/immediate/extended/viewport-extra.ts",
-      typescriptTarget: "es2022",
+      typescriptTarget: "es2021",
       subDirectory: "immediate/extended/",
     },
     {
