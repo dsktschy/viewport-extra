@@ -1,8 +1,8 @@
 import { fileURLToPath } from "node:url";
 import { includeIgnoreFile } from "@eslint/compat";
 import typescriptEslintParser from "@typescript-eslint/parser";
-import eslintPluginCompat from "eslint-plugin-compat";
 import { defineConfig } from "eslint/config";
+import eslintPluginCompat from "eslint-plugin-compat";
 import tsconfigJson from "./tsconfig.json" with { type: "json" };
 
 const { languageOptions, plugins, rules } =

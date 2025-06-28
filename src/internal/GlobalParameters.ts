@@ -1,6 +1,6 @@
 import {
-  type DecimalPlaces,
   createDecimalPlaces,
+  type DecimalPlaces,
   mergeOptionalDecimalPlaces,
 } from "./DecimalPlaces.js";
 

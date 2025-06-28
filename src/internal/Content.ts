@@ -45,7 +45,7 @@ export const createContentAttribute: {
   (): ContentAttribute;
 } = (
   content: Content = { ...defaultContent },
-  // biome-ignore lint/style/noInferrableTypes:
+  // biome-ignore lint/style/noInferrableTypes: number type cannot be inferred from initialization
   documentClientWidth: number = 0,
   decimalPlaces: DecimalPlaces = 0,
 ) => {

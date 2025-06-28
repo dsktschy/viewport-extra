@@ -4,26 +4,26 @@ import {
   mergeNullableContentAttributes,
 } from "./ContentAttribute.js";
 import {
-  type DecimalPlacesAttribute,
   createOptionalDecimalPlaces,
+  type DecimalPlacesAttribute,
   mergeNullableDecimalPlacesAttribute,
 } from "./DecimalPlacesAttribute.js";
 import type { DeepPartial } from "./DeepPartial.js";
 import {
-  type GlobalParameters,
   assignOptionalDecimalPlaces,
+  type GlobalParameters,
   getDecimalPlaces,
 } from "./GlobalParameters.js";
 import {
-  type MediaAttribute,
   createOptionalMedia,
+  type MediaAttribute,
   mergeNullableMediaAttribute,
 } from "./MediaAttribute.js";
 import {
-  type MediaSpecificParameters,
   assignOptionalMedia,
   assignOptionalPartialContent,
   createContentAttribute,
+  type MediaSpecificParameters,
 } from "./MediaSpecificParameters.js";
 
 export const getNullableDecimalPlacesAttribute = (

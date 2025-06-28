@@ -1,7 +1,12 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { type FunctionComponent, useLayoutEffect, useRef } from "react";
+import {
+  Fragment,
+  type FunctionComponent,
+  useLayoutEffect,
+  useRef,
+} from "react";
 
 const ViewportExtra: FunctionComponent<{
   minimumWidth?: number;
@@ -25,7 +30,7 @@ const ViewportExtra: FunctionComponent<{
     }
   }, [pathname, minimumWidth, maximumWidth]);
 
-  return <></>;
+  return <Fragment />;
 };
 
 export default ViewportExtra;
