@@ -4,15 +4,15 @@ import {
   getDocumentClientWidth,
 } from "../internal/Document.js";
 import {
-  type GlobalParameters,
   createGlobalParameters,
+  type GlobalParameters,
 } from "../internal/GlobalParameters.js";
 import { applyMediaSpecificParametersTruncated } from "../internal/HTMLMetaElement.js";
 import { createMatchMediaPredicate } from "../internal/MatchMedia.js";
 import {
-  type MediaSpecificParameters,
   createMediaSpecificParameters,
   createPartialMediaSpecificParametersMerger,
+  type MediaSpecificParameters,
 } from "../internal/MediaSpecificParameters.js";
 
 export const setParameters = (

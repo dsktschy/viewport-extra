@@ -6,9 +6,9 @@ import {
 import { applyMediaSpecificParameters } from "../internal/HTMLMetaElement.js";
 import { createMatchMediaPredicate } from "../internal/MatchMedia.js";
 import {
-  type MediaSpecificParameters,
   createMediaSpecificParameters,
   createPartialMediaSpecificParametersMerger,
+  type MediaSpecificParameters,
 } from "../internal/MediaSpecificParameters.js";
 
 export const setMediaSpecificParametersList = (

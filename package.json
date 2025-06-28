@@ -124,7 +124,7 @@
     "./dist/immediate/extended/es5/viewport-extra.cjs"
   ],
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
+    "@biomejs/biome": "2.1.1",
     "@commitlint/cli": "19.4.0",
     "@commitlint/config-conventional": "19.2.2",
     "@eslint/compat": "1.2.8",
@@ -138,7 +138,6 @@
     "eslint": "9.31.0",
     "eslint-plugin-compat": "6.0.2",
     "jsdom": "26.0.0",
-    "jsonc-parser": "3.3.1",
     "lefthook": "1.11.0",
     "npm-run-all2": "7.0.2",
     "rimraf": "6.0.1",
@@ -158,7 +157,7 @@
     "declare:execute": "tsx --no-warnings=ExperimentalWarning scripts/create-declaration-with-dts.ts 'src/entries/**/*.ts' --output-directory .types",
     "declare:bundle": "NODE_OPTIONS=--no-warnings=ExperimentalWarning rollup --config rollup.config.declare.js --environment NODE_ENV:production",
     "spellcheck": "cspell lint --no-must-find-files",
-    "stylecheck": "tsx --no-warnings=ExperimentalWarning scripts/biome-with-recursive-gitignore.ts",
+    "stylecheck": "biome check",
     "es5check": "NODE_OPTIONS=--no-warnings=ExperimentalWarning eslint 'src/**/*' --ignore-pattern 'src/**/*.spec.*' --no-warn-ignored --config eslint.config.es5.js",
     "typecheck": "npm-run-all --sequential declare typecheck:execute",
     "typecheck:execute": "tsc --noEmit",

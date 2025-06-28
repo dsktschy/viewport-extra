@@ -7,7 +7,7 @@ import {
 import type { ContentAttribute } from "./ContentAttribute.js";
 import type { DecimalPlaces } from "./DecimalPlaces.js";
 import type { DeepPartial } from "./DeepPartial.js";
-import { type Media, createMedia, mergeOptionalMedia } from "./Media.js";
+import { createMedia, type Media, mergeOptionalMedia } from "./Media.js";
 
 export interface MediaSpecificParameters {
   content: Content;
