@@ -19,8 +19,12 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Publish tag and release
-        # Temporary fork until googleapis/release-please-action's release-please is updated to v17.1.0
-        uses: dsktschy/release-please-action@42bc9866c4337dde1006a52a1e1d0a463277f068
+
+        # Temporary fork until following are implemented:
+        # – Bump release-please to v17.1.0 or later
+        # – Support for replacing only pre-execution version in extra-files
+        uses: dsktschy/release-please-action@c135340c5ba36cf42122ea5508f80763d3b2eda2
+
         with:
           config-file: release-please-config.default.json
           skip-github-pull-request: true
@@ -35,8 +39,12 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Publish tag and release
-        # Temporary fork until googleapis/release-please-action's release-please is updated to v17.1.0
-        uses: dsktschy/release-please-action@42bc9866c4337dde1006a52a1e1d0a463277f068
+
+        # Temporary fork until following are implemented:
+        # – Bump release-please to v17.1.0 or later
+        # – Support for replacing only pre-execution version in extra-files
+        uses: dsktschy/release-please-action@c135340c5ba36cf42122ea5508f80763d3b2eda2
+
         with:
           config-file: release-please-config.prerelease.json
           skip-github-pull-request: true
