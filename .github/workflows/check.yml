@@ -34,9 +34,13 @@ jobs:
         shell: bash
         run: npm run spellcheck -- .
 
-      - name: Format and lint
+      - name: Lint and format code
         shell: bash
-        run: npm run stylecheck -- --no-errors-on-unmatched
+        run: npm run stylecheck:code -- .
+
+      - name: Format docs
+        shell: bash
+        run: npm run stylecheck:docs -- "**/*.md"
 
       - name: Check ES5 artifacts
         shell: bash
