@@ -26,8 +26,9 @@ jobs:
     timeout-minutes: 15
     runs-on: ubuntu-24.04
     steps:
-      - name: Bump version, update changelog and create pull request
-        uses: googleapis/release-please-action@7987652d64b4581673a76e33ad5e98e3dd56832f # v4.1.3
+      - name: Bump version and create pull request
+        # Temporary fork until googleapis/release-please-action's release-please is updated to v17.1.0
+        uses: dsktschy/release-please-action@42bc9866c4337dde1006a52a1e1d0a463277f068
         with:
           config-file: release-please-config.default.json
           skip-github-release: true
@@ -38,8 +39,9 @@ jobs:
     timeout-minutes: 15
     runs-on: ubuntu-24.04
     steps:
-      - name: Bump version, update changelog and create pull request
-        uses: googleapis/release-please-action@7987652d64b4581673a76e33ad5e98e3dd56832f # v4.1.3
+      - name: Bump version and create pull request
+        # Temporary fork until googleapis/release-please-action's release-please is updated to v17.1.0
+        uses: dsktschy/release-please-action@42bc9866c4337dde1006a52a1e1d0a463277f068
         with:
           config-file: release-please-config.prerelease.json
           skip-github-release: true

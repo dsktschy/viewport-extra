@@ -1,4 +1,5 @@
 {
+  "skip-changelog": true,
   "include-component-in-tag": false,
   "pull-request-title-pattern": "chore: release${component} ${version}",
   "label": "autorelease: pending,versioning_strategy: default",
