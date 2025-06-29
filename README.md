@@ -15,7 +15,6 @@ The following codes will scale the page down in mobile device browsers that disp
 #### Using script
 
 <!-- x-release-please-start-version -->
-<!-- prettier-ignore-start -->
 
 ```html
 <meta name="viewport-extra" content="minimum-width=430" />
@@ -23,20 +22,15 @@ The following codes will scale the page down in mobile device browsers that disp
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0"></script>
 ```
 
-<!-- prettier-ignore-end -->
 <!-- x-release-please-end-version -->
 
 #### Using module
-
-<!-- prettier-ignore-start -->
 
 ```ts
 import("viewport-extra").then(({ apply }) => {
   apply([{ content: { minimumWidth: 430 } }]);
 });
 ```
-
-<!-- prettier-ignore-end -->
 
 #### Results
 
@@ -67,7 +61,6 @@ The following codes will scale the page up in mobile device browsers that displa
 #### Using script
 
 <!-- x-release-please-start-version -->
-<!-- prettier-ignore-start -->
 
 ```html
 <meta name="viewport-extra" content="maximum-width=393" />
@@ -75,20 +68,15 @@ The following codes will scale the page up in mobile device browsers that displa
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0"></script>
 ```
 
-<!-- prettier-ignore-end -->
 <!-- x-release-please-end-version -->
 
 #### Using module
-
-<!-- prettier-ignore-start -->
 
 ```ts
 import("viewport-extra").then(({ apply }) => {
   apply([{ content: { maximumWidth: 393 } }]);
 });
 ```
-
-<!-- prettier-ignore-end -->
 
 #### Results
 
@@ -119,7 +107,6 @@ The following codes will scale the page down in mobile device browsers that disp
 #### Using script
 
 <!-- x-release-please-start-version -->
-<!-- prettier-ignore-start -->
 
 ```html
 <meta name="viewport-extra" content="minimum-width=430" />
@@ -128,12 +115,9 @@ The following codes will scale the page down in mobile device browsers that disp
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0"></script>
 ```
 
-<!-- prettier-ignore-end -->
 <!-- x-release-please-end-version -->
 
 #### Using module
-
-<!-- prettier-ignore-start -->
 
 ```js
 import("viewport-extra").then(({ apply }) => {
@@ -143,8 +127,6 @@ import("viewport-extra").then(({ apply }) => {
   ]);
 });
 ```
-
-<!-- prettier-ignore-end -->
 
 #### Results
 
@@ -171,7 +153,6 @@ The following codes will scale the page not only when it is displayed, but also 
 #### Using script
 
 <!-- x-release-please-start-version -->
-<!-- prettier-ignore-start -->
 
 ```html
 <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -209,12 +190,9 @@ The following codes will scale the page not only when it is displayed, but also 
 </script>
 ```
 
-<!-- prettier-ignore-end -->
 <!-- x-release-please-end-version -->
 
 #### Using module
-
-<!-- prettier-ignore-start -->
 
 ```js
 import("viewport-extra").then(({ apply }) => {
@@ -239,8 +217,6 @@ import("viewport-extra").then(({ apply }) => {
 });
 ```
 
-<!-- prettier-ignore-end -->
-
 #### Results
 
 ##### On iPhone 15 in portrait mode (393px)
@@ -258,7 +234,6 @@ The following codes will truncate numbers in the content attribute of the viewpo
 #### Using script
 
 <!-- x-release-please-start-version -->
-<!-- prettier-ignore-start -->
 
 ```html
 <meta name="viewport-extra" content="minimum-width=430" data-decimal-places="6" />
@@ -266,12 +241,9 @@ The following codes will truncate numbers in the content attribute of the viewpo
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0/dist/immediate/extended/viewport-extra.min.js"></script>
 ```
 
-<!-- prettier-ignore-end -->
 <!-- x-release-please-end-version -->
 
 #### Using module
-
-<!-- prettier-ignore-start -->
 
 ```ts
 import("viewport-extra/extended").then(({ apply }) => {
@@ -283,8 +255,6 @@ import("viewport-extra/extended").then(({ apply }) => {
   );
 });
 ```
-
-<!-- prettier-ignore-end -->
 
 #### Results
 
