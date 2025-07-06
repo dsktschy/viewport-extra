@@ -1,323 +1,322 @@
 # Viewport Extra [![](https://data.jsdelivr.com/v1/package/npm/viewport-extra/badge)](https://www.jsdelivr.com/package/npm/viewport-extra) [![npm version](https://img.shields.io/npm/v/viewport-extra.svg?style=flat-square)](https://www.npmjs.com/package/viewport-extra) [![GitHub license](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](https://github.com/dsktschy/viewport-extra/blob/master/LICENSE.txt)
 
-Viewport Extra enables setting the minimum and maximum width of the viewport, by overriding the content attribute of the viewport meta element. It will reduce the range of the viewport that needs to be considered when styling.
+**English** | [日本語](./README.ja.md)
 
-For example, if a page with a width of 430px is displayed in mobile device browsers that display a width of 360px (e.g. Galaxy S24 in portrait mode), horizontal scrolling will typically occur. Therefore, styling for media less than 430px is needed. However, by setting the minimum width of the viewport for the page to 430px with Viewport Extra, the page will be scaled down to fit perfectly into a width of 360px and horizontal scrolling will not occur. As a result, styling for media less than 430px is not needed.
+Viewport Extra is a library that enables setting the minimum / maximum width of the viewport. It reduces the range of the viewport that needs to be considered when styling.
 
-## Recipes
+For example, when displaying a 430px-wide page on a mobile browser with a viewport width of 360px (e.g., Chrome on Galaxy S24 in portrait mode), horizontal scrolling occurs. This can be resolved by styling for viewport widths less than 430px, but it's a hassle. However, by using Viewport Extra to set the minimum viewport width to 430px, the page will be scaled down to fit perfectly within 360px, eliminating horizontal scrolling. This provides a simple solution with no styling required.
 
-It is recommended to use a script element with the async attribute or the dynamic import.
+Page scaling is achieved by updating the `content` attribute of the `<meta name="viewport">` element.
 
-### Scale down on small mobile devices
+Viewport Extra supports asynchronous loading via the `<script async>` element or the `import()` syntax, ensuring it does not interfere with other processes on the page. Additionally, the standard build is tiny, at less than 1KB (gzipped).
 
-The following codes will scale the page down in mobile device browsers that display a width less than 430px, and will do nothing in mobile device browsers that display a width of 430px or greater. Scaling occurs only once when the page is displayed. See also ["Rescale when device orientation changes"](#Rescale-when-device-orientation-changes).
+> [!IMPORTANT]
+> v3 includes breaking changes.
+>
+> - Reference: [Migration Guide from v2](./docs/en/migration-from-v2.md)
+> - Reference: [Migration Guide from v1](./docs/en/migration-from-v1.md)
+>
+> v2 and v1 will continue to be maintained and remain available for use.
 
-#### Using script
+## Use Cases
+
+### Scale Down Page on Small Viewport Widths
+
+Pages containing the following code are scaled down on mobile browsers with viewport widths less than 430px, but are not scaled down on other browsers. Whether to scale down is determined only once when the pages are displayed [(Reference)](#rescale-page-when-viewport-width-changes).
+
+#### Implementation
+
+##### Using Script
 
 <!-- x-release-please-start-version -->
 
 ```html
-<meta name="viewport-extra" content="minimum-width=430" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport-extra" content="minimum-width=430">
 
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0"></script>
 ```
 
-<!-- x-release-please-end-version -->
+<!-- x-release-please-end -->
 
-#### Using module
+##### Using Module
 
 ```ts
 import("viewport-extra").then(({ apply }) => {
-  apply([{ content: { minimumWidth: 430 } }]);
-});
+  apply([{ content: { minimumWidth: 430 } }])
+})
 ```
 
-#### Results
+#### Results of Updating `content` Attribute of `<meta name="viewport">` Element
 
-##### On Galaxy S24 in portrait mode (360px)
+##### Chrome on Galaxy S24 in Portrait Mode (360px)
 
-`<meta name="viewport" content="initial-scale=0.8372093023255814,width=430" />`
+`initial-scale=0.8372093023255814,width=430`
 
-##### On iPhone 15 in portrait mode (393px)
+##### Safari on iPhone 15 in Portrait Mode (393px)
 
-`<meta name="viewport" content="initial-scale=0.913953488372093,width=430" />`
+`initial-scale=0.913953488372093,width=430`
 
-##### On iPhone 15 Pro Max in portrait mode (430px)
+##### Safari on iPhone 15 Pro Max in Portrait Mode (430px)
 
-`<meta name="viewport" content="initial-scale=1,width=device-width" />`
+`initial-scale=1,width=device-width`
 
-##### On iPhone 15 in landscape mode (734px)
+##### Safari on iPhone 15 in Landscape Mode (734px)
 
-`<meta name="viewport" content="initial-scale=1,width=device-width" />`
+`initial-scale=1,width=device-width`
 
-##### On iPad Pro 12.9" in portrait mode (1024px)
+##### Safari on iPad Pro 12.9" in Portrait Mode (1024px)
 
-`<meta name="viewport" content="initial-scale=1,width=device-width" />`
+`initial-scale=1,width=device-width`
 
-### Scale up on large mobile devices
+### Scale Up Page on Large Viewport Widths
 
-The following codes will scale the page up in mobile device browsers that display a width greater than 393px, and will do nothing in mobile device browsers that display a width of 393px or less. Scaling occurs only once when the page is displayed. See also ["Rescale when device orientation changes"](#Rescale-when-device-orientation-changes).
+Pages containing the following code are scaled up on mobile browsers with viewport widths greater than 393px, but are not scaled up on other browsers. Whether to scale up is determined only once when the pages are displayed [(Reference)](#rescale-page-when-viewport-width-changes).
 
-#### Using script
+#### Implementation
+
+##### Using Script
 
 <!-- x-release-please-start-version -->
 
 ```html
-<meta name="viewport-extra" content="maximum-width=393" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport-extra" content="maximum-width=393">
 
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0"></script>
 ```
 
-<!-- x-release-please-end-version -->
+<!-- x-release-please-end -->
 
-#### Using module
+##### Using Module
 
 ```ts
 import("viewport-extra").then(({ apply }) => {
-  apply([{ content: { maximumWidth: 393 } }]);
-});
+  apply([{ content: { maximumWidth: 393 } }])
+})
 ```
 
-#### Results
+#### Results of Updating `content` Attribute of `<meta name="viewport">` Element
 
-##### On Galaxy S24 in portrait mode (360px)
+##### Chrome on Galaxy S24 in Portrait Mode (360px)
 
-`<meta name="viewport" content="initial-scale=1,width=device-width" />`
+`initial-scale=1,width=device-width`
 
-##### On iPhone 15 in portrait mode (393px)
+##### Safari on iPhone 15 in Portrait Mode (393px)
 
-`<meta name="viewport" content="initial-scale=1,width=device-width" />`
+`initial-scale=1,width=device-width`
 
-##### On iPhone 15 Pro Max in portrait mode (430px)
+##### Safari on iPhone 15 Pro Max in Portrait Mode (430px)
 
-`<meta name="viewport" content="initial-scale=1.094147582697201,width=393" />`
+`initial-scale=1.094147582697201,width=393`
 
-##### On iPhone 15 in landscape mode (734px)
+##### Safari on iPhone 15 in Landscape Mode (734px)
 
-`<meta name="viewport" content="initial-scale=1.8676844783715012,width=393" />`
+`initial-scale=1.8676844783715012,width=393`
 
-##### On iPad Pro 12.9" in portrait mode (1024px)
+##### Safari on iPad Pro 12.9" in Portrait Mode (1024px)
 
-`<meta name="viewport" content="initial-scale=2.6055979643765905,width=393" />`
+`initial-scale=2.6055979643765905,width=393`
 
-### Scale differently for each media query
+### Set Different Minimum / Maximum Widths per Media Query
 
-The following codes will scale the page down in mobile device browsers that display a width less than 430px or between 744px and 1023px, and will do nothing in mobile device browsers that display a width between 430px and 743px or 1024px and above. Scaling occurs only once when the page is displayed. See also ["Rescale when device orientation changes"](#Rescale-when-device-orientation-changes).
+Pages containing the following code are scaled down on mobile browsers with viewport widths less than 430px or between 744px (inclusive) and 1024px (exclusive), but are not scaled down on other browsers. Whether to scale down is determined only once when the pages are displayed [(Reference)](#rescale-page-when-viewport-width-changes).
 
-#### Using script
+#### Implementation
+
+##### Using Script
 
 <!-- x-release-please-start-version -->
 
 ```html
-<meta name="viewport-extra" content="minimum-width=430" />
-<meta name="viewport-extra" content="minimum-width=1024" data-media="(min-width: 744px)" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport-extra" content="minimum-width=430">
+<meta name="viewport-extra" content="minimum-width=1024" data-media="(min-width: 744px)">
 
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0"></script>
 ```
 
-<!-- x-release-please-end-version -->
+<!-- x-release-please-end -->
 
-#### Using module
+##### Using Module
 
 ```js
 import("viewport-extra").then(({ apply }) => {
   apply([
     { content: { minimumWidth: 430 } },
     { content: { minimumWidth: 1024 }, media: "(min-width: 744px)" },
-  ]);
-});
+  ])
+})
 ```
 
-#### Results
+#### Results of Updating `content` Attribute of `<meta name="viewport">` Element
 
-##### On Galaxy S24 in portrait mode (360px)
+##### Chrome on Galaxy S24 in Portrait Mode (360px)
 
-`<meta name="viewport" content="initial-scale=0.8372093023255814,width=430" />`
+`initial-scale=0.8372093023255814,width=430`
 
-##### On iPhone 15 Pro Max in portrait mode (430px)
+##### Safari on iPhone 15 Pro Max in Portrait Mode (430px)
 
-`<meta name="viewport" content="initial-scale=1,width=device-width" />`
+`initial-scale=1,width=device-width`
 
-##### On iPad mini 6th Gen in portrait mode (744px)
+##### Safari on iPad mini 6th Gen in Portrait Mode (744px)
 
-`<meta name="viewport" content="initial-scale=0.7265625,width=1024" />`
+`initial-scale=0.7265625,width=1024`
 
-##### On iPad Pro 12.9" in portrait mode (1024px)
+##### Safari on iPad Pro 12.9" in Portrait Mode (1024px)
 
-`<meta name="viewport" content="initial-scale=1,width=device-width" />`
+`initial-scale=1,width=device-width`
 
-### Rescale when device orientation changes
+### Rescale Page When Viewport Width Changes
 
-The following codes will scale the page not only when it is displayed, but also each time the mobile devices switch between portrait and landscape mode.
+Pages containing the following code determine whether to scale up or down not only when displayed but also when the viewport width changes. This is useful in scenarios such as switching between portrait and landscape modes on mobile devices or screen splitting on tablets.
 
-#### Using script
+#### Implementation
+
+##### Using Script
 
 <!-- x-release-please-start-version -->
 
 ```html
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0" id="viewport-extra-script"></script>
+<script
+  async
+  src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0"
+  id="viewport-extra-script"
+></script>
 
 <script>
-  const paramsList = [
-    { content: { minimumWidth: 430 } },
-    { content: { minimumWidth: 744 }, media: "(min-width: 640px)" },
-  ]
-  const handleOrientationChange = () => {
-    window.addEventListener(
-      "resize",
-      () => ViewportExtra.apply(paramsList),
-      { once: true }
-    );
-  };
-  const handleLoad = () => {
-    ViewportExtra.apply(paramsList);
-    if (screen && screen.orientation) {
-      screen.orientation.addEventListener("change", handleOrientationChange);
-    } else {
-      window.addEventListener("orientationchange", handleOrientationChange);
-    }
-  }
+  const updateViewportMetaEl = () => {
+    // To prevent infinite resizing
+    new ResizeObserver((_, observer) => {
+      observer.unobserve(document.documentElement)
+      window.addEventListener("resize", updateViewportMetaEl, { once: true })
+    }).observe(document.documentElement)
 
+    ViewportExtra.apply([
+      { content: { minimumWidth: 430 } },
+      { content: { minimumWidth: 744 }, media: "(min-width: 640px)" },
+    ])
+  }
   if (window.ViewportExtra) {
-    handleLoad()
+    updateViewportMetaEl()
   } else {
     document
       .getElementById("viewport-extra-script")
-      .addEventListener("load", handleLoad)
+      .addEventListener("load", updateViewportMetaEl)
   }
 </script>
 ```
 
-<!-- x-release-please-end-version -->
+<!-- x-release-please-end -->
 
-#### Using module
+##### Using Module
 
 ```js
 import("viewport-extra").then(({ apply }) => {
-  const paramsList = [
-    { content: { minimumWidth: 430 } },
-    { content: { minimumWidth: 744 }, media: "(min-width: 640px)" },
-  ]
-  const handleOrientationChange = () => {
-    window.addEventListener(
-      "resize",
-      () => apply(paramsList),
-      { once: true }
-    );
-  };
+  const updateViewportMetaEl = () => {
+    // To prevent infinite resizing
+    new ResizeObserver((_, observer) => {
+      observer.unobserve(document.documentElement)
+      window.addEventListener("resize", updateViewportMetaEl, { once: true })
+    }).observe(document.documentElement)
 
-  apply(paramsList);
-  if (screen && screen.orientation) {
-    screen.orientation.addEventListener("change", handleOrientationChange);
-  } else {
-    window.addEventListener("orientationchange", handleOrientationChange);
+    apply([
+      { content: { minimumWidth: 430 } },
+      { content: { minimumWidth: 744 }, media: "(min-width: 640px)" },
+    ])
   }
-});
+  updateViewportMetaEl()
+})
 ```
 
-#### Results
+#### Results of Updating `content` Attribute of `<meta name="viewport">` Element
 
-##### On iPhone 15 in portrait mode (393px)
+##### Safari on iPhone 15 in Portrait Mode (393px)
 
-`<meta name="viewport" content="initial-scale=0.913953488372093,width=430" />`
+`initial-scale=0.913953488372093,width=430`
 
-##### On iPhone 15 in landscape mode (734px)
+##### Safari on iPhone 15 in Landscape Mode (734px)
 
-`<meta name="viewport" content="initial-scale=0.9865591397849462,width=744 />`
+`initial-scale=0.9865591397849462,width=744`
 
-### Specify the number of decimal places
+### Scale Page Even in Legacy Environments
 
-The following codes will truncate numbers in the content attribute of the viewport meta element to 6 decimal places.
+The standard build used above includes ES2021 syntax and features in the Widely Available stage of the [Web Platform Baseline](https://web.dev/baseline) as of the release of Viewport Extra v3.0.0. To ensure compatibility with environments that do not support these (e.g., iOS Safari < 16, Android Chrome < 108), the ES5 build can be used [(Reference)](./docs/en/migration-from-v2.md#build-selection).
 
-#### Using script
+#### Implementation
+
+##### Using Script
 
 <!-- x-release-please-start-version -->
 
 ```html
-<meta name="viewport-extra" content="minimum-width=430" data-decimal-places="6" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport-extra" content="minimum-width=430">
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0/dist/immediate/extended/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0/dist/immediate/es5/viewport-extra.min.js"></script>
 ```
 
-<!-- x-release-please-end-version -->
+<!-- x-release-please-end -->
 
-#### Using module
+##### Using Module
 
 ```ts
-import("viewport-extra/extended").then(({ apply }) => {
-  apply(
-    [
-      { content: { minimumWidth: 430 } }
-    ],
-    { decimalPlaces: 6 }
-  );
-});
+import("viewport-extra/immediate/es5").then(({ apply }) => {
+  apply([{ content: { minimumWidth: 430 } }])
+})
 ```
 
-#### Results
+#### Results of Updating `content` Attribute of `<meta name="viewport">` Element
 
-##### On Galaxy S24 in portrait mode (360px)
+##### Safari on iPhone 7 in Portrait Mode (375px)
 
-`<meta name="viewport" content="initial-scale=0.837209,width=430" />`
+`initial-scale=0.872093023255814,width=430`
 
-##### On iPhone 15 in portrait mode (393px)
+##### Safari on iPhone 7 in Landscape Mode (667px)
 
-`<meta name="viewport" content="initial-scale=0.913953,width=430" />`
+`initial-scale=1,width=device-width`
 
-##### On iPhone 15 Pro Max in portrait mode (430px)
+### Scale Page Without Using `<meta name="viewport-extra">` Element
 
-`<meta name="viewport" content="initial-scale=1,width=device-width" />`
+Pages containing the following code behave the same as the [implementation using the `<meta name="viewport-extra">` element](#using-script-2).
 
-## Various ways to set parameters
+#### Implementation
 
-All of the parameter settings below have the same meaning, even if the width and initial scale in the content attribute or the content property are omitted.
-
-### Using only `meta[name="viewport-extra"]` element
+<!-- x-release-please-start-version -->
 
 ```html
-<meta
-  name="viewport-extra"
-  content="width=device-width,initial-scale=1,minimum-width=430,maximum-width=640"
-/>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" data-extra-content="minimum-width=430">
+<meta name="viewport" data-extra-content="minimum-width=1024" data-extra-media="(min-width: 744px)">
+
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0"></script>
 ```
 
-### Using only `meta[name="viewport"]` element
+<!-- x-release-please-end -->
 
-```html
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1"
-  data-extra-content="minimum-width=430,maximum-width=640"
-/>
-```
+#### Results of Updating `content` Attribute of `<meta name="viewport">` Element
 
-### Using both `meta[name="viewport"]` and `meta[name="viewport-extra"]` elements
+##### Chrome on Galaxy S24 in Portrait Mode (360px)
 
-```html
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="viewport-extra" content="minimum-width=430,maximum-width=640" />
-```
+`initial-scale=0.8372093023255814,width=430`
 
-### Using apply function
+##### Safari on iPhone 15 Pro Max in Portrait Mode (430px)
 
-```ts
-apply([
-  {
-    content: {
-      width: "device-width",
-      initialScale: 1,
-      minimumWidth: 430,
-      maximumWidth: 640,
-    },
-  },
-]);
-```
+`initial-scale=1,width=device-width`
+
+##### Safari on iPad mini 6th Gen in Portrait Mode (744px)
+
+`initial-scale=0.7265625,width=1024`
+
+##### Safari on iPad Pro 12.9" in Portrait Mode (1024px)
+
+`initial-scale=1,width=device-width`
 
 ## Notes
 
-- For small mobile devices, it is recommended to set the following style:
+- Using the following style together is recommended to prevent browsers on small mobile devices from unexpectedly changing the text size [(Reference)](https://stackoverflow.com/q/6210788).
 
   ```css
   body {
@@ -325,4 +324,4 @@ apply([
   }
   ```
 
-  It prevents unintentional text size adjustments by browsers. See also [the issue](https://github.com/dsktschy/viewport-extra/issues/17).
+- When testing with developer tools of desktop browsers, mobile device simulation must be enabled and the viewport must be set to the desired size before navigating to a page that uses Viewport Extra. If the order is reversed, the browser may ignore the `initial-scale` setting of the `<meta name="viewport">` element. This behavior is specific to simulation in developer tools and does not occur in actual mobile browsers.

@@ -9,7 +9,6 @@
     "dsktschy",
     "autorelease",
     "kebabize",
-    "orientationchange",
     "stabilizable",
     "pids",
     "jscoverage",
@@ -25,6 +24,7 @@
     "npmjs",
     "vercel",
     "lefthook",
-    "nodenext"
+    "nodenext",
+    "unobserve"
   ]
 }
