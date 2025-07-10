@@ -248,13 +248,13 @@ To apply minimum / maximum widths, use either `setContent()` function or `setPar
 
 ```html
 <script>
-  ViewportExtra.setContent({ minWidth: 430 })
+  ViewportExtra.setContent({ minWidth: 412 })
 </script>
 ```
 
 ```html
 <script>
-  ViewportExtra.setParameters([{ content: { minWidth: 430 } }])
+  ViewportExtra.setParameters([{ content: { minWidth: 412 } }])
 </script>
 ```
 
@@ -264,7 +264,7 @@ To apply minimum / maximum widths, use `apply()` function. The interface is the 
 
 ```html
 <script>
-  ViewportExtra.apply([{ content: { minimumWidth: 430 } }])
+  ViewportExtra.apply([{ content: { minimumWidth: 412 } }])
 </script>
 ```
 
@@ -276,13 +276,13 @@ To apply minimum / maximum widths, use either `setContent()` function or `setPar
 
 ```js
 import("viewport-extra").then(({ setContent }) => {
-  setContent({ minWidth: 430 })
+  setContent({ minWidth: 412 })
 })
 ```
 
 ```js
 import("viewport-extra").then(({ setParameters }) => {
-  setParameters([{ content: { minWidth: 430 } }])
+  setParameters([{ content: { minWidth: 412 } }])
 })
 ```
 
@@ -292,7 +292,7 @@ To apply minimum / maximum widths, use `apply()` function. The interface is the 
 
 ```js
 import("viewport-extra").then(({ apply }) => {
-  apply([{ content: { minimumWidth: 430 } }])
+  apply([{ content: { minimumWidth: 412 } }])
 })
 ```
 
@@ -312,7 +312,7 @@ In the `data-extra-content` attribute of the `<meta name="viewport">` element, u
 <meta
   name="viewport"
   content="width=device-width,initial-scale=1"
-  data-extra-content="min-width=430,max-width=640"
+  data-extra-content="min-width=412,max-width=640"
 >
 ```
 
@@ -321,7 +321,7 @@ In the `content` attribute of the `<meta name="viewport-extra">` element, also u
 ```html
 <meta
   name="viewport-extra"
-  content="width=device-width,initial-scale=1,min-width=430,max-width=640"
+  content="width=device-width,initial-scale=1,min-width=412,max-width=640"
 >
 ```
 
@@ -329,13 +329,13 @@ In the arguments of `setContent()` function and `setParameters()` function, use 
 
 ```html
 <script>
-  ViewportExtra.setContent({ minWidth: 430, maxWidth: 640 })
+  ViewportExtra.setContent({ minWidth: 412, maxWidth: 640 })
 </script>
 ```
 
 ```html
 <script>
-  ViewportExtra.setParameters([{ content: { minWidth: 430, maxWidth: 640 } }])
+  ViewportExtra.setParameters([{ content: { minWidth: 412, maxWidth: 640 } }])
 </script>
 ```
 
@@ -347,7 +347,7 @@ In the `data-extra-content` attribute of the `<meta name="viewport">` element, u
 <meta
   name="viewport"
   content="width=device-width,initial-scale=1"
-  data-extra-content="minimum-width=430,maximum-width=640"
+  data-extra-content="minimum-width=412,maximum-width=640"
 >
 ```
 
@@ -356,7 +356,7 @@ In the `content` attribute of the `<meta name="viewport-extra">` element, also u
 ```html
 <meta
   name="viewport-extra"
-  content="width=device-width,initial-scale=1,minimum-width=430,maximum-width=640"
+  content="width=device-width,initial-scale=1,minimum-width=412,maximum-width=640"
 >
 ```
 
@@ -364,7 +364,7 @@ In the arguments of `apply()` function, use the property names `minimumWidth` / 
 
 ```html
 <script>
-  ViewportExtra.apply([{ content: { minimumWidth: 430, maximumWidth: 640 } }])
+  ViewportExtra.apply([{ content: { minimumWidth: 412, maximumWidth: 640 } }])
 </script>
 ```
 
@@ -376,13 +376,13 @@ In the arguments of `setContent()` function and `setParameters()` function, use 
 
 ```js
 import("viewport-extra").then(({ setContent }) => {
-  setContent({ minWidth: 430, maxWidth: 640 })
+  setContent({ minWidth: 412, maxWidth: 640 })
 })
 ```
 
 ```js
 import("viewport-extra").then(({ setParameters }) => {
-  setParameters([{ content: { minWidth: 430, maxWidth: 640 } }])
+  setParameters([{ content: { minWidth: 412, maxWidth: 640 } }])
 })
 ```
 
@@ -392,7 +392,7 @@ In the arguments of `apply()` function, use the property names `minimumWidth` / 
 
 ```js
 import("viewport-extra").then(({ apply }) => {
-  apply([{ content: { minimumWidth: 430, maximumWidth: 640 } }])
+  apply([{ content: { minimumWidth: 412, maximumWidth: 640 } }])
 })
 ```
 
@@ -414,14 +414,14 @@ If `setContent()` function and `setParameters()` function are to be called multi
 <meta
   name="viewport"
   content="width=device-width,initial-scale=1"
-  data-extra-content="min-width=430"
+  data-extra-content="min-width=412"
   data-extra-unscaled-computing
 >
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/iife/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener("awesome-event", () => {
-    window.ViewportExtra?.setParameters([{ content: { minWidth: 430 } }])
+    window.ViewportExtra?.setParameters([{ content: { minWidth: 412 } }])
   })
 </script>
 ```
@@ -431,14 +431,14 @@ If `setContent()` function and `setParameters()` function are to be called multi
 ```html
 <meta
   name="viewport-extra"
-  content="width=device-width,initial-scale=1,min-width=430"
+  content="width=device-width,initial-scale=1,min-width=412"
   data-unscaled-computing
 >
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/iife/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener("awesome-event", () => {
-    window.ViewportExtra?.setParameters([{ content: { minWidth: 430 } }])
+    window.ViewportExtra?.setParameters([{ content: { minWidth: 412 } }])
   })
 </script>
 ```
@@ -453,13 +453,13 @@ Even if `apply()` function is to be called multiple times, no special attributes
 <meta
   name="viewport"
   content="width=device-width,initial-scale=1"
-  data-extra-content="min-width=430"
+  data-extra-content="min-width=412"
 >
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0"></script>
 
 <script>
   window.addEventListener("awesome-event", () => {
-    window.ViewportExtra?.apply([{ content: { minimumWidth: 430 } }])
+    window.ViewportExtra?.apply([{ content: { minimumWidth: 412 } }])
   })
 </script>
 ```
@@ -476,7 +476,7 @@ If `setParameters()` function is to be called multiple times, the `unscaledCompu
 import("viewport-extra").then(({ setParameters }) => {
   window.addEventListener("awesome-event", () => {
     setParameters(
-      [{ content: { minWidth: 430 } }],
+      [{ content: { minWidth: 412 } }],
       { unscaledComputing: true }
     )
   })
@@ -490,7 +490,7 @@ Even if `apply()` function is to be called multiple times, no special properties
 ```js
 import("viewport-extra").then(({ apply }) => {
   window.addEventListener("awesome-event", () => {
-    apply([{ content: { minimumWidth: 430 } }])
+    apply([{ content: { minimumWidth: 412 } }])
   })
 })
 ```
@@ -512,14 +512,14 @@ In multiple calls to `setContent()` function and `setParameters()` function, if 
   name="viewport"
   content="width=device-width,initial-scale=1"
   data-extra-unscaled-computing
-  data-extra-content="min-width=430"
+  data-extra-content="min-width=412"
 >
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/iife/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener(
     "awesome-event",
-    () => window.ViewportExtra?.setContent(), // 430 is used as minWidth
+    () => window.ViewportExtra?.setContent(), // 412 is used as minWidth
   )
 </script>
 ```
@@ -529,14 +529,14 @@ In multiple calls to `setContent()` function and `setParameters()` function, if 
   name="viewport"
   content="width=device-width,initial-scale=1"
   data-extra-unscaled-computing
-  data-extra-content="min-width=430"
+  data-extra-content="min-width=412"
 >
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/iife/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener(
     "awesome-event",
-    () => window.ViewportExtra?.setParameters([]), // 430 is used as minWidth
+    () => window.ViewportExtra?.setParameters([]), // 412 is used as minWidth
   )
 </script>
 ```
@@ -551,14 +551,14 @@ In multiple calls to `apply()` function, even if the initially applied minimum /
 <meta
   name="viewport"
   content="width=device-width,initial-scale=1"
-  data-extra-content="min-width=430"
+  data-extra-content="min-width=412"
 >
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0"></script>
 
 <script>
   window.addEventListener(
     "awesome-event",
-    () => window.ViewportExtra?.apply([{ content: { minimumWidth: 430 } }]), // If arguments are omitted, minimumWidth defaults to 0
+    () => window.ViewportExtra?.apply([{ content: { minimumWidth: 412 } }]), // If arguments are omitted, minimumWidth defaults to 0
   )
 </script>
 ```
@@ -573,10 +573,10 @@ In multiple calls to `setParameters()` function, if the initially applied minimu
 
 ```js
 import("viewport-extra").then(({ setParameters }) => {
-  setParameters([{ content: { minWidth: 430 } }], { unscaledComputing: true })
+  setParameters([{ content: { minWidth: 412 } }], { unscaledComputing: true })
   window.addEventListener(
     "awesome-event",
-    () => setParameters([]), // 430 is used as minWidth
+    () => setParameters([]), // 412 is used as minWidth
   )
 })
 ```
@@ -587,7 +587,7 @@ In multiple calls to `apply()` function, even if the initially applied minimum /
 
 ```js
 import("viewport-extra").then(({ apply }) => {
-  const parameters = [{ content: { minWidth: 430 } }]
+  const parameters = [{ content: { minWidth: 412 } }]
   apply(parameters)
   window.addEventListener(
     "awesome-event",
@@ -621,7 +621,7 @@ const ViewportExtra = () => {
   useEffect(() => {
     import("viewport-extra").then(({ setContent, updateReference }) => {
       updateReference()
-      setContent({ minWidth: 430 })
+      setContent({ minWidth: 412 })
     })
   }, [pathname])
 
@@ -647,7 +647,7 @@ const ViewportExtra = () => {
   // Side effects executed on every page transition
   useEffect(() => {
     import("viewport-extra").then(({ apply }) => {
-      apply([{ minWidth: 430 }])
+      apply([{ minWidth: 412 }])
     })
   }, [pathname])
 

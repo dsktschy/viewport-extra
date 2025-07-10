@@ -4,7 +4,7 @@
 
 Viewport Extra is a library that enables setting the minimum / maximum width of the viewport. It reduces the range of the viewport that needs to be considered when styling.
 
-For example, when displaying a 430px-wide page on a mobile browser with a viewport width of 360px (e.g., Chrome on Galaxy S24 in portrait mode), horizontal scrolling occurs. This can be resolved by styling for viewport widths less than 430px, but it's a hassle. However, by using Viewport Extra to set the minimum viewport width to 430px, the page will be scaled down to fit perfectly within 360px, eliminating horizontal scrolling. This provides a simple solution with no styling required.
+For example, when displaying a 412px-wide page on a mobile browser with a viewport width of 360px (e.g., Chrome on Galaxy S24 in portrait mode), horizontal scrolling occurs. This can be resolved by styling for viewport widths less than 412px, but it's a hassle. However, by using Viewport Extra to set the minimum viewport width to 412px, the page will be scaled down to fit perfectly within 360px, eliminating horizontal scrolling. This provides a simple solution with no styling required.
 
 Page scaling is achieved by updating the `content` attribute of the `<meta name="viewport">` element.
 
@@ -22,7 +22,7 @@ Viewport Extra supports asynchronous loading via the `<script async>` element or
 
 ### Scale Down Page on Small Viewport Widths
 
-Pages containing the following code are scaled down on mobile browsers with viewport widths less than 430px, but are not scaled down on other browsers. Whether to scale down is determined only once when the pages are displayed [(Reference)](#rescale-page-when-viewport-width-changes).
+Pages containing the following code are scaled down on mobile browsers with viewport widths less than 412px, but are not scaled down on other browsers. Whether to scale down is determined only once when the pages are displayed [(Reference)](#rescale-page-when-viewport-width-changes).
 
 #### Implementation
 
@@ -32,7 +32,7 @@ Pages containing the following code are scaled down on mobile browsers with view
 
 ```html
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="viewport-extra" content="minimum-width=430">
+<meta name="viewport-extra" content="minimum-width=412">
 
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0"></script>
 ```
@@ -43,7 +43,7 @@ Pages containing the following code are scaled down on mobile browsers with view
 
 ```ts
 import("viewport-extra").then(({ apply }) => {
-  apply([{ content: { minimumWidth: 430 } }])
+  apply([{ content: { minimumWidth: 412 } }])
 })
 ```
 
@@ -51,13 +51,13 @@ import("viewport-extra").then(({ apply }) => {
 
 ##### Chrome on Galaxy S24 in Portrait Mode (360px)
 
-`initial-scale=0.8372093023255814,width=430`
+`initial-scale=0.8737864077669902,width=412`
 
 ##### Safari on iPhone 15 in Portrait Mode (393px)
 
-`initial-scale=0.913953488372093,width=430`
+`initial-scale=0.9538834951456311,width=412`
 
-##### Safari on iPhone 15 Pro Max in Portrait Mode (430px)
+##### Chrome on Google Pixel 8 in Portrait Mode (412px)
 
 `initial-scale=1,width=device-width`
 
@@ -106,7 +106,7 @@ import("viewport-extra").then(({ apply }) => {
 
 `initial-scale=1,width=device-width`
 
-##### Safari on iPhone 15 Pro Max in Portrait Mode (430px)
+##### Chrome on Google Pixel 8 in Portrait Mode (412px)
 
 `initial-scale=1.094147582697201,width=393`
 
@@ -120,7 +120,7 @@ import("viewport-extra").then(({ apply }) => {
 
 ### Set Different Minimum / Maximum Widths per Media Query
 
-Pages containing the following code are scaled down on mobile browsers with viewport widths less than 430px or between 744px (inclusive) and 1024px (exclusive), but are not scaled down on other browsers. Whether to scale down is determined only once when the pages are displayed [(Reference)](#rescale-page-when-viewport-width-changes).
+Pages containing the following code are scaled down on mobile browsers with viewport widths less than 412px or between 744px (inclusive) and 1024px (exclusive), but are not scaled down on other browsers. Whether to scale down is determined only once when the pages are displayed [(Reference)](#rescale-page-when-viewport-width-changes).
 
 #### Implementation
 
@@ -130,7 +130,7 @@ Pages containing the following code are scaled down on mobile browsers with view
 
 ```html
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="viewport-extra" content="minimum-width=430">
+<meta name="viewport-extra" content="minimum-width=412">
 <meta name="viewport-extra" content="minimum-width=1024" data-media="(min-width: 744px)">
 
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0"></script>
@@ -143,7 +143,7 @@ Pages containing the following code are scaled down on mobile browsers with view
 ```js
 import("viewport-extra").then(({ apply }) => {
   apply([
-    { content: { minimumWidth: 430 } },
+    { content: { minimumWidth: 412 } },
     { content: { minimumWidth: 1024 }, media: "(min-width: 744px)" },
   ])
 })
@@ -153,9 +153,9 @@ import("viewport-extra").then(({ apply }) => {
 
 ##### Chrome on Galaxy S24 in Portrait Mode (360px)
 
-`initial-scale=0.8372093023255814,width=430`
+`initial-scale=0.8737864077669902,width=412`
 
-##### Safari on iPhone 15 Pro Max in Portrait Mode (430px)
+##### Chrome on Google Pixel 8 in Portrait Mode (412px)
 
 `initial-scale=1,width=device-width`
 
@@ -195,7 +195,7 @@ Pages containing the following code determine whether to scale up or down not on
     }).observe(document.documentElement)
 
     ViewportExtra.apply([
-      { content: { minimumWidth: 430 } },
+      { content: { minimumWidth: 412 } },
       { content: { minimumWidth: 744 }, media: "(min-width: 640px)" },
     ])
   }
@@ -223,7 +223,7 @@ import("viewport-extra").then(({ apply }) => {
     }).observe(document.documentElement)
 
     apply([
-      { content: { minimumWidth: 430 } },
+      { content: { minimumWidth: 412 } },
       { content: { minimumWidth: 744 }, media: "(min-width: 640px)" },
     ])
   }
@@ -235,7 +235,7 @@ import("viewport-extra").then(({ apply }) => {
 
 ##### Safari on iPhone 15 in Portrait Mode (393px)
 
-`initial-scale=0.913953488372093,width=430`
+`initial-scale=0.9538834951456311,width=412`
 
 ##### Safari on iPhone 15 in Landscape Mode (734px)
 
@@ -253,7 +253,7 @@ The standard build used above includes ES2021 syntax and features in the Widely 
 
 ```html
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="viewport-extra" content="minimum-width=430">
+<meta name="viewport-extra" content="minimum-width=412">
 
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0/dist/immediate/es5/viewport-extra.min.js"></script>
 ```
@@ -264,7 +264,7 @@ The standard build used above includes ES2021 syntax and features in the Widely 
 
 ```ts
 import("viewport-extra/immediate/es5").then(({ apply }) => {
-  apply([{ content: { minimumWidth: 430 } }])
+  apply([{ content: { minimumWidth: 412 } }])
 })
 ```
 
@@ -272,7 +272,7 @@ import("viewport-extra/immediate/es5").then(({ apply }) => {
 
 ##### Safari on iPhone 7 in Portrait Mode (375px)
 
-`initial-scale=0.872093023255814,width=430`
+`initial-scale=0.9101941747572816,width=412`
 
 ##### Safari on iPhone 7 in Landscape Mode (667px)
 
@@ -288,7 +288,7 @@ Pages containing the following code behave the same as the [implementation using
 
 ```html
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="viewport" data-extra-content="minimum-width=430">
+<meta name="viewport" data-extra-content="minimum-width=412">
 <meta name="viewport" data-extra-content="minimum-width=1024" data-extra-media="(min-width: 744px)">
 
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0"></script>
@@ -300,9 +300,9 @@ Pages containing the following code behave the same as the [implementation using
 
 ##### Chrome on Galaxy S24 in Portrait Mode (360px)
 
-`initial-scale=0.8372093023255814,width=430`
+`initial-scale=0.8737864077669902,width=412`
 
-##### Safari on iPhone 15 Pro Max in Portrait Mode (430px)
+##### Chrome on Google Pixel 8 in Portrait Mode (412px)
 
 `initial-scale=1,width=device-width`
 

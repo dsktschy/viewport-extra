@@ -10,7 +10,7 @@ describe("ensureViewportMetaElement", () => {
     it("should return existing viewport meta element", () => {
       document.head.innerHTML = `
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=414,initial-scale=2" />
+        <meta name="viewport" content="width=412,initial-scale=2" />
       `;
       expect(ensureViewportMetaElement(document)).toBe(
         document.querySelector('meta[name="viewport"]'),
@@ -40,7 +40,7 @@ describe("getMetaElementList", () => {
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width" />
         <meta name="viewport" content="initial-scale=1" />
-        <meta name="viewport-extra" content="minimum-width=414" />
+        <meta name="viewport-extra" content="minimum-width=412" />
         <meta name="viewport-extra" content="maximum-width=768" />
       `;
       expect(
@@ -50,7 +50,7 @@ describe("getMetaElementList", () => {
       ).toStrictEqual([
         '<meta name="viewport" content="width=device-width">',
         '<meta name="viewport" content="initial-scale=1">',
-        '<meta name="viewport-extra" content="minimum-width=414">',
+        '<meta name="viewport-extra" content="minimum-width=412">',
         '<meta name="viewport-extra" content="maximum-width=768">',
       ]);
     });
@@ -69,9 +69,9 @@ describe("getMetaElementList", () => {
 describe("getDocumentClientWidth", () => {
   it("should return document.documentElement.clientWidth", () => {
     Object.defineProperty(document.documentElement, "clientWidth", {
-      value: 414,
+      value: 412,
       configurable: true,
     });
-    expect(getDocumentClientWidth(document)).toBe(414);
+    expect(getDocumentClientWidth(document)).toBe(412);
   });
 });
