@@ -4,7 +4,7 @@
 
 Viewport Extra は、ビューポートの最小幅および最大幅の設定を可能にするライブラリです。これにより、スタイリング時に考慮すべきビューポートの範囲を狭めることができます。
 
-たとえば、幅 430px のページを、ビューポート幅 360px のモバイル向けブラウザ (例: 縦向きの Galaxy S24 上の Chrome) で表示すると、横方向のスクロールが発生してしまいます。これは、430px 未満のビューポート幅のためにスタイルを追加することで解決できますが、その作業は面倒です。しかし、Viewport Extra でビューポートの最小幅を 430px に設定すれば、そのページは 360px にぴったり収まるように縮小され、横方向のスクロールが発生しません。スタイルを追加することなく、簡単に解決できます。
+たとえば、幅 412px のページを、ビューポート幅 360px のモバイル向けブラウザ (例: 縦向きの Galaxy S24 上の Chrome) で表示すると、横方向のスクロールが発生してしまいます。これは、412px 未満のビューポート幅のためにスタイルを追加することで解決できますが、その作業は面倒です。しかし、Viewport Extra でビューポートの最小幅を 412px に設定すれば、そのページは 360px にぴったり収まるように縮小され、横方向のスクロールが発生しません。スタイルを追加することなく、簡単に解決できます。
 
 ページの拡大・縮小は、`<meta name="viewport">` 要素の `content` 属性の書き換えにより行われます。
 
@@ -22,7 +22,7 @@ Viewport Extra は、`<script async>` 要素や `import()` 構文による非同
 
 ### 小さなビューポート幅でページを縮小する
 
-次のコードを含むページは、ビューポート幅が 430px 未満のモバイル向けブラウザでは縮小され、それ以外のブラウザでは縮小されません。縮小すべきかどうかの判定は、ページが表示されるときに一度だけ行われます [(参考)](#ビューポート幅が変わるときにもページを拡大縮小する) 。
+次のコードを含むページは、ビューポート幅が 412px 未満のモバイル向けブラウザでは縮小され、それ以外のブラウザでは縮小されません。縮小すべきかどうかの判定は、ページが表示されるときに一度だけ行われます [(参考)](#ビューポート幅が変わるときにもページを拡大縮小する) 。
 
 #### 実装
 
@@ -32,7 +32,7 @@ Viewport Extra は、`<script async>` 要素や `import()` 構文による非同
 
 ```html
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="viewport-extra" content="minimum-width=430">
+<meta name="viewport-extra" content="minimum-width=412">
 
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0"></script>
 ```
@@ -43,7 +43,7 @@ Viewport Extra は、`<script async>` 要素や `import()` 構文による非同
 
 ```ts
 import("viewport-extra").then(({ apply }) => {
-  apply([{ content: { minimumWidth: 430 } }])
+  apply([{ content: { minimumWidth: 412 } }])
 })
 ```
 
@@ -51,13 +51,13 @@ import("viewport-extra").then(({ apply }) => {
 
 ##### Galaxy S24 縦向き Chrome (360px)
 
-`initial-scale=0.8372093023255814,width=430`
+`initial-scale=0.8737864077669902,width=412`
 
 ##### iPhone 15 縦向き Safari (393px)
 
-`initial-scale=0.913953488372093,width=430`
+`initial-scale=0.9538834951456311,width=412`
 
-##### iPhone 15 Pro Max 縦向き Safari (430px)
+##### Google Pixel 8 縦向き Chrome (412px)
 
 `initial-scale=1,width=device-width`
 
@@ -106,9 +106,9 @@ import("viewport-extra").then(({ apply }) => {
 
 `initial-scale=1,width=device-width`
 
-##### iPhone 15 Pro Max 縦向き Safari (430px)
+##### Google Pixel 8 縦向き Chrome (412px)
 
-`initial-scale=1.094147582697201,width=393`
+`initial-scale=1.0483460559796438,width=393`
 
 ##### iPhone 15 横向き Safari (734px)
 
@@ -120,7 +120,7 @@ import("viewport-extra").then(({ apply }) => {
 
 ### メディアクエリごとに異なる最小幅・最大幅を設定する
 
-次のコードを含むページは、ビューポート幅が 430px 未満または 744px 以上 1024px 未満のモバイル向けブラウザでは縮小され、それ以外のブラウザでは縮小されません。縮小すべきかどうかの判定は、ページが表示されるときに一度だけ行われます [(参考)](#ビューポート幅が変わるときにもページを拡大縮小する) 。
+次のコードを含むページは、ビューポート幅が 412px 未満または 744px 以上 1024px 未満のモバイル向けブラウザでは縮小され、それ以外のブラウザでは縮小されません。縮小すべきかどうかの判定は、ページが表示されるときに一度だけ行われます [(参考)](#ビューポート幅が変わるときにもページを拡大縮小する) 。
 
 #### 実装
 
@@ -130,7 +130,7 @@ import("viewport-extra").then(({ apply }) => {
 
 ```html
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="viewport-extra" content="minimum-width=430">
+<meta name="viewport-extra" content="minimum-width=412">
 <meta name="viewport-extra" content="minimum-width=1024" data-media="(min-width: 744px)">
 
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0"></script>
@@ -143,7 +143,7 @@ import("viewport-extra").then(({ apply }) => {
 ```js
 import("viewport-extra").then(({ apply }) => {
   apply([
-    { content: { minimumWidth: 430 } },
+    { content: { minimumWidth: 412 } },
     { content: { minimumWidth: 1024 }, media: "(min-width: 744px)" },
   ])
 })
@@ -153,9 +153,9 @@ import("viewport-extra").then(({ apply }) => {
 
 ##### Galaxy S24 縦向き Chrome (360px)
 
-`initial-scale=0.8372093023255814,width=430`
+`initial-scale=0.8737864077669902,width=412`
 
-##### iPhone 15 Pro Max 縦向き Safari (430px)
+##### Google Pixel 8 縦向き Chrome (412px)
 
 `initial-scale=1,width=device-width`
 
@@ -195,7 +195,7 @@ import("viewport-extra").then(({ apply }) => {
     }).observe(document.documentElement)
 
     ViewportExtra.apply([
-      { content: { minimumWidth: 430 } },
+      { content: { minimumWidth: 412 } },
       { content: { minimumWidth: 744 }, media: "(min-width: 640px)" },
     ])
   }
@@ -223,7 +223,7 @@ import("viewport-extra").then(({ apply }) => {
     }).observe(document.documentElement)
 
     apply([
-      { content: { minimumWidth: 430 } },
+      { content: { minimumWidth: 412 } },
       { content: { minimumWidth: 744 }, media: "(min-width: 640px)" },
     ])
   }
@@ -235,7 +235,7 @@ import("viewport-extra").then(({ apply }) => {
 
 ##### iPhone 15 縦向き Safari (393px)
 
-`initial-scale=0.913953488372093,width=430`
+`initial-scale=0.9538834951456311,width=412`
 
 ##### iPhone 15 横向き Safari (734px)
 
@@ -253,7 +253,7 @@ import("viewport-extra").then(({ apply }) => {
 
 ```html
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="viewport-extra" content="minimum-width=430">
+<meta name="viewport-extra" content="minimum-width=412">
 
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0/dist/immediate/es5/viewport-extra.min.js"></script>
 ```
@@ -264,7 +264,7 @@ import("viewport-extra").then(({ apply }) => {
 
 ```ts
 import("viewport-extra/immediate/es5").then(({ apply }) => {
-  apply([{ content: { minimumWidth: 430 } }])
+  apply([{ content: { minimumWidth: 412 } }])
 })
 ```
 
@@ -272,7 +272,7 @@ import("viewport-extra/immediate/es5").then(({ apply }) => {
 
 ##### iPhone 7 縦向き Safari (375px)
 
-`initial-scale=0.872093023255814,width=430`
+`initial-scale=0.9101941747572816,width=412`
 
 ##### iPhone 7 横向き Safari (667px)
 
@@ -288,7 +288,7 @@ import("viewport-extra/immediate/es5").then(({ apply }) => {
 
 ```html
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="viewport" data-extra-content="minimum-width=430">
+<meta name="viewport" data-extra-content="minimum-width=412">
 <meta name="viewport" data-extra-content="minimum-width=1024" data-extra-media="(min-width: 744px)">
 
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0"></script>
@@ -300,9 +300,9 @@ import("viewport-extra/immediate/es5").then(({ apply }) => {
 
 ##### Galaxy S24 縦向き Chrome (360px)
 
-`initial-scale=0.8372093023255814,width=430`
+`initial-scale=0.8737864077669902,width=412`
 
-##### iPhone 15 Pro Max 縦向き Safari (430px)
+##### Google Pixel 8 縦向き Chrome (412px)
 
 `initial-scale=1,width=device-width`
 
