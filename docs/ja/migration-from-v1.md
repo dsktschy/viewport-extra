@@ -198,13 +198,13 @@ v3 の最小幅・最大幅適用 API である `apply()` 関数は、引数と�
 
 ```html
 <script>
-  new ViewportExtra(430)
+  new ViewportExtra(412)
 </script>
 ```
 
 ```html
 <script>
-  new ViewportExtra({ minWidth: 430 })
+  new ViewportExtra({ minWidth: 412 })
 </script>
 ```
 
@@ -214,7 +214,7 @@ v3 の最小幅・最大幅適用 API である `apply()` 関数は、引数と�
 
 ```html
 <script>
-  ViewportExtra.apply([{ content: { minimumWidth: 430 } }])
+  ViewportExtra.apply([{ content: { minimumWidth: 412 } }])
 </script>
 ```
 
@@ -223,7 +223,7 @@ v3 の最小幅・最大幅適用 API である `apply()` 関数は、引数と�
 ```html
 <script>
   ViewportExtra.apply([
-    { content: { minimumWidth: 430 } }, // media を省略した場合はデフォルトの "" となる
+    { content: { minimumWidth: 412 } }, // media を省略した場合はデフォルトの "" となる
     { content: { minimumWidth: 1024 }, media: "(min-width: 744px)" },
   ])
 </script>
@@ -238,13 +238,13 @@ v3 の最小幅・最大幅適用 API である `apply()` 関数は、引数と�
 ```js
 import ViewportExtra from "viewport-extra"
 
-new ViewportExtra(430)
+new ViewportExtra(412)
 ```
 
 ```js
 import ViewportExtra from "viewport-extra"
 
-new ViewportExtra({ minWidth: 430 })
+new ViewportExtra({ minWidth: 412 })
 ```
 
 ##### v3 の構文
@@ -253,7 +253,7 @@ new ViewportExtra({ minWidth: 430 })
 
 ```js
 import("viewport-extra").then(({ apply }) => {
-  apply([{ content: { minimumWidth: 430 } }])
+  apply([{ content: { minimumWidth: 412 } }])
 })
 ```
 
@@ -262,7 +262,7 @@ import("viewport-extra").then(({ apply }) => {
 ```js
 import("viewport-extra").then(({ apply }) => {
   apply([
-    { content: { minimumWidth: 430 } }, // media を省略した場合はデフォルトの "" となる
+    { content: { minimumWidth: 412 } }, // media を省略した場合はデフォルトの "" となる
     { content: { minimumWidth: 1024 }, media: "(min-width: 744px)" },
   ])
 })
@@ -282,7 +282,7 @@ v3 では、最小幅・最大幅適用 API において、`minimum` / `maximum`
 
 ```html
 <script>
-  new ViewportExtra({ minWidth: 430, maxWidth: 640 })
+  new ViewportExtra({ minWidth: 412, maxWidth: 640 })
 </script>
 ```
 
@@ -292,7 +292,7 @@ v3 では、最小幅・最大幅適用 API において、`minimum` / `maximum`
 
 ```html
 <script>
-  ViewportExtra.apply([{ content: { minimumWidth: 430, maximumWidth: 640 } }])
+  ViewportExtra.apply([{ content: { minimumWidth: 412, maximumWidth: 640 } }])
 </script>
 ```
 
@@ -302,7 +302,7 @@ v3 では、最小幅・最大幅適用 API において、`minimum` / `maximum`
 <meta
   name="viewport"
   content="width=device-width,initial-scale=1"
-  data-extra-content="minimum-width=430,maximum-width=640"
+  data-extra-content="minimum-width=412,maximum-width=640"
 >
 ```
 
@@ -311,7 +311,7 @@ v3 では、最小幅・最大幅適用 API において、`minimum` / `maximum`
 ```html
 <meta
   name="viewport-extra"
-  content="width=device-width,initial-scale=1,minimum-width=430,maximum-width=640"
+  content="width=device-width,initial-scale=1,minimum-width=412,maximum-width=640"
 >
 ```
 
@@ -324,7 +324,7 @@ v3 では、最小幅・最大幅適用 API において、`minimum` / `maximum`
 ```js
 import ViewportExtra from "viewport-extra"
 
-new ViewportExtra({ minWidth: 430, maxWidth: 640 })
+new ViewportExtra({ minWidth: 412, maxWidth: 640 })
 ```
 
 ##### v3 の構文
@@ -333,6 +333,6 @@ new ViewportExtra({ minWidth: 430, maxWidth: 640 })
 
 ```js
 import("viewport-extra").then(({ apply }) => {
-  apply([{ content: { minimumWidth: 430, maximumWidth: 640 } }])
+  apply([{ content: { minimumWidth: 412, maximumWidth: 640 } }])
 })
 ```

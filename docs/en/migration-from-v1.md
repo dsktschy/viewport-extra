@@ -198,13 +198,13 @@ To apply minimum / maximum widths, use the `ViewportExtra` constructor. It accep
 
 ```html
 <script>
-  new ViewportExtra(430)
+  new ViewportExtra(412)
 </script>
 ```
 
 ```html
 <script>
-  new ViewportExtra({ minWidth: 430 })
+  new ViewportExtra({ minWidth: 412 })
 </script>
 ```
 
@@ -214,7 +214,7 @@ To apply minimum / maximum widths, use `apply()` function.
 
 ```html
 <script>
-  ViewportExtra.apply([{ content: { minimumWidth: 430 } }])
+  ViewportExtra.apply([{ content: { minimumWidth: 412 } }])
 </script>
 ```
 
@@ -223,7 +223,7 @@ It can accept multiple minimum / maximum widths along with media queries as argu
 ```html
 <script>
   ViewportExtra.apply([
-    { content: { minimumWidth: 430 } }, // If media is omitted, the default is ""
+    { content: { minimumWidth: 412 } }, // If media is omitted, the default is ""
     { content: { minimumWidth: 1024 }, media: "(min-width: 744px)" },
   ])
 </script>
@@ -238,13 +238,13 @@ To apply minimum / maximum widths, use the `ViewportExtra` constructor. It accep
 ```js
 import ViewportExtra from "viewport-extra"
 
-new ViewportExtra(430)
+new ViewportExtra(412)
 ```
 
 ```js
 import ViewportExtra from "viewport-extra"
 
-new ViewportExtra({ minWidth: 430 })
+new ViewportExtra({ minWidth: 412 })
 ```
 
 ##### v3 Syntax
@@ -253,7 +253,7 @@ To apply minimum / maximum widths, use `apply()` function.
 
 ```js
 import("viewport-extra").then(({ apply }) => {
-  apply([{ content: { minimumWidth: 430 } }])
+  apply([{ content: { minimumWidth: 412 } }])
 })
 ```
 
@@ -262,7 +262,7 @@ It can accept multiple minimum / maximum widths along with media queries as argu
 ```js
 import("viewport-extra").then(({ apply }) => {
   apply([
-    { content: { minimumWidth: 430 } }, // If media is omitted, the default is ""
+    { content: { minimumWidth: 412 } }, // If media is omitted, the default is ""
     { content: { minimumWidth: 1024 }, media: "(min-width: 744px)" },
   ])
 })
@@ -282,7 +282,7 @@ In the `ViewportExtra` constructor, use the property names `minWidth` / `maxWidt
 
 ```html
 <script>
-  new ViewportExtra({ minWidth: 430, maxWidth: 640 })
+  new ViewportExtra({ minWidth: 412, maxWidth: 640 })
 </script>
 ```
 
@@ -292,7 +292,7 @@ In the arguments of `apply()` function, use the property names `minimumWidth` / 
 
 ```html
 <script>
-  ViewportExtra.apply([{ content: { minimumWidth: 430, maximumWidth: 640 } }])
+  ViewportExtra.apply([{ content: { minimumWidth: 412, maximumWidth: 640 } }])
 </script>
 ```
 
@@ -302,7 +302,7 @@ In the `data-extra-content` attribute of the `<meta name="viewport">` element, u
 <meta
   name="viewport"
   content="width=device-width,initial-scale=1"
-  data-extra-content="minimum-width=430,maximum-width=640"
+  data-extra-content="minimum-width=412,maximum-width=640"
 >
 ```
 
@@ -311,7 +311,7 @@ In the `content` attribute of the `<meta name="viewport-extra">` element, also u
 ```html
 <meta
   name="viewport-extra"
-  content="width=device-width,initial-scale=1,minimum-width=430,maximum-width=640"
+  content="width=device-width,initial-scale=1,minimum-width=412,maximum-width=640"
 >
 ```
 
@@ -324,7 +324,7 @@ In the `ViewportExtra` constructor, use the property names `minWidth` / `maxWidt
 ```js
 import ViewportExtra from "viewport-extra"
 
-new ViewportExtra({ minWidth: 430, maxWidth: 640 })
+new ViewportExtra({ minWidth: 412, maxWidth: 640 })
 ```
 
 ##### v3 Syntax
@@ -333,6 +333,6 @@ In the arguments of `apply()` function, use the property names `minimumWidth` / 
 
 ```js
 import("viewport-extra").then(({ apply }) => {
-  apply([{ content: { minimumWidth: 430, maximumWidth: 640 } }])
+  apply([{ content: { minimumWidth: 412, maximumWidth: 640 } }])
 })
 ```
