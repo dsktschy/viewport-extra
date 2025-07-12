@@ -1,8 +1,8 @@
-# Usage Examples in Next.js (App Router) Application
+# Usage Examples in Next.js (Pages Router) Application
 
 **English** | [日本語](./README.ja.md)
 
-This example shows how to use Viewport Extra in a [Next.js (App Router)](https://nextjs.org/docs/app) application.
+This example shows how to use Viewport Extra in a [Next.js (Pages Router)](https://nextjs.org/docs/pages) application.
 
 ## Notes
 
