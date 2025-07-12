@@ -239,7 +239,7 @@ import('viewport-extra').then(({ setParameters }) => {
 
 ##### On iPhone 15 in landscape mode (734px)
 
-`<meta name="viewport" content="initial-scale=0.9865591397849462,width=744 />`
+`<meta name="viewport" content="initial-scale=0.9865591397849462,width=744" />`
 
 ### Specify the number of decimal places
 
