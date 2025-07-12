@@ -25,7 +25,7 @@
         },
         {
           "type": "json",
-          "path": "examples/next-page-router/package.json",
+          "path": "examples/next-pages-router/package.json",
           "jsonpath": "$.dependencies['viewport-extra']"
         },
         {
