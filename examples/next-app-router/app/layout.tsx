@@ -7,9 +7,9 @@ import "./globals.css";
 const openSans = Open_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Next.js (App Router) Example",
+  title: "Usage Examples in Next.js (App Router) Application",
   description:
-    "This example shows how to use Viewport Extra in Next.js (App Router) application.",
+    "This example shows how to use Viewport Extra in a Next.js (App Router) application.",
 };
 
 const RootLayout: FunctionComponent<{ children: ReactNode }> = ({
