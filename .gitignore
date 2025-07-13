@@ -147,6 +147,5 @@ dist
 /.git/
 
 # viewport-extra
-/examples/*/package-lock.json
 /.types/
 /.biome.jsonc
