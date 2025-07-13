@@ -25,6 +25,7 @@
     "vercel",
     "lefthook",
     "nodenext",
-    "unobserve"
+    "unobserve",
+    "lockfiles"
   ]
 }
