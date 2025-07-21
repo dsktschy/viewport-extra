@@ -14,25 +14,25 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
 + <meta name="viewport-extra" content="minimum-width=412">
   <script
--   src="https://cdn.jsdelivr.net/npm/viewport-extra@1.1.0/dist/viewport-extra.min.js"
+-   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/viewport-extra.min.js"
 +   async
-+   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0"
++   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1"
   ></script>
 - <script>new ViewportExtra(412)</script>
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
 + <meta name="viewport-extra" content="minimum-width=412,maximum-width=640">
   <script
--   src="https://cdn.jsdelivr.net/npm/viewport-extra@1.1.0/dist/viewport-extra.min.js"
+-   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/viewport-extra.min.js"
 +   async
-+   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0"
++   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1"
   ></script>
 - <script>new ViewportExtra({ minWidth: 412, maxWidth: 640 })</script>
 
   <!-- ES2021 の構文、および Baseline の Widely Available ステージにある機能をサポートしない環境で動作させる場合 -->
   <script
--   src="https://cdn.jsdelivr.net/npm/viewport-extra@1.1.0/dist/viewport-extra.min.js"
-+   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0/dist/immediate/es5/viewport-extra.min.js"
+-   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/viewport-extra.min.js"
++   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/es5/viewport-extra.min.js"
   ></script>
 ```
 
@@ -72,7 +72,7 @@ v3 では、複数あるビルドの中から、API の呼び出しが不要な�
 
 - **`meta` 要素読み取り・即時適用:** Viewport Extra が実行可能となった時点で、即時に `<meta name="viewport">` 要素、および `<meta name="viewport-extra">` 要素から最小幅・最大幅を読み取り、適用する機能です。API の呼び出しは必要ありません。
 - **高度な機能:** ほとんどの場合不要な機能です。<!-- x-release-please-start-version -->v3.0.0-rc.0<!-- x-release-please-end-version --> 時点では、小数点以下の桁数指定機能がこれに含まれます。
-- **レガシー環境での動作:** ES2015+ をサポートしない環境 (例: IE11) であっても動作する機能です。また、この機能を持たないビルドには、ES2021 の構文、および Viewport Extra v3.0.0 公開時点で [Web Platform Baseline](https://web.dev/baseline?hl=ja) の Widely Available ステージにある機能が含まれるため、それらをサポートしない環境 (例: iOS Safari < 16, Android Chrome < 108) での動作にも使用できます。
+- **レガシー環境での動作:** ES2015+ をサポートしない環境 (例: IE11) であっても動作する機能です。また、この機能を持たないビルドには、ES2021 の構文、および Viewport Extra v3.0.0-rc.1 公開時点で [Web Platform Baseline](https://web.dev/baseline?hl=ja) の Widely Available ステージにある機能が含まれるため、それらをサポートしない環境 (例: iOS Safari < 16, Android Chrome < 108) での動作にも使用できます。
 
 #### スクリプトを使用する場合
 
@@ -83,7 +83,7 @@ v3 では、複数あるビルドの中から、API の呼び出しが不要な�
 ```html
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<script src="https://cdn.jsdelivr.net/npm/viewport-extra@1.1.0/dist/viewport-extra.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/viewport-extra.min.js"></script>
 <script>new ViewportExtra(412)</script>
 ```
 
@@ -110,7 +110,7 @@ v3 では、複数あるビルドの中から、API の呼び出しが不要な�
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="viewport-extra" content="minimum-width=412">
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1"></script>
 ```
 
 <!-- x-release-please-end-version -->
@@ -123,7 +123,7 @@ ES2021 の構文、および [Web Platform Baseline](https://web.dev/baseline?hl
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="viewport-extra" content="minimum-width=412">
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0/dist/immediate/es5/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/es5/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end-version -->
@@ -136,7 +136,7 @@ ES2021 の構文、および [Web Platform Baseline](https://web.dev/baseline?hl
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="viewport-extra" content="minimum-width=412">
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0/dist/immediate/extended/es5/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/extended/es5/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end-version -->
