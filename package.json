@@ -1,6 +1,6 @@
 {
   "name": "viewport-extra",
-  "version": "3.0.0-rc.0",
+  "version": "3.0.0-rc.1",
   "description": "Enables setting minimum and maximum viewport width",
   "author": "dsktschy (https://github.com/dsktschy)",
   "license": "MIT",

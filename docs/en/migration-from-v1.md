@@ -16,7 +16,7 @@ This guide explains the differences between Viewport Extra v1 and v3. While v1 c
   <script
 -   src="https://cdn.jsdelivr.net/npm/viewport-extra@1.1.0/dist/viewport-extra.min.js"
 +   async
-+   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0"
++   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1"
   ></script>
 - <script>new ViewportExtra(412)</script>
 
@@ -25,14 +25,14 @@ This guide explains the differences between Viewport Extra v1 and v3. While v1 c
   <script
 -   src="https://cdn.jsdelivr.net/npm/viewport-extra@1.1.0/dist/viewport-extra.min.js"
 +   async
-+   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0"
++   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1"
   ></script>
 - <script>new ViewportExtra({ minWidth: 412, maxWidth: 640 })</script>
 
   <!-- For environments that do not support ES2021 syntax and features in the Widely Available stage of the Web Platform Baseline as of the release of Viewport Extra v3.0.0 -->
   <script
 -   src="https://cdn.jsdelivr.net/npm/viewport-extra@1.1.0/dist/viewport-extra.min.js"
-+   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0/dist/immediate/es5/viewport-extra.min.js"
++   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/es5/viewport-extra.min.js"
   ></script>
 ```
 
@@ -71,7 +71,7 @@ In v1, a single build is provided. This build requires API calls, making it diff
 In v3, you can select a build that does not require API calls from multiple available builds. Additionally, [IIFE format](https://developer.mozilla.org/en-US/docs/Glossary/IIFE) is provided for scripts, and ESM and CJS formats are provided for modules. The features that determine build selection are as follows:
 
 - **`meta` Element Parsing and Immediate Application:** This feature parses and applies the minimum / maximum widths from `<meta name="viewport">` and `<meta name="viewport-extra">` elements as soon as Viewport Extra becomes executable. No API calls are required.
-- **Advanced Features:** Features that are usually unnecessary. As of v3.0.0-rc.0, this includes the feature to specify decimal places.<!-- x-release-please-version -->
+- **Advanced Features:** Features that are usually unnecessary. As of v3.0.0-rc.1, this includes the feature to specify decimal places.<!-- x-release-please-version -->
 - **Support for Legacy Environments:** This feature ensures compatibility with environments that do not support ES2015+ (e.g., IE 11). Additionally, builds without this feature include ES2021 syntax and features in the Widely Available stage of the [Web Platform Baseline](https://web.dev/baseline) as of the release of Viewport Extra v3.0.0. Therefore, this feature can also be used to ensure compatibility with environments that do not support these (e.g., iOS Safari < 16, Android Chrome < 108).
 
 #### Using Script
@@ -110,7 +110,7 @@ You can select a build that supports `meta` element parsing and immediate applic
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="viewport-extra" content="minimum-width=412">
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1"></script>
 ```
 
 <!-- x-release-please-end -->
@@ -123,7 +123,7 @@ If you need to ensure compatibility with environments that do not support ES2021
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="viewport-extra" content="minimum-width=412">
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0/dist/immediate/es5/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/es5/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end -->
@@ -136,7 +136,7 @@ If it's difficult to determine the appropriate build, the build with the file pa
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="viewport-extra" content="minimum-width=412">
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.0/dist/immediate/extended/es5/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/extended/es5/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end -->
