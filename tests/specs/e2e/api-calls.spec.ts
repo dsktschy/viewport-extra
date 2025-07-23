@@ -327,9 +327,9 @@ for (const {
             <!doctype html>
             <html lang="en">
               <head>
-                <meta charset="UTF-8" />
+                <meta charset="UTF-8">
                 <title>Document</title>
-                <meta name="viewport" content="width=device-width,initial-scale=1" />
+                <meta name="viewport" content="width=device-width,initial-scale=1">
                 ${outputScriptSrc ? `<script src="${outputScriptSrc}"></script>` : ""}
               </head>
               <body>
@@ -372,9 +372,9 @@ for (const {
             <!doctype html>
             <html lang="en">
               <head>
-                <meta charset="UTF-8" />
+                <meta charset="UTF-8">
                 <title>Document</title>
-                <meta name="viewport" content="width=device-width,initial-scale=1" />
+                <meta name="viewport" content="width=device-width,initial-scale=1">
                 ${outputScriptSrc ? `<script src="${outputScriptSrc}"></script>` : ""}
               </head>
               <body>
