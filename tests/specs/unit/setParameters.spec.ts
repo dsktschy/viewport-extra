@@ -21,11 +21,11 @@ test.describe("setParameters", () => {
           <!doctype html>
           <html lang="en">
             <head>
-              <meta charset="UTF-8" />
+              <meta charset="UTF-8">
               <title>Document</title>
-              <meta name="viewport" content="width=device-width,initial-scale=1" />
-              <meta name="viewport" content="width=device-width,initial-scale=1" />
-              <meta name="viewport" content="width=device-width,initial-scale=1" />
+              <meta name="viewport" content="width=device-width,initial-scale=1">
+              <meta name="viewport" content="width=device-width,initial-scale=1">
+              <meta name="viewport" content="width=device-width,initial-scale=1">
             </head>
             <body>
               <script data-media-specific-parameters-list='${`
@@ -57,7 +57,7 @@ test.describe("setParameters", () => {
           <!doctype html>
           <html lang="en">
             <head>
-              <meta charset="UTF-8" />
+              <meta charset="UTF-8">
               <title>Document</title>
             </head>
             <body>
@@ -95,9 +95,9 @@ test.describe("setParameters", () => {
               <!doctype html>
               <html lang="en">
                 <head>
-                  <meta charset="UTF-8" />
+                  <meta charset="UTF-8">
                   <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=0.5" />
+                  <meta name="viewport" content="width=device-width,initial-scale=0.5">
                 </head>
                 <body>
                   <script data-media-specific-parameters-list='${`
@@ -130,9 +130,9 @@ test.describe("setParameters", () => {
               <!doctype html>
               <html lang="en">
                 <head>
-                  <meta charset="UTF-8" />
+                  <meta charset="UTF-8">
                   <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=0.5" />
+                  <meta name="viewport" content="width=device-width,initial-scale=0.5">
                 </head>
                 <body>
                   <script data-media-specific-parameters-list='${`
@@ -167,9 +167,9 @@ test.describe("setParameters", () => {
               <!doctype html>
               <html lang="en">
                 <head>
-                  <meta charset="UTF-8" />
+                  <meta charset="UTF-8">
                   <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=2" />
+                  <meta name="viewport" content="width=device-width,initial-scale=2">
                 </head>
                 <body>
                   <script data-media-specific-parameters-list='${`
@@ -202,9 +202,9 @@ test.describe("setParameters", () => {
               <!doctype html>
               <html lang="en">
                 <head>
-                  <meta charset="UTF-8" />
+                  <meta charset="UTF-8">
                   <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=2" />
+                  <meta name="viewport" content="width=device-width,initial-scale=2">
                 </head>
                 <body>
                   <script data-media-specific-parameters-list='${`
@@ -243,9 +243,9 @@ test.describe("setParameters", () => {
               <!doctype html>
               <html lang="en">
                 <head>
-                  <meta charset="UTF-8" />
+                  <meta charset="UTF-8">
                   <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=1" />
+                  <meta name="viewport" content="width=device-width,initial-scale=1">
                 </head>
                 <body>
                   <script data-media-specific-parameters-list='${`
@@ -278,9 +278,9 @@ test.describe("setParameters", () => {
               <!doctype html>
               <html lang="en">
                 <head>
-                  <meta charset="UTF-8" />
+                  <meta charset="UTF-8">
                   <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=1" />
+                  <meta name="viewport" content="width=device-width,initial-scale=1">
                 </head>
                 <body>
                   <script data-media-specific-parameters-list='${`
@@ -313,9 +313,9 @@ test.describe("setParameters", () => {
               <!doctype html>
               <html lang="en">
                 <head>
-                  <meta charset="UTF-8" />
+                  <meta charset="UTF-8">
                   <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=1" />
+                  <meta name="viewport" content="width=device-width,initial-scale=1">
                 </head>
                 <body>
                   <script data-media-specific-parameters-list='${`
@@ -348,9 +348,9 @@ test.describe("setParameters", () => {
               <!doctype html>
               <html lang="en">
                 <head>
-                  <meta charset="UTF-8" />
+                  <meta charset="UTF-8">
                   <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=1" />
+                  <meta name="viewport" content="width=device-width,initial-scale=1">
                 </head>
                 <body>
                   <script data-media-specific-parameters-list='${`
@@ -376,9 +376,9 @@ test.describe("setParameters", () => {
               <!doctype html>
               <html lang="en">
                 <head>
-                  <meta charset="UTF-8" />
+                  <meta charset="UTF-8">
                   <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=1" />
+                  <meta name="viewport" content="width=device-width,initial-scale=1">
                 </head>
                 <body>
                   <script data-media-specific-parameters-list='${`
@@ -402,9 +402,9 @@ test.describe("setParameters", () => {
               <!doctype html>
               <html lang="en">
                 <head>
-                  <meta charset="UTF-8" />
+                  <meta charset="UTF-8">
                   <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=1" />
+                  <meta name="viewport" content="width=device-width,initial-scale=1">
                 </head>
                 <body>
                   <script data-media-specific-parameters-list='${`
@@ -435,9 +435,9 @@ test.describe("setParameters", () => {
               <!doctype html>
               <html lang="en">
                 <head>
-                  <meta charset="UTF-8" />
+                  <meta charset="UTF-8">
                   <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=1" />
+                  <meta name="viewport" content="width=device-width,initial-scale=1">
                 </head>
                 <body>
                   <script data-media-specific-parameters-list='${`
@@ -473,9 +473,9 @@ test.describe("setParameters", () => {
               <!doctype html>
               <html lang="en">
                 <head>
-                  <meta charset="UTF-8" />
+                  <meta charset="UTF-8">
                   <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=1" />
+                  <meta name="viewport" content="width=device-width,initial-scale=1">
                 </head>
                 <body>
                   <script data-media-specific-parameters-list='${`
@@ -510,9 +510,9 @@ test.describe("setParameters", () => {
               <!doctype html>
               <html lang="en">
                 <head>
-                  <meta charset="UTF-8" />
+                  <meta charset="UTF-8">
                   <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=1" />
+                  <meta name="viewport" content="width=device-width,initial-scale=1">
                 </head>
                 <body>
                   <script data-media-specific-parameters-list='${`
@@ -549,9 +549,9 @@ test.describe("setParameters", () => {
               <!doctype html>
               <html lang="en">
                 <head>
-                  <meta charset="UTF-8" />
+                  <meta charset="UTF-8">
                   <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=1" />
+                  <meta name="viewport" content="width=device-width,initial-scale=1">
                 </head>
                 <body>
                   <script
@@ -589,9 +589,9 @@ test.describe("setParameters", () => {
               <!doctype html>
               <html lang="en">
                 <head>
-                  <meta charset="UTF-8" />
+                  <meta charset="UTF-8">
                   <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=1" />
+                  <meta name="viewport" content="width=device-width,initial-scale=1">
                 </head>
                 <body>
                   <script
@@ -629,9 +629,9 @@ test.describe("setParameters", () => {
               <!doctype html>
               <html lang="en">
                 <head>
-                  <meta charset="UTF-8" />
+                  <meta charset="UTF-8">
                   <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=1" />
+                  <meta name="viewport" content="width=device-width,initial-scale=1">
                 </head>
                 <body>
                   <script data-media-specific-parameters-list='${`
@@ -676,9 +676,9 @@ test.describe("setParameters", () => {
               <!doctype html>
               <html lang="en">
                 <head>
-                  <meta charset="UTF-8" />
+                  <meta charset="UTF-8">
                   <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=1" />
+                  <meta name="viewport" content="width=device-width,initial-scale=1">
                 </head>
                 <body>
                   <script data-media-specific-parameters-list='${`
@@ -719,9 +719,9 @@ test.describe("setParameters", () => {
               <!doctype html>
               <html lang="en">
                 <head>
-                  <meta charset="UTF-8" />
+                  <meta charset="UTF-8">
                   <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=1" />
+                  <meta name="viewport" content="width=device-width,initial-scale=1">
                 </head>
                 <body>
                   <script data-media-specific-parameters-list='${`

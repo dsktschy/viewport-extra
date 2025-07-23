@@ -21,11 +21,11 @@ test.describe("activateMediaSpecificAttributes", () => {
           <!doctype html>
           <html lang="en">
             <head>
-              <meta charset="UTF-8" />
+              <meta charset="UTF-8">
               <title>Document</title>
-              <meta name="viewport" content="width=device-width,initial-scale=1" />
-              <meta name="viewport" content="width=device-width,initial-scale=1" />
-              <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="minimum-width=${smViewportWidth}" />
+              <meta name="viewport" content="width=device-width,initial-scale=1">
+              <meta name="viewport" content="width=device-width,initial-scale=1">
+              <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="minimum-width=${smViewportWidth}">
             </head>
             <body>
               <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
@@ -52,9 +52,9 @@ test.describe("activateMediaSpecificAttributes", () => {
           <!doctype html>
           <html lang="en">
             <head>
-              <meta charset="UTF-8" />
+              <meta charset="UTF-8">
               <title>Document</title>
-              <meta name="viewport-extra" content="width=device-width,initial-scale=1,minimum-width=${smViewportWidth}" />
+              <meta name="viewport-extra" content="width=device-width,initial-scale=1,minimum-width=${smViewportWidth}">
             </head>
             <body>
               <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
@@ -84,9 +84,9 @@ test.describe("activateMediaSpecificAttributes", () => {
             <!doctype html>
             <html lang="en">
               <head>
-                <meta charset="UTF-8" />
+                <meta charset="UTF-8">
                 <title>Document</title>
-                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="minimum-width=${xsViewportWidth + 1}" />
+                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="minimum-width=${xsViewportWidth + 1}">
               </head>
               <body>
                 <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
@@ -113,9 +113,9 @@ test.describe("activateMediaSpecificAttributes", () => {
             <!doctype html>
             <html lang="en">
               <head>
-                <meta charset="UTF-8" />
+                <meta charset="UTF-8">
                 <title>Document</title>
-                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="maximum-width=${xsViewportWidth - 1}" />
+                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="maximum-width=${xsViewportWidth - 1}">
               </head>
               <body>
                 <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
@@ -142,9 +142,9 @@ test.describe("activateMediaSpecificAttributes", () => {
             <!doctype html>
             <html lang="en">
               <head>
-                <meta charset="UTF-8" />
+                <meta charset="UTF-8">
                 <title>Document</title>
-                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="minimum-width=${xsViewportWidth - 1},maximum-width=${xsViewportWidth + 1}" />
+                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="minimum-width=${xsViewportWidth - 1},maximum-width=${xsViewportWidth + 1}">
               </head>
               <body>
                 <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
@@ -171,9 +171,9 @@ test.describe("activateMediaSpecificAttributes", () => {
             <!doctype html>
             <html lang="en">
               <head>
-                <meta charset="UTF-8" />
+                <meta charset="UTF-8">
                 <title>Document</title>
-                <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-content="minimum-width=${smViewportWidth}" />
+                <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-content="minimum-width=${smViewportWidth}">
               </head>
               <body>
                 <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
@@ -194,9 +194,9 @@ test.describe("activateMediaSpecificAttributes", () => {
             <!doctype html>
             <html lang="en">
               <head>
-                <meta charset="UTF-8" />
+                <meta charset="UTF-8">
                 <title>Document</title>
-                <meta name="viewport" />
+                <meta name="viewport">
               </head>
               <body>
                 <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
@@ -217,9 +217,9 @@ test.describe("activateMediaSpecificAttributes", () => {
             <!doctype html>
             <html lang="en">
               <head>
-                <meta charset="UTF-8" />
+                <meta charset="UTF-8">
                 <title>Document</title>
-                <meta name="viewport" content="" data-extra-content="" />
+                <meta name="viewport" content="" data-extra-content="">
               </head>
               <body>
                 <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
@@ -246,9 +246,9 @@ test.describe("activateMediaSpecificAttributes", () => {
               <!doctype html>
               <html lang="en">
                 <head>
-                  <meta charset="UTF-8" />
+                  <meta charset="UTF-8">
                   <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-content="minimum-width=${xsViewportWidth + 1}" />
+                  <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-content="minimum-width=${xsViewportWidth + 1}">
                 </head>
                 <body>
                   <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
@@ -276,9 +276,9 @@ test.describe("activateMediaSpecificAttributes", () => {
               <!doctype html>
               <html lang="en">
                 <head>
-                  <meta charset="UTF-8" />
+                  <meta charset="UTF-8">
                   <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-content="maximum-width=${xsViewportWidth - 1}" />
+                  <meta name="viewport" content="width=device-width,initial-scale=0.5" data-extra-content="maximum-width=${xsViewportWidth - 1}">
                 </head>
                 <body>
                   <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
@@ -308,9 +308,9 @@ test.describe("activateMediaSpecificAttributes", () => {
               <!doctype html>
               <html lang="en">
                 <head>
-                  <meta charset="UTF-8" />
+                  <meta charset="UTF-8">
                   <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=2" data-extra-content="minimum-width=${xsViewportWidth + 1}" />
+                  <meta name="viewport" content="width=device-width,initial-scale=2" data-extra-content="minimum-width=${xsViewportWidth + 1}">
                 </head>
                 <body>
                   <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
@@ -338,9 +338,9 @@ test.describe("activateMediaSpecificAttributes", () => {
               <!doctype html>
               <html lang="en">
                 <head>
-                  <meta charset="UTF-8" />
+                  <meta charset="UTF-8">
                   <title>Document</title>
-                  <meta name="viewport" content="width=device-width,initial-scale=2" data-extra-content="maximum-width=${xsViewportWidth - 1}" />
+                  <meta name="viewport" content="width=device-width,initial-scale=2" data-extra-content="maximum-width=${xsViewportWidth - 1}">
                 </head>
                 <body>
                   <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
@@ -370,9 +370,9 @@ test.describe("activateMediaSpecificAttributes", () => {
             <!doctype html>
             <html lang="en">
               <head>
-                <meta charset="UTF-8" />
+                <meta charset="UTF-8">
                 <title>Document</title>
-                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="minimum-width=${smViewportWidth}" data-extra-media="(max-width: ${smViewportWidth}px)" />
+                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="minimum-width=${smViewportWidth}" data-extra-media="(max-width: ${smViewportWidth}px)">
               </head>
               <body>
                 <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
@@ -401,9 +401,9 @@ test.describe("activateMediaSpecificAttributes", () => {
             <!doctype html>
             <html lang="en">
               <head>
-                <meta charset="UTF-8" />
+                <meta charset="UTF-8">
                 <title>Document</title>
-                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="minimum-width=${xlViewportWidth}" data-extra-media="(min-width: ${lgViewportWidth}px)" />
+                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="minimum-width=${xlViewportWidth}" data-extra-media="(min-width: ${lgViewportWidth}px)">
               </head>
               <body>
                 <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
@@ -432,9 +432,9 @@ test.describe("activateMediaSpecificAttributes", () => {
             <!doctype html>
             <html lang="en">
               <head>
-                <meta charset="UTF-8" />
+                <meta charset="UTF-8">
                 <title>Document</title>
-                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="minimum-width=${smViewportWidth}" />
+                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="minimum-width=${smViewportWidth}">
               </head>
               <body>
                 <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
@@ -467,12 +467,12 @@ test.describe("activateMediaSpecificAttributes", () => {
             <!doctype html>
             <html lang="en">
               <head>
-                <meta charset="UTF-8" />
+                <meta charset="UTF-8">
                 <title>Document</title>
-                <meta name="viewport-extra" content="initial-scale=0.5,minimum-width=${lgViewportWidth}" />
-                <meta name="viewport" content="width=device-width" />
-                <meta name="viewport-extra" content="minimum-width=${smViewportWidth}" />
-                <meta name="viewport" content="initial-scale=1" />
+                <meta name="viewport-extra" content="initial-scale=0.5,minimum-width=${lgViewportWidth}">
+                <meta name="viewport" content="width=device-width">
+                <meta name="viewport-extra" content="minimum-width=${smViewportWidth}">
+                <meta name="viewport" content="initial-scale=1">
               </head>
               <body>
                 <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
@@ -503,12 +503,12 @@ test.describe("activateMediaSpecificAttributes", () => {
             <!doctype html>
             <html lang="en">
               <head>
-                <meta charset="UTF-8" />
+                <meta charset="UTF-8">
                 <title>Document</title>
-                <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1" data-extra-content="minimum-width=0" />
-                <meta name="viewport-extra" content="width=device-width,initial-scale=2,minimum-width=${smViewportWidth}" data-media="(max-width: ${smViewportWidth}px)" />
-                <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5" data-extra-media="(max-width: ${smViewportWidth}px)" />
-                <meta name="viewport-extra" content="width=device-width,initial-scale=2,minimum-width=${lgViewportWidth}" data-media="not (max-width: ${smViewportWidth}px)" />
+                <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1" data-extra-content="minimum-width=0">
+                <meta name="viewport-extra" content="width=device-width,initial-scale=2,minimum-width=${smViewportWidth}" data-media="(max-width: ${smViewportWidth}px)">
+                <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5" data-extra-media="(max-width: ${smViewportWidth}px)">
+                <meta name="viewport-extra" content="width=device-width,initial-scale=2,minimum-width=${lgViewportWidth}" data-media="not (max-width: ${smViewportWidth}px)">
               </head>
               <body>
                 <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
