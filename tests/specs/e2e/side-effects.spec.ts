@@ -176,11 +176,11 @@ for (const {
             <!doctype html>
             <html lang="en">
               <head>
-                <meta charset="UTF-8" />
+                <meta charset="UTF-8">
                 <title>Document</title>
-                <meta name="viewport" content="width=device-width,initial-scale=1" />
-                <meta name="viewport-extra" content="minimum-width=${smViewportWidth}" />
-                <meta name="viewport-extra" content="minimum-width=${xlViewportWidth}" data-media="(min-width: 640px)" />
+                <meta name="viewport" content="width=device-width,initial-scale=1">
+                <meta name="viewport-extra" content="minimum-width=${smViewportWidth}">
+                <meta name="viewport-extra" content="minimum-width=${xlViewportWidth}" data-media="(min-width: 640px)">
                 ${outputScriptSrc ? `<script src="${outputScriptSrc}"></script>` : ""}
               </head>
               <body>
@@ -217,11 +217,11 @@ for (const {
             <!doctype html>
             <html lang="en">
               <head>
-                <meta charset="UTF-8" />
+                <meta charset="UTF-8">
                 <title>Document</title>
-                <meta name="viewport" content="width=device-width,initial-scale=1" />
-                <meta name="viewport-extra" content="maximum-width=${xsViewportWidth}" />
-                <meta name="viewport-extra" content="maximum-width=${lgViewportWidth}" data-media="(min-width: 640px)" />
+                <meta name="viewport" content="width=device-width,initial-scale=1">
+                <meta name="viewport-extra" content="maximum-width=${xsViewportWidth}">
+                <meta name="viewport-extra" content="maximum-width=${lgViewportWidth}" data-media="(min-width: 640px)">
                 ${outputScriptSrc ? `<script src="${outputScriptSrc}"></script>` : ""}
               </head>
               <body>
