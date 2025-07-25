@@ -5,6 +5,7 @@ on:
     workflows: ["Publish to npm"]
     types:
       - completed
+  workflow_dispatch:
 
 permissions:
   contents: write
