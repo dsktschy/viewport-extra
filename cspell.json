@@ -28,6 +28,7 @@
     "stylecheck",
     "npmjs",
     "vercel",
-    "mobi"
+    "mobi",
+    "lockfiles"
   ]
 }
