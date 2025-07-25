@@ -2,9 +2,10 @@ name: Create example lockfile update pull request
 
 on:
   workflow_run:
-    workflows: ["Publish to npm"]
+    workflows: ["Publish to npm", "Create release pull request"]
     types:
       - completed
+  workflow_dispatch:
 
 permissions:
   contents: write
