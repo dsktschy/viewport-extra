@@ -22,19 +22,42 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
 
+      - name: Setup node
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
+        with:
+          node-version-file: '.node-version'
+          cache: 'npm'
+
+      - name: Install packages
+        shell: bash
+        run: npm ci
+
       - name: Define variables
         id: define_variables
         shell: bash
         run: |
           version=$(jq -r .version package.json)
-          tag=latest
+          echo "version: $version"
+          dist_tag=temporary
           if [[ $version == *-* ]]; then
-            tag=next
+            next_tagged_version=$(npm view viewport-extra dist-tags.next)
+            echo "next_tagged_version: $next_tagged_version"
+            greater_version=$(npx semver "$version" "$next_tagged_version" | tail -n 1)
+            if [[ $version == $greater_version ]]; then
+              dist_tag=next
+            fi
+          else
+            latest_tagged_version=$(npm view viewport-extra dist-tags.latest)
+            echo "latest_tagged_version: $latest_tagged_version"
+            greater_version=$(npx semver "$version" "$latest_tagged_version" | tail -n 1)
+            if [[ $version == $greater_version ]]; then
+              dist_tag=latest
+            fi
           fi
-          echo "tag: $tag"
-          echo "tag=$tag" >> $GITHUB_OUTPUT
+          echo "dist_tag: $dist_tag"
+          echo "dist_tag=$dist_tag" >> $GITHUB_OUTPUT
     outputs:
-      tag: ${{ steps.define_variables.outputs.tag }}
+      dist_tag: ${{ steps.define_variables.outputs.dist_tag }}
 
   publish:
     needs: define_variables_to_publish
@@ -61,7 +84,14 @@ jobs:
 
       - name: Publish to npm
         shell: bash
-        run: npm publish --tag ${{ needs.define_variables_to_publish.outputs.tag }} --provenance
+        run: npm publish --tag ${{ needs.define_variables_to_publish.outputs.dist_tag }} --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+
+      - name: Remove temporary dist-tag
+        if: needs.define_variables_to_publish.outputs.dist_tag == 'temporary'
+        shell: bash
+        run: npm dist-tag rm viewport-extra temporary
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
 
@@ -90,6 +120,6 @@ jobs:
 
       - name: Publish to npm
         shell: bash
-        run: npm publish --tag ${{ needs.define_variables_to_publish.outputs.tag }} --provenance --dry-run
+        run: npm publish --tag ${{ needs.define_variables_to_publish.outputs.dist_tag }} --provenance --dry-run
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
