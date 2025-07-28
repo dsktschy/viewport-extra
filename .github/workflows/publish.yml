@@ -22,19 +22,35 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
 
+      - name: Setup node
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
+        with:
+          node-version-file: '.node-version'
+          cache: 'npm'
+
+      - name: Install packages
+        shell: bash
+        run: npm ci
+
       - name: Define variables
         id: define_variables
         shell: bash
         run: |
           version=$(jq -r .version package.json)
-          tag=latest
+          echo "version: $version"
+          with_next_tag=no
           if [[ $version == *-* ]]; then
-            tag=next
+            next_tagged_version=$(npm view viewport-extra dist-tags.next)
+            echo "next_tagged_version: $next_tagged_version"
+            greater_version=$(npx semver "$version" "$next_tagged_version" | tail -n 1)
+            if [[ $version == $greater_version ]]; then
+              with_next_tag=yes
+            fi
           fi
-          echo "tag: $tag"
-          echo "tag=$tag" >> $GITHUB_OUTPUT
+          echo "with_next_tag: $with_next_tag"
+          echo "with_next_tag=$with_next_tag" >> $GITHUB_OUTPUT
     outputs:
-      tag: ${{ steps.define_variables.outputs.tag }}
+      with_next_tag: ${{ steps.define_variables.outputs.with_next_tag }}
 
   publish:
     needs: define_variables_to_publish
@@ -60,8 +76,16 @@ jobs:
         run: npm run build & npm run declare
 
       - name: Publish to npm
+        if: needs.define_variables_to_publish.outputs.with_next_tag == 'no'
         shell: bash
-        run: npm publish --tag ${{ needs.define_variables_to_publish.outputs.tag }} --provenance
+        run: npm publish --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+
+      - name: Publish to npm with next tag
+        if: needs.define_variables_to_publish.outputs.with_next_tag == 'yes'
+        shell: bash
+        run: npm publish --provenance --tag next
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
 
@@ -89,7 +113,15 @@ jobs:
         run: npm run build & npm run declare
 
       - name: Publish to npm
+        if: needs.define_variables_to_publish.outputs.with_next_tag == 'no'
         shell: bash
-        run: npm publish --tag ${{ needs.define_variables_to_publish.outputs.tag }} --provenance --dry-run
+        run: npm publish --provenance --dry-run
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+
+      - name: Publish to npm with next tag
+        if: needs.define_variables_to_publish.outputs.with_next_tag == 'yes'
+        shell: bash
+        run: npm publish --provenance --dry-run --tag next
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
