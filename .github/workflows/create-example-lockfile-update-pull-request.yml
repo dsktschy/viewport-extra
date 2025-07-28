@@ -1,0 +1,84 @@
+# Workflows triggered by workflow_run event always target default branch
+# Therefore, checkout and create-pull-request actions require branch to be specified
+name: Create example lockfile update pull request
+
+on:
+  workflow_run:
+    workflows:
+      - 'Publish to npm'
+    types:
+      - completed
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  define_variables_to_update_example_lockfile:
+    timeout-minutes: 15
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+        with:
+          ref: ${{ github.event.workflow_run.head_branch }}
+
+      - name: Setup node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: '.node-version'
+          cache: 'npm'
+
+      - name: Define variables
+        id: define_variables
+        shell: bash
+        run: |
+          version=$(jq -r .version package.json)
+          echo "version: $version"
+          updatable=no
+          if npm view viewport-extra@"$version" > /dev/null 2>&1; then
+            updatable=yes
+          fi
+          echo "updatable: $updatable"
+          echo "updatable=$updatable" >> $GITHUB_OUTPUT
+    outputs:
+      updatable: ${{ steps.define_variables.outputs.updatable }}
+
+  create_example_lockfile_update_pull_request:
+    needs: define_variables_to_update_example_lockfile
+    if: needs.define_variables_to_update_example_lockfile.outputs.updatable == 'yes'
+    timeout-minutes: 15
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+        with:
+          ref: ${{ github.event.workflow_run.head_branch }}
+
+      - name: Setup node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: '.node-version'
+          cache: 'npm'
+
+      - name: Update example lockfiles
+        shell: bash
+        run: |
+          npm install viewport-extra --prefix examples/next-app-router
+          npm install viewport-extra --prefix examples/next-pages-router
+          npm install viewport-extra --prefix examples/nuxt
+
+      - name: Commit
+        shell: bash
+        run: |
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git commit -am "chore: update example lockfiles"
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@6d6857d36972b65feb161a90e484f2984215f83e # v6.0.5
+        with:
+          base: ${{ github.event.workflow_run.head_branch }}
+          title: 'chore: update example lockfiles'
+          body: Created by the create-example-lockfile-update-pull-request workflow.
+          labels: example_lockfile_update
