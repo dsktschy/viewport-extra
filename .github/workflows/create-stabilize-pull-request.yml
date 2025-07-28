@@ -18,22 +18,17 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
-        with:
-          fetch-depth: 0
 
       - name: Define variables
         id: define_variables
         shell: bash
         run: |
-          latest_tag=$(git describe --tags --abbrev=0)
-          echo "latest_tag: $latest_tag"
-          stable_version=
+          version=$(jq -r .version package.json)
+          echo "version: $version"
+          stable_version=${version%%-*}
           stabilizable=no
-          if [[ $latest_tag =~ ^v([0-9]+\.[0-9]+\.[0-9]+) ]]; then
-            stable_version=${BASH_REMATCH[1]}
-            if [[ $latest_tag != v$stable_version ]]; then
-              stabilizable=yes
-            fi
+          if [[ $version != $stable_version ]]; then
+            stabilizable=yes
           fi
           echo "stabilizable: $stabilizable"
           echo "stable_version=$stable_version" >> $GITHUB_OUTPUT
