@@ -14,10 +14,10 @@ const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => {
   return (
     <>
       <Head>
-        <title>Next.js (Page Router) Example</title>
+        <title>Next.js (Pages Router) Example</title>
         <meta
           name="description"
-          content="This example shows how to use Viewport Extra in Next.js (Page Router) application."
+          content="This example shows how to use Viewport Extra in Next.js (Pages Router) application."
         />
 
         {/* An ineffective element to disable overriding on page transition */}
