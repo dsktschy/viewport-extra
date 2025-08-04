@@ -316,6 +316,18 @@ import("viewport-extra/immediate/es5").then(({ apply }) => {
 
 ## 注意
 
+- `minimum-width` / `maximum-width` の代わりに、`min-width` / `max-width` を使用できます。ただし、両方が混在する場合の動作は保証されないため、どちらか一方に統一する必要があります。
+
+  ```html
+  <meta name="viewport-extra" content="min-width=412,max-width=640">
+  ```
+
+  同様に、`minimumWidth` / `maximumWidth` の代わりに、`minWidth` / `maxWidth` を使用できます。これらも、両方が混在する場合の動作は保証されないため、どちらか一方に統一する必要があります。
+
+  ```js
+  apply([{ content: { minWidth: 412, maxWidth: 640 } }])
+  ```
+
 - 次のスタイルを併用することを推奨します。小さなモバイル端末における、ブラウザによる意図しないテキストサイズの調整を防ぎます [(参考)](https://stackoverflow.com/q/6210788) 。
 
   ```css

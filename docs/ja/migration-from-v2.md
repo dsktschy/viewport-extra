@@ -2,7 +2,7 @@
 
 [English](/docs/en/migration-from-v2.md) | **日本語**
 
-このガイドは、Viewport Extra v2 と v3 の違いを説明するものです。v2 も引き続き使用できますが、v3 へ移行することで、ファイルサイズの減少、[W3C の仕様](https://www.w3.org/TR/css-viewport-1/#meta-properties)との整合性確保、[Dual Package Hazard](https://nodejs.org/docs/latest-v13.x/api/esm.html#esm_dual_commonjs_es_module_packages) の回避といった改善が得られます。
+このガイドは、Viewport Extra v2 と v3 の違いを説明するものです。v2 も引き続き使用できますが、v3 へ移行することで、ファイルサイズの減少、[Dual Package Hazard](https://nodejs.org/docs/latest-v13.x/api/esm.html#esm_dual_commonjs_es_module_packages) の回避といった改善が得られます。
 
 ## ハイライト
 
@@ -19,8 +19,7 @@
   >
   <meta
     name="viewport-extra"
--   content="min-width=412,max-width=640"
-+   content="minimum-width=412,maximum-width=640"
+    content="min-width=412,max-width=640"
   >
   <script
     async
@@ -54,10 +53,10 @@
 +   apply
   }) => {
 -   setContent({ minWidth: 412, maxWidth: 640 })
-+   apply([{ content: { minimumWidth: 412, maximumWidth: 640 } }])
++   apply([{ content: { minWidth: 412, maxWidth: 640 } }])
 
 -   setParameters([{ content: { minWidth: 412, maxWidth: 640 } }])
-+   apply([{ content: { minimumWidth: 412, maximumWidth: 640 } }])
++   apply([{ content: { minWidth: 412, maxWidth: 640 } }])
   })
 
   // ES2021 の構文、および Viewport Extra v3.0.0 公開時点における Web Platform Baseline の Widely Available ステージにある機能をサポートしない環境で動作させる場合
@@ -80,13 +79,13 @@
 -     [{ content: { minWidth: 412 } }],
 -     { unscaledComputing: true }
 +   apply(
-+     [{ content: { minimumWidth: 412 } }]
++     [{ content: { minWidth: 412 } }]
 +     // 廃止: unscaledComputing プロパティ
     )
 
     window.addEventListener("awesome-event", () => {
 -     setParameters([])
-+     apply([{ content: { minimumWidth: 412 } }]) // 引数省略不可
++     apply([{ content: { minWidth: 412 } }]) // 引数省略不可
     })
   })
 ```
@@ -95,7 +94,6 @@
 
 - [ビルドの選択](#ビルドの選択)
 - [最小幅・最大幅適用 API](#最小幅最大幅適用-api)
-- [最小・最大を表す語句](#最小最大を表す語句)
 - [最小幅・最大幅適用前のスケールリセット](#最小幅最大幅適用前のスケールリセット)
 - [Viewport Extra 内部での最小幅・最大幅の保持](#viewport-extra-内部での最小幅最大幅の保持)
 - [Viewport Extra 内部での `<meta name="viewport">` 要素の保持](#viewport-extra-内部での-meta-nameviewport-要素の保持)
@@ -264,7 +262,7 @@ v3 では、最小幅・最大幅適用 API として `apply()` 関数のみを�
 
 ```html
 <script>
-  ViewportExtra.apply([{ content: { minimumWidth: 412 } }])
+  ViewportExtra.apply([{ content: { minWidth: 412 } }])
 </script>
 ```
 
@@ -292,107 +290,7 @@ import("viewport-extra").then(({ setParameters }) => {
 
 ```js
 import("viewport-extra").then(({ apply }) => {
-  apply([{ content: { minimumWidth: 412 } }])
-})
-```
-
-### 最小・最大を表す語句
-
-v2 では、`min` / `max` という語句を、`meta` 要素の `(data-extra-)content` 属性 (例: `min-width`) と、最小幅・最大幅適用 API (例: `minWidth`) の両方で使用しています。しかし、[W3C の仕様](https://www.w3.org/TR/css-viewport-1/#meta-properties)において用いられる語句は `minimum` / `maximum` であり (例: `minimum-scale`) 、整合性を欠いています。
-
-v3 では、`minimum` / `maximum` という語句を、`meta` 要素の `(data-extra-)content` 属性 (例: `minimum-width`) と、最小幅・最大幅適用 API (例: `minimumWidth`) の両方で使用しています。
-
-#### スクリプトを使用する場合
-
-##### v2 の構文
-
-`<meta name="viewport">` 要素の `data-extra-content` 属性には、`min-width` / `max-width` というキーワードを使用します。
-
-```html
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1"
-  data-extra-content="min-width=412,max-width=640"
->
-```
-
-`<meta name="viewport-extra">` 要素の `content` 属性にも、`min-width` / `max-width` というキーワードを使用します。
-
-```html
-<meta
-  name="viewport-extra"
-  content="width=device-width,initial-scale=1,min-width=412,max-width=640"
->
-```
-
-`setContent()` 関数および `setParameters()` 関数の引数には、`minWidth` / `maxWidth` というプロパティ名を使用します。
-
-```html
-<script>
-  ViewportExtra.setContent({ minWidth: 412, maxWidth: 640 })
-</script>
-```
-
-```html
-<script>
-  ViewportExtra.setParameters([{ content: { minWidth: 412, maxWidth: 640 } }])
-</script>
-```
-
-##### v3 の構文
-
-`<meta name="viewport">` 要素の `data-extra-content` 属性には、`minimum-width` / `maximum-width` というキーワードを使用します。
-
-```html
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1"
-  data-extra-content="minimum-width=412,maximum-width=640"
->
-```
-
-`<meta name="viewport-extra">` 要素の `content` 属性にも、`minimum-width` / `maximum-width` というキーワードを使用します。
-
-```html
-<meta
-  name="viewport-extra"
-  content="width=device-width,initial-scale=1,minimum-width=412,maximum-width=640"
->
-```
-
-`apply()` 関数の引数には、`minimumWidth` / `maximumWidth` というプロパティ名を使用します。
-
-```html
-<script>
-  ViewportExtra.apply([{ content: { minimumWidth: 412, maximumWidth: 640 } }])
-</script>
-```
-
-#### モジュールを使用する場合
-
-##### v2 の構文
-
-`setContent()` 関数および `setParameters()` 関数の引数には、`minWidth` / `maxWidth` というプロパティ名を使用します。
-
-```js
-import("viewport-extra").then(({ setContent }) => {
-  setContent({ minWidth: 412, maxWidth: 640 })
-})
-```
-
-```js
-import("viewport-extra").then(({ setParameters }) => {
-  setParameters([{ content: { minWidth: 412, maxWidth: 640 } }])
-})
-```
-
-##### v3 の構文
-
-`apply()` 関数の引数には、`minimumWidth` / `maximumWidth` というプロパティ名を使用します。
-
-```js
-import("viewport-extra").then(({ apply }) => {
-  apply([{ content: { minimumWidth: 412, maximumWidth: 640 } }])
+  apply([{ content: { minWidth: 412 } }])
 })
 ```
 
@@ -459,7 +357,7 @@ v3 では、自動的にスケールリセットする機能をデフォルト�
 
 <script>
   window.addEventListener("awesome-event", () => {
-    window.ViewportExtra?.apply([{ content: { minimumWidth: 412 } }])
+    window.ViewportExtra?.apply([{ content: { minWidth: 412 } }])
   })
 </script>
 ```
@@ -490,7 +388,7 @@ import("viewport-extra").then(({ setParameters }) => {
 ```js
 import("viewport-extra").then(({ apply }) => {
   window.addEventListener("awesome-event", () => {
-    apply([{ content: { minimumWidth: 412 } }])
+    apply([{ content: { minWidth: 412 } }])
   })
 })
 ```
@@ -558,7 +456,7 @@ v3 では、適用した最小幅・最大幅を、Viewport Extra 内部に保�
 <script>
   window.addEventListener(
     "awesome-event",
-    () => window.ViewportExtra?.apply([{ content: { minimumWidth: 412 } }]), // 引数を省略した場合 minimumWidth はデフォルトの 0 となる
+    () => window.ViewportExtra?.apply([{ content: { minWidth: 412 } }]), // 引数を省略した場合 minWidth はデフォルトの 0 となる
   )
 </script>
 ```
@@ -591,7 +489,7 @@ import("viewport-extra").then(({ apply }) => {
   apply(parameters)
   window.addEventListener(
     "awesome-event",
-    () => apply(parameters), // 引数を省略した場合 minimumWidth はデフォルトの 0 となる
+    () => apply(parameters), // 引数を省略した場合 minWidth はデフォルトの 0 となる
   )
 })
 ```

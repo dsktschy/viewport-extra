@@ -316,6 +316,18 @@ Pages containing the following code behave the same as the [implementation using
 
 ## Notes
 
+- `min-width` / `max-width` can be used as alternatives to `minimum-width` / `maximum-width`. However, when both styles are mixed, behavior is not guaranteed, so only one style should be used.
+
+  ```html
+  <meta name="viewport-extra" content="min-width=412,max-width=640">
+  ```
+
+  Similarly, `minWidth` / `maxWidth` can be used as alternatives to `minimumWidth` / `maximumWidth`. As with the previous case, when both styles are mixed, behavior is not guaranteed, so only one style should be used.
+
+  ```js
+  apply([{ content: { minWidth: 412, maxWidth: 640 } }])
+  ```
+
 - Using the following style together is recommended to prevent browsers on small mobile devices from unexpectedly changing the text size [(Reference)](https://stackoverflow.com/q/6210788).
 
   ```css

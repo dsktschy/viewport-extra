@@ -73,7 +73,7 @@ test.describe("activateMediaSpecificAttributes", () => {
   test.describe("behavior according to attributes of viewport(-extra) meta elements", () => {
     test.describe("(data-extra-)content attribute", () => {
       test.describe("case where minimum-width value is greater than viewport width", () => {
-        test("updates width to minimum-width and initial-scale to value that minimum-width fits into viewport", async ({
+        test("updates width to minimum width and initial-scale to value that minimum width fits into viewport", async ({
           page,
           viewport,
         }, { config: { projects } }) => {
@@ -102,7 +102,7 @@ test.describe("activateMediaSpecificAttributes", () => {
       });
 
       test.describe("case where maximum-width value is less than viewport width", () => {
-        test("updates width to maximum-width and initial-scale to value that maximum-width fits into viewport", async ({
+        test("updates width to maximum width and initial-scale to value that maximum width fits into viewport", async ({
           page,
           viewport,
         }, { config: { projects } }) => {
@@ -145,6 +145,93 @@ test.describe("activateMediaSpecificAttributes", () => {
                 <meta charset="UTF-8">
                 <title>Document</title>
                 <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="minimum-width=${xsViewportWidth - 1},maximum-width=${xsViewportWidth + 1}">
+              </head>
+              <body>
+                <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
+              </body>
+            </html>
+          `);
+          expect(await getViewportContentString(page)).toBe(
+            documentClientWidth && !Number.isNaN(xsViewportWidth)
+              ? "initial-scale=1,width=device-width"
+              : "",
+          );
+        });
+      });
+
+      test.describe("case where min-width value is greater than viewport width", () => {
+        test("updates width to minimum width and initial-scale to value that minimum width fits into viewport", async ({
+          page,
+          viewport,
+        }, { config: { projects } }) => {
+          const xsViewportWidth =
+            getViewportSize(projects, "xs")?.use.viewport?.width ?? Number.NaN;
+          const documentClientWidth = viewport ? viewport.width : undefined;
+          await page.setContent(`
+            <!doctype html>
+            <html lang="en">
+              <head>
+                <meta charset="UTF-8">
+                <title>Document</title>
+                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=${xsViewportWidth + 1}">
+              </head>
+              <body>
+                <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
+              </body>
+            </html>
+          `);
+          expect(await getViewportContentString(page)).toBe(
+            documentClientWidth && !Number.isNaN(xsViewportWidth)
+              ? `initial-scale=${(documentClientWidth / (xsViewportWidth + 1)) * 1},width=${xsViewportWidth + 1}`
+              : "",
+          );
+        });
+      });
+
+      test.describe("case where max-width value is less than viewport width", () => {
+        test("updates width to maximum width and initial-scale to value that maximum width fits into viewport", async ({
+          page,
+          viewport,
+        }, { config: { projects } }) => {
+          const xsViewportWidth =
+            getViewportSize(projects, "xs")?.use.viewport?.width ?? Number.NaN;
+          const documentClientWidth = viewport ? viewport.width : undefined;
+          await page.setContent(`
+            <!doctype html>
+            <html lang="en">
+              <head>
+                <meta charset="UTF-8">
+                <title>Document</title>
+                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="max-width=${xsViewportWidth - 1}">
+              </head>
+              <body>
+                <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
+              </body>
+            </html>
+          `);
+          expect(await getViewportContentString(page)).toBe(
+            documentClientWidth && !Number.isNaN(xsViewportWidth)
+              ? `initial-scale=${(documentClientWidth / (xsViewportWidth - 1)) * 1},width=${xsViewportWidth - 1}`
+              : "",
+          );
+        });
+      });
+
+      test.describe("case where min-width value is less than viewport width and max-width value is greater than viewport width", () => {
+        test("does not update width and initial-scale", async ({
+          page,
+          viewport,
+        }, { config: { projects } }) => {
+          const xsViewportWidth =
+            getViewportSize(projects, "xs")?.use.viewport?.width ?? Number.NaN;
+          const documentClientWidth = viewport ? viewport.width : undefined;
+          await page.setContent(`
+            <!doctype html>
+            <html lang="en">
+              <head>
+                <meta charset="UTF-8">
+                <title>Document</title>
+                <meta name="viewport" content="width=device-width,initial-scale=1" data-extra-content="min-width=${xsViewportWidth - 1},max-width=${xsViewportWidth + 1}">
               </head>
               <body>
                 <script src="/assets/scripts/unit/call-activateMediaSpecificAttributes.js" type="module"></script>
@@ -233,7 +320,7 @@ test.describe("activateMediaSpecificAttributes", () => {
       });
 
       test.describe("case where initial-scale before running activateMediaSpecificAttributes is 1 or less", () => {
-        test.describe("comparison with minimum-width", () => {
+        test.describe("comparison with minimum width", () => {
           test("window width without scroll bars when scale is 1 is used", async ({
             page,
             viewport,
@@ -263,7 +350,7 @@ test.describe("activateMediaSpecificAttributes", () => {
           });
         });
 
-        test.describe("comparison with maximum-width", () => {
+        test.describe("comparison with maximum width", () => {
           test("window width without scroll bars when scale is 1 is used", async ({
             page,
             viewport,
@@ -295,7 +382,7 @@ test.describe("activateMediaSpecificAttributes", () => {
       });
 
       test.describe("case where initial-scale before running activateMediaSpecificAttributes is greater than 1", () => {
-        test.describe("comparison with minimum-width", () => {
+        test.describe("comparison with minimum width", () => {
           test("window width without scroll bars when scale is 1 is used", async ({
             page,
             viewport,
@@ -325,7 +412,7 @@ test.describe("activateMediaSpecificAttributes", () => {
           });
         });
 
-        test.describe("comparison with maximum-width", () => {
+        test.describe("comparison with maximum width", () => {
           test("window width without scroll bars when scale is 1 is used", async ({
             page,
             viewport,

@@ -2,7 +2,7 @@
 
 **English** | [日本語](/docs/ja/migration-from-v2.md)
 
-This guide explains the differences between Viewport Extra v2 and v3. While v2 can still be used, migrating to v3 offers improvements such as reduced file size, ensuring consistency with the [W3C specifications](https://www.w3.org/TR/css-viewport-1/#meta-properties), and avoiding the [Dual Package Hazard](https://nodejs.org/docs/latest-v13.x/api/esm.html#esm_dual_commonjs_es_module_packages).
+This guide explains the differences between Viewport Extra v2 and v3. While v2 can still be used, migrating to v3 offers improvements such as reduced file size and avoiding the [Dual Package Hazard](https://nodejs.org/docs/latest-v13.x/api/esm.html#esm_dual_commonjs_es_module_packages).
 
 ## Highlights
 
@@ -19,8 +19,7 @@ This guide explains the differences between Viewport Extra v2 and v3. While v2 c
   >
   <meta
     name="viewport-extra"
--   content="min-width=412,max-width=640"
-+   content="minimum-width=412,maximum-width=640"
+    content="min-width=412,max-width=640"
   >
   <script
     async
@@ -54,10 +53,10 @@ This guide explains the differences between Viewport Extra v2 and v3. While v2 c
 +   apply
   }) => {
 -   setContent({ minWidth: 412, maxWidth: 640 })
-+   apply([{ content: { minimumWidth: 412, maximumWidth: 640 } }])
++   apply([{ content: { minWidth: 412, maxWidth: 640 } }])
 
 -   setParameters([{ content: { minWidth: 412, maxWidth: 640 } }])
-+   apply([{ content: { minimumWidth: 412, maximumWidth: 640 } }])
++   apply([{ content: { minWidth: 412, maxWidth: 640 } }])
   })
 
   // For environments that do not support ES2021 syntax and features in the Widely Available stage of the Web Platform Baseline as of the release of Viewport Extra v3.0.0
@@ -80,13 +79,13 @@ This guide explains the differences between Viewport Extra v2 and v3. While v2 c
 -     [{ content: { minWidth: 412 } }],
 -     { unscaledComputing: true }
 +   apply(
-+     [{ content: { minimumWidth: 412 } }]
++     [{ content: { minWidth: 412 } }]
 +     // Deprecated: unscaledComputing property
     )
 
     window.addEventListener("awesome-event", () => {
 -     setParameters([])
-+     apply([{ content: { minimumWidth: 412 } }]) // Arguments cannot be omitted
++     apply([{ content: { minWidth: 412 } }]) // Arguments cannot be omitted
     })
   })
 ```
@@ -95,7 +94,6 @@ This guide explains the differences between Viewport Extra v2 and v3. While v2 c
 
 - [Build Selection](#build-selection)
 - [Minimum / Maximum Widths Application API](#minimum--maximum-widths-application-api)
-- [Terms for Minimum / Maximum](#terms-for-minimum--maximum)
 - [Scale Reset Before Minimum / Maximum Widths Application](#scale-reset-before-minimum--maximum-widths-application)
 - [Retention of Minimum / Maximum Widths Internally in Viewport Extra](#retention-of-minimum--maximum-widths-internally-in-viewport-extra)
 - [Retention of `<meta name="viewport">` Element Internally in Viewport Extra](#retention-of-meta-nameviewport-element-internally-in-viewport-extra)
@@ -264,7 +262,7 @@ To apply minimum / maximum widths, use `apply()` function. The interface is the 
 
 ```html
 <script>
-  ViewportExtra.apply([{ content: { minimumWidth: 412 } }])
+  ViewportExtra.apply([{ content: { minWidth: 412 } }])
 </script>
 ```
 
@@ -292,107 +290,7 @@ To apply minimum / maximum widths, use `apply()` function. The interface is the 
 
 ```js
 import("viewport-extra").then(({ apply }) => {
-  apply([{ content: { minimumWidth: 412 } }])
-})
-```
-
-### Terms for Minimum / Maximum
-
-In v2, the terms `min` / `max` are used in both the `(data-extra-)content` attribute of the `meta` element (e.g., `min-width`) and the minimum / maximum widths application API (e.g., `minWidth`). However, the terms used in the [W3C specifications](https://www.w3.org/TR/css-viewport-1/#meta-properties) are `minimum` / `maximum` (e.g., `minimum-scale`), which is inconsistent.
-
-In v3, the terms `minimum` / `maximum` are used in both the `(data-extra-)content` attribute of the `meta` element (e.g., `minimum-width`) and the minimum / maximum widths application API (e.g., `minimumWidth`).
-
-#### Using Script
-
-##### v2 Syntax
-
-In the `data-extra-content` attribute of the `<meta name="viewport">` element, use the keywords `min-width` / `max-width`.
-
-```html
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1"
-  data-extra-content="min-width=412,max-width=640"
->
-```
-
-In the `content` attribute of the `<meta name="viewport-extra">` element, also use the keywords `min-width` / `max-width`.
-
-```html
-<meta
-  name="viewport-extra"
-  content="width=device-width,initial-scale=1,min-width=412,max-width=640"
->
-```
-
-In the arguments of `setContent()` function and `setParameters()` function, use the property names `minWidth` / `maxWidth`.
-
-```html
-<script>
-  ViewportExtra.setContent({ minWidth: 412, maxWidth: 640 })
-</script>
-```
-
-```html
-<script>
-  ViewportExtra.setParameters([{ content: { minWidth: 412, maxWidth: 640 } }])
-</script>
-```
-
-##### v3 Syntax
-
-In the `data-extra-content` attribute of the `<meta name="viewport">` element, use the keywords `minimum-width` / `maximum-width`.
-
-```html
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1"
-  data-extra-content="minimum-width=412,maximum-width=640"
->
-```
-
-In the `content` attribute of the `<meta name="viewport-extra">` element, also use the keywords `minimum-width` / `maximum-width`.
-
-```html
-<meta
-  name="viewport-extra"
-  content="width=device-width,initial-scale=1,minimum-width=412,maximum-width=640"
->
-```
-
-In the arguments of `apply()` function, use the property names `minimumWidth` / `maximumWidth`.
-
-```html
-<script>
-  ViewportExtra.apply([{ content: { minimumWidth: 412, maximumWidth: 640 } }])
-</script>
-```
-
-#### Using Module
-
-##### v2 Syntax
-
-In the arguments of `setContent()` function and `setParameters()` function, use the property names `minWidth` / `maxWidth`.
-
-```js
-import("viewport-extra").then(({ setContent }) => {
-  setContent({ minWidth: 412, maxWidth: 640 })
-})
-```
-
-```js
-import("viewport-extra").then(({ setParameters }) => {
-  setParameters([{ content: { minWidth: 412, maxWidth: 640 } }])
-})
-```
-
-##### v3 Syntax
-
-In the arguments of `apply()` function, use the property names `minimumWidth` / `maximumWidth`.
-
-```js
-import("viewport-extra").then(({ apply }) => {
-  apply([{ content: { minimumWidth: 412, maximumWidth: 640 } }])
+  apply([{ content: { minWidth: 412 } }])
 })
 ```
 
@@ -459,7 +357,7 @@ Even if `apply()` function is to be called multiple times, no special attributes
 
 <script>
   window.addEventListener("awesome-event", () => {
-    window.ViewportExtra?.apply([{ content: { minimumWidth: 412 } }])
+    window.ViewportExtra?.apply([{ content: { minWidth: 412 } }])
   })
 </script>
 ```
@@ -490,7 +388,7 @@ Even if `apply()` function is to be called multiple times, no special properties
 ```js
 import("viewport-extra").then(({ apply }) => {
   window.addEventListener("awesome-event", () => {
-    apply([{ content: { minimumWidth: 412 } }])
+    apply([{ content: { minWidth: 412 } }])
   })
 })
 ```
@@ -558,7 +456,7 @@ In multiple calls to `apply()` function, even if the initially applied minimum /
 <script>
   window.addEventListener(
     "awesome-event",
-    () => window.ViewportExtra?.apply([{ content: { minimumWidth: 412 } }]), // If arguments are omitted, minimumWidth defaults to 0
+    () => window.ViewportExtra?.apply([{ content: { minWidth: 412 } }]), // If arguments are omitted, minWidth defaults to 0
   )
 </script>
 ```
@@ -591,7 +489,7 @@ import("viewport-extra").then(({ apply }) => {
   apply(parameters)
   window.addEventListener(
     "awesome-event",
-    () => apply(parameters), // If arguments are omitted, minimumWidth defaults to 0
+    () => apply(parameters), // If arguments are omitted, minWidth defaults to 0
   )
 })
 ```

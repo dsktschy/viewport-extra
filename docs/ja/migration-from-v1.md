@@ -2,7 +2,7 @@
 
 [English](/docs/en/migration-from-v1.md) | **日本語**
 
-このガイドは、Viewport Extra v1 と v3 の違いを説明するものです。v1 も引き続き使用できますが、v3 へ移行することで、ページ表示遅延の回避、ブラウザの幅ごとに異なる最小幅・最大幅を適用する機能の追加、[W3C の仕様](https://www.w3.org/TR/css-viewport-1/#meta-properties)との整合性確保といった改善が得られます。
+このガイドは、Viewport Extra v1 と v3 の違いを説明するものです。v1 も引き続き使用できますが、v3 へ移行することで、ページ表示遅延の回避、ブラウザの幅ごとに異なる最小幅・最大幅を適用する機能の追加といった改善が得られます。
 
 ## ハイライト
 
@@ -12,7 +12,7 @@
 
 ```diff
   <meta name="viewport" content="width=device-width,initial-scale=1">
-+ <meta name="viewport-extra" content="minimum-width=412">
++ <meta name="viewport-extra" content="min-width=412">
   <script
 -   src="https://cdn.jsdelivr.net/npm/viewport-extra@1.1.0/dist/viewport-extra.min.js"
 +   async
@@ -21,7 +21,7 @@
 - <script>new ViewportExtra(412)</script>
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
-+ <meta name="viewport-extra" content="minimum-width=412,maximum-width=640">
++ <meta name="viewport-extra" content="min-width=412,max-width=640">
   <script
 -   src="https://cdn.jsdelivr.net/npm/viewport-extra@1.1.0/dist/viewport-extra.min.js"
 +   async
@@ -44,13 +44,13 @@
 - import ViewportExtra from "viewport-extra"
 - new ViewportExtra(412)
 + import("viewport-extra").then(({ apply }) => {
-+   apply([{ content: { minimumWidth: 412 } }])
++   apply([{ content: { minWidth: 412 } }])
 + })
 
 - import ViewportExtra from "viewport-extra"
 - new ViewportExtra({ minWidth: 412, maxWidth: 640 })
 + import("viewport-extra").then(({ apply }) => {
-+   apply([{ content: { minimumWidth: 412, maximumWidth: 640 } }])
++   apply([{ content: { minWidth: 412, maxWidth: 640 } }])
 + })
 
   // ES2021 の構文、および Viewport Extra v3.0.0 公開時点における Web Platform Baseline の Widely Available ステージにある機能をサポートしない環境で動作させる場合
@@ -62,7 +62,6 @@
 
 - [ビルドの選択](#ビルドの選択)
 - [最小幅・最大幅適用 API](#最小幅最大幅適用-api)
-- [最小・最大を表す語句](#最小最大を表す語句)
 
 ### ビルドの選択
 
@@ -108,7 +107,7 @@ v3 では、複数あるビルドの中から、API の呼び出しが不要な�
 
 ```html
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="viewport-extra" content="minimum-width=412">
+<meta name="viewport-extra" content="min-width=412">
 
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1"></script>
 ```
@@ -121,7 +120,7 @@ ES2021 の構文、および Viewport Extra v3.0.0 公開時点における [Web
 
 ```html
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="viewport-extra" content="minimum-width=412">
+<meta name="viewport-extra" content="min-width=412">
 
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/es5/viewport-extra.min.js"></script>
 ```
@@ -134,7 +133,7 @@ ES2021 の構文、および Viewport Extra v3.0.0 公開時点における [Web
 
 ```html
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="viewport-extra" content="minimum-width=412">
+<meta name="viewport-extra" content="min-width=412">
 
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/extended/es5/viewport-extra.min.js"></script>
 ```
@@ -214,7 +213,7 @@ v3 の最小幅・最大幅適用 API である `apply()` 関数は、引数と�
 
 ```html
 <script>
-  ViewportExtra.apply([{ content: { minimumWidth: 412 } }])
+  ViewportExtra.apply([{ content: { minWidth: 412 } }])
 </script>
 ```
 
@@ -223,8 +222,8 @@ v3 の最小幅・最大幅適用 API である `apply()` 関数は、引数と�
 ```html
 <script>
   ViewportExtra.apply([
-    { content: { minimumWidth: 412 } }, // media を省略した場合はデフォルトの "" となる
-    { content: { minimumWidth: 1024 }, media: "(min-width: 744px)" },
+    { content: { minWidth: 412 } }, // media を省略した場合はデフォルトの "" となる
+    { content: { minWidth: 1024 }, media: "(min-width: 744px)" },
   ])
 </script>
 ```
@@ -253,7 +252,7 @@ new ViewportExtra({ minWidth: 412 })
 
 ```js
 import("viewport-extra").then(({ apply }) => {
-  apply([{ content: { minimumWidth: 412 } }])
+  apply([{ content: { minWidth: 412 } }])
 })
 ```
 
@@ -262,77 +261,8 @@ import("viewport-extra").then(({ apply }) => {
 ```js
 import("viewport-extra").then(({ apply }) => {
   apply([
-    { content: { minimumWidth: 412 } }, // media を省略した場合はデフォルトの "" となる
-    { content: { minimumWidth: 1024 }, media: "(min-width: 744px)" },
+    { content: { minWidth: 412 } }, // media を省略した場合はデフォルトの "" となる
+    { content: { minWidth: 1024 }, media: "(min-width: 744px)" },
   ])
-})
-```
-
-### 最小・最大を表す語句
-
-v1 では、最小幅・最大幅適用 API において、`min` / `max` という語句を使用しています (例: `minWidth`) 。しかし、[W3C の仕様](https://www.w3.org/TR/css-viewport-1/#meta-properties)において用いられる語句は `minimum` / `maximum` であり (例: `minimum-scale`) 、整合性を欠いています。
-
-v3 では、最小幅・最大幅適用 API において、`minimum` / `maximum` という語句を使用しています (例: `minimumWidth`) 。また、これに合わせて、`meta` 要素の `(data-extra-)content` 属性においても、`minimum` / `maximum` という語句を使用しています (例: `minimum-width`) 。
-
-#### スクリプトを使用する場合
-
-##### v1 の構文
-
-`ViewportExtra` コンストラクタの引数には、`minWidth` / `maxWidth` というプロパティ名を使用します。
-
-```html
-<script>
-  new ViewportExtra({ minWidth: 412, maxWidth: 640 })
-</script>
-```
-
-##### v3 の構文
-
-`apply()` 関数の引数には、`minimumWidth` / `maximumWidth` というプロパティ名を使用します。
-
-```html
-<script>
-  ViewportExtra.apply([{ content: { minimumWidth: 412, maximumWidth: 640 } }])
-</script>
-```
-
-`<meta name="viewport">` 要素の `data-extra-content` 属性には、`minimum-width` / `maximum-width` というキーワードを使用します。
-
-```html
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1"
-  data-extra-content="minimum-width=412,maximum-width=640"
->
-```
-
-`<meta name="viewport-extra">` 要素の `content` 属性にも、`minimum-width` / `maximum-width` というキーワードを使用します。
-
-```html
-<meta
-  name="viewport-extra"
-  content="width=device-width,initial-scale=1,minimum-width=412,maximum-width=640"
->
-```
-
-#### モジュールを使用する場合
-
-##### v1 の構文
-
-`ViewportExtra` コンストラクタの引数には、`minWidth` / `maxWidth` というプロパティ名を使用します。
-
-```js
-import ViewportExtra from "viewport-extra"
-
-new ViewportExtra({ minWidth: 412, maxWidth: 640 })
-```
-
-##### v3 の構文
-
-`apply()` 関数の引数には、`minimumWidth` / `maximumWidth` というプロパティ名を使用します。
-
-```js
-import("viewport-extra").then(({ apply }) => {
-  apply([{ content: { minimumWidth: 412, maximumWidth: 640 } }])
 })
 ```

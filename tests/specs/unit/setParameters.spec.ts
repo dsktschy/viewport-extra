@@ -82,7 +82,7 @@ test.describe("setParameters", () => {
   test.describe("behavior according to attributes of viewport(-extra) meta elements", () => {
     test.describe("(data-extra-)content attribute", () => {
       test.describe("case where initial-scale before running setParameters is 1 or less", () => {
-        test.describe("comparison with minimumWidth", () => {
+        test.describe("comparison with minimum width", () => {
           test("window width without scroll bars when scale is 1 is used", async ({
             page,
             viewport,
@@ -117,7 +117,7 @@ test.describe("setParameters", () => {
           });
         });
 
-        test.describe("comparison with maximumWidth", () => {
+        test.describe("comparison with maximum width", () => {
           test("window width without scroll bars when scale is 1 is used", async ({
             page,
             viewport,
@@ -154,7 +154,7 @@ test.describe("setParameters", () => {
       });
 
       test.describe("case where initial-scale before running setParameters is greater than 1", () => {
-        test.describe("comparison with minimumWidth", () => {
+        test.describe("comparison with minimum width", () => {
           test("window width without scroll bars when scale is 1 is used", async ({
             page,
             viewport,
@@ -189,7 +189,7 @@ test.describe("setParameters", () => {
           });
         });
 
-        test.describe("comparison with maximumWidth", () => {
+        test.describe("comparison with maximum width", () => {
           test("window width without scroll bars when scale is 1 is used", async ({
             page,
             viewport,
@@ -231,7 +231,7 @@ test.describe("setParameters", () => {
     test.describe("properties of items in first argument", () => {
       test.describe("content property", () => {
         test.describe("case where minimumWidth property is greater than viewport width", () => {
-          test("updates width to minimumWidth and initial-scale to value that minimumWidth fits into viewport", async ({
+          test("updates width to minimum width and initial-scale to value that minimum width fits into viewport", async ({
             page,
             viewport,
           }, { config: { projects } }) => {
@@ -266,7 +266,7 @@ test.describe("setParameters", () => {
         });
 
         test.describe("case where maximumWidth property is less than viewport width", () => {
-          test("updates width to maximumWidth and initial-scale to value that maximumWidth fits into viewport", async ({
+          test("updates width to maximum width and initial-scale to value that maximum width fits into viewport", async ({
             page,
             viewport,
           }, { config: { projects } }) => {
@@ -321,6 +321,111 @@ test.describe("setParameters", () => {
                   <script data-media-specific-parameters-list='${`
                     [
                       { "content": { "minimumWidth": ${xsViewportWidth - 1}, "maximumWidth": ${xsViewportWidth + 1} } }
+                    ]
+                  `}'></script>
+                  <script src="/assets/scripts/unit/call-setParameters.js" type="module"></script>
+                </body>
+              </html>
+            `);
+            expect(await getViewportContentString(page)).toBe(
+              documentClientWidth && !Number.isNaN(xsViewportWidth)
+                ? "initial-scale=1,width=device-width"
+                : "",
+            );
+          });
+        });
+
+        test.describe("case where minWidth property is greater than viewport width", () => {
+          test("updates width to minimum width and initial-scale to value that minimum width fits into viewport", async ({
+            page,
+            viewport,
+          }, { config: { projects } }) => {
+            const xsViewportWidth =
+              getViewportSize(projects, "xs")?.use.viewport?.width ??
+              Number.NaN;
+            const documentClientWidth = viewport ? viewport.width : undefined;
+            await page.setContent(`
+              <!doctype html>
+              <html lang="en">
+                <head>
+                  <meta charset="UTF-8">
+                  <title>Document</title>
+                  <meta name="viewport" content="width=device-width,initial-scale=1">
+                </head>
+                <body>
+                  <script data-media-specific-parameters-list='${`
+                    [
+                      { "content": { "minWidth": ${xsViewportWidth + 1} } }
+                    ]
+                  `}'></script>
+                  <script src="/assets/scripts/unit/call-setParameters.js" type="module"></script>
+                </body>
+              </html>
+            `);
+            expect(await getViewportContentString(page)).toBe(
+              documentClientWidth && !Number.isNaN(xsViewportWidth)
+                ? `initial-scale=${(documentClientWidth / (xsViewportWidth + 1)) * 1},width=${xsViewportWidth + 1}`
+                : "",
+            );
+          });
+        });
+
+        test.describe("case where maxWidth property is less than viewport width", () => {
+          test("updates width to maximum width and initial-scale to value that maximum width fits into viewport", async ({
+            page,
+            viewport,
+          }, { config: { projects } }) => {
+            const xsViewportWidth =
+              getViewportSize(projects, "xs")?.use.viewport?.width ??
+              Number.NaN;
+            const documentClientWidth = viewport ? viewport.width : undefined;
+            await page.setContent(`
+              <!doctype html>
+              <html lang="en">
+                <head>
+                  <meta charset="UTF-8">
+                  <title>Document</title>
+                  <meta name="viewport" content="width=device-width,initial-scale=1">
+                </head>
+                <body>
+                  <script data-media-specific-parameters-list='${`
+                    [
+                      { "content": { "maxWidth": ${xsViewportWidth - 1} } }
+                    ]
+                  `}'></script>
+                  <script src="/assets/scripts/unit/call-setParameters.js" type="module"></script>
+                </body>
+              </html>
+            `);
+            expect(await getViewportContentString(page)).toBe(
+              documentClientWidth && !Number.isNaN(xsViewportWidth)
+                ? `initial-scale=${(documentClientWidth / (xsViewportWidth - 1)) * 1},width=${xsViewportWidth - 1}`
+                : "",
+            );
+          });
+        });
+
+        test.describe("case where minWidth property is less than viewport width and maxWidth property is greater than viewport width", () => {
+          test("does not update width and initial-scale", async ({
+            page,
+            viewport,
+          }, { config: { projects } }) => {
+            const xsViewportWidth =
+              getViewportSize(projects, "xs")?.use.viewport?.width ??
+              Number.NaN;
+            const documentClientWidth = viewport ? viewport.width : undefined;
+            await page.setContent(`
+              <!doctype html>
+              <html lang="en">
+                <head>
+                  <meta charset="UTF-8">
+                  <title>Document</title>
+                  <meta name="viewport" content="width=device-width,initial-scale=1">
+                </head>
+                <body>
+                  <script data-media-specific-parameters-list='${`
+                    [
+                      { "content": { "minWidth": ${xsViewportWidth - 1}, "maxWidth": ${xsViewportWidth + 1} } }
                     ]
                   `}'></script>
                   <script src="/assets/scripts/unit/call-setParameters.js" type="module"></script>

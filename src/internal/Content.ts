@@ -3,13 +3,18 @@ import type { DecimalPlaces } from "./DecimalPlaces.js";
 import { truncateDecimalNumber } from "./number.js";
 import { kebabizeCamelCaseString } from "./string.js";
 
-export interface Content {
+export type Content = {
   width: number | "device-width";
   initialScale: number;
   minimumWidth: number;
   maximumWidth: number;
+  /** Alternative to `minimumWidth` */
+  minWidth?: number;
+  /** Alternative to `maximumWidth` */
+  maxWidth?: number;
+} & {
   [key: string]: string | number;
-}
+};
 
 export const defaultContent = {
   width: "device-width" as const,
@@ -50,8 +55,15 @@ export const createContentAttribute: {
   decimalPlaces: DecimalPlaces = 0,
 ) => {
   const { width, initialScale } = content;
-  const { minimumWidth, maximumWidth, ...contentWithoutExtraProperties } =
-    content;
+  const {
+    minimumWidth: _minimumWidth,
+    maximumWidth: _maximumWidth,
+    minWidth,
+    maxWidth,
+    ...contentWithoutExtraProperties
+  } = content;
+  const minimumWidth = minWidth ?? _minimumWidth;
+  const maximumWidth = maxWidth ?? _maximumWidth;
   if (minimumWidth <= maximumWidth && width === "device-width") {
     if (documentClientWidth < minimumWidth) {
       contentWithoutExtraProperties.width = minimumWidth;
