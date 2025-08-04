@@ -16,7 +16,7 @@
   <script
 -   src="https://cdn.jsdelivr.net/npm/viewport-extra@1.1.0/dist/viewport-extra.min.js"
 +   async
-+   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1"
++   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/viewport-extra.min.js"
   ></script>
 - <script>new ViewportExtra(412)</script>
 
@@ -25,7 +25,7 @@
   <script
 -   src="https://cdn.jsdelivr.net/npm/viewport-extra@1.1.0/dist/viewport-extra.min.js"
 +   async
-+   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1"
++   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/viewport-extra.min.js"
   ></script>
 - <script>new ViewportExtra({ minWidth: 412, maxWidth: 640 })</script>
 
@@ -96,12 +96,12 @@ v3 では、複数あるビルドの中から、API の呼び出しが不要な�
 |                    `/dist/es5/viewport-extra.min.js` |               -               |     -      |          ✔          |
 |               `/dist/extended/viewport-extra.min.js` |               -               |     ✔     |          -           |
 |           `/dist/extended/es5/viewport-extra.min.js` |               -               |     ✔     |          ✔          |
-|                                               (なし) |              ✔               |     -      |          -           |
+|              `/dist/immediate/viewport-extra.min.js` |              ✔               |     -      |          -           |
 |          `/dist/immediate/es5/viewport-extra.min.js` |              ✔               |     -      |          ✔          |
 |     `/dist/immediate/extended/viewport-extra.min.js` |              ✔               |     ✔     |          -           |
 | `/dist/immediate/extended/es5/viewport-extra.min.js` |              ✔               |     ✔     |          ✔          |
 
-`meta` 要素読み取り・即時適用が可能なビルドを選択し、API の呼び出しを不要とすることで、`<script>` 要素の `async` 属性と併用することができます。この場合は、URL にファイルパス部分のないビルドが最小サイズであり、理想的です。
+`meta` 要素読み取り・即時適用が可能なビルドを選択し、API の呼び出しを不要とすることで、`<script>` 要素の `async` 属性と併用することができます。この場合は、URL のファイルパスが `/dist/immediate/viewport-extra.min.js` のビルドが最小サイズであり、理想的です。
 
 <!-- x-release-please-start-version -->
 
@@ -109,7 +109,7 @@ v3 では、複数あるビルドの中から、API の呼び出しが不要な�
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="viewport-extra" content="min-width=412">
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end -->

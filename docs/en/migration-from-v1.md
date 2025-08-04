@@ -16,7 +16,7 @@ This guide explains the differences between Viewport Extra v1 and v3. While v1 c
   <script
 -   src="https://cdn.jsdelivr.net/npm/viewport-extra@1.1.0/dist/viewport-extra.min.js"
 +   async
-+   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1"
++   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/viewport-extra.min.js"
   ></script>
 - <script>new ViewportExtra(412)</script>
 
@@ -25,7 +25,7 @@ This guide explains the differences between Viewport Extra v1 and v3. While v1 c
   <script
 -   src="https://cdn.jsdelivr.net/npm/viewport-extra@1.1.0/dist/viewport-extra.min.js"
 +   async
-+   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1"
++   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/viewport-extra.min.js"
   ></script>
 - <script>new ViewportExtra({ minWidth: 412, maxWidth: 640 })</script>
 
@@ -96,12 +96,12 @@ Multiple builds can be selected.
 |                    `/dist/es5/viewport-extra.min.js` |                        -                         |         -         |               ✔                |
 |               `/dist/extended/viewport-extra.min.js` |                        -                         |        ✔         |                -                |
 |           `/dist/extended/es5/viewport-extra.min.js` |                        -                         |        ✔         |               ✔                |
-|                                               (None) |                        ✔                        |         -         |                -                |
+|              `/dist/immediate/viewport-extra.min.js` |                        ✔                        |         -         |                -                |
 |          `/dist/immediate/es5/viewport-extra.min.js` |                        ✔                        |         -         |               ✔                |
 |     `/dist/immediate/extended/viewport-extra.min.js` |                        ✔                        |        ✔         |                -                |
 | `/dist/immediate/extended/es5/viewport-extra.min.js` |                        ✔                        |        ✔         |               ✔                |
 
-You can select a build that supports `meta` element parsing and immediate application and eliminates the need to call the API, and use it with the `async` attribute of the `<script>` element. In this case, the build with no file path part in the URL is the smallest and ideal.
+You can select a build that supports `meta` element parsing and immediate application and eliminates the need to call the API, and use it with the `async` attribute of the `<script>` element. In this case, the build with the file path `/dist/immediate/viewport-extra.min.js` in the URL is the smallest and ideal.
 
 <!-- x-release-please-start-version -->
 
@@ -109,7 +109,7 @@ You can select a build that supports `meta` element parsing and immediate applic
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="viewport-extra" content="min-width=412">
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end -->

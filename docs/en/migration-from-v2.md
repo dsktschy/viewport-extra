@@ -24,7 +24,7 @@ This guide explains the differences between Viewport Extra v2 and v3. While v2 c
   <script
     async
 -   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/iife/viewport-extra.min.js"
-+   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1"
++   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/viewport-extra.min.js"
   ></script>
 
   <!-- For environments that do not support ES2021 syntax and features in the Widely Available stage of the Web Platform Baseline as of the release of Viewport Extra v3.0.0 -->
@@ -128,17 +128,17 @@ Multiple builds can be selected.
 |                    `/dist/es5/viewport-extra.min.js` |                        -                         |         -         |               ✔                |
 |               `/dist/extended/viewport-extra.min.js` |                        -                         |        ✔         |                -                |
 |           `/dist/extended/es5/viewport-extra.min.js` |                        -                         |        ✔         |               ✔                |
-|                                               (None) |                        ✔                        |         -         |                -                |
+|              `/dist/immediate/viewport-extra.min.js` |                        ✔                        |         -         |                -                |
 |          `/dist/immediate/es5/viewport-extra.min.js` |                        ✔                        |         -         |               ✔                |
 |     `/dist/immediate/extended/viewport-extra.min.js` |                        ✔                        |        ✔         |                -                |
 | `/dist/immediate/extended/es5/viewport-extra.min.js` |                        ✔                        |        ✔         |               ✔                |
 
-If you are using `meta` element parsing and immediate application, the build with no file path part in the URL is the smallest and ideal.
+If you are using `meta` element parsing and immediate application, the build with the file path `/dist/immediate/viewport-extra.min.js` in the URL is the smallest and ideal.
 
 <!-- x-release-please-start-version -->
 
 ```html
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end -->
@@ -353,7 +353,7 @@ Even if `apply()` function is to be called multiple times, no special attributes
   content="width=device-width,initial-scale=1"
   data-extra-content="min-width=412"
 >
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener("awesome-event", () => {
@@ -451,7 +451,7 @@ In multiple calls to `apply()` function, even if the initially applied minimum /
   content="width=device-width,initial-scale=1"
   data-extra-content="min-width=412"
 >
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener(

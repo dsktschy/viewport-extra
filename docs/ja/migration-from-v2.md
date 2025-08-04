@@ -24,7 +24,7 @@
   <script
     async
 -   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/iife/viewport-extra.min.js"
-+   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1"
++   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/viewport-extra.min.js"
   ></script>
 
   <!-- ES2021 の構文、および Viewport Extra v3.0.0 公開時点における Web Platform Baseline の Widely Available ステージにある機能をサポートしない環境で動作させる場合 -->
@@ -128,17 +128,17 @@ v3 では、含まれる機能の範囲が異なる複数のビルドを提供�
 |                    `/dist/es5/viewport-extra.min.js` |               -               |     -      |          ✔          |
 |               `/dist/extended/viewport-extra.min.js` |               -               |     ✔     |          -           |
 |           `/dist/extended/es5/viewport-extra.min.js` |               -               |     ✔     |          ✔          |
-|                                               (なし) |              ✔               |     -      |          -           |
+|              `/dist/immediate/viewport-extra.min.js` |              ✔               |     -      |          -           |
 |          `/dist/immediate/es5/viewport-extra.min.js` |              ✔               |     -      |          ✔          |
 |     `/dist/immediate/extended/viewport-extra.min.js` |              ✔               |     ✔     |          -           |
 | `/dist/immediate/extended/es5/viewport-extra.min.js` |              ✔               |     ✔     |          ✔          |
 
-`meta` 要素読み取り・即時適用を使用する場合は、URL にファイルパス部分のないビルドが最小サイズであり、理想的です。
+`meta` 要素読み取り・即時適用を使用する場合は、URL のファイルパスが `/dist/immediate/viewport-extra.min.js` のビルドが最小サイズであり、理想的です。
 
 <!-- x-release-please-start-version -->
 
 ```html
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end -->
@@ -353,7 +353,7 @@ v3 では、自動的にスケールリセットする機能をデフォルト�
   content="width=device-width,initial-scale=1"
   data-extra-content="min-width=412"
 >
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener("awesome-event", () => {
@@ -451,7 +451,7 @@ v3 では、適用した最小幅・最大幅を、Viewport Extra 内部に保�
   content="width=device-width,initial-scale=1"
   data-extra-content="min-width=412"
 >
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener(

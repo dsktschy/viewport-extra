@@ -34,7 +34,7 @@ Pages containing the following code are scaled down on mobile browsers with view
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="viewport-extra" content="minimum-width=412">
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end -->
@@ -83,7 +83,7 @@ Pages containing the following code are scaled up on mobile browsers with viewpo
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="viewport-extra" content="maximum-width=393">
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end -->
@@ -133,7 +133,7 @@ Pages containing the following code are scaled down on mobile browsers with view
 <meta name="viewport-extra" content="minimum-width=412">
 <meta name="viewport-extra" content="minimum-width=1024" data-media="(min-width: 744px)">
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end -->
@@ -182,7 +182,7 @@ Pages containing the following code determine whether to scale up or down not on
 
 <script
   async
-  src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1"
+  src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/viewport-extra.min.js"
   id="viewport-extra-script"
 ></script>
 
@@ -291,7 +291,7 @@ Pages containing the following code behave the same as the [implementation using
 <meta name="viewport" data-extra-content="minimum-width=412">
 <meta name="viewport" data-extra-content="minimum-width=1024" data-extra-media="(min-width: 744px)">
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end -->
