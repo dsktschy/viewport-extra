@@ -15,8 +15,11 @@
     "width",
     "mobile",
     "device",
+    "scale",
     "shrink",
-    "expand"
+    "expand",
+    "media",
+    "query"
   ],
   "repository": {
     "type": "git",
