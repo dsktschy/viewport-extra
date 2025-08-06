@@ -6,6 +6,11 @@
 
 ## ハイライト
 
+```diff
+- v2 の構文
++ v3 の構文
+```
+
 ### スクリプトを使用する場合
 
 <!-- x-release-please-start-previous-root-project-version -->
@@ -23,21 +28,21 @@
   >
   <script
     async
--   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/iife/viewport-extra.min.js"
+-   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"
 +   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/viewport-extra.min.js"
   ></script>
 
-  <!-- ES2021 の構文、および Viewport Extra v3.0.0 公開時点における Web Platform Baseline の Widely Available ステージにある機能をサポートしない環境で動作させる場合 -->
+  <!-- ES2015+ をサポートしない環境で動作させる場合 -->
   <script
     async
--   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/iife/viewport-extra.min.js"
+-   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"
 +   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/es5/viewport-extra.min.js"
   ></script>
 
   <!-- data-(extra-)decimal-places 属性を使用する場合 -->
   <script
     async
--   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/iife/viewport-extra.min.js"
+-   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"
 +   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/extended/viewport-extra.min.js"
   ></script>
 ```
@@ -48,18 +53,22 @@
 
 ```diff
   import("viewport-extra").then(({
--   setContent,
--   setParameters
+-   setContent
 +   apply
   }) => {
 -   setContent({ minWidth: 412, maxWidth: 640 })
 +   apply([{ content: { minWidth: 412, maxWidth: 640 } }])
+  })
 
+  import("viewport-extra").then(({
+-   setParameters
++   apply
+  }) => {
 -   setParameters([{ content: { minWidth: 412, maxWidth: 640 } }])
 +   apply([{ content: { minWidth: 412, maxWidth: 640 } }])
   })
 
-  // ES2021 の構文、および Viewport Extra v3.0.0 公開時点における Web Platform Baseline の Widely Available ステージにある機能をサポートしない環境で動作させる場合
+  // EES2015+ をサポートしない環境で動作させる場合
 - import("viewport-extra")
 + import("viewport-extra/es5")
 
@@ -78,10 +87,11 @@
 -   setParameters(
 -     [{ content: { minWidth: 412 } }],
 -     { unscaledComputing: true }
+-   )
 +   apply(
 +     [{ content: { minWidth: 412 } }]
 +     // 廃止: unscaledComputing プロパティ
-    )
++   )
 
     window.addEventListener("awesome-event", () => {
 -     setParameters([])
@@ -115,7 +125,7 @@ v3 では、含まれる機能の範囲が異なる複数のビルドを提供�
 単一のビルドのみを選択できます。
 
 ```html
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/iife/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
 ```
 
 ##### v3 の構文
@@ -153,7 +163,7 @@ v3 では、含まれる機能の範囲が異なる複数のビルドを提供�
 
 <!-- x-release-please-end -->
 
-ES2021 の構文、および Viewport Extra v3.0.0 公開時点における [Web Platform Baseline](https://web.dev/baseline?hl=ja) の Widely Available ステージにある機能をサポートしない環境で動作させる場合は、URL のファイルパスに `es5` を含むビルドが必要です。
+ES2015+ をサポートしない環境で動作させる場合は、URL のファイルパスに `es5` を含むビルドが必要です。
 
 <!-- x-release-please-start-version -->
 
@@ -214,7 +224,7 @@ import("viewport-extra")
 import("viewport-extra")
 ```
 
-ES2021 の構文、および Viewport Extra v3.0.0 公開時点における [Web Platform Baseline](https://web.dev/baseline?hl=ja) の Widely Available ステージにある機能をサポートしない環境で動作させる場合は、モジュール指定子に `es5` を含むビルドが必要です。
+ES2015+ をサポートしない環境で動作させる場合は、モジュール指定子に `es5` を含むビルドが必要です。
 
 ```js
 import("viewport-extra/es5")
@@ -315,7 +325,7 @@ v3 では、自動的にスケールリセットする機能をデフォルト�
   data-extra-content="min-width=412"
   data-extra-unscaled-computing
 >
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/iife/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener("awesome-event", () => {
@@ -332,7 +342,7 @@ v3 では、自動的にスケールリセットする機能をデフォルト�
   content="width=device-width,initial-scale=1,min-width=412"
   data-unscaled-computing
 >
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/iife/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener("awesome-event", () => {
@@ -412,7 +422,7 @@ v3 では、適用した最小幅・最大幅を、Viewport Extra 内部に保�
   data-extra-unscaled-computing
   data-extra-content="min-width=412"
 >
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/iife/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener(
@@ -429,7 +439,7 @@ v3 では、適用した最小幅・最大幅を、Viewport Extra 内部に保�
   data-extra-unscaled-computing
   data-extra-content="min-width=412"
 >
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/iife/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener(

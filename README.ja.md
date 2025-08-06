@@ -1,6 +1,14 @@
 # Viewport Extra [![](https://data.jsdelivr.com/v1/package/npm/viewport-extra/badge)](https://www.jsdelivr.com/package/npm/viewport-extra) [![npm version](https://img.shields.io/npm/v/viewport-extra.svg?style=flat-square)](https://www.npmjs.com/package/viewport-extra) [![GitHub license](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](https://github.com/dsktschy/viewport-extra/blob/master/LICENSE.txt)
 
-[English](./README.md) | **日本語**
+[English](/README.md) | **日本語**
+
+> [!IMPORTANT]
+> v3 には破壊的変更が含まれます。
+>
+> - 参考: [v2 から v3 への移行ガイド](/docs/ja/migration-from-v2.md)
+> - 参考: [v1 から v3 への移行ガイド](/docs/ja/migration-from-v1.md)
+>
+> v2 および v1 もメンテナンスが継続されるため、引き続き使用可能です。
 
 Viewport Extra は、ビューポートの最小幅および最大幅の設定を可能にするライブラリです。これにより、スタイリング時に考慮すべきビューポートの範囲を狭めることができます。
 
@@ -8,17 +16,16 @@ Viewport Extra は、ビューポートの最小幅および最大幅の設定�
 
 ページの拡大・縮小は、`<meta name="viewport">` 要素の `content` 属性の書き換えにより行われます。
 
-Viewport Extra は、`<script async>` 要素や `import()` 構文による非同期の読み込みに対応し、ページ内の他の処理を妨げません。また、他のパッケージに依存せず、標準的なビルドで 1KB 未満 (gzip 圧縮時) と非常に軽量です。
-
-> [!IMPORTANT]
-> v3 には破壊的変更が含まれます。
->
-> - 参考: [v2 からの移行ガイド](./docs/ja/migration-from-v2.md)
-> - 参考: [v1 からの移行ガイド](./docs/ja/migration-from-v1.md)
->
-> v2 および v1 もメンテナンスが継続されるため、引き続き利用可能です。
+Viewport Extra は、`<script async>` 要素や `import()` 構文による非同期の読み込みに対応し、ページ内の他の処理を妨げません。また、他のパッケージに依存せず、標準的なビルドで 1KB 未満 (Brotli 圧縮時) と非常に軽量です。
 
 ## ユースケース
+
+- [小さなビューポート幅でページを縮小する](#小さなビューポート幅でページを縮小する)
+- [大きなビューポート幅でページを拡大する](#大きなビューポート幅でページを拡大する)
+- [メディアクエリごとに異なる最小幅・最大幅を設定する](#メディアクエリごとに異なる最小幅最大幅を設定する)
+- [ビューポート幅が変わるときにもページを拡大・縮小する](#ビューポート幅が変わるときにもページを拡大縮小する)
+- [レガシーな環境でもページを拡大・縮小する](#レガシーな環境でもページを拡大縮小する)
+- [`<meta name="viewport-extra">` 要素を使わずにページを拡大・縮小する](#meta-nameviewport-extra-要素を使わずにページを拡大縮小する)
 
 ### 小さなビューポート幅でページを縮小する
 
@@ -41,7 +48,7 @@ Viewport Extra は、`<script async>` 要素や `import()` 構文による非同
 
 ##### モジュールを使用する場合
 
-```ts
+```js
 import("viewport-extra").then(({ apply }) => {
   apply([{ content: { minimumWidth: 412 } }])
 })
@@ -90,7 +97,7 @@ import("viewport-extra").then(({ apply }) => {
 
 ##### モジュールを使用する場合
 
-```ts
+```js
 import("viewport-extra").then(({ apply }) => {
   apply([{ content: { maximumWidth: 393 } }])
 })
@@ -243,7 +250,7 @@ import("viewport-extra").then(({ apply }) => {
 
 ### レガシーな環境でもページを拡大・縮小する
 
-ここまでに使用している標準的なビルドには、ES2021 の構文、および Viewport Extra v3.0.0 公開時点で [Web Platform Baseline](https://web.dev/baseline?hl=ja) の Widely Available ステージにある機能が含まれます。これらをサポートしない環境 (例: iOS Safari < 16, Android Chrome < 108) でも Viewport Extra を動作させるためには、es5 ビルドを使用します [(参考)](./docs/ja/migration-from-v2.md#ビルドの選択) 。
+ここまでに使用している標準的なビルドには、ES2021 の構文、および Viewport Extra v3.0.0 公開時点で [Web Platform Baseline](https://web.dev/baseline?hl=ja) の Widely Available ステージにある機能が含まれます。これらをサポートしない環境 (例: iOS Safari < 16, Android Chrome < 108) でも Viewport Extra を動作させるためには、es5 ビルドを使用します [(参考)](/docs/ja/migration-from-v2.md#ビルドの選択) 。
 
 #### 実装
 
@@ -262,7 +269,7 @@ import("viewport-extra").then(({ apply }) => {
 
 ##### モジュールを使用する場合
 
-```ts
+```js
 import("viewport-extra/immediate/es5").then(({ apply }) => {
   apply([{ content: { minimumWidth: 412 } }])
 })
@@ -314,7 +321,7 @@ import("viewport-extra/immediate/es5").then(({ apply }) => {
 
 `initial-scale=1,width=device-width`
 
-## 注意
+## 補足
 
 - `minimum-width` / `maximum-width` の代わりに、`min-width` / `max-width` を使用できます。ただし、両方が混在する場合の動作は保証されないため、どちらか一方に統一する必要があります。
 
