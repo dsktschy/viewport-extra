@@ -6,6 +6,11 @@
 
 ## ハイライト
 
+```diff
+- v1 の構文
++ v3 の構文
+```
+
 ### スクリプトを使用する場合
 
 <!-- x-release-please-start-previous-root-project-version -->
@@ -29,7 +34,7 @@
   ></script>
 - <script>new ViewportExtra({ minWidth: 412, maxWidth: 640 })</script>
 
-  <!-- ES2021 の構文、および Viewport Extra v3.0.0 公開時点における Web Platform Baseline の Widely Available ステージにある機能をサポートしない環境で動作させる場合 -->
+  <!-- ES2015+ をサポートしない環境で動作させる場合 -->
   <script
 -   src="https://cdn.jsdelivr.net/npm/viewport-extra@1.1.0/dist/viewport-extra.min.js"
 +   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/es5/viewport-extra.min.js"
@@ -53,7 +58,7 @@
 +   apply([{ content: { minWidth: 412, maxWidth: 640 } }])
 + })
 
-  // ES2021 の構文、および Viewport Extra v3.0.0 公開時点における Web Platform Baseline の Widely Available ステージにある機能をサポートしない環境で動作させる場合
+  // ES2015+ をサポートしない環境で動作させる場合
 - import "viewport-extra"
 + import("viewport-extra/es5")
 ```
@@ -114,7 +119,7 @@ v3 では、複数あるビルドの中から、API の呼び出しが不要な�
 
 <!-- x-release-please-end -->
 
-ES2021 の構文、および Viewport Extra v3.0.0 公開時点における [Web Platform Baseline](https://web.dev/baseline?hl=ja) の Widely Available ステージにある機能をサポートしない環境で動作させる場合は、URL のファイルパスに `es5` を含むビルドが必要です。
+ES2015+ をサポートしない環境で動作させる場合は、URL のファイルパスに `es5` を含むビルドが必要です。
 
 <!-- x-release-please-start-version -->
 
@@ -171,7 +176,7 @@ import "viewport-extra"
 import("viewport-extra")
 ```
 
-ES2021 の構文、および Viewport Extra v3.0.0 公開時点における [Web Platform Baseline](https://web.dev/baseline?hl=ja) の Widely Available ステージにある機能をサポートしない環境で動作させる場合は、モジュール指定子に `es5` を含むビルドが必要です。
+ES2015+ をサポートしない環境で動作させる場合は、モジュール指定子に `es5` を含むビルドが必要です。
 
 ```js
 import("viewport-extra/es5")

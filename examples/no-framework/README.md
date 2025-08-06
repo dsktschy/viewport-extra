@@ -1,6 +1,6 @@
 # Usage Examples in No-Framework Application
 
-**English** | [日本語](./README.ja.md)
+**English** | [日本語](/examples/no-framework/README.ja.md)
 
 This example shows how to use Viewport Extra in a no-framework application.
 
