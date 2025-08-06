@@ -1,6 +1,6 @@
 # Usage Examples in Next.js (Pages Router) Application
 
-**English** | [日本語](./README.ja.md)
+**English** | [日本語](/examples/next-pages-router/README.ja.md)
 
 This example shows how to use Viewport Extra in a [Next.js (Pages Router)](https://nextjs.org/docs/pages) application.
 

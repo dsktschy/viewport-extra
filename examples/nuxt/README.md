@@ -1,6 +1,6 @@
 # Usage Examples in Nuxt Application
 
-**English** | [日本語](./README.ja.md)
+**English** | [日本語](/examples/nuxt/README.ja.md)
 
 This example shows how to use Viewport Extra in a [Nuxt](https://nuxt.com/) application.
 

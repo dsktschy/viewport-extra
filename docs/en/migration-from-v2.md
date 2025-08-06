@@ -6,6 +6,11 @@ This guide explains the differences between Viewport Extra v2 and v3. While v2 c
 
 ## Highlights
 
+```diff
+- v2 syntax
++ v3 syntax
+```
+
 ### Using Script
 
 <!-- x-release-please-start-previous-root-project-version -->
@@ -27,7 +32,7 @@ This guide explains the differences between Viewport Extra v2 and v3. While v2 c
 +   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/viewport-extra.min.js"
   ></script>
 
-  <!-- For environments that do not support ES2021 syntax and features in the Widely Available stage of the Web Platform Baseline as of the release of Viewport Extra v3.0.0 -->
+  <!-- For environments that do not support ES2015+ -->
   <script
     async
 -   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/iife/viewport-extra.min.js"
@@ -48,18 +53,22 @@ This guide explains the differences between Viewport Extra v2 and v3. While v2 c
 
 ```diff
   import("viewport-extra").then(({
--   setContent,
--   setParameters
+-   setContent
 +   apply
   }) => {
 -   setContent({ minWidth: 412, maxWidth: 640 })
 +   apply([{ content: { minWidth: 412, maxWidth: 640 } }])
+  })
 
+  import("viewport-extra").then(({
+-   setParameters
++   apply
+  }) => {
 -   setParameters([{ content: { minWidth: 412, maxWidth: 640 } }])
 +   apply([{ content: { minWidth: 412, maxWidth: 640 } }])
   })
 
-  // For environments that do not support ES2021 syntax and features in the Widely Available stage of the Web Platform Baseline as of the release of Viewport Extra v3.0.0
+  // For environments that do not support ES2015+
 - import("viewport-extra")
 + import("viewport-extra/es5")
 
@@ -78,10 +87,11 @@ This guide explains the differences between Viewport Extra v2 and v3. While v2 c
 -   setParameters(
 -     [{ content: { minWidth: 412 } }],
 -     { unscaledComputing: true }
+-   )
 +   apply(
 +     [{ content: { minWidth: 412 } }]
 +     // Deprecated: unscaledComputing property
-    )
++   )
 
     window.addEventListener("awesome-event", () => {
 -     setParameters([])
@@ -133,7 +143,7 @@ Multiple builds can be selected.
 |     `/dist/immediate/extended/viewport-extra.min.js` |                        ✔                        |        ✔         |                -                |
 | `/dist/immediate/extended/es5/viewport-extra.min.js` |                        ✔                        |        ✔         |               ✔                |
 
-If you are using `meta` element parsing and immediate application, the build with the file path `/dist/immediate/viewport-extra.min.js` in the URL is the smallest and ideal.
+If you are using `meta` element parsing and immediate application, the build with the file path `/dist/immediate/viewport-extra.min.js` in the URL is the lightest and ideal.
 
 <!-- x-release-please-start-version -->
 
@@ -143,7 +153,7 @@ If you are using `meta` element parsing and immediate application, the build wit
 
 <!-- x-release-please-end -->
 
-If you are not using `meta` element parsing and immediate application and only using API calls, the build with the file path `/dist/viewport-extra.min.js` in the URL is the smallest and ideal.
+If you are not using `meta` element parsing and immediate application and only using API calls, the build with the file path `/dist/viewport-extra.min.js` in the URL is the lightest and ideal.
 
 <!-- x-release-please-start-version -->
 
@@ -153,7 +163,7 @@ If you are not using `meta` element parsing and immediate application and only u
 
 <!-- x-release-please-end -->
 
-If you need to ensure compatibility with environments that do not support ES2021 syntax and features in the Widely Available stage of the [Web Platform Baseline](https://web.dev/baseline) as of the release of Viewport Extra v3.0.0, a build that includes `es5` in the file path in the URL is required.
+If you need to ensure compatibility with environments that do not support ES2015+, a build that includes `es5` in the file path in the URL is required.
 
 <!-- x-release-please-start-version -->
 
@@ -208,13 +218,13 @@ Multiple builds can be selected.
 |     `viewport-extra/immediate/extended` |                        ✔                        |        ✔         |                -                |
 | `viewport-extra/immediate/extended/es5` |                        ✔                        |        ✔         |               ✔                |
 
-The build with the module specifier `viewport-extra` is the smallest and ideal.
+The build with the module specifier `viewport-extra` is the lightest and ideal.
 
 ```js
 import("viewport-extra")
 ```
 
-If you need to ensure compatibility with environments that do not support ES2021 syntax and features in the Widely Available stage of the [Web Platform Baseline](https://web.dev/baseline) as of the release of Viewport Extra v3.0.0, a build that includes `es5` in the module specifier is required.
+If you need to ensure compatibility with environments that do not support ES2015+, a build that includes `es5` in the module specifier is required.
 
 ```js
 import("viewport-extra/es5")

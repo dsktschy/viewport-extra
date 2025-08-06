@@ -1,6 +1,6 @@
 # Viewport Extra [![](https://data.jsdelivr.com/v1/package/npm/viewport-extra/badge)](https://www.jsdelivr.com/package/npm/viewport-extra) [![npm version](https://img.shields.io/npm/v/viewport-extra.svg?style=flat-square)](https://www.npmjs.com/package/viewport-extra) [![GitHub license](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](https://github.com/dsktschy/viewport-extra/blob/master/LICENSE.txt)
 
-**English** | [日本語](./README.ja.md)
+**English** | [日本語](/README.ja.md)
 
 Viewport Extra is a library that enables setting the minimum / maximum width of the viewport. It reduces the range of the viewport that needs to be considered when styling.
 
@@ -8,13 +8,13 @@ For example, when displaying a 412px-wide page on a mobile browser with a viewpo
 
 Page scaling is achieved by updating the `content` attribute of the `<meta name="viewport">` element.
 
-Viewport Extra supports asynchronous loading via the `<script async>` element or the `import()` syntax, ensuring it does not interfere with other processes on the page. Additionally, Viewport Extra has no dependencies and its standard build is tiny, at less than 1KB (gzipped).
+Viewport Extra supports asynchronous loading via the `<script async>` element or the `import()` syntax, ensuring it does not interfere with other processes on the page. Additionally, Viewport Extra has no dependencies and its standard build is tiny, at less than 1KB (Brotli compressed).
 
 > [!IMPORTANT]
 > v3 includes breaking changes.
 >
-> - Reference: [Migration Guide from v2](./docs/en/migration-from-v2.md)
-> - Reference: [Migration Guide from v1](./docs/en/migration-from-v1.md)
+> - Reference: [Migration Guide from v2](/docs/en/migration-from-v2.md)
+> - Reference: [Migration Guide from v1](/docs/en/migration-from-v1.md)
 >
 > v2 and v1 will continue to be maintained and remain available for use.
 
@@ -41,7 +41,7 @@ Pages containing the following code are scaled down on mobile browsers with view
 
 ##### Using Module
 
-```ts
+```js
 import("viewport-extra").then(({ apply }) => {
   apply([{ content: { minimumWidth: 412 } }])
 })
@@ -90,7 +90,7 @@ Pages containing the following code are scaled up on mobile browsers with viewpo
 
 ##### Using Module
 
-```ts
+```js
 import("viewport-extra").then(({ apply }) => {
   apply([{ content: { maximumWidth: 393 } }])
 })
@@ -108,7 +108,7 @@ import("viewport-extra").then(({ apply }) => {
 
 ##### Chrome on Google Pixel 8 in Portrait Mode (412px)
 
-`initial-scale=1.094147582697201,width=393`
+`initial-scale=1.0483460559796438,width=393`
 
 ##### Safari on iPhone 15 in Landscape Mode (734px)
 
@@ -243,7 +243,7 @@ import("viewport-extra").then(({ apply }) => {
 
 ### Scale Page Even in Legacy Environments
 
-The standard build used above includes ES2021 syntax and features in the Widely Available stage of the [Web Platform Baseline](https://web.dev/baseline) as of the release of Viewport Extra v3.0.0. To ensure compatibility with environments that do not support these (e.g., iOS Safari < 16, Android Chrome < 108), the ES5 build can be used [(Reference)](./docs/en/migration-from-v2.md#build-selection).
+The standard build used above includes ES2021 syntax and features in the Widely Available stage of the [Web Platform Baseline](https://web.dev/baseline) as of the release of Viewport Extra v3.0.0. To ensure compatibility with environments that do not support these (e.g., iOS Safari < 16, Android Chrome < 108), the ES5 build can be used [(Reference)](/docs/en/migration-from-v2.md#build-selection).
 
 #### Implementation
 
@@ -262,7 +262,7 @@ The standard build used above includes ES2021 syntax and features in the Widely 
 
 ##### Using Module
 
-```ts
+```js
 import("viewport-extra/immediate/es5").then(({ apply }) => {
   apply([{ content: { minimumWidth: 412 } }])
 })
