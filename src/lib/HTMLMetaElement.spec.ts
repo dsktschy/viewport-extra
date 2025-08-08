@@ -183,10 +183,10 @@ describe('getNullableContentAttribute', () => {
       const htmlMetaElement = document.createElement('meta')
       htmlMetaElement.setAttribute(
         'data-extra-content',
-        'min-width=414,max-width=768'
+        'min-width=412,max-width=768'
       )
       expect(getNullableContentAttribute(htmlMetaElement)).toBe(
-        'min-width=414,max-width=768'
+        'min-width=412,max-width=768'
       )
     })
   })
@@ -200,10 +200,10 @@ describe('getNullableContentAttribute', () => {
       )
       htmlMetaElement.setAttribute(
         'data-extra-content',
-        'min-width=414,max-width=768'
+        'min-width=412,max-width=768'
       )
       expect(getNullableContentAttribute(htmlMetaElement)).toBe(
-        'width=device-width,initial-scale=1,interactive-widget=resizes-content,min-width=414,max-width=768'
+        'width=device-width,initial-scale=1,interactive-widget=resizes-content,min-width=412,max-width=768'
       )
     })
   })
@@ -264,14 +264,14 @@ describe('createPartialMediaSpecificParameters', () => {
       const htmlMetaElement = document.createElement('meta')
       htmlMetaElement.setAttribute(
         'content',
-        `width=device-width,min-width=414,interactive-widget=resizes-content`
+        `width=device-width,min-width=412,interactive-widget=resizes-content`
       )
       expect(
         createPartialMediaSpecificParameters(htmlMetaElement)
       ).toStrictEqual({
         content: {
           width: 'device-width',
-          minWidth: 414,
+          minWidth: 412,
           interactiveWidget: 'resizes-content'
         }
       })
@@ -283,14 +283,14 @@ describe('createPartialMediaSpecificParameters', () => {
       const htmlMetaElement = document.createElement('meta')
       htmlMetaElement.setAttribute(
         'data-extra-content',
-        `width=device-width,min-width=414,interactive-widget=resizes-content`
+        `width=device-width,min-width=412,interactive-widget=resizes-content`
       )
       expect(
         createPartialMediaSpecificParameters(htmlMetaElement)
       ).toStrictEqual({
         content: {
           width: 'device-width',
-          minWidth: 414,
+          minWidth: 412,
           interactiveWidget: 'resizes-content'
         }
       })
@@ -306,7 +306,7 @@ describe('createPartialMediaSpecificParameters', () => {
       )
       htmlMetaElement.setAttribute(
         'data-extra-content',
-        `min-width=414,max-width=768`
+        `min-width=412,max-width=768`
       )
       expect(
         createPartialMediaSpecificParameters(htmlMetaElement)
@@ -315,7 +315,7 @@ describe('createPartialMediaSpecificParameters', () => {
           width: 'device-width',
           initialScale: 1,
           interactiveWidget: 'resizes-content',
-          minWidth: 414,
+          minWidth: 412,
           maxWidth: 768
         }
       })
@@ -326,7 +326,7 @@ describe('createPartialMediaSpecificParameters', () => {
         const htmlMetaElement = document.createElement('meta')
         htmlMetaElement.setAttribute(
           'content',
-          `width=device-width,min-width=414,interactive-widget=resizes-content`
+          `width=device-width,min-width=412,interactive-widget=resizes-content`
         )
         htmlMetaElement.setAttribute(
           'data-extra-content',
@@ -437,7 +437,7 @@ describe('applyMediaSpecificParameters', () => {
           content: {
             width: 'device-width',
             initialScale: 2,
-            minWidth: 414,
+            minWidth: 412,
             maxWidth: 768,
             interactiveWidget: 'resizes-content'
           },
@@ -461,7 +461,7 @@ describe('applyMediaSpecificParameters', () => {
           content: {
             width: 'device-width',
             initialScale: 2,
-            minWidth: 414,
+            minWidth: 412,
             maxWidth: 768,
             interactiveWidget: 'resizes-content'
           },
@@ -470,7 +470,7 @@ describe('applyMediaSpecificParameters', () => {
         { unscaledComputing: false, decimalPlaces: Infinity }
       )
       expect(htmlMetaElement.getAttribute('content')).toBe(
-        'initial-scale=1.8115942028985508,interactive-widget=resizes-content,width=414'
+        'initial-scale=1.8203883495145632,interactive-widget=resizes-content,width=412'
       )
     })
   })
@@ -485,7 +485,7 @@ describe('applyMediaSpecificParameters', () => {
           content: {
             width: 'device-width',
             initialScale: 2,
-            minWidth: 414,
+            minWidth: 412,
             maxWidth: 768,
             interactiveWidget: 'resizes-content'
           },
@@ -510,7 +510,7 @@ describe('applyMediaSpecificParameters', () => {
             width: 'device-width',
             initialScale: 2,
             minWidth: 768,
-            maxWidth: 414,
+            maxWidth: 412,
             interactiveWidget: 'resizes-content'
           },
           media: ''
@@ -533,7 +533,7 @@ describe('applyMediaSpecificParameters', () => {
           content: {
             width: 1024,
             initialScale: 2,
-            minWidth: 414,
+            minWidth: 412,
             maxWidth: 768,
             interactiveWidget: 'resizes-content'
           },
@@ -570,7 +570,7 @@ describe('applyMediaSpecificParameters', () => {
           content: {
             width: 'device-width',
             initialScale: 1,
-            minWidth: 414,
+            minWidth: 412,
             maxWidth: Infinity
           },
           media: ''
@@ -606,7 +606,7 @@ describe('applyMediaSpecificParameters', () => {
           content: {
             width: 'device-width',
             initialScale: 1,
-            minWidth: 414,
+            minWidth: 412,
             maxWidth: Infinity
           },
           media: ''
@@ -614,7 +614,7 @@ describe('applyMediaSpecificParameters', () => {
         { unscaledComputing: true, decimalPlaces: Infinity }
       )
       expect(htmlMetaElement.getAttribute('content')).toBe(
-        'initial-scale=0.7729468599033816,width=414'
+        'initial-scale=0.7766990291262136,width=412'
       )
     })
   })
@@ -629,7 +629,7 @@ describe('applyMediaSpecificParameters', () => {
           content: {
             width: 'device-width',
             initialScale: 1.123456789,
-            minWidth: 414,
+            minWidth: 412,
             maxWidth: Infinity,
             minimumScale: 0.123456789
           },
@@ -638,7 +638,7 @@ describe('applyMediaSpecificParameters', () => {
         { unscaledComputing: false, decimalPlaces: 6 }
       )
       expect(htmlMetaElement.getAttribute('content')).toBe(
-        'initial-scale=1.017623,minimum-scale=0.123456,width=414'
+        'initial-scale=1.022563,minimum-scale=0.123456,width=412'
       )
     })
   })
@@ -653,7 +653,7 @@ describe('applyMediaSpecificParameters', () => {
           content: {
             width: 'device-width',
             initialScale: 1.123456789,
-            minWidth: 414,
+            minWidth: 412,
             maxWidth: Infinity,
             minimumScale: 0.123456789
           },
@@ -662,7 +662,7 @@ describe('applyMediaSpecificParameters', () => {
         { unscaledComputing: false, decimalPlaces: Infinity }
       )
       expect(htmlMetaElement.getAttribute('content')).toBe(
-        'initial-scale=1.0176239030797103,minimum-scale=0.123456789,width=414'
+        'initial-scale=1.0225638249393205,minimum-scale=0.123456789,width=412'
       )
     })
   })
@@ -679,7 +679,7 @@ describe('applyMediaSpecificParametersUnscaled', () => {
           content: {
             width: 'device-width',
             initialScale: 2,
-            minWidth: 414,
+            minWidth: 412,
             maxWidth: 768,
             interactiveWidget: 'resizes-content'
           },
@@ -703,7 +703,7 @@ describe('applyMediaSpecificParametersUnscaled', () => {
           content: {
             width: 'device-width',
             initialScale: 2,
-            minWidth: 414,
+            minWidth: 412,
             maxWidth: 768,
             interactiveWidget: 'resizes-content'
           },
@@ -712,7 +712,7 @@ describe('applyMediaSpecificParametersUnscaled', () => {
         { unscaledComputing: false, decimalPlaces: Infinity }
       )
       expect(htmlMetaElement.getAttribute('content')).toBe(
-        'initial-scale=1.8115942028985508,interactive-widget=resizes-content,width=414'
+        'initial-scale=1.8203883495145632,interactive-widget=resizes-content,width=412'
       )
     })
   })
@@ -727,7 +727,7 @@ describe('applyMediaSpecificParametersUnscaled', () => {
           content: {
             width: 'device-width',
             initialScale: 2,
-            minWidth: 414,
+            minWidth: 412,
             maxWidth: 768,
             interactiveWidget: 'resizes-content'
           },
@@ -752,7 +752,7 @@ describe('applyMediaSpecificParametersUnscaled', () => {
             width: 'device-width',
             initialScale: 2,
             minWidth: 768,
-            maxWidth: 414,
+            maxWidth: 412,
             interactiveWidget: 'resizes-content'
           },
           media: ''
@@ -775,7 +775,7 @@ describe('applyMediaSpecificParametersUnscaled', () => {
           content: {
             width: 1024,
             initialScale: 2,
-            minWidth: 414,
+            minWidth: 412,
             maxWidth: 768,
             interactiveWidget: 'resizes-content'
           },
@@ -812,7 +812,7 @@ describe('applyMediaSpecificParametersUnscaled', () => {
           content: {
             width: 'device-width',
             initialScale: 1,
-            minWidth: 414,
+            minWidth: 412,
             maxWidth: Infinity
           },
           media: ''
@@ -820,7 +820,7 @@ describe('applyMediaSpecificParametersUnscaled', () => {
         { unscaledComputing: false, decimalPlaces: Infinity }
       )
       expect(htmlMetaElement.getAttribute('content')).toBe(
-        'initial-scale=0.7729468599033816,width=414'
+        'initial-scale=0.7766990291262136,width=412'
       )
     })
   })
@@ -848,7 +848,7 @@ describe('applyMediaSpecificParametersUnscaled', () => {
           content: {
             width: 'device-width',
             initialScale: 1,
-            minWidth: 414,
+            minWidth: 412,
             maxWidth: Infinity
           },
           media: ''
@@ -856,7 +856,7 @@ describe('applyMediaSpecificParametersUnscaled', () => {
         { unscaledComputing: true, decimalPlaces: Infinity }
       )
       expect(htmlMetaElement.getAttribute('content')).toBe(
-        'initial-scale=0.7729468599033816,width=414'
+        'initial-scale=0.7766990291262136,width=412'
       )
     })
   })
@@ -871,7 +871,7 @@ describe('applyMediaSpecificParametersUnscaled', () => {
           content: {
             width: 'device-width',
             initialScale: 1.123456789,
-            minWidth: 414,
+            minWidth: 412,
             maxWidth: Infinity,
             minimumScale: 0.123456789
           },
@@ -880,7 +880,7 @@ describe('applyMediaSpecificParametersUnscaled', () => {
         { unscaledComputing: false, decimalPlaces: 6 }
       )
       expect(htmlMetaElement.getAttribute('content')).toBe(
-        'initial-scale=1.017623,minimum-scale=0.123456,width=414'
+        'initial-scale=1.022563,minimum-scale=0.123456,width=412'
       )
     })
   })
@@ -895,7 +895,7 @@ describe('applyMediaSpecificParametersUnscaled', () => {
           content: {
             width: 'device-width',
             initialScale: 1.123456789,
-            minWidth: 414,
+            minWidth: 412,
             maxWidth: Infinity,
             minimumScale: 0.123456789
           },
@@ -904,7 +904,7 @@ describe('applyMediaSpecificParametersUnscaled', () => {
         { unscaledComputing: false, decimalPlaces: Infinity }
       )
       expect(htmlMetaElement.getAttribute('content')).toBe(
-        'initial-scale=1.0176239030797103,minimum-scale=0.123456789,width=414'
+        'initial-scale=1.0225638249393205,minimum-scale=0.123456789,width=412'
       )
     })
   })

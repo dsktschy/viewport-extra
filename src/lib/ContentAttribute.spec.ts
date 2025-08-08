@@ -8,16 +8,16 @@ describe('mergeNullableContentAttributes', () => {
   describe('case where only first argument is not null', () => {
     it('should return first argument', () => {
       expect(
-        mergeNullableContentAttributes('min-width=414,max-width=768', null)
-      ).toBe('min-width=414,max-width=768')
+        mergeNullableContentAttributes('min-width=412,max-width=768', null)
+      ).toBe('min-width=412,max-width=768')
     })
   })
 
   describe('case where only second argument is not null', () => {
     it('should return second argument', () => {
       expect(
-        mergeNullableContentAttributes(null, 'min-width=414,max-width=768')
-      ).toBe('min-width=414,max-width=768')
+        mergeNullableContentAttributes(null, 'min-width=412,max-width=768')
+      ).toBe('min-width=412,max-width=768')
     })
   })
 
@@ -26,10 +26,10 @@ describe('mergeNullableContentAttributes', () => {
       expect(
         mergeNullableContentAttributes(
           'width=device-width,initial-scale=1,interactive-widget=resizes-content',
-          'min-width=414,max-width=768'
+          'min-width=412,max-width=768'
         )
       ).toBe(
-        'width=device-width,initial-scale=1,interactive-widget=resizes-content,min-width=414,max-width=768'
+        'width=device-width,initial-scale=1,interactive-widget=resizes-content,min-width=412,max-width=768'
       )
     })
   })
@@ -84,8 +84,8 @@ describe('createOptionalPartialContent', () => {
 
     describe('case where string after equal is number', () => {
       it('should return object that value of created property is number type', () => {
-        expect(createOptionalPartialContent('width=414')).toStrictEqual({
-          width: 414
+        expect(createOptionalPartialContent('width=412')).toStrictEqual({
+          width: 412
         })
       })
     })

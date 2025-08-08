@@ -10,7 +10,7 @@ describe('ensureViewportElement', () => {
     it('should return existing viewport meta element', () => {
       document.head.innerHTML = `
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=414,initial-scale=2" />
+        <meta name="viewport" content="width=412,initial-scale=2" />
       `
       expect(ensureViewportElement(document)).toBe(
         document.querySelector('meta[name="viewport"]')
@@ -39,7 +39,7 @@ describe('getViewportExtraElementList', () => {
       document.head.innerHTML = `
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <meta name="viewport-extra" content="min-width=414" />
+        <meta name="viewport-extra" content="min-width=412" />
         <meta name="viewport-extra" content="max-width=768" />
       `
       const selectedViewportElementList = document.querySelectorAll(
@@ -69,9 +69,9 @@ describe('getViewportExtraElementList', () => {
 describe('getDocumentClientWidth', () => {
   it('should return document.documentElement.clientWidth', () => {
     Object.defineProperty(document.documentElement, 'clientWidth', {
-      value: 414,
+      value: 412,
       configurable: true
     })
-    expect(getDocumentClientWidth(document)).toBe(414)
+    expect(getDocumentClientWidth(document)).toBe(412)
   })
 })
