@@ -173,7 +173,7 @@ describe('mergePartialMediaSpecificParameters', () => {
               content: {
                 width: 1280,
                 initialScale: 2,
-                minWidth: 414,
+                minWidth: 412,
                 maxWidth: 768,
                 interactiveWidget: 'overlays-content'
               },
@@ -184,7 +184,7 @@ describe('mergePartialMediaSpecificParameters', () => {
           content: {
             width: 1280,
             initialScale: 2,
-            minWidth: 414,
+            minWidth: 412,
             maxWidth: 768,
             interactiveWidget: 'overlays-content'
           },
@@ -247,11 +247,11 @@ describe('createContentAttribute', () => {
             },
             media: '(min-width: 768px)'
           },
-          414,
+          412,
           Infinity
         )
       ).toBe(
-        'initial-scale=1.29375,interactive-widget=resizes-content,width=640'
+        'initial-scale=1.2875,interactive-widget=resizes-content,width=640'
       )
     })
   })
@@ -291,7 +291,7 @@ describe('createContentAttribute', () => {
             },
             media: '(min-width: 768px)'
           },
-          414,
+          412,
           Infinity
         )
       ).toBe(
@@ -329,7 +329,7 @@ describe('createContentAttribute', () => {
             content: {
               width: 'device-width',
               initialScale: 1.123456789,
-              minWidth: 414,
+              minWidth: 412,
               maxWidth: Infinity,
               minimumScale: 0.123456789
             },
@@ -338,7 +338,7 @@ describe('createContentAttribute', () => {
           375,
           6
         )
-      ).toBe('initial-scale=1.017623,minimum-scale=0.123456,width=414')
+      ).toBe('initial-scale=1.022563,minimum-scale=0.123456,width=412')
     })
   })
 
@@ -350,7 +350,7 @@ describe('createContentAttribute', () => {
             content: {
               width: 'device-width',
               initialScale: 1.123456789,
-              minWidth: 414,
+              minWidth: 412,
               maxWidth: Infinity,
               minimumScale: 0.123456789
             },
@@ -360,7 +360,7 @@ describe('createContentAttribute', () => {
           Infinity
         )
       ).toBe(
-        'initial-scale=1.0176239030797103,minimum-scale=0.123456789,width=414'
+        'initial-scale=1.0225638249393205,minimum-scale=0.123456789,width=412'
       )
     })
   })
@@ -374,14 +374,14 @@ describe('assignOptionalPartialContent', () => {
           {},
           {
             width: 'device-width',
-            minWidth: 414,
+            minWidth: 412,
             interactiveWidget: 'resizes-content'
           }
         )
       ).toStrictEqual({
         content: {
           width: 'device-width',
-          minWidth: 414,
+          minWidth: 412,
           interactiveWidget: 'resizes-content'
         }
       })
@@ -393,13 +393,13 @@ describe('assignOptionalPartialContent', () => {
       expect(
         assignOptionalPartialContent(undefined, {
           width: 'device-width',
-          minWidth: 414,
+          minWidth: 412,
           interactiveWidget: 'resizes-content'
         })
       ).toStrictEqual({
         content: {
           width: 'device-width',
-          minWidth: 414,
+          minWidth: 412,
           interactiveWidget: 'resizes-content'
         }
       })
@@ -446,7 +446,7 @@ describe('getContent', () => {
         content: {
           width: 'device-width',
           initialScale: 2,
-          minWidth: 414,
+          minWidth: 412,
           maxWidth: 768,
           interactiveWidget: 'resizes-content'
         },
@@ -455,7 +455,7 @@ describe('getContent', () => {
     ).toStrictEqual({
       width: 'device-width',
       initialScale: 2,
-      minWidth: 414,
+      minWidth: 412,
       maxWidth: 768,
       interactiveWidget: 'resizes-content'
     })
@@ -471,7 +471,7 @@ describe('createPartialMediaSpecificParametersMerger', () => {
             content: {
               width: 'device-width',
               initialScale: 1,
-              minWidth: 414
+              minWidth: 412
             }
           },
           {
@@ -500,7 +500,7 @@ describe('createPartialMediaSpecificParametersMerger', () => {
             content: {
               width: 'device-width',
               initialScale: 1,
-              minWidth: 414
+              minWidth: 412
             }
           },
           {
@@ -514,7 +514,7 @@ describe('createPartialMediaSpecificParametersMerger', () => {
         content: {
           width: 'device-width',
           initialScale: 1,
-          minWidth: 414
+          minWidth: 412
         }
       })
     })

@@ -43,14 +43,14 @@ describe('side effects', () => {
         document.head.innerHTML = `
           <meta charset="utf-8" />
           <meta name="viewport" content="width=device-width,initial-scale=1" />
-          <meta name="viewport-extra" content="min-width=414" />
+          <meta name="viewport-extra" content="min-width=412" />
         `
         await import('./index.js')
         expect(
           document
             .querySelector('meta[name="viewport"]')
             ?.getAttribute('content')
-        ).toBe('initial-scale=0.7729468599033816,width=414')
+        ).toBe('initial-scale=0.7766990291262136,width=412')
       })
     })
 
@@ -84,14 +84,14 @@ describe('side effects', () => {
           <meta charset="utf-8" />
           <meta name="viewport" content="width=device-width,initial-scale=1" />
           <meta name="viewport" content="" />
-          <meta name="viewport-extra" content="min-width=414" />
+          <meta name="viewport-extra" content="min-width=412" />
         `
         await import('./index.js')
         const viewportElementList = document.querySelectorAll(
           'meta[name="viewport"]'
         )
         expect(viewportElementList[0]?.getAttribute('content')).toBe(
-          'initial-scale=0.7729468599033816,width=414'
+          'initial-scale=0.7766990291262136,width=412'
         )
         expect(viewportElementList[1]?.getAttribute('content')).toBe('')
       })
@@ -115,14 +115,14 @@ describe('setParameters', () => {
         const { setParameters } = await import('./index.js')
         setParameters([
           { content: { minWidth: 375 } },
-          { content: { minWidth: 414 } }
+          { content: { minWidth: 412 } }
         ])
         expect(
           document
             .querySelector('meta[name="viewport"]')
             ?.getAttribute('content')
         ).toBe(
-          'initial-scale=0.7729468599033816,interactive-widget=resizes-visual,width=414'
+          'initial-scale=0.7766990291262136,interactive-widget=resizes-visual,width=412'
         )
       })
     })
@@ -165,12 +165,12 @@ describe('setParameters', () => {
           <meta name="viewport" content="" />
         `
         const { setParameters } = await import('./index.js')
-        setParameters([{ content: { minWidth: 414 } }])
+        setParameters([{ content: { minWidth: 412 } }])
         const viewportElementList = document.querySelectorAll(
           'meta[name="viewport"]'
         )
         expect(viewportElementList[0]?.getAttribute('content')).toBe(
-          'initial-scale=0.7729468599033816,width=414'
+          'initial-scale=0.7766990291262136,width=412'
         )
         expect(viewportElementList[1]?.getAttribute('content')).toBe('')
       })
@@ -192,13 +192,13 @@ describe('setContent', () => {
           <meta name="viewport-extra" content="interactive-widget=resizes-visual" />
         `
         const { setContent } = await import('./index.js')
-        setContent({ minWidth: 414 })
+        setContent({ minWidth: 412 })
         expect(
           document
             .querySelector('meta[name="viewport"]')
             ?.getAttribute('content')
         ).toBe(
-          'initial-scale=0.7729468599033816,interactive-widget=resizes-visual,width=414'
+          'initial-scale=0.7766990291262136,interactive-widget=resizes-visual,width=412'
         )
       })
     })
@@ -238,12 +238,12 @@ describe('setContent', () => {
           <meta name="viewport" content="" />
         `
         const { setContent } = await import('./index.js')
-        setContent({ minWidth: 414 })
+        setContent({ minWidth: 412 })
         const viewportElementList = document.querySelectorAll(
           'meta[name="viewport"]'
         )
         expect(viewportElementList[0]?.getAttribute('content')).toBe(
-          'initial-scale=0.7729468599033816,width=414'
+          'initial-scale=0.7766990291262136,width=412'
         )
         expect(viewportElementList[1]?.getAttribute('content')).toBe('')
       })
@@ -256,13 +256,13 @@ describe('getContent', () => {
     document.head.innerHTML = `
       <meta charset="utf-8" />
       <meta name="viewport" content="width=640,initial-scale=2" />
-      <meta name="viewport-extra" content="min-width=414,max-width=768" />
+      <meta name="viewport-extra" content="min-width=412,max-width=768" />
     `
     const { getContent } = await import('./index.js')
     expect(getContent()).toStrictEqual({
       width: 640,
       initialScale: 2,
-      minWidth: 414,
+      minWidth: 412,
       maxWidth: 768
     })
   })
@@ -289,9 +289,9 @@ describe('updateReference', () => {
       document.head.removeChild(firstViewportMetaElement)
       document.head.appendChild(secondViewportMetaElement)
       updateReference()
-      setContent({ minWidth: 414 })
+      setContent({ minWidth: 412 })
       expect(secondViewportMetaElement.getAttribute('content')).toBe(
-        'initial-scale=0.7729468599033816,width=414'
+        'initial-scale=0.7766990291262136,width=412'
       )
     })
 
@@ -318,12 +318,12 @@ describe('updateReference', () => {
           firstViewportMetaElement
         )
         updateReference()
-        setContent({ minWidth: 414 })
+        setContent({ minWidth: 412 })
         const viewportElementList = document.querySelectorAll(
           'meta[name="viewport"]'
         )
         expect(viewportElementList[0].getAttribute('content')).toBe(
-          'initial-scale=0.7729468599033816,width=414'
+          'initial-scale=0.7766990291262136,width=412'
         )
         expect(viewportElementList[1].getAttribute('content')).toBe('')
       })
@@ -335,7 +335,7 @@ describe('updateReference', () => {
       document.head.innerHTML = `
         <meta charset="utf-8" />
         <meta name="viewport" content="width=640,initial-scale=2" />
-        <meta name="viewport-extra" content="min-width=414,max-width=768" />
+        <meta name="viewport-extra" content="min-width=412,max-width=768" />
       `
       const { updateReference, getContent } = await import('./index.js')
       const firstViewportMetaElement = document.querySelector(
@@ -354,7 +354,7 @@ describe('updateReference', () => {
       expect(getContent()).toStrictEqual({
         width: 640,
         initialScale: 2,
-        minWidth: 414,
+        minWidth: 412,
         maxWidth: 768
       })
     })
@@ -375,13 +375,13 @@ describe('constructor of ViewportExtra class', () => {
           <meta name="viewport-extra" content="interactive-widget=resizes-visual" />
         `
         const { default: ViewportExtra } = await import('./index.js')
-        new ViewportExtra({ minWidth: 414 })
+        new ViewportExtra({ minWidth: 412 })
         expect(
           document
             .querySelector('meta[name="viewport"]')
             ?.getAttribute('content')
         ).toBe(
-          'initial-scale=0.7729468599033816,interactive-widget=resizes-visual,width=414'
+          'initial-scale=0.7766990291262136,interactive-widget=resizes-visual,width=412'
         )
       })
     })
@@ -421,12 +421,12 @@ describe('constructor of ViewportExtra class', () => {
           <meta name="viewport" content="" />
         `
         const { default: ViewportExtra } = await import('./index.js')
-        new ViewportExtra({ minWidth: 414 })
+        new ViewportExtra({ minWidth: 412 })
         const viewportElementList = document.querySelectorAll(
           'meta[name="viewport"]'
         )
         expect(viewportElementList[0]?.getAttribute('content')).toBe(
-          'initial-scale=0.7729468599033816,width=414'
+          'initial-scale=0.7766990291262136,width=412'
         )
         expect(viewportElementList[1]?.getAttribute('content')).toBe('')
       })
@@ -450,14 +450,14 @@ describe('setParameters method of ViewportExtra class', () => {
         const { default: ViewportExtra } = await import('./index.js')
         ViewportExtra.setParameters([
           { content: { minWidth: 375 } },
-          { content: { minWidth: 414 } }
+          { content: { minWidth: 412 } }
         ])
         expect(
           document
             .querySelector('meta[name="viewport"]')
             ?.getAttribute('content')
         ).toBe(
-          'initial-scale=0.7729468599033816,interactive-widget=resizes-visual,width=414'
+          'initial-scale=0.7766990291262136,interactive-widget=resizes-visual,width=412'
         )
       })
     })
@@ -500,12 +500,12 @@ describe('setParameters method of ViewportExtra class', () => {
           <meta name="viewport" content="" />
         `
         const { default: ViewportExtra } = await import('./index.js')
-        ViewportExtra.setParameters([{ content: { minWidth: 414 } }])
+        ViewportExtra.setParameters([{ content: { minWidth: 412 } }])
         const viewportElementList = document.querySelectorAll(
           'meta[name="viewport"]'
         )
         expect(viewportElementList[0]?.getAttribute('content')).toBe(
-          'initial-scale=0.7729468599033816,width=414'
+          'initial-scale=0.7766990291262136,width=412'
         )
         expect(viewportElementList[1]?.getAttribute('content')).toBe('')
       })
@@ -527,13 +527,13 @@ describe('setContent method of ViewportExtra class', () => {
           <meta name="viewport-extra" content="interactive-widget=resizes-visual" />
         `
         const { default: ViewportExtra } = await import('./index.js')
-        ViewportExtra.setContent({ minWidth: 414 })
+        ViewportExtra.setContent({ minWidth: 412 })
         expect(
           document
             .querySelector('meta[name="viewport"]')
             ?.getAttribute('content')
         ).toBe(
-          'initial-scale=0.7729468599033816,interactive-widget=resizes-visual,width=414'
+          'initial-scale=0.7766990291262136,interactive-widget=resizes-visual,width=412'
         )
       })
     })
@@ -573,12 +573,12 @@ describe('setContent method of ViewportExtra class', () => {
           <meta name="viewport" content="" />
         `
         const { default: ViewportExtra } = await import('./index.js')
-        ViewportExtra.setContent({ minWidth: 414 })
+        ViewportExtra.setContent({ minWidth: 412 })
         const viewportElementList = document.querySelectorAll(
           'meta[name="viewport"]'
         )
         expect(viewportElementList[0]?.getAttribute('content')).toBe(
-          'initial-scale=0.7729468599033816,width=414'
+          'initial-scale=0.7766990291262136,width=412'
         )
         expect(viewportElementList[1]?.getAttribute('content')).toBe('')
       })
@@ -591,13 +591,13 @@ describe('getContent method of ViewportExtra class', () => {
     document.head.innerHTML = `
       <meta charset="utf-8" />
       <meta name="viewport" content="width=640,initial-scale=2" />
-      <meta name="viewport-extra" content="min-width=414,max-width=768" />
+      <meta name="viewport-extra" content="min-width=412,max-width=768" />
     `
     const { default: ViewportExtra } = await import('./index.js')
     expect(ViewportExtra.getContent()).toStrictEqual({
       width: 640,
       initialScale: 2,
-      minWidth: 414,
+      minWidth: 412,
       maxWidth: 768
     })
   })
@@ -624,9 +624,9 @@ describe('updateReference method of ViewportExtra class', () => {
       document.head.removeChild(firstViewportMetaElement)
       document.head.appendChild(secondViewportMetaElement)
       ViewportExtra.updateReference()
-      setContent({ minWidth: 414 })
+      setContent({ minWidth: 412 })
       expect(secondViewportMetaElement.getAttribute('content')).toBe(
-        'initial-scale=0.7729468599033816,width=414'
+        'initial-scale=0.7766990291262136,width=412'
       )
     })
 
@@ -655,12 +655,12 @@ describe('updateReference method of ViewportExtra class', () => {
           firstViewportMetaElement
         )
         ViewportExtra.updateReference()
-        setContent({ minWidth: 414 })
+        setContent({ minWidth: 412 })
         const viewportElementList = document.querySelectorAll(
           'meta[name="viewport"]'
         )
         expect(viewportElementList[0].getAttribute('content')).toBe(
-          'initial-scale=0.7729468599033816,width=414'
+          'initial-scale=0.7766990291262136,width=412'
         )
         expect(viewportElementList[1].getAttribute('content')).toBe('')
       })
@@ -672,7 +672,7 @@ describe('updateReference method of ViewportExtra class', () => {
       document.head.innerHTML = `
         <meta charset="utf-8" />
         <meta name="viewport" content="width=640,initial-scale=2" />
-        <meta name="viewport-extra" content="min-width=414,max-width=768" />
+        <meta name="viewport-extra" content="min-width=412,max-width=768" />
       `
       const { default: ViewportExtra, getContent } = await import('./index.js')
       const firstViewportMetaElement = document.querySelector(
@@ -691,7 +691,7 @@ describe('updateReference method of ViewportExtra class', () => {
       expect(getContent()).toStrictEqual({
         width: 640,
         initialScale: 2,
-        minWidth: 414,
+        minWidth: 412,
         maxWidth: 768
       })
     })
