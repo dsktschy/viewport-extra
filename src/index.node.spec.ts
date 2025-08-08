@@ -13,7 +13,7 @@ describe('setParameters', () => {
     it('does not throw error', async () => {
       const { setParameters } = await import('./index.js')
       expect(() => {
-        setParameters([{ content: { minWidth: 414 } }])
+        setParameters([{ content: { minWidth: 412 } }])
       }).not.toThrowError()
     })
   })
@@ -24,7 +24,7 @@ describe('setContent', () => {
     it('does not throw error', async () => {
       const { setContent } = await import('./index.js')
       expect(() => {
-        setContent({ minWidth: 414 })
+        setContent({ minWidth: 412 })
       }).not.toThrowError()
     })
   })
@@ -60,7 +60,7 @@ describe('constructor of ViewportExtra class', () => {
     it('does not throw error', async () => {
       const { default: ViewportExtra } = await import('./index.js')
       expect(() => {
-        new ViewportExtra(414)
+        new ViewportExtra(412)
       }).not.toThrowError()
     })
   })
@@ -71,7 +71,7 @@ describe('setParameters method of ViewportExtra class', () => {
     it('does not throw error', async () => {
       const { default: ViewportExtra } = await import('./index.js')
       expect(() => {
-        ViewportExtra.setParameters([{ content: { minWidth: 414 } }])
+        ViewportExtra.setParameters([{ content: { minWidth: 412 } }])
       }).not.toThrowError()
     })
   })
@@ -82,7 +82,7 @@ describe('setContent method of ViewportExtra class', () => {
     it('does not throw error', async () => {
       const { default: ViewportExtra } = await import('./index.js')
       expect(() => {
-        ViewportExtra.setContent({ minWidth: 414 })
+        ViewportExtra.setContent({ minWidth: 412 })
       }).not.toThrowError()
     })
   })

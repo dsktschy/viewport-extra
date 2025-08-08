@@ -3,7 +3,7 @@ import { createPartialContent, truncateDecimalNumber } from './number.js'
 
 describe('createPartialContent', () => {
   it('should return object whose min-width property is argument value', () => {
-    expect(createPartialContent(414)).toStrictEqual({ minWidth: 414 })
+    expect(createPartialContent(412)).toStrictEqual({ minWidth: 412 })
   })
 })
 

@@ -18,7 +18,7 @@ const RootLayout: FunctionComponent<{
   <html lang="en">
     <body className={openSans.className}>
       <div className="page">{children}</div>
-      <ViewportExtra minWidth={430} />
+      <ViewportExtra minWidth={412} />
     </body>
   </html>
 )
