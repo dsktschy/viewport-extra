@@ -1,3 +1,9 @@
-## Next.js (Pages Router) Example
+# Usage Examples in Next.js (Pages Router) Application
 
-This example shows how to use Viewport Extra in [Next.js (Pages Router)](https://nextjs.org/docs/pages) application.
+**English** | [日本語](/examples/next-pages-router/README.ja.md)
+
+This example shows how to use Viewport Extra in a [Next.js (Pages Router)](https://nextjs.org/docs/pages) application.
+
+## Notes
+
+- When testing with developer tools of desktop browsers, mobile device simulation must be enabled and the viewport must be set to the desired size before navigating to a page that uses Viewport Extra. If the order is reversed, the browser may ignore the `initial-scale` setting of the `<meta name="viewport">` element. This behavior is specific to simulation in developer tools and does not occur in actual mobile browsers.
