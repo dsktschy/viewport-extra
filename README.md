@@ -1,354 +1,248 @@
 # Viewport Extra [![](https://data.jsdelivr.com/v1/package/npm/viewport-extra/badge)](https://www.jsdelivr.com/package/npm/viewport-extra) [![npm version](https://img.shields.io/npm/v/viewport-extra.svg?style=flat-square)](https://www.npmjs.com/package/viewport-extra) [![GitHub license](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](https://github.com/dsktschy/viewport-extra/blob/master/LICENSE.txt)
 
-Viewport Extra enables setting the minimum and maximum width of the viewport, by overriding the content attribute of the viewport meta element. It will reduce the range of the viewport that needs to be considered when styling.
+**English** | [日本語](/README.ja.md)
 
-For example, if a page with a width of 412px is displayed in mobile device browsers that display a width of 360px (e.g. Galaxy S24 in portrait mode), horizontal scrolling will typically occur. Therefore, styling for media less than 412px is needed. However, by setting the minimum width of the viewport for the page to 412px with Viewport Extra, the page will be scaled down to fit perfectly into a width of 360px and horizontal scrolling will not occur. As a result, styling for media less than 412px is not needed.
+Viewport Extra is a library that enables setting the minimum / maximum width of the viewport. It reduces the range of the viewport that needs to be considered when styling.
 
-## Recipes
+For example, when displaying a 412px-wide page on a mobile browser with a viewport width of 360px (e.g., Chrome on Galaxy S24 in portrait mode), horizontal scrolling occurs. This can be resolved by styling for viewport widths less than 412px, but it's a hassle. However, by using Viewport Extra to set the minimum viewport width to 412px, the page will be scaled down to fit perfectly within 360px, eliminating horizontal scrolling. This provides a simple solution with no styling required.
 
-It is recommended to use a script element with the async attribute or the dynamic import.
+Page scaling is achieved by updating the `content` attribute of the `<meta name="viewport">` element.
 
-### Scale down on small mobile devices
+## Use Cases
 
-The following codes will scale the page down in mobile device browsers that display a width less than 412px, and will do nothing in mobile device browsers that display a width of 412px or greater. Scaling occurs only once when the page is displayed. See also ["Rescale when device orientation changes"](#Rescale-when-device-orientation-changes).
+- [Scale Down Page on Small Viewport Widths](#scale-down-page-on-small-viewport-widths)
+- [Scale Up Page on Large Viewport Widths](#scale-up-page-on-large-viewport-widths)
+- [Set Different Minimum / Maximum Widths per Media Query](#set-different-minimum--maximum-widths-per-media-query)
+- [Rescale Page When Viewport Width Changes](#rescale-page-when-viewport-width-changes)
 
-#### Using script
+### Scale Down Page on Small Viewport Widths
+
+Pages containing the following code are scaled down on mobile browsers with viewport widths less than 412px, but are not scaled down on other browsers. Whether to scale down is determined only once when the pages are displayed [(Reference)](#rescale-page-when-viewport-width-changes).
+
+#### Implementation
+
+##### Using Script
 
 <!-- x-release-please-start-version -->
-<!-- prettier-ignore-start -->
 
 ```html
-<meta name="viewport-extra" content="min-width=412" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport-extra" content="min-width=412">
 
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/iife/viewport-extra.min.js"></script>
 ```
 
-<!-- prettier-ignore-end -->
-<!-- x-release-please-end-version -->
+<!-- x-release-please-end -->
 
-#### Using module
+##### Using Module
 
-<!-- prettier-ignore-start -->
-
-```ts
-import('viewport-extra').then(({ setContent }) => {
+```js
+import("viewport-extra").then(({ setContent }) => {
   setContent({ minWidth: 412 })
 })
 ```
 
-<!-- prettier-ignore-end -->
+#### Results of Updating `content` Attribute of `<meta name="viewport">` Element
 
-#### Results
+##### Chrome on Galaxy S24 in Portrait Mode (360px)
 
-##### On Galaxy S24 in portrait mode (360px)
+`initial-scale=0.8737864077669902,width=412`
 
-`<meta name="viewport" content="initial-scale=0.8737864077669902,width=412" />`
+##### Safari on iPhone 15 in Portrait Mode (393px)
 
-##### On iPhone 15 in portrait mode (393px)
+`initial-scale=0.9538834951456311,width=412`
 
-`<meta name="viewport" content="initial-scale=0.9538834951456311,width=412" />`
+##### Chrome on Google Pixel 8 in Portrait Mode (412px)
 
-##### On Google Pixel 8 in Portrait Mode (412px)
+`initial-scale=1,width=device-width`
 
-`<meta name="viewport" content="initial-scale=1,width=device-width" />`
+##### Safari on iPhone 15 in Landscape Mode (734px)
 
-##### On iPhone 15 in landscape mode (734px)
+`initial-scale=1,width=device-width`
 
-`<meta name="viewport" content="initial-scale=1,width=device-width" />`
+##### Safari on iPad Pro 12.9" in Portrait Mode (1024px)
 
-##### On iPad Pro 12.9" in portrait mode (1024px)
+`initial-scale=1,width=device-width`
 
-`<meta name="viewport" content="initial-scale=1,width=device-width" />`
+### Scale Up Page on Large Viewport Widths
 
-### Scale up on large mobile devices
+Pages containing the following code are scaled up on mobile browsers with viewport widths greater than 393px, but are not scaled up on other browsers. Whether to scale up is determined only once when the pages are displayed [(Reference)](#rescale-page-when-viewport-width-changes).
 
-The following codes will scale the page up in mobile device browsers that display a width greater than 393px, and will do nothing in mobile device browsers that display a width of 393px or less. Scaling occurs only once when the page is displayed. See also ["Rescale when device orientation changes"](#Rescale-when-device-orientation-changes).
+#### Implementation
 
-#### Using script
+##### Using Script
 
 <!-- x-release-please-start-version -->
-<!-- prettier-ignore-start -->
 
 ```html
-<meta name="viewport-extra" content="max-width=393" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport-extra" content="max-width=393">
 
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/iife/viewport-extra.min.js"></script>
 ```
 
-<!-- prettier-ignore-end -->
-<!-- x-release-please-end-version -->
+<!-- x-release-please-end -->
 
-#### Using module
+##### Using Module
 
-<!-- prettier-ignore-start -->
-
-```ts
-import('viewport-extra').then(({ setContent }) => {
+```js
+import("viewport-extra").then(({ setContent }) => {
   setContent({ maxWidth: 393 })
 })
 ```
 
-<!-- prettier-ignore-end -->
+#### Results of Updating `content` Attribute of `<meta name="viewport">` Element
 
-#### Results
+##### Chrome on Galaxy S24 in Portrait Mode (360px)
 
-##### On Galaxy S24 in portrait mode (360px)
+`initial-scale=1,width=device-width`
 
-`<meta name="viewport" content="initial-scale=1,width=device-width" />`
+##### Safari on iPhone 15 in Portrait Mode (393px)
 
-##### On iPhone 15 in portrait mode (393px)
+`initial-scale=1,width=device-width`
 
-`<meta name="viewport" content="initial-scale=1,width=device-width" />`
+##### Chrome on Google Pixel 8 in Portrait Mode (412px)
 
-##### On Google Pixel 8 in Portrait Mode (412px)
+`initial-scale=1.0483460559796438,width=393`
 
-`<meta name="viewport" content="initial-scale=1.0483460559796438,width=393" />`
+##### Safari on iPhone 15 in Landscape Mode (734px)
 
-##### On iPhone 15 in landscape mode (734px)
+`initial-scale=1.8676844783715012,width=393`
 
-`<meta name="viewport" content="initial-scale=1.8676844783715012,width=393" />`
+##### Safari on iPad Pro 12.9" in Portrait Mode (1024px)
 
-##### On iPad Pro 12.9" in portrait mode (1024px)
+`initial-scale=2.6055979643765905,width=393`
 
-`<meta name="viewport" content="initial-scale=2.6055979643765905,width=393" />`
+### Set Different Minimum / Maximum Widths per Media Query
 
-### Scale differently for each media query
+Pages containing the following code are scaled down on mobile browsers with viewport widths less than 412px or between 744px (inclusive) and 1024px (exclusive), but are not scaled down on other browsers. Whether to scale down is determined only once when the pages are displayed [(Reference)](#rescale-page-when-viewport-width-changes).
 
-The following codes will scale the page down in mobile device browsers that display a width less than 412px or between 744px and 1023px, and will do nothing in mobile device browsers that display a width between 412px and 743px or 1024px and above. Scaling occurs only once when the page is displayed. See also ["Rescale when device orientation changes"](#Rescale-when-device-orientation-changes).
+#### Implementation
 
-#### Using script
+##### Using Script
 
 <!-- x-release-please-start-version -->
-<!-- prettier-ignore-start -->
 
 ```html
-<meta name="viewport-extra" content="min-width=412" />
-<meta name="viewport-extra" content="min-width=1024" data-media="(min-width: 744px)" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport-extra" content="min-width=412">
+<meta name="viewport-extra" content="min-width=1024" data-media="(min-width: 744px)">
 
 <script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/iife/viewport-extra.min.js"></script>
 ```
 
-<!-- prettier-ignore-end -->
-<!-- x-release-please-end-version -->
+<!-- x-release-please-end -->
 
-#### Using module
-
-<!-- prettier-ignore-start -->
+##### Using Module
 
 ```js
-import('viewport-extra').then(({ setParameters }) => {
+import("viewport-extra").then(({ setParameters }) => {
   setParameters([
     { content: { minWidth: 412 } },
-    { content: { minWidth: 1024 }, media: '(min-width: 744px)' }
+    { content: { minWidth: 1024 }, media: "(min-width: 744px)" },
   ])
 })
 ```
 
-<!-- prettier-ignore-end -->
+#### Results of Updating `content` Attribute of `<meta name="viewport">` Element
 
-#### Results
+##### Chrome on Galaxy S24 in Portrait Mode (360px)
 
-##### On Galaxy S24 in portrait mode (360px)
+`initial-scale=0.8737864077669902,width=412`
 
-`<meta name="viewport" content="initial-scale=0.8737864077669902,width=412" />`
+##### Chrome on Google Pixel 8 in Portrait Mode (412px)
 
-##### On Google Pixel 8 in Portrait Mode (412px)
+`initial-scale=1,width=device-width`
 
-`<meta name="viewport" content="initial-scale=1,width=device-width" />`
+##### Safari on iPad mini 6th Gen in Portrait Mode (744px)
 
-##### On iPad mini 6th Gen in portrait mode (744px)
+`initial-scale=0.7265625,width=1024`
 
-`<meta name="viewport" content="initial-scale=0.7265625,width=1024" />`
+##### Safari on iPad Pro 12.9" in Portrait Mode (1024px)
 
-##### On iPad Pro 12.9" in portrait mode (1024px)
+`initial-scale=1,width=device-width`
 
-`<meta name="viewport" content="initial-scale=1,width=device-width" />`
+### Rescale Page When Viewport Width Changes
 
-### Rescale when device orientation changes
+Pages containing the following code determine whether to scale up or down not only when displayed but also when the viewport width changes. This is useful in scenarios such as switching between portrait and landscape modes on mobile devices or screen splitting on tablets.
 
-The following codes will scale the page not only when it is displayed, but also each time the mobile devices switch between portrait and landscape mode.
+#### Implementation
 
-#### Using script
-
-<!-- x-release-please-start-version -->
-<!-- prettier-ignore-start -->
-
-```html
-<meta name="viewport" content="width=device-width,initial-scale=1" data-extra-unscaled-computing />
-<meta name="viewport-extra" content="min-width=412" />
-<meta name="viewport-extra" content="min-width=744" data-media="(min-width: 640px)" />
-
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/iife/viewport-extra.min.js"></script>
-
-<script>
-  const handleOrientationChange = () => {
-    if (!ViewportExtra) return
-    window.addEventListener(
-      'resize',
-      () => ViewportExtra.setParameters([]),
-      { once: true }
-    )
-  }
-  if (screen && screen.orientation) {
-    screen.orientation.addEventListener('change', handleOrientationChange)
-  } else {
-    window.addEventListener('orientationchange', handleOrientationChange)
-  }
-</script>
-```
-
-<!-- prettier-ignore-end -->
-<!-- x-release-please-end-version -->
-
-#### Using module
-
-<!-- prettier-ignore-start -->
-
-```js
-import('viewport-extra').then(({ setParameters }) => {
-  setParameters(
-    [
-      { content: { minWidth: 412 } },
-      { content: { minWidth: 744 }, media: '(min-width: 640px)' }
-    ],
-    { unscaledComputing: true }
-  )
-
-  const handleOrientationChange = () => {
-    window.addEventListener(
-      'resize',
-      () => setParameters([]),
-      { once: true }
-    )
-  }
-  if (screen && screen.orientation) {
-    screen.orientation.addEventListener('change', handleOrientationChange)
-  } else {
-    window.addEventListener('orientationchange', handleOrientationChange)
-  }
-})
-```
-
-<!-- prettier-ignore-end -->
-
-#### Results
-
-##### On iPhone 15 in portrait mode (393px)
-
-`<meta name="viewport" content="initial-scale=0.9538834951456311,width=412" />`
-
-##### On iPhone 15 in landscape mode (734px)
-
-`<meta name="viewport" content="initial-scale=0.9865591397849462,width=744 />`
-
-### Specify the number of decimal places
-
-The following codes will truncate numbers in the content attribute of the viewport meta element to 6 decimal places.
-
-#### Using script
+##### Using Script
 
 <!-- x-release-please-start-version -->
-<!-- prettier-ignore-start -->
-
-```html
-<meta name="viewport-extra" content="min-width=412" data-decimal-places="6" />
-
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/iife/viewport-extra.min.js"></script>
-```
-
-<!-- prettier-ignore-end -->
-<!-- x-release-please-end-version -->
-
-#### Using module
-
-<!-- prettier-ignore-start -->
-
-```ts
-import('viewport-extra').then(({ setParameters }) => {
-  setParameters(
-    [
-      { content: { minWidth: 412 } }
-    ],
-    { decimalPlaces: 6 }
-  )
-})
-```
-
-<!-- prettier-ignore-end -->
-
-#### Results
-
-##### On Galaxy S24 in portrait mode (360px)
-
-`<meta name="viewport" content="initial-scale=0.873786,width=412" />`
-
-##### On iPhone 15 in portrait mode (393px)
-
-`<meta name="viewport" content="initial-scale=0.953883,width=412" />`
-
-##### On Google Pixel 8 in Portrait Mode (412px)
-
-`<meta name="viewport" content="initial-scale=1,width=device-width" />`
-
-## Various ways to set parameters
-
-All of the parameter settings below have the same meaning, even if the width and initial scale in the content attribute or the content property are omitted.
-
-### Using only `meta[name="viewport-extra"]` element
-
-```html
-<meta
-  name="viewport-extra"
-  content="width=device-width,initial-scale=1,min-width=412,max-width=640"
-/>
-```
-
-### Using only `meta[name="viewport"]` element
 
 ```html
 <meta
   name="viewport"
   content="width=device-width,initial-scale=1"
-  data-extra-content="min-width=412,max-width=640"
-/>
+  data-extra-unscaled-computing
+>
+
+<script
+  async
+  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/iife/viewport-extra.min.js"
+  id="viewport-extra-script"
+></script>
+
+<script>
+  const updateViewportMetaEl = () => {
+    // To prevent infinite resizing
+    new ResizeObserver((_, observer) => {
+      observer.unobserve(document.documentElement)
+      window.addEventListener("resize", updateViewportMetaEl, { once: true })
+    }).observe(document.documentElement)
+
+    ViewportExtra.setParameters([
+      { content: { minWidth: 412 } },
+      { content: { minWidth: 744 }, media: "(min-width: 640px)" },
+    ])
+  }
+  if (window.ViewportExtra) {
+    updateViewportMetaEl()
+  } else {
+    document
+      .getElementById("viewport-extra-script")
+      .addEventListener("load", updateViewportMetaEl)
+  }
+</script>
 ```
 
-### Using both `meta[name="viewport"]` and `meta[name="viewport-extra"]` elements
+<!-- x-release-please-end -->
 
-```html
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="viewport-extra" content="min-width=412,max-width=640" />
-```
+##### Using Module
 
-### Using setContent function
+```js
+import("viewport-extra").then(({ setParameters }) => {
+  const updateViewportMetaEl = () => {
+    // To prevent infinite resizing
+    new ResizeObserver((_, observer) => {
+      observer.unobserve(document.documentElement)
+      window.addEventListener("resize", updateViewportMetaEl, { once: true })
+    }).observe(document.documentElement)
 
-```ts
-setContent({
-  width: 'device-width',
-  initialScale: 1,
-  minWidth: 412,
-  maxWidth: 640
+    setParameters([
+      { content: { minWidth: 412 } },
+      { content: { minWidth: 744 }, media: "(min-width: 640px)" },
+    ])
+  }
+  updateViewportMetaEl()
 })
 ```
 
-### Using setParameters function
+#### Results of Updating `content` Attribute of `<meta name="viewport">` Element
 
-```ts
-setParameters([
-  {
-    content: {
-      width: 'device-width',
-      initialScale: 1,
-      minWidth: 412,
-      maxWidth: 640
-    }
-  }
-])
-```
+##### Safari on iPhone 15 in Portrait Mode (393px)
+
+`initial-scale=0.9538834951456311,width=412`
+
+##### Safari on iPhone 15 in Landscape Mode (734px)
+
+`initial-scale=0.9865591397849462,width=744`
 
 ## Notes
 
-- For small mobile devices, it is recommended to set the following style:
+- Using the following style together is recommended to prevent browsers on small mobile devices from unexpectedly changing the text size [(Reference)](https://stackoverflow.com/q/6210788).
 
   ```css
   body {
@@ -356,6 +250,4 @@ setParameters([
   }
   ```
 
-  It prevents unintentional text size adjustments by browsers. See also [the issue](https://github.com/dsktschy/viewport-extra/issues/17).
-
-- Viewport Extra v2 does not support AMD. If it is needed use v1.
+- When testing with developer tools of desktop browsers, mobile device simulation must be enabled and the viewport must be set to the desired size before navigating to a page that uses Viewport Extra. If the order is reversed, the browser may ignore the `initial-scale` setting of the `<meta name="viewport">` element. This behavior is specific to simulation in developer tools and does not occur in actual mobile browsers.

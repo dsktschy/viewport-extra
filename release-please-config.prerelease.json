@@ -10,6 +10,7 @@
     ".": {
       "release-type": "node",
       "extra-files": [
+        "README.ja.md",
         "README.md",
         "examples/no-framework/another.html",
         "examples/no-framework/index.html",
