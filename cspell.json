@@ -12,7 +12,6 @@
     "corejs",
     "kebabize",
     "viewports",
-    "orientationchange",
     "stabilizable",
     "pids",
     "jscoverage",
@@ -28,6 +27,7 @@
     "stylecheck",
     "npmjs",
     "vercel",
-    "lockfiles"
+    "lockfiles",
+    "unobserve"
   ]
 }
