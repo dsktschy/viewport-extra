@@ -1,33 +1,21 @@
 import '../styles/globals.css'
-import { useEffect, type FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
+import ViewportExtra from '../components/ViewportExtra'
 
-const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => {
-  useEffect(() => {
-    import('viewport-extra').then(({ setContent, updateReference }) => {
-      updateReference()
-      setContent({ minWidth: 412 })
-    })
-  }, [])
-
-  return (
-    <>
-      <Head>
-        <title>Next.js (Pages Router) Example</title>
-        <meta
-          name="description"
-          content="This example shows how to use Viewport Extra in Next.js (Pages Router) application."
-        />
-
-        {/* An ineffective element to disable overriding on page transition */}
-        {/* Therefore don't set content attribute */}
-        <meta name="viewport" />
-      </Head>
-
-      <Component {...pageProps} />
-    </>
-  )
-}
+const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
+  <>
+    <Head>
+      <title>Usage Examples in Next.js (Pages Router) Application</title>
+      <meta
+        name="description"
+        content="This example shows how to use Viewport Extra in a Next.js (Pages Router) application."
+      />
+    </Head>
+    <Component {...pageProps} />
+    <ViewportExtra minWidth={412} />
+  </>
+)
 
 export default App
