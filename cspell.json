@@ -10,7 +10,6 @@
     "autorelease",
     "kebabize",
     "viewports",
-    "orientationchange",
     "stabilizable",
     "pids",
     "jscoverage",
@@ -25,6 +24,7 @@
     "lintstagedrc",
     "npmjs",
     "vercel",
-    "lockfiles"
+    "lockfiles",
+    "unobserve"
   ]
 }
