@@ -2,6 +2,11 @@
 
 **English** | [日本語](/README.ja.md)
 
+> [!IMPORTANT]
+> The upcoming major version v3 includes breaking changes.
+>
+> More info: [How to Handle the Upcoming Major Version](#how-to-handle-the-upcoming-major-version)
+
 Viewport Extra is a library that enables setting the minimum / maximum width of the viewport. It reduces the range of the viewport that needs to be considered when styling.
 
 For example, when displaying a 412px-wide page on a mobile browser with a viewport width of 360px (e.g., Chrome on Galaxy S24 in portrait mode), horizontal scrolling occurs. This can be resolved by styling for viewport widths less than 412px, but it's a hassle. However, by using Viewport Extra to set the minimum viewport width to 412px, the page will be scaled down to fit perfectly within 360px, eliminating horizontal scrolling. This provides a simple solution with no styling required.
@@ -239,6 +244,47 @@ import("viewport-extra").then(({ setParameters }) => {
 ##### Safari on iPhone 15 in Landscape Mode (734px)
 
 `initial-scale=0.9865591397849462,width=744`
+
+## How to Handle the Upcoming Major Version
+
+The upcoming major version v3, which includes breaking changes, is scheduled for release. To handle this, continuation of using v2 and v1 or migration to v3 release candidate (RC) are available.
+
+### Continue Using v2 and v1
+
+v2 and v1 will continue to be maintained and remain available for use even after the release of v3.
+
+#### Suppress Console Message
+
+In v2.5, during the period before and after the release of v3, a message about v3 is displayed in the web browser console. The following code can suppress the message.
+
+```html
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1"
+  data-extra-no-migration-message
+>
+```
+
+### Migrate to v3 Release Candidate (RC)
+
+Ahead of the v3 stable release, the [v3 release candidate (RC)](https://github.com/dsktschy/viewport-extra/releases/tag/v3.0.0-rc.2) and the migration guides to v3 have been published.
+
+- Reference: [Migration Guide from v2 to v3](https://github.com/dsktschy/viewport-extra/blob/v3.0.0-rc.2/docs/en/migration-from-v2.md)
+- Reference: [Migration Guide from v1 to v3](https://github.com/dsktschy/viewport-extra/blob/v3.0.0-rc.2/docs/en/migration-from-v1.md)
+
+The release candidate (RC) can be used to migrate to v3, as no breaking changes are planned from v3.0.0-rc.2 until the stable release.
+
+#### Using Script
+
+```html
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/viewport-extra.min.js"></script>
+```
+
+#### Using Module
+
+```sh
+npm install viewport-extra@3.0.0-rc.2
+```
 
 ## Notes
 

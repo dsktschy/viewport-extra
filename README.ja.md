@@ -2,6 +2,11 @@
 
 [English](/README.md) | **日本語**
 
+> [!IMPORTANT]
+> 次期メジャーバージョン v3 には、破壊的変更が含まれます。
+>
+> 詳細: [次期メジャーバージョンへの対応方法](#次期メジャーバージョンへの対応方法)
+
 Viewport Extra は、ビューポートの最小幅および最大幅の設定を可能にするライブラリです。これにより、スタイリング時に考慮すべきビューポートの範囲を狭めることができます。
 
 たとえば、幅 412px のページを、ビューポート幅 360px のモバイル向けブラウザ (例: 縦向きの Galaxy S24 上の Chrome) で表示すると、横方向のスクロールが発生してしまいます。これは、412px 未満のビューポート幅のためにスタイルを追加することで解決できますが、その作業は面倒です。しかし、Viewport Extra でビューポートの最小幅を 412px に設定すれば、そのページは 360px にぴったり収まるように縮小され、横方向のスクロールが発生しません。スタイルを追加することなく、簡単に解決できます。
@@ -239,6 +244,47 @@ import("viewport-extra").then(({ setParameters }) => {
 ##### iPhone 15 横向き Safari (734px)
 
 `initial-scale=0.9865591397849462,width=744`
+
+## 次期メジャーバージョンへの対応方法
+
+破壊的変更を含む次期メジャーバージョン v3 の公開が予定されています。対応方法として、v2 および v1 の使用継続、または v3 リリース候補版 (RC) への移行を選択できます。
+
+### v2 および v1 の使用を継続する
+
+v2 および v1 は、v3 の公開後もメンテナンスが継続されるため、引き続き使用できます。
+
+#### コンソールのメッセージを抑制する
+
+v2.5 では、v3 公開前後の期間、Web ブラウザのコンソールに v3 に関するメッセージが表示されます。次のコードを使用して、メッセージを抑制できます。
+
+```html
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1"
+  data-extra-no-migration-message
+>
+```
+
+### v3 リリース候補版 (RC) へ移行する
+
+v3 安定版に先行して、[v3 リリース候補版 (RC)](https://github.com/dsktschy/viewport-extra/releases/tag/v3.0.0-rc.2) と、v3 への移行ガイドを公開しています。
+
+- 参考: [v2 から v3 への移行ガイド](https://github.com/dsktschy/viewport-extra/blob/v3.0.0-rc.2/docs/ja/migration-from-v2.md)
+- 参考: [v1 から v3 への移行ガイド](https://github.com/dsktschy/viewport-extra/blob/v3.0.0-rc.2/docs/ja/migration-from-v1.md)
+
+リリース候補版 (RC) には、v3.0.0-rc.2 以降、安定版公開まで破壊的変更の予定がないため、これを使用して v3 へ移行できます。
+
+#### スクリプトを使用する場合
+
+```html
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/viewport-extra.min.js"></script>
+```
+
+#### モジュールを使用する場合
+
+```sh
+npm install viewport-extra@3.0.0-rc.2
+```
 
 ## 補足
 
