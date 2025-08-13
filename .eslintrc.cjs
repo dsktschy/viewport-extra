@@ -36,5 +36,17 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  overrides: [
+    {
+      files: ['src/**/*'],
+      excludedFiles: '*.spec.*',
+      extends: ['plugin:compat/recommended'],
+      plugins: ['compat'],
+      settings: {
+        targets: ['fully supports es5', 'not fully supports es6'],
+        lintAllEsApis: true
+      }
+    }
+  ]
 }
