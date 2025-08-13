@@ -7,9 +7,7 @@
   "words": [
     "nuxt",
     "dsktschy",
-    "polyfillcheck",
     "autorelease",
-    "corejs",
     "kebabize",
     "viewports",
     "orientationchange",
@@ -25,7 +23,6 @@
     "vuepress",
     "commitlint",
     "lintstagedrc",
-    "stylecheck",
     "npmjs",
     "vercel",
     "lockfiles"

@@ -147,6 +147,5 @@ dist
 /.git/
 
 # viewport-extra
-/.polyfillcheck
 /types/
 /.types/
