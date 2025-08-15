@@ -2,6 +2,7 @@ import { defineNuxtConfig } from "nuxt/config";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  compatibilityDate: "2025-08-15",
   devtools: { enabled: true },
   css: ["@/assets/css/globals.css"],
   app: {
@@ -11,10 +12,9 @@ export default defineNuxtConfig({
         {
           name: "description",
           content:
-            "This example shows how to use Viewport Extra in a Nuxt.js v3 application.",
+            "This example shows how to use Viewport Extra in a Nuxt application.",
         },
       ],
     },
   },
-  compatibilityDate: "2025-06-04",
 });
