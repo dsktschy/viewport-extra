@@ -29,21 +29,21 @@ This guide explains the differences between Viewport Extra v2 and v3. While v2 c
   <script
     async
 -   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/iife/viewport-extra.min.js"
-+   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/viewport-extra.min.js"
++   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/viewport-extra.min.js"
   ></script>
 
   <!-- For environments that do not support ES2015+ -->
   <script
     async
 -   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/iife/viewport-extra.min.js"
-+   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/es5/viewport-extra.min.js"
++   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/es5/viewport-extra.min.js"
   ></script>
 
   <!-- When using the data-(extra-)decimal-places attribute -->
   <script
     async
 -   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.4.1/dist/iife/viewport-extra.min.js"
-+   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/extended/viewport-extra.min.js"
++   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/extended/viewport-extra.min.js"
   ></script>
 ```
 
@@ -115,7 +115,7 @@ In v2, a single build containing all features is provided. Even if only some fea
 In v3, multiple builds with varying scopes of included features are provided. The features that determine build selection are as follows:
 
 - **`meta` Element Parsing and Immediate Application:** This feature parses and applies the minimum / maximum widths from `<meta name="viewport">` and `<meta name="viewport-extra">` elements as soon as Viewport Extra becomes executable. No API calls are required.
-- **Advanced Features:** Features that are usually unnecessary. As of v3.0.0-rc.1, this includes the feature to specify decimal places.<!-- x-release-please-version -->
+- **Advanced Features:** Features that are usually unnecessary. As of v3.0.0-rc.2, this includes the feature to specify decimal places.<!-- x-release-please-version -->
 - **Support for Legacy Environments:** This feature ensures compatibility with environments that do not support ES2015+ (e.g., IE 11). Additionally, builds without this feature include ES2021 syntax and features in the Widely Available stage of the [Web Platform Baseline](https://web.dev/baseline) as of the release of Viewport Extra v3.0.0. Therefore, this feature can also be used to ensure compatibility with environments that do not support these (e.g., iOS Safari < 16, Android Chrome < 108).
 
 #### Using Script
@@ -148,7 +148,7 @@ If you are using `meta` element parsing and immediate application, the build wit
 <!-- x-release-please-start-version -->
 
 ```html
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end -->
@@ -158,7 +158,7 @@ If you are not using `meta` element parsing and immediate application and only u
 <!-- x-release-please-start-version -->
 
 ```html
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end -->
@@ -168,7 +168,7 @@ If you need to ensure compatibility with environments that do not support ES2015
 <!-- x-release-please-start-version -->
 
 ```html
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/es5/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/es5/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end -->
@@ -178,7 +178,7 @@ If you are using the feature to specify decimal places, a build that includes `e
 <!-- x-release-please-start-version -->
 
 ```html
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/extended/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/extended/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end -->
@@ -188,7 +188,7 @@ If it's difficult to determine the appropriate build, the build with the file pa
 <!-- x-release-please-start-version -->
 
 ```html
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/extended/es5/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/extended/es5/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end -->
@@ -363,7 +363,7 @@ Even if `apply()` function is to be called multiple times, no special attributes
   content="width=device-width,initial-scale=1"
   data-extra-content="min-width=412"
 >
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener("awesome-event", () => {
@@ -461,7 +461,7 @@ In multiple calls to `apply()` function, even if the initially applied minimum /
   content="width=device-width,initial-scale=1"
   data-extra-content="min-width=412"
 >
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.1/dist/immediate/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener(
