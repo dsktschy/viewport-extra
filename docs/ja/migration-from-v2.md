@@ -21,27 +21,27 @@
   <script
     async
 -   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"
-+   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/viewport-extra.min.js"
++   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.3/dist/immediate/viewport-extra.min.js"
   ></script>
 
   <!-- ES2015+ をサポートしない環境で動作させる場合 -->
   <script
     async
 -   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"
-+   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/es5/viewport-extra.min.js"
++   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.3/dist/immediate/es5/viewport-extra.min.js"
   ></script>
 
   <!-- data-(extra-)decimal-places 属性を使用する場合 -->
   <script
     async
 -   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"
-+   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/extended/viewport-extra.min.js"
++   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.3/dist/immediate/extended/viewport-extra.min.js"
   ></script>
 
   <!-- meta 要素読み取り・即時適用を使用せず、API の呼び出しのみを使用する場合 -->
   <script
 -   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"
-+   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/viewport-extra.min.js"
++   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.3/dist/viewport-extra.min.js"
   ></script>
   <script>
 -   ViewportExtra.setContent({ minWidth: 412, maxWidth: 640 })
@@ -60,7 +60,7 @@
 + <!-- 廃止: data-(extra-)unscaled-computing 属性 -->
   <script
 -   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"
-+   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/viewport-extra.min.js"
++   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.3/dist/viewport-extra.min.js"
   ></script>
   <script>
 -   ViewportExtra.setContent({ minWidth: 412 })
@@ -147,7 +147,7 @@ v2 では、すべての機能を含む単一のビルドを提供していま�
 v3 では、含まれる機能の範囲が異なる複数のビルドを提供しています。ビルド選択の基準となる機能は以下の通りです。
 
 - **`meta` 要素読み取り・即時適用:** Viewport Extra が実行可能となった時点で、即時に `<meta name="viewport">` 要素、および `<meta name="viewport-extra">` 要素から最小幅・最大幅を読み取り、適用する機能です。API の呼び出しは必要ありません。
-- **高度な機能:** ほとんどの場合不要な機能です。v3.0.0-rc.2 時点では、小数点以下の桁数指定機能がこれに含まれます。<!-- x-release-please-version -->
+- **高度な機能:** ほとんどの場合不要な機能です。v3.0.0-rc.3 時点では、小数点以下の桁数指定機能がこれに含まれます。<!-- x-release-please-version -->
 - **レガシー環境での動作:** ES2015+ をサポートしない環境 (例: IE11) であっても動作する機能です。また、この機能を持たないビルドには、ES2021 の構文、および Viewport Extra v3.0.0 公開時点で [Web Platform Baseline](https://web.dev/baseline?hl=ja) の Widely Available ステージにある機能が含まれるため、それらをサポートしない環境 (例: iOS Safari < 16, Android Chrome < 108) での動作にも使用できます。
 
 #### スクリプトを使用する場合
@@ -180,7 +180,7 @@ v3 では、含まれる機能の範囲が異なる複数のビルドを提供�
 <!-- x-release-please-start-version -->
 
 ```html
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.3/dist/immediate/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end -->
@@ -190,7 +190,7 @@ v3 では、含まれる機能の範囲が異なる複数のビルドを提供�
 <!-- x-release-please-start-version -->
 
 ```html
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.3/dist/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end -->
@@ -200,7 +200,7 @@ ES2015+ をサポートしない環境で動作させる場合は、URL のフ�
 <!-- x-release-please-start-version -->
 
 ```html
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/es5/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.3/dist/immediate/es5/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end -->
@@ -210,7 +210,7 @@ ES2015+ をサポートしない環境で動作させる場合は、URL のフ�
 <!-- x-release-please-start-version -->
 
 ```html
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/extended/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.3/dist/immediate/extended/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end -->
@@ -220,7 +220,7 @@ ES2015+ をサポートしない環境で動作させる場合は、URL のフ�
 <!-- x-release-please-start-version -->
 
 ```html
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/extended/es5/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.3/dist/immediate/extended/es5/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end -->
@@ -397,7 +397,7 @@ v3 では、自動的にスケールリセットする機能をデフォルト�
   content="width=device-width,initial-scale=1"
   data-extra-content="min-width=412"
 >
-<script src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/viewport-extra.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.3/dist/immediate/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener("awesome-event", () => {
@@ -495,7 +495,7 @@ v3 では、適用した最小幅・最大幅を、Viewport Extra 内部に保�
   content="width=device-width,initial-scale=1"
   data-extra-content="min-width=412"
 >
-<script src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/viewport-extra.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.3/dist/immediate/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener(
