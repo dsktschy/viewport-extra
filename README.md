@@ -247,6 +247,8 @@ import("viewport-extra").then(({ setParameters }) => {
 
 ## How to Handle the Upcoming Major Version
 
+**English** | [日本語](/README.ja.md#次期メジャーバージョンへの対応方法)
+
 The upcoming major version v3, which includes breaking changes, is scheduled for release. To handle this, continuation of using v2 and v1 or migration to v3 release candidate (RC) are available.
 
 ### Continue Using v2 and v1
@@ -267,24 +269,12 @@ In v2.5, during the period before and after the release of v3, a message about v
 
 ### Migrate to v3 Release Candidate (RC)
 
-Ahead of the v3 stable release, the [v3 release candidate (RC)](https://github.com/dsktschy/viewport-extra/releases/tag/v3.0.0-rc.2) and the migration guides to v3 have been published.
+Ahead of the v3 stable release, the [v3 release candidate (RC)](https://github.com/dsktschy/viewport-extra/releases/tag/v3.0.0-rc.3) and the migration guides to v3 have been published.
 
-- Reference: [Migration Guide from v2 to v3](https://github.com/dsktschy/viewport-extra/blob/v3.0.0-rc.2/docs/en/migration-from-v2.md)
-- Reference: [Migration Guide from v1 to v3](https://github.com/dsktschy/viewport-extra/blob/v3.0.0-rc.2/docs/en/migration-from-v1.md)
+- Reference: [Migration Guide from v2 to v3](https://github.com/dsktschy/viewport-extra/blob/v3.0.0-rc.3/docs/en/migration-from-v2.md)
+- Reference: [Migration Guide from v1 to v3](https://github.com/dsktschy/viewport-extra/blob/v3.0.0-rc.3/docs/en/migration-from-v1.md)
 
 The release candidate (RC) can be used to migrate to v3, as no breaking changes are planned from v3.0.0-rc.2 until the stable release.
-
-#### Using Script
-
-```html
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/viewport-extra.min.js"></script>
-```
-
-#### Using Module
-
-```sh
-npm install viewport-extra@3.0.0-rc.2
-```
 
 ## Notes
 

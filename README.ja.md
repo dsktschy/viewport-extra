@@ -247,6 +247,8 @@ import("viewport-extra").then(({ setParameters }) => {
 
 ## 次期メジャーバージョンへの対応方法
 
+[English](/README.md#how-to-handle-the-upcoming-major-version) | **日本語**
+
 破壊的変更を含む次期メジャーバージョン v3 の公開が予定されています。対応方法として、v2 および v1 の使用継続、または v3 リリース候補版 (RC) への移行を選択できます。
 
 ### v2 および v1 の使用を継続する
@@ -267,24 +269,12 @@ v2.5 では、v3 公開前後の期間、Web ブラウザのコンソールに v
 
 ### v3 リリース候補版 (RC) へ移行する
 
-v3 安定版に先行して、[v3 リリース候補版 (RC)](https://github.com/dsktschy/viewport-extra/releases/tag/v3.0.0-rc.2) と、v3 への移行ガイドを公開しています。
+v3 安定版に先行して、[v3 リリース候補版 (RC)](https://github.com/dsktschy/viewport-extra/releases/tag/v3.0.0-rc.3) と、v3 への移行ガイドを公開しています。
 
-- 参考: [v2 から v3 への移行ガイド](https://github.com/dsktschy/viewport-extra/blob/v3.0.0-rc.2/docs/ja/migration-from-v2.md)
-- 参考: [v1 から v3 への移行ガイド](https://github.com/dsktschy/viewport-extra/blob/v3.0.0-rc.2/docs/ja/migration-from-v1.md)
+- 参考: [v2 から v3 への移行ガイド](https://github.com/dsktschy/viewport-extra/blob/v3.0.0-rc.3/docs/ja/migration-from-v2.md)
+- 参考: [v1 から v3 への移行ガイド](https://github.com/dsktschy/viewport-extra/blob/v3.0.0-rc.3/docs/ja/migration-from-v1.md)
 
 リリース候補版 (RC) には、v3.0.0-rc.2 以降、安定版公開まで破壊的変更の予定がないため、これを使用して v3 へ移行できます。
-
-#### スクリプトを使用する場合
-
-```html
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/viewport-extra.min.js"></script>
-```
-
-#### モジュールを使用する場合
-
-```sh
-npm install viewport-extra@3.0.0-rc.2
-```
 
 ## 補足
 
