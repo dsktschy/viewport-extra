@@ -59,7 +59,7 @@ This guide explains the differences between Viewport Extra v1 and v3. While v1 c
 +   apply([{ content: { minWidth: 412, maxWidth: 640 } }])
 + })
 
-  // For environments that do not support ES2015+
+  /* For environments that do not support ES2015+ */
 - import "viewport-extra"
 + import("viewport-extra/es5")
 ```
@@ -73,7 +73,7 @@ This guide explains the differences between Viewport Extra v1 and v3. While v1 c
 
 In v1, a single build is provided. This build requires API calls, making it difficult to use with the `async` attribute of the `<script>` element. Additionally, as it is in [UMD format](https://github.com/umdjs/umd#readme) and does not support `import()` syntax, it may cause page display delays.
 
-In v3, you can select a build that does not require API calls from multiple available builds. Additionally, [IIFE format](https://developer.mozilla.org/en-US/docs/Glossary/IIFE) is provided for scripts, and ESM and CJS formats are provided for modules. The features that determine build selection are as follows:
+In v3, it is possible to select a build that does not require API calls from multiple available builds. Additionally, [IIFE format](https://developer.mozilla.org/en-US/docs/Glossary/IIFE) is provided for scripts, and ESM and CJS formats are provided for modules. The features that determine build selection are as follows:
 
 - **`meta` Element Parsing and Immediate Application:** This feature parses and applies the minimum / maximum widths from `<meta name="viewport">` and `<meta name="viewport-extra">` elements as soon as Viewport Extra becomes executable. No API calls are required.
 - **Advanced Features:** Features that are usually unnecessary. As of v3.0.0-rc.2, this includes the feature to specify decimal places.<!-- x-release-please-version -->
@@ -107,7 +107,7 @@ Multiple builds can be selected.
 |     `/dist/immediate/extended/viewport-extra.min.js` |                        ✔                        |        ✔         |                -                |
 | `/dist/immediate/extended/es5/viewport-extra.min.js` |                        ✔                        |        ✔         |               ✔                |
 
-You can select a build that supports `meta` element parsing and immediate application and eliminates the need to call the API, and use it with the `async` attribute of the `<script>` element. In this case, the build with the file path `/dist/immediate/viewport-extra.min.js` in the URL is the lightest and ideal.
+A build that supports `meta` element parsing and immediate application, eliminating the need to call the API, can be selected and used with the `async` attribute of the `<script>` element. In this case, the build with the file path `/dist/immediate/viewport-extra.min.js` in the URL is the lightest and ideal.
 
 <!-- x-release-please-start-version -->
 
@@ -120,7 +120,7 @@ You can select a build that supports `meta` element parsing and immediate applic
 
 <!-- x-release-please-end -->
 
-If you need to ensure compatibility with environments that do not support ES2015+, a build that includes `es5` in the file path in the URL is required.
+To ensure compatibility with environments that do not support ES2015+, selecting a build that includes `es5` in the file path in the URL is required.
 
 <!-- x-release-please-start-version -->
 
@@ -171,13 +171,13 @@ Multiple builds can be selected.
 |     `viewport-extra/immediate/extended` |                        ✔                        |        ✔         |                -                |
 | `viewport-extra/immediate/extended/es5` |                        ✔                        |        ✔         |               ✔                |
 
-You can use `import()` syntax. The build with the module specifier `viewport-extra` is the lightest and ideal.
+The `import()` syntax can be used. The build with the module specifier `viewport-extra` is the lightest and ideal.
 
 ```js
 import("viewport-extra")
 ```
 
-If you need to ensure compatibility with environments that do not support ES2015+, a build that includes `es5` in the module specifier is required.
+To ensure compatibility with environments that do not support ES2015+, selecting a build that includes `es5` in the module specifier is required.
 
 ```js
 import("viewport-extra/es5")

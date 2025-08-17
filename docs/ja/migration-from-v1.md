@@ -59,7 +59,7 @@
 +   apply([{ content: { minWidth: 412, maxWidth: 640 } }])
 + })
 
-  // ES2015+ をサポートしない環境で動作させる場合
+  /* ES2015+ をサポートしない環境で動作させる場合 */
 - import "viewport-extra"
 + import("viewport-extra/es5")
 ```

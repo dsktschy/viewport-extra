@@ -16,16 +16,8 @@
 <!-- x-release-please-start-previous-root-project-version -->
 
 ```diff
-+ <!-- 廃止: data-(extra-)unscaled-computing 属性 -->
-  <meta
-    name="viewport"
-    content="width=device-width,initial-scale=1"
--   data-extra-unscaled-computing
-  >
-  <meta
-    name="viewport-extra"
-    content="min-width=412,max-width=640"
-  >
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport-extra" content="min-width=412,max-width=640">
   <script
     async
 -   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"
@@ -45,6 +37,40 @@
 -   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"
 +   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/extended/viewport-extra.min.js"
   ></script>
+
+  <!-- meta 要素読み取り・即時適用を使用せず、API の呼び出しのみを使用する場合 -->
+  <script
+-   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"
++   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/viewport-extra.min.js"
+  ></script>
+  <script>
+-   ViewportExtra.setContent({ minWidth: 412, maxWidth: 640 })
++   ViewportExtra.apply([{ content: { minWidth: 412, maxWidth: 640 } }])
+
+-   ViewportExtra.setParameters([{ content: { minWidth: 412, maxWidth: 640 } }])
++   ViewportExtra.apply([{ content: { minWidth: 412, maxWidth: 640 } }])
+  </script>
+
+  <!-- API を複数回呼び出しうる場合 -->
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+-   data-extra-unscaled-computing
+  >
++ <!-- 廃止: data-(extra-)unscaled-computing 属性 -->
+  <script
+-   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"
++   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/viewport-extra.min.js"
+  ></script>
+  <script>
+-   ViewportExtra.setContent({ minWidth: 412 })
++   ViewportExtra.apply([{ content: { minWidth: 412 } }])
+
+    window.addEventListener("awesome-event", () => {
+-     ViewportExtra.setContent()
++     ViewportExtra.apply([{ content: { minWidth: 412 } }]) // 引数省略不可
+    })
+  </script>
 ```
 
 <!-- x-release-please-end -->
@@ -53,37 +79,30 @@
 
 ```diff
   import("viewport-extra").then(({
--   setContent
+-   setContent,
+-   setParameters
 +   apply
   }) => {
 -   setContent({ minWidth: 412, maxWidth: 640 })
 +   apply([{ content: { minWidth: 412, maxWidth: 640 } }])
-  })
 
-  import("viewport-extra").then(({
--   setParameters
-+   apply
-  }) => {
 -   setParameters([{ content: { minWidth: 412, maxWidth: 640 } }])
 +   apply([{ content: { minWidth: 412, maxWidth: 640 } }])
   })
 
-  // EES2015+ をサポートしない環境で動作させる場合
+  /* EES2015+ をサポートしない環境で動作させる場合 */
 - import("viewport-extra")
 + import("viewport-extra/es5")
 
-  // decimalPlaces プロパティを使用する場合
+  /* decimalPlaces プロパティを使用する場合 */
 - import("viewport-extra")
 + import("viewport-extra/extended")
 
+  /* API を複数回呼び出しうる場合 */
   import("viewport-extra").then(({
 -   setParameters,
--   updateReference
 +   apply
   }) => {
--   updateReference()
-+   // 廃止: updateReference() 関数
-
 -   setParameters(
 -     [{ content: { minWidth: 412 } }],
 -     { unscaledComputing: true }
@@ -97,6 +116,19 @@
 -     setParameters([])
 +     apply([{ content: { minWidth: 412 } }]) // 引数省略不可
     })
+  })
+
+  /* Next.js と併用する場合 */
+  import("viewport-extra").then(({
+-   updateReference,
+-   setContent
++   apply
+  }) => {
+-   updateReference()
++   // 廃止: updateReference() 関数
+
+-   setContent({ minWidth: 412 })
++   apply([{ content: { minWidth: 412 } }])
   })
 ```
 
@@ -192,6 +224,8 @@ ES2015+ をサポートしない環境で動作させる場合は、URL のフ�
 ```
 
 <!-- x-release-please-end -->
+
+なお、API を呼び出す場合は、どのビルドにおいても、`async` 属性の削除、もしくは `load` イベントの待機が必要です [(参考)](/README.ja.md#スクリプトを使用する場合-3) 。
 
 #### モジュールを使用する場合
 
@@ -325,11 +359,11 @@ v3 では、自動的にスケールリセットする機能をデフォルト�
   data-extra-content="min-width=412"
   data-extra-unscaled-computing
 >
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener("awesome-event", () => {
-    window.ViewportExtra?.setParameters([{ content: { minWidth: 412 } }])
+    ViewportExtra.setContent({ minWidth: 412 })
   })
 </script>
 ```
@@ -342,11 +376,11 @@ v3 では、自動的にスケールリセットする機能をデフォルト�
   content="width=device-width,initial-scale=1,min-width=412"
   data-unscaled-computing
 >
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener("awesome-event", () => {
-    window.ViewportExtra?.setParameters([{ content: { minWidth: 412 } }])
+    ViewportExtra.setContent({ minWidth: 412 })
   })
 </script>
 ```
@@ -363,11 +397,11 @@ v3 では、自動的にスケールリセットする機能をデフォルト�
   content="width=device-width,initial-scale=1"
   data-extra-content="min-width=412"
 >
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/viewport-extra.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener("awesome-event", () => {
-    window.ViewportExtra?.apply([{ content: { minWidth: 412 } }])
+    ViewportExtra.apply([{ content: { minWidth: 412 } }])
   })
 </script>
 ```
@@ -422,12 +456,12 @@ v3 では、適用した最小幅・最大幅を、Viewport Extra 内部に保�
   data-extra-unscaled-computing
   data-extra-content="min-width=412"
 >
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener(
     "awesome-event",
-    () => window.ViewportExtra?.setContent(), // minWidth として 412 が使用される
+    () => ViewportExtra.setContent(), // minWidth として 412 が使用される
   )
 </script>
 ```
@@ -439,12 +473,12 @@ v3 では、適用した最小幅・最大幅を、Viewport Extra 内部に保�
   data-extra-unscaled-computing
   data-extra-content="min-width=412"
 >
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener(
     "awesome-event",
-    () => window.ViewportExtra?.setParameters([]), // minWidth として 412 が使用される
+    () => ViewportExtra.setParameters([]), // minWidth として 412 が使用される
   )
 </script>
 ```
@@ -461,12 +495,12 @@ v3 では、適用した最小幅・最大幅を、Viewport Extra 内部に保�
   content="width=device-width,initial-scale=1"
   data-extra-content="min-width=412"
 >
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/viewport-extra.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener(
     "awesome-event",
-    () => window.ViewportExtra?.apply([{ content: { minWidth: 412 } }]), // 引数を省略した場合 minWidth はデフォルトの 0 となる
+    () => ViewportExtra.apply([{ content: { minWidth: 412 } }]), // 引数を省略した場合 minWidth はデフォルトの 0 となる
   )
 </script>
 ```

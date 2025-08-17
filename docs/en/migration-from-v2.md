@@ -16,16 +16,8 @@ This guide explains the differences between Viewport Extra v2 and v3. While v2 c
 <!-- x-release-please-start-previous-root-project-version -->
 
 ```diff
-+ <!-- Deprecated: data-(extra-)unscaled-computing attribute -->
-  <meta
-    name="viewport"
-    content="width=device-width,initial-scale=1"
--   data-extra-unscaled-computing
-  >
-  <meta
-    name="viewport-extra"
-    content="min-width=412,max-width=640"
-  >
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport-extra" content="min-width=412,max-width=640">
   <script
     async
 -   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"
@@ -39,12 +31,46 @@ This guide explains the differences between Viewport Extra v2 and v3. While v2 c
 +   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/es5/viewport-extra.min.js"
   ></script>
 
-  <!-- When using the data-(extra-)decimal-places attribute -->
+  <!-- If using the data-(extra-)decimal-places attribute -->
   <script
     async
 -   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"
 +   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/extended/viewport-extra.min.js"
   ></script>
+
+  <!-- If not using meta element parsing and immediate application and only using API calls -->
+  <script
+-   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"
++   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/viewport-extra.min.js"
+  ></script>
+  <script>
+-   ViewportExtra.setContent({ minWidth: 412, maxWidth: 640 })
++   ViewportExtra.apply([{ content: { minWidth: 412, maxWidth: 640 } }])
+
+-   ViewportExtra.setParameters([{ content: { minWidth: 412, maxWidth: 640 } }])
++   ViewportExtra.apply([{ content: { minWidth: 412, maxWidth: 640 } }])
+  </script>
+
+  <!-- If calling API multiple times -->
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+-   data-extra-unscaled-computing
+  >
++ <!-- Deprecated: data-(extra-)unscaled-computing attribute -->
+  <script
+-   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"
++   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/viewport-extra.min.js"
+  ></script>
+  <script>
+-   ViewportExtra.setContent({ minWidth: 412 })
++   ViewportExtra.apply([{ content: { minWidth: 412 } }])
+
+    window.addEventListener("awesome-event", () => {
+-     ViewportExtra.setContent()
++     ViewportExtra.apply([{ content: { minWidth: 412 } }]) // Arguments cannot be omitted
+    })
+  </script>
 ```
 
 <!-- x-release-please-end -->
@@ -53,37 +79,30 @@ This guide explains the differences between Viewport Extra v2 and v3. While v2 c
 
 ```diff
   import("viewport-extra").then(({
--   setContent
+-   setContent,
+-   setParameters
 +   apply
   }) => {
 -   setContent({ minWidth: 412, maxWidth: 640 })
 +   apply([{ content: { minWidth: 412, maxWidth: 640 } }])
-  })
 
-  import("viewport-extra").then(({
--   setParameters
-+   apply
-  }) => {
 -   setParameters([{ content: { minWidth: 412, maxWidth: 640 } }])
 +   apply([{ content: { minWidth: 412, maxWidth: 640 } }])
   })
 
-  // For environments that do not support ES2015+
+  /* For environments that do not support ES2015+ */
 - import("viewport-extra")
 + import("viewport-extra/es5")
 
-  // When using the decimalPlaces property
+  /* If using the decimalPlaces property */
 - import("viewport-extra")
 + import("viewport-extra/extended")
 
+  /* If calling API multiple times */
   import("viewport-extra").then(({
 -   setParameters,
--   updateReference
 +   apply
   }) => {
--   updateReference()
-+   // Deprecated: updateReference() function
-
 -   setParameters(
 -     [{ content: { minWidth: 412 } }],
 -     { unscaledComputing: true }
@@ -97,6 +116,19 @@ This guide explains the differences between Viewport Extra v2 and v3. While v2 c
 -     setParameters([])
 +     apply([{ content: { minWidth: 412 } }]) // Arguments cannot be omitted
     })
+  })
+
+  /* If used with Next.js */
+  import("viewport-extra").then(({
+-   updateReference,
+-   setContent
++   apply
+  }) => {
+-   updateReference()
++   // Deprecated: updateReference() function
+
+-   setContent({ minWidth: 412 })
++   apply([{ content: { minWidth: 412 } }])
   })
 ```
 
@@ -143,7 +175,7 @@ Multiple builds can be selected.
 |     `/dist/immediate/extended/viewport-extra.min.js` |                        ✔                        |        ✔         |                -                |
 | `/dist/immediate/extended/es5/viewport-extra.min.js` |                        ✔                        |        ✔         |               ✔                |
 
-If you are using `meta` element parsing and immediate application, the build with the file path `/dist/immediate/viewport-extra.min.js` in the URL is the lightest and ideal.
+If using `meta` element parsing and immediate application, the build with the file path `/dist/immediate/viewport-extra.min.js` in the URL is the lightest and ideal.
 
 <!-- x-release-please-start-version -->
 
@@ -153,7 +185,7 @@ If you are using `meta` element parsing and immediate application, the build wit
 
 <!-- x-release-please-end -->
 
-If you are not using `meta` element parsing and immediate application and only using API calls, the build with the file path `/dist/viewport-extra.min.js` in the URL is the lightest and ideal.
+If not using `meta` element parsing and immediate application and only using API calls, the build with the file path `/dist/viewport-extra.min.js` in the URL is the lightest and ideal.
 
 <!-- x-release-please-start-version -->
 
@@ -163,7 +195,7 @@ If you are not using `meta` element parsing and immediate application and only u
 
 <!-- x-release-please-end -->
 
-If you need to ensure compatibility with environments that do not support ES2015+, a build that includes `es5` in the file path in the URL is required.
+To ensure compatibility with environments that do not support ES2015+, selecting a build that includes `es5` in the file path in the URL is required.
 
 <!-- x-release-please-start-version -->
 
@@ -173,7 +205,7 @@ If you need to ensure compatibility with environments that do not support ES2015
 
 <!-- x-release-please-end -->
 
-If you are using the feature to specify decimal places, a build that includes `extended` in the file path in the URL is required.
+If using the feature to specify decimal places, a build that includes `extended` in the file path in the URL is required.
 
 <!-- x-release-please-start-version -->
 
@@ -192,6 +224,8 @@ If it's difficult to determine the appropriate build, the build with the file pa
 ```
 
 <!-- x-release-please-end -->
+
+If calling the API, it is necessary to either remove the `async` attribute or wait for the `load` event in any build [(Reference)](/README.md#using-script-3).
 
 #### Using Module
 
@@ -224,13 +258,13 @@ The build with the module specifier `viewport-extra` is the lightest and ideal.
 import("viewport-extra")
 ```
 
-If you need to ensure compatibility with environments that do not support ES2015+, a build that includes `es5` in the module specifier is required.
+To ensure compatibility with environments that do not support ES2015+, selecting a build that includes `es5` in the module specifier is required.
 
 ```js
 import("viewport-extra/es5")
 ```
 
-If you are using the feature to specify decimal places, a build that includes `extended` in the module specifier is required.
+If using the feature to specify decimal places, a build that includes `extended` in the module specifier is required.
 
 ```js
 import("viewport-extra/extended")
@@ -325,11 +359,11 @@ If `setContent()` function and `setParameters()` function are to be called multi
   data-extra-content="min-width=412"
   data-extra-unscaled-computing
 >
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener("awesome-event", () => {
-    window.ViewportExtra?.setParameters([{ content: { minWidth: 412 } }])
+    ViewportExtra.setContent({ minWidth: 412 })
   })
 </script>
 ```
@@ -342,11 +376,11 @@ If `setContent()` function and `setParameters()` function are to be called multi
   content="width=device-width,initial-scale=1,min-width=412"
   data-unscaled-computing
 >
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener("awesome-event", () => {
-    window.ViewportExtra?.setParameters([{ content: { minWidth: 412 } }])
+    ViewportExtra.setContent({ minWidth: 412 })
   })
 </script>
 ```
@@ -363,11 +397,11 @@ Even if `apply()` function is to be called multiple times, no special attributes
   content="width=device-width,initial-scale=1"
   data-extra-content="min-width=412"
 >
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/viewport-extra.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener("awesome-event", () => {
-    window.ViewportExtra?.apply([{ content: { minWidth: 412 } }])
+    ViewportExtra.apply([{ content: { minWidth: 412 } }])
   })
 </script>
 ```
@@ -422,12 +456,12 @@ In multiple calls to `setContent()` function and `setParameters()` function, if 
   data-extra-unscaled-computing
   data-extra-content="min-width=412"
 >
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener(
     "awesome-event",
-    () => window.ViewportExtra?.setContent(), // 412 is used as minWidth
+    () => ViewportExtra.setContent(), // 412 is used as minWidth
   )
 </script>
 ```
@@ -439,12 +473,12 @@ In multiple calls to `setContent()` function and `setParameters()` function, if 
   data-extra-unscaled-computing
   data-extra-content="min-width=412"
 >
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener(
     "awesome-event",
-    () => window.ViewportExtra?.setParameters([]), // 412 is used as minWidth
+    () => ViewportExtra.setParameters([]), // 412 is used as minWidth
   )
 </script>
 ```
@@ -461,12 +495,12 @@ In multiple calls to `apply()` function, even if the initially applied minimum /
   content="width=device-width,initial-scale=1"
   data-extra-content="min-width=412"
 >
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/viewport-extra.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.2/dist/immediate/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener(
     "awesome-event",
-    () => window.ViewportExtra?.apply([{ content: { minWidth: 412 } }]), // If arguments are omitted, minWidth defaults to 0
+    () => ViewportExtra.apply([{ content: { minWidth: 412 } }]), // If arguments are omitted, minWidth defaults to 0
   )
 </script>
 ```
