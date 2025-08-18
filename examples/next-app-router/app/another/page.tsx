@@ -4,7 +4,7 @@ import Link from 'next/link'
 const Another: FunctionComponent = () => (
   <>
     <h1>Another Page</h1>
-    <p>--------------- 430px wide text ---------------</p>
+    <p>-------------- 412px wide text --------------</p>
     <Link href="/">Go to index page</Link>
   </>
 )

@@ -1,5 +1,4 @@
 npm run declare && \
-npx --no-install lint-staged --config=.lintstagedrc.stylecheck.mjs && \
+npx --no-install lint-staged --config=.lintstagedrc.mjs && \
 npm run typecheck && \
-npm t && \
-npx --no-install lint-staged --config=.lintstagedrc.remind-es5-test.mjs --verbose
+npm t

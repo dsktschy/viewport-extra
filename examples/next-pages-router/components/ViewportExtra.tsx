@@ -1,5 +1,3 @@
-'use client'
-
 import { useRef, useEffect, type FunctionComponent } from 'react'
 import { usePathname } from 'next/navigation'
 
