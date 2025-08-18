@@ -76,7 +76,7 @@ if (typeof window !== 'undefined') {
     console.info(
       '[Viewport Extra]\n\n' +
         'The upcoming major version v3 includes breaking changes.\n\n' +
-        'More info: https://github.com/dsktschy/viewport-extra/blob/v2.5.0-rc.0/README.md#how-to-handle-the-upcoming-major-version\n\n' +
+        'More info: https://github.com/dsktschy/viewport-extra/blob/v2.5.0/README.md#how-to-handle-the-upcoming-major-version\n\n' +
         'To suppress this message, add the `data-extra-no-migration-message` attribute to the `<meta name="viewport">` element.'
     )
     // x-release-please-end
