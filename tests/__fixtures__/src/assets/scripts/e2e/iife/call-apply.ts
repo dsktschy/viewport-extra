@@ -1,8 +1,8 @@
 import type * as TViewportExtra from "@@/dist/viewport-extra.d.mts";
 
-interface CustomWindow extends Window {
+type CustomWindow = Window & {
   ViewportExtra?: typeof TViewportExtra;
-}
+};
 type ApplyParameters = Parameters<typeof TViewportExtra.apply>;
 
 const ViewportExtra = (window as CustomWindow).ViewportExtra;

@@ -9,10 +9,10 @@ import type { DecimalPlaces } from "./DecimalPlaces.js";
 import type { DeepPartial } from "./DeepPartial.js";
 import { createMedia, type Media, mergeOptionalMedia } from "./Media.js";
 
-export interface MediaSpecificParameters {
+export type MediaSpecificParameters = {
   content: Content;
   media: Media;
-}
+};
 
 export const createMediaSpecificParameters = (
   partialMediaSpecificParameters: DeepPartial<MediaSpecificParameters> = {},

@@ -4,9 +4,9 @@ import {
   mergeOptionalDecimalPlaces,
 } from "./DecimalPlaces.js";
 
-export interface GlobalParameters {
+export type GlobalParameters = {
   decimalPlaces: DecimalPlaces;
-}
+};
 
 export const createGlobalParameters = (
   partialGlobalParameters: Partial<GlobalParameters> = {},

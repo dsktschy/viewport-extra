@@ -6,6 +6,7 @@
     "moduleResolution": "nodenext",
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "exactOptionalPropertyTypes": true,
     "paths": {
       "@@/*": ["./*"]
     }
