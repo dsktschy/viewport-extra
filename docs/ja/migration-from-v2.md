@@ -302,7 +302,7 @@ v3 では、最小幅・最大幅適用 API として `apply()` 関数のみを�
 
 ##### v3 の構文
 
-最小幅・最大幅の適用には、`apply()` 関数を使用します。インターフェースは v2 の `setParameters()` 関数と変わりません。
+最小幅・最大幅の適用には、`apply()` 関数を使用します。引数の型は v2 の `setParameters()` 関数のそれと変わりません。
 
 ```html
 <script>
@@ -330,7 +330,7 @@ import("viewport-extra").then(({ setParameters }) => {
 
 ##### v3 の構文
 
-最小幅・最大幅の適用には、`apply()` 関数を使用します。インターフェースは v2 の `setParameters()` 関数と変わりません。
+最小幅・最大幅の適用には、`apply()` 関数を使用します。引数の型は v2 の `setParameters()` 関数のそれと変わりません。
 
 ```js
 import("viewport-extra").then(({ apply }) => {
