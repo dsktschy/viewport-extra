@@ -3,7 +3,8 @@
 **English** | [日本語](/README.ja.md)
 
 > [!IMPORTANT]
-> The upcoming major version v3 includes breaking changes.
+>
+> **_The upcoming major version v3 includes BREAKING CHANGES._**
 >
 > More info: [How to Handle the Upcoming Major Version](#how-to-handle-the-upcoming-major-version)
 
