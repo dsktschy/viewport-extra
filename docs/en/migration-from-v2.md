@@ -302,7 +302,7 @@ To apply minimum / maximum widths, use either `setContent()` function or `setPar
 
 ##### v3 Syntax
 
-To apply minimum / maximum widths, use `apply()` function. The interface is the same as `setParameters()` function in v2.
+To apply minimum / maximum widths, use `apply()` function. The argument type is the same as that of `setParameters()` function in v2.
 
 ```html
 <script>
@@ -330,7 +330,7 @@ import("viewport-extra").then(({ setParameters }) => {
 
 ##### v3 Syntax
 
-To apply minimum / maximum widths, use `apply()` function. The interface is the same as `setParameters()` function in v2.
+To apply minimum / maximum widths, use `apply()` function. The argument type is the same as that of `setParameters()` function in v2.
 
 ```js
 import("viewport-extra").then(({ apply }) => {

@@ -3,7 +3,8 @@
 [English](/README.md) | **日本語**
 
 > [!IMPORTANT]
-> v3 には破壊的変更が含まれます。
+>
+> **_v3 には破壊的変更が含まれます。_**
 >
 > - 参考: [v2 から v3 への移行ガイド](/docs/ja/migration-from-v2.md)
 > - 参考: [v1 から v3 への移行ガイド](/docs/ja/migration-from-v1.md)

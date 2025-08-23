@@ -3,7 +3,8 @@
 **English** | [日本語](/README.ja.md)
 
 > [!IMPORTANT]
-> v3 includes breaking changes.
+>
+> **_v3 includes BREAKING CHANGES._**
 >
 > - Reference: [Migration Guide from v2 to v3](/docs/en/migration-from-v2.md)
 > - Reference: [Migration Guide from v1 to v3](/docs/en/migration-from-v1.md)
