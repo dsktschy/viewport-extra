@@ -1,11 +1,11 @@
-export type Media = string
+export type Media = string;
 
-export const defaultMedia = ''
+export const defaultMedia = "";
 
 export const createMedia = (optionalMedia: Media | undefined): Media =>
-  optionalMedia ?? defaultMedia
+  optionalMedia ?? defaultMedia;
 
 export const mergeOptionalMedia = (
   precedingOptionalMedia: Media | undefined,
-  followingOptionalMedia: Media | undefined
-): Media | undefined => followingOptionalMedia ?? precedingOptionalMedia
+  followingOptionalMedia: Media | undefined,
+): Media | undefined => followingOptionalMedia ?? precedingOptionalMedia;

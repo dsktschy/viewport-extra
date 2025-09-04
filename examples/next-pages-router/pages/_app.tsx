@@ -1,8 +1,8 @@
-import '../styles/globals.css'
-import type { FunctionComponent } from 'react'
-import type { AppProps } from 'next/app'
-import Head from 'next/head'
-import ViewportExtra from '../components/ViewportExtra'
+import "../styles/globals.css";
+import type { AppProps } from "next/app";
+import Head from "next/head";
+import type { FunctionComponent } from "react";
+import ViewportExtra from "../components/ViewportExtra";
 
 const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
   <>
@@ -16,6 +16,6 @@ const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
     <Component {...pageProps} />
     <ViewportExtra minWidth={412} />
   </>
-)
+);
 
-export default App
+export default App;
