@@ -49,7 +49,7 @@ export default defineConfig({
 
   /* Run local dev server before starting the tests */
   webServer: {
-    command: 'npm run preview:e2e',
+    command: 'npm run preview-e2e',
     url: 'http://localhost:3000/tests/e2e/__fixtures__/src/dummy.html',
     reuseExistingServer: !process.env.CI
   }
