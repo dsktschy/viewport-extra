@@ -21,6 +21,7 @@
     "dotenv",
     "vuepress",
     "commitlint",
+    "stylecheck",
     "lintstaged",
     "lintstagedrc",
     "npmjs",
