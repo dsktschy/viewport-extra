@@ -88,7 +88,7 @@ export default {
     }),
     rollupPluginTypescript({
       target: "es5",
-      filterRoot: "./src",
+      filterRoot: "src",
       // Exit on error if not watching
       // https://github.com/rollup/plugins/issues/258#issuecomment-848402026
       noEmitOnError: !process.env.ROLLUP_WATCH,
