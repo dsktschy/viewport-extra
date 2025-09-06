@@ -10,7 +10,6 @@
   "types": "types/index.d.ts",
   "scripts": {
     "build": "NODE_OPTIONS=--no-warnings=ExperimentalWarning rollup --config rollup.config.build.mjs --environment NODE_ENV:production",
-    "watch": "NODE_OPTIONS=--no-warnings=ExperimentalWarning rollup --config rollup.config.build.mjs --environment NODE_ENV:development --watch",
     "declare": "npm-run-all --sequential declare:clean declare:execute declare:bundle declare:clean",
     "declare:clean": "rimraf .types",
     "declare:execute": "tsc src/index.ts --declaration --emitDeclarationOnly --outDir .types --resolveJsonModule",
@@ -21,7 +20,6 @@
     "es5check": "NODE_OPTIONS=--no-warnings=ExperimentalWarning eslint 'src/**/*' --ignore-pattern 'src/**/*.spec.*' --no-warn-ignored --config eslint.config.es5.js",
     "typecheck": "npm-run-all --sequential declare typecheck:execute",
     "typecheck:execute": "tsc --noEmit",
-    "dev": "npm run watch",
     "test": "npm-run-all --parallel test:*",
     "test:unit": "vitest run",
     "test:e2e": "npm-run-all --parallel test:e2e:install build --sequential test:e2e:build test:e2e:execute",
