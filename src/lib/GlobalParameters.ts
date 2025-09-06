@@ -1,72 +1,72 @@
 import {
-  type DecimalPlaces,
   createDecimalPlaces,
-  mergeOptionalDecimalPlaces
-} from './DecimalPlaces.js'
+  type DecimalPlaces,
+  mergeOptionalDecimalPlaces,
+} from "./DecimalPlaces.js";
 import {
-  type UnscaledComputing,
   createUnscaledComputing,
-  mergeOptionalUnscaledComputing
-} from './UnscaledComputing.js'
+  mergeOptionalUnscaledComputing,
+  type UnscaledComputing,
+} from "./UnscaledComputing.js";
 
 export interface GlobalParameters {
-  unscaledComputing: UnscaledComputing
-  decimalPlaces: DecimalPlaces
+  unscaledComputing: UnscaledComputing;
+  decimalPlaces: DecimalPlaces;
 }
 
 export const createGlobalParameters = (
-  partialGlobalParameters: Partial<GlobalParameters> = {}
+  partialGlobalParameters: Partial<GlobalParameters> = {},
 ): GlobalParameters => ({
   unscaledComputing: createUnscaledComputing(
-    partialGlobalParameters.unscaledComputing
+    partialGlobalParameters.unscaledComputing,
   ),
-  decimalPlaces: createDecimalPlaces(partialGlobalParameters.decimalPlaces)
-})
+  decimalPlaces: createDecimalPlaces(partialGlobalParameters.decimalPlaces),
+});
 
 export const mergePartialGlobalParameters = (
   precedingPartialGlobalParameters: Partial<GlobalParameters>,
-  followingPartialGlobalParameters: Partial<GlobalParameters>
+  followingPartialGlobalParameters: Partial<GlobalParameters>,
 ): Partial<GlobalParameters> => {
-  const partialGlobalParameters: Partial<GlobalParameters> = {}
+  const partialGlobalParameters: Partial<GlobalParameters> = {};
   const optionalUnscaledComputing = mergeOptionalUnscaledComputing(
     precedingPartialGlobalParameters.unscaledComputing,
-    followingPartialGlobalParameters.unscaledComputing
-  )
+    followingPartialGlobalParameters.unscaledComputing,
+  );
   const optionalDecimalPlaces = mergeOptionalDecimalPlaces(
     precedingPartialGlobalParameters.decimalPlaces,
-    followingPartialGlobalParameters.decimalPlaces
-  )
-  if (typeof optionalUnscaledComputing !== 'undefined')
-    partialGlobalParameters.unscaledComputing = optionalUnscaledComputing
-  if (typeof optionalDecimalPlaces !== 'undefined')
-    partialGlobalParameters.decimalPlaces = optionalDecimalPlaces
-  return partialGlobalParameters
-}
+    followingPartialGlobalParameters.decimalPlaces,
+  );
+  if (typeof optionalUnscaledComputing !== "undefined")
+    partialGlobalParameters.unscaledComputing = optionalUnscaledComputing;
+  if (typeof optionalDecimalPlaces !== "undefined")
+    partialGlobalParameters.decimalPlaces = optionalDecimalPlaces;
+  return partialGlobalParameters;
+};
 
 export const assignOptionalUnscaledComputing = (
-  partialGlobalParameters: Partial<GlobalParameters> = {},
-  optionalUnscaledComputing: UnscaledComputing | undefined
+  optionalPartialGlobalParameters: Partial<GlobalParameters> | undefined,
+  optionalUnscaledComputing: UnscaledComputing | undefined,
 ): Partial<GlobalParameters> =>
-  typeof optionalUnscaledComputing !== 'undefined'
+  typeof optionalUnscaledComputing !== "undefined"
     ? {
-        ...partialGlobalParameters,
-        unscaledComputing: optionalUnscaledComputing
+        ...(optionalPartialGlobalParameters ?? {}),
+        unscaledComputing: optionalUnscaledComputing,
       }
-    : partialGlobalParameters
+    : (optionalPartialGlobalParameters ?? {});
 
 export const assignOptionalDecimalPlaces = (
-  partialGlobalParameters: Partial<GlobalParameters> = {},
-  optionalDecimalPlaces: DecimalPlaces | undefined
+  optionalPartialGlobalParameters: Partial<GlobalParameters> | undefined,
+  optionalDecimalPlaces: DecimalPlaces | undefined,
 ): Partial<GlobalParameters> =>
-  typeof optionalDecimalPlaces !== 'undefined'
+  typeof optionalDecimalPlaces !== "undefined"
     ? {
-        ...partialGlobalParameters,
-        decimalPlaces: optionalDecimalPlaces
+        ...(optionalPartialGlobalParameters ?? {}),
+        decimalPlaces: optionalDecimalPlaces,
       }
-    : partialGlobalParameters
+    : (optionalPartialGlobalParameters ?? {});
 
 export const getUnscaledComputing = (globalParameters: GlobalParameters) =>
-  globalParameters.unscaledComputing
+  globalParameters.unscaledComputing;
 
 export const getDecimalPlaces = (globalParameters: GlobalParameters) =>
-  globalParameters.decimalPlaces
+  globalParameters.decimalPlaces;

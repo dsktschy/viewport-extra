@@ -1,65 +1,65 @@
-import path from 'node:path'
-import { fileURLToPath } from 'node:url'
-import rollupPluginTerser from '@rollup/plugin-terser'
-import rollupPluginTypescript from '@rollup/plugin-typescript'
-import rollupPluginDelete from 'rollup-plugin-delete'
-import packageJson from './package.json' with { type: 'json' }
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import rollupPluginTerser from "@rollup/plugin-terser";
+import rollupPluginTypescript from "@rollup/plugin-typescript";
+import rollupPluginDelete from "rollup-plugin-delete";
+import packageJson from "./package.json" with { type: "json" };
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Copyright
 const banner =
-  '/*!\n' +
+  "/*!\n" +
   ` * Viewport Extra v${packageJson.version}\n` +
-  ' * (c) dsktschy\n' +
-  ' * Released under the MIT License.\n' +
-  ' */'
+  " * (c) dsktschy\n" +
+  " * Released under the MIT License.\n" +
+  " */";
 
 // Enable to use class constructor without default key for iife
 // https://github.com/rollup/rollup/issues/1961#issuecomment-534977678
-const outro = 'exports = exports.default;\n' + 'exports.default = exports;'
+const outro = "exports = exports.default;\n" + "exports.default = exports;";
 
 // Global variable name for iife
-const name = 'ViewportExtra'
+const name = "ViewportExtra";
 
-const importDefaultPath = path.resolve(__dirname, packageJson.module)
-const requireDefaultPath = path.resolve(__dirname, packageJson.main)
-const jsdelivrPath = path.resolve(__dirname, packageJson.jsdelivr)
-const nonMinifiedJsdelivrPath = jsdelivrPath.replace(/\.min\.js$/, '.js')
+const importDefaultPath = path.resolve(__dirname, packageJson.module);
+const requireDefaultPath = path.resolve(__dirname, packageJson.main);
+const jsdelivrPath = path.resolve(__dirname, packageJson.jsdelivr);
+const nonMinifiedJsdelivrPath = jsdelivrPath.replace(/\.min\.js$/, ".js");
 
 export default {
-  input: path.resolve(__dirname, 'src/index.ts'),
+  input: path.resolve(__dirname, "src/index.ts"),
   output: [
     {
       file: importDefaultPath,
-      format: 'es',
-      exports: 'named',
-      sourcemap: 'hidden',
-      banner
+      format: "es",
+      exports: "named",
+      sourcemap: "hidden",
+      banner,
     },
     {
       file: requireDefaultPath,
-      format: 'cjs',
-      exports: 'named',
-      sourcemap: 'hidden',
+      format: "cjs",
+      exports: "named",
+      sourcemap: "hidden",
       banner,
-      outro
+      outro,
     },
     {
       file: nonMinifiedJsdelivrPath,
-      format: 'iife',
-      exports: 'named',
+      format: "iife",
+      exports: "named",
       sourcemap: false,
       banner,
       outro,
-      name
+      name,
     },
     {
       file: jsdelivrPath,
-      format: 'iife',
-      exports: 'named',
-      sourcemap: 'hidden',
+      format: "iife",
+      exports: "named",
+      sourcemap: "hidden",
       outro,
       name,
       plugins: [
@@ -68,11 +68,11 @@ export default {
             // Copyright of tslib is not required
             // https://github.com/microsoft/tslib/pull/96
             comments: false,
-            preamble: banner
-          }
-        })
-      ]
-    }
+            preamble: banner,
+          },
+        }),
+      ],
+    },
   ],
   plugins: [
     rollupPluginDelete({
@@ -83,15 +83,15 @@ export default {
         `${requireDefaultPath}.map`,
         nonMinifiedJsdelivrPath,
         jsdelivrPath,
-        `${jsdelivrPath}.map`
-      ]
+        `${jsdelivrPath}.map`,
+      ],
     }),
     rollupPluginTypescript({
-      target: 'es5',
-      filterRoot: './src',
+      target: "es5",
+      filterRoot: "src",
       // Exit on error if not watching
       // https://github.com/rollup/plugins/issues/258#issuecomment-848402026
-      noEmitOnError: !process.env.ROLLUP_WATCH
-    })
-  ]
-}
+      noEmitOnError: !process.env.ROLLUP_WATCH,
+    }),
+  ],
+};

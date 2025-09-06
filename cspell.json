@@ -21,10 +21,11 @@
     "dotenv",
     "vuepress",
     "commitlint",
-    "lintstagedrc",
+    "stylecheck",
     "npmjs",
     "vercel",
     "lockfiles",
-    "unobserve"
+    "unobserve",
+    "lefthook"
   ]
 }

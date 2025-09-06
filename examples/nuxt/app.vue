@@ -13,14 +13,15 @@
     />
   </Head>
 
-  <!-- eslint-disable-next-line vue/no-multiple-template-root -->
   <NuxtPage />
 </template>
 
 <script setup>
+import { onMounted } from "vue";
+
 onMounted(() => {
-  import('viewport-extra').then(({ setContent }) => {
-    setContent({ minWidth: 412 })
-  })
-})
+  import("viewport-extra").then(({ setContent }) => {
+    setContent({ minWidth: 412 });
+  });
+});
 </script>

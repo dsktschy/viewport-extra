@@ -1,18 +1,18 @@
-import type TViewportExtra from '@@/types/index.d.ts'
+import type TViewportExtra from "@@/types/index.d.ts";
 
 interface CustomWindow extends Window {
-  ViewportExtra?: typeof TViewportExtra
+  ViewportExtra?: typeof TViewportExtra;
 }
 
-const ViewportExtra = (window as CustomWindow).ViewportExtra
-if (typeof ViewportExtra === 'function') {
+const ViewportExtra = (window as CustomWindow).ViewportExtra;
+if (typeof ViewportExtra === "function") {
   const contentAttribute = document
-    .querySelector('[data-content]')
-    ?.getAttribute('data-content')
-  if (typeof contentAttribute === 'string')
+    .querySelector("[data-content]")
+    ?.getAttribute("data-content");
+  if (typeof contentAttribute === "string")
     ViewportExtra.setContent(
       JSON.parse(contentAttribute) as Parameters<
         typeof ViewportExtra.setContent
-      >[0]
-    )
+      >[0],
+    );
 }
