@@ -22,11 +22,10 @@
     "vuepress",
     "commitlint",
     "stylecheck",
-    "lintstaged",
-    "lintstagedrc",
     "npmjs",
     "vercel",
     "lockfiles",
-    "unobserve"
+    "unobserve",
+    "lefthook"
   ]
 }
