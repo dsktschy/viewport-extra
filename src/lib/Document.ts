@@ -1,15 +1,15 @@
-export const ensureViewportElement = (doc: Document): HTMLMetaElement => {
-  const viewportElement = doc.querySelector<HTMLMetaElement>(
+export const ensureViewportMetaElement = (doc: Document): HTMLMetaElement => {
+  const viewportMetaElement = doc.querySelector<HTMLMetaElement>(
     'meta[name="viewport"]',
   );
-  if (viewportElement) return viewportElement;
-  const metaElement = doc.createElement("meta");
-  metaElement.setAttribute("name", "viewport");
-  doc.head.appendChild(metaElement);
-  return metaElement;
+  if (viewportMetaElement) return viewportMetaElement;
+  const htmlMetaElement = doc.createElement("meta");
+  htmlMetaElement.setAttribute("name", "viewport");
+  doc.head.appendChild(htmlMetaElement);
+  return htmlMetaElement;
 };
 
-export const getViewportExtraElementList = (
+export const getViewportExtraMetaElementList = (
   doc: Document,
 ): HTMLMetaElement[] => {
   const arrayFrom = <T>(arrayLike: ArrayLike<T>): T[] =>
