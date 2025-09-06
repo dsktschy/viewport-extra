@@ -98,7 +98,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
     });
 
     // Following cases cannot be tested with vitest
-    // Because vitest does not update size of document element when viewport element is updated
+    // Because vitest does not update size of document element when viewport meta element is updated
     // Run only in minimal formats and viewports because they replace unit tests of src/index.spec.ts
     test.describe("comparison with min-width and max-width, and computation of output initial-scale", () => {
       test.beforeEach(async ({ page }, testInfo) => {

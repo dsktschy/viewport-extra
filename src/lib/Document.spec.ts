@@ -1,18 +1,18 @@
 import { describe, expect, it } from "vitest";
 import {
-  ensureViewportElement,
+  ensureViewportMetaElement,
   getDocumentClientWidth,
-  getViewportExtraElementList,
+  getViewportExtraMetaElementList,
 } from "./Document.js";
 
-describe("ensureViewportElement", () => {
+describe("ensureViewportMetaElement", () => {
   describe("case where viewport meta element exists", () => {
     it("should return existing viewport meta element", () => {
       document.head.innerHTML = `
         <meta charset="utf-8">
         <meta name="viewport" content="width=412,initial-scale=2">
       `;
-      expect(ensureViewportElement(document)).toBe(
+      expect(ensureViewportMetaElement(document)).toBe(
         document.querySelector('meta[name="viewport"]'),
       );
     });
@@ -23,17 +23,17 @@ describe("ensureViewportElement", () => {
       document.head.innerHTML = `
         <meta charset="utf-8">
       `;
-      const returnedViewportElement = ensureViewportElement(document);
-      const selectedViewportElement = document.querySelector(
+      const returnedViewportMetaElement = ensureViewportMetaElement(document);
+      const selectedViewportMetaElement = document.querySelector(
         'meta[name="viewport"]',
       );
-      expect(selectedViewportElement).not.toBe(null);
-      expect(returnedViewportElement).toBe(selectedViewportElement);
+      expect(selectedViewportMetaElement).not.toBe(null);
+      expect(returnedViewportMetaElement).toBe(selectedViewportMetaElement);
     });
   });
 });
 
-describe("getViewportExtraElementList", () => {
+describe("getViewportExtraMetaElementList", () => {
   describe("case where viewport meta elements exist", () => {
     it("should return existing viewport-extra meta elements without viewport meta element", () => {
       document.head.innerHTML = `
@@ -42,13 +42,13 @@ describe("getViewportExtraElementList", () => {
         <meta name="viewport-extra" content="min-width=412">
         <meta name="viewport-extra" content="max-width=768">
       `;
-      const selectedViewportElementList = document.querySelectorAll(
+      const selectedViewportMetaElementList = document.querySelectorAll(
         'meta[name="viewport-extra"]',
       );
-      getViewportExtraElementList(document).forEach(
-        (returnedViewportExtraElement, index) => {
-          expect(returnedViewportExtraElement).toBe(
-            selectedViewportElementList[index],
+      getViewportExtraMetaElementList(document).forEach(
+        (returnedViewportExtraMetaElement, index) => {
+          expect(returnedViewportExtraMetaElement).toBe(
+            selectedViewportMetaElementList[index],
           );
         },
       );
@@ -61,7 +61,7 @@ describe("getViewportExtraElementList", () => {
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width,initial-scale=1">
       `;
-      expect(getViewportExtraElementList(document).length).toBe(0);
+      expect(getViewportExtraMetaElementList(document).length).toBe(0);
     });
   });
 });

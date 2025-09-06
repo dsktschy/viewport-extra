@@ -87,13 +87,13 @@ describe("side effects", () => {
           <meta name="viewport-extra" content="min-width=412">
         `;
         await import("./index.js");
-        const viewportElementList = document.querySelectorAll(
+        const viewportMetaElementList = document.querySelectorAll(
           'meta[name="viewport"]',
         );
-        expect(viewportElementList[0]?.getAttribute("content")).toBe(
+        expect(viewportMetaElementList[0]?.getAttribute("content")).toBe(
           "initial-scale=0.7766990291262136,width=412",
         );
-        expect(viewportElementList[1]?.getAttribute("content")).toBe("");
+        expect(viewportMetaElementList[1]?.getAttribute("content")).toBe("");
       });
     });
   });
@@ -166,13 +166,13 @@ describe("setParameters", () => {
         `;
         const { setParameters } = await import("./index.js");
         setParameters([{ content: { minWidth: 412 } }]);
-        const viewportElementList = document.querySelectorAll(
+        const viewportMetaElementList = document.querySelectorAll(
           'meta[name="viewport"]',
         );
-        expect(viewportElementList[0]?.getAttribute("content")).toBe(
+        expect(viewportMetaElementList[0]?.getAttribute("content")).toBe(
           "initial-scale=0.7766990291262136,width=412",
         );
-        expect(viewportElementList[1]?.getAttribute("content")).toBe("");
+        expect(viewportMetaElementList[1]?.getAttribute("content")).toBe("");
       });
     });
   });
@@ -239,13 +239,13 @@ describe("setContent", () => {
         `;
         const { setContent } = await import("./index.js");
         setContent({ minWidth: 412 });
-        const viewportElementList = document.querySelectorAll(
+        const viewportMetaElementList = document.querySelectorAll(
           'meta[name="viewport"]',
         );
-        expect(viewportElementList[0]?.getAttribute("content")).toBe(
+        expect(viewportMetaElementList[0]?.getAttribute("content")).toBe(
           "initial-scale=0.7766990291262136,width=412",
         );
-        expect(viewportElementList[1]?.getAttribute("content")).toBe("");
+        expect(viewportMetaElementList[1]?.getAttribute("content")).toBe("");
       });
     });
   });
@@ -319,13 +319,13 @@ describe("updateReference", () => {
         );
         updateReference();
         setContent({ minWidth: 412 });
-        const viewportElementList = document.querySelectorAll(
+        const viewportMetaElementList = document.querySelectorAll(
           'meta[name="viewport"]',
         );
-        expect(viewportElementList[0].getAttribute("content")).toBe(
+        expect(viewportMetaElementList[0].getAttribute("content")).toBe(
           "initial-scale=0.7766990291262136,width=412",
         );
-        expect(viewportElementList[1].getAttribute("content")).toBe("");
+        expect(viewportMetaElementList[1].getAttribute("content")).toBe("");
       });
     });
   });
@@ -422,13 +422,13 @@ describe("constructor of ViewportExtra class", () => {
         `;
         const { default: ViewportExtra } = await import("./index.js");
         new ViewportExtra({ minWidth: 412 });
-        const viewportElementList = document.querySelectorAll(
+        const viewportMetaElementList = document.querySelectorAll(
           'meta[name="viewport"]',
         );
-        expect(viewportElementList[0]?.getAttribute("content")).toBe(
+        expect(viewportMetaElementList[0]?.getAttribute("content")).toBe(
           "initial-scale=0.7766990291262136,width=412",
         );
-        expect(viewportElementList[1]?.getAttribute("content")).toBe("");
+        expect(viewportMetaElementList[1]?.getAttribute("content")).toBe("");
       });
     });
   });
@@ -501,13 +501,13 @@ describe("setParameters method of ViewportExtra class", () => {
         `;
         const { default: ViewportExtra } = await import("./index.js");
         ViewportExtra.setParameters([{ content: { minWidth: 412 } }]);
-        const viewportElementList = document.querySelectorAll(
+        const viewportMetaElementList = document.querySelectorAll(
           'meta[name="viewport"]',
         );
-        expect(viewportElementList[0]?.getAttribute("content")).toBe(
+        expect(viewportMetaElementList[0]?.getAttribute("content")).toBe(
           "initial-scale=0.7766990291262136,width=412",
         );
-        expect(viewportElementList[1]?.getAttribute("content")).toBe("");
+        expect(viewportMetaElementList[1]?.getAttribute("content")).toBe("");
       });
     });
   });
@@ -574,13 +574,13 @@ describe("setContent method of ViewportExtra class", () => {
         `;
         const { default: ViewportExtra } = await import("./index.js");
         ViewportExtra.setContent({ minWidth: 412 });
-        const viewportElementList = document.querySelectorAll(
+        const viewportMetaElementList = document.querySelectorAll(
           'meta[name="viewport"]',
         );
-        expect(viewportElementList[0]?.getAttribute("content")).toBe(
+        expect(viewportMetaElementList[0]?.getAttribute("content")).toBe(
           "initial-scale=0.7766990291262136,width=412",
         );
-        expect(viewportElementList[1]?.getAttribute("content")).toBe("");
+        expect(viewportMetaElementList[1]?.getAttribute("content")).toBe("");
       });
     });
   });
@@ -656,13 +656,13 @@ describe("updateReference method of ViewportExtra class", () => {
         );
         ViewportExtra.updateReference();
         setContent({ minWidth: 412 });
-        const viewportElementList = document.querySelectorAll(
+        const viewportMetaElementList = document.querySelectorAll(
           'meta[name="viewport"]',
         );
-        expect(viewportElementList[0].getAttribute("content")).toBe(
+        expect(viewportMetaElementList[0].getAttribute("content")).toBe(
           "initial-scale=0.7766990291262136,width=412",
         );
-        expect(viewportElementList[1].getAttribute("content")).toBe("");
+        expect(viewportMetaElementList[1].getAttribute("content")).toBe("");
       });
     });
   });
