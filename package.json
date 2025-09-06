@@ -28,9 +28,7 @@
     "test:e2e:install": "playwright install --with-deps",
     "test:e2e:build": "NODE_OPTIONS=--no-warnings=ExperimentalWarning vite build --config vite.config.e2e.mts",
     "test:e2e:execute": "playwright test --pass-with-no-tests",
-    "preview-e2e": "NODE_OPTIONS=--no-warnings=ExperimentalWarning vite preview --config vite.config.e2e.mts --strictPort --port 3000",
-    "lintstaged": "lint-staged --config=.lintstagedrc.mjs",
-    "prepare": "husky"
+    "preview-e2e": "NODE_OPTIONS=--no-warnings=ExperimentalWarning vite preview --config vite.config.e2e.mts --strictPort --port 3000"
   },
   "repository": {
     "type": "git",
@@ -70,9 +68,8 @@
     "cspell": "8.18.0",
     "eslint": "9.31.0",
     "eslint-plugin-compat": "6.0.2",
-    "husky": "9.1.4",
     "jsdom": "26.1.0",
-    "lint-staged": "15.2.9",
+    "lefthook": "1.11.0",
     "npm-run-all2": "7.0.2",
     "prettier": "3.3.3",
     "rimraf": "6.0.1",

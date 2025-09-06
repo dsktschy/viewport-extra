@@ -1,1 +1,0 @@
-npx npm-run-all --sequential lintstaged es5check typecheck test
