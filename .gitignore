@@ -147,5 +147,5 @@ dist
 /.git/
 
 # viewport-extra
+/types/
 /.types/
-/.biome.jsonc
