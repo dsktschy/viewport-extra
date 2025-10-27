@@ -10,6 +10,43 @@
 
 Viewport Extra is a library that enables setting the minimum / maximum width of the viewport. It reduces the range of the viewport that needs to be considered when styling.
 
+<!--
+Display images on following pages with as much spacing as possible
+
+- https://github.com/dsktschy/viewport-extra#readme
+- https://github.com/dsktschy/viewport-extra/blob/master/README.md
+- https://www.npmjs.com/package/viewport-extra#readme
+- https://www.jsdelivr.com/package/npm/viewport-extra#tabRouteReadme
+-->
+<div align="center">
+  <img
+    src="https://raw.githubusercontent.com/dsktschy/viewport-extra-demo-images/refs/tags/v1.0.0-artifacts/before-applied.en.gif"
+    alt="Before Viewport Extra"
+  >
+  <picture>
+    <source
+      srcset="https://raw.githubusercontent.com/dsktschy/viewport-extra/master/docs/images/spacer-100x0.svg"
+      media="(min-width: 1054px)"
+    >
+    <source
+      srcset="https://raw.githubusercontent.com/dsktschy/viewport-extra/master/docs/images/spacer-0x0.svg"
+      media="(min-width: 768px)"
+    >
+    <source
+      srcset="https://raw.githubusercontent.com/dsktschy/viewport-extra/master/docs/images/spacer-100x0.svg"
+      media="(min-width: 702px)"
+    >
+    <img
+      src="https://raw.githubusercontent.com/dsktschy/viewport-extra/master/docs/images/spacer-0x0.svg"
+      alt=""
+    >
+  </picture>
+  <img
+    src="https://raw.githubusercontent.com/dsktschy/viewport-extra-demo-images/refs/tags/v1.0.0-artifacts/after-applied.en.gif"
+    alt="After Viewport Extra"
+  >
+</div>
+
 For example, when displaying a 412px-wide page on a mobile browser with a viewport width of 360px (e.g., Chrome on Galaxy S24 in portrait mode), horizontal scrolling occurs. This can be resolved by styling for viewport widths less than 412px, but it's a hassle. However, by using Viewport Extra to set the minimum viewport width to 412px, the page will be scaled down to fit perfectly within 360px, eliminating horizontal scrolling. This provides a simple solution with no styling required.
 
 Page scaling is achieved by updating the `content` attribute of the `<meta name="viewport">` element.
