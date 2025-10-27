@@ -26,6 +26,7 @@
     "vercel",
     "lockfiles",
     "unobserve",
-    "lefthook"
+    "lefthook",
+    "srcset"
   ]
 }
