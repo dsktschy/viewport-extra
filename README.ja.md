@@ -10,6 +10,40 @@
 
 Viewport Extra は、ビューポートの最小幅および最大幅の設定を可能にするライブラリです。これにより、スタイリング時に考慮すべきビューポートの範囲を狭めることができます。
 
+<!--
+Display images on following pages with as much spacing as possible
+
+- https://github.com/dsktschy/viewport-extra/blob/master/README.ja.md
+-->
+<div align="center">
+  <img
+    src="https://raw.githubusercontent.com/dsktschy/viewport-extra-demo-images/refs/tags/v2.0.0-artifacts/scale-down-page-on-small-viewport-widths-ja/before-applying.gif"
+    alt="Viewport Extra 適用前"
+  >
+  <picture>
+    <source
+      srcset="https://raw.githubusercontent.com/dsktschy/viewport-extra/master/docs/images/spacer-100x0.svg"
+      media="(min-width: 1054px)"
+    >
+    <source
+      srcset="https://raw.githubusercontent.com/dsktschy/viewport-extra/master/docs/images/spacer-0x0.svg"
+      media="(min-width: 768px)"
+    >
+    <source
+      srcset="https://raw.githubusercontent.com/dsktschy/viewport-extra/master/docs/images/spacer-100x0.svg"
+      media="(min-width: 702px)"
+    >
+    <img
+      src="https://raw.githubusercontent.com/dsktschy/viewport-extra/master/docs/images/spacer-0x0.svg"
+      alt=""
+    >
+  </picture>
+  <img
+    src="https://raw.githubusercontent.com/dsktschy/viewport-extra-demo-images/refs/tags/v2.0.0-artifacts/scale-down-page-on-small-viewport-widths-ja/after-applying.gif"
+    alt="Viewport Extra 適用後"
+  >
+</div>
+
 たとえば、幅 412px のページを、ビューポート幅 360px のモバイル向けブラウザ (例: 縦向きの Galaxy S24 上の Chrome) で表示すると、横方向のスクロールが発生してしまいます。これは、412px 未満のビューポート幅のためにスタイルを追加することで解決できますが、その作業は面倒です。しかし、Viewport Extra でビューポートの最小幅を 412px に設定すれば、そのページは 360px にぴったり収まるように縮小され、横方向のスクロールが発生しません。スタイルを追加することなく、簡単に解決できます。
 
 ページの拡大・縮小は、`<meta name="viewport">` 要素の `content` 属性の書き換えにより行われます。
