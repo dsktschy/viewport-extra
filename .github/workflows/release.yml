@@ -20,9 +20,7 @@ jobs:
     steps:
       - name: Publish tag and release
 
-        # Temporary fork until following are implemented:
-        # – Bump release-please to v17.1.0 or later
-        # – Support for replacing only pre-execution version in extra-files
+        # Fork to replace only pre-execution version in extra-files
         uses: dsktschy/release-please-action@c135340c5ba36cf42122ea5508f80763d3b2eda2
 
         with:
@@ -40,9 +38,7 @@ jobs:
     steps:
       - name: Publish tag and release
 
-        # Temporary fork until following are implemented:
-        # – Bump release-please to v17.1.0 or later
-        # – Support for replacing only pre-execution version in extra-files
+        # Fork to replace only pre-execution version in extra-files
         uses: dsktschy/release-please-action@c135340c5ba36cf42122ea5508f80763d3b2eda2
 
         with:
