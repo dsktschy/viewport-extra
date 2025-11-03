@@ -27,6 +27,7 @@
     "lockfiles",
     "unobserve",
     "lefthook",
-    "srcset"
+    "srcset",
+    "commitcheck"
   ]
 }
