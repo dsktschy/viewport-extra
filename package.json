@@ -85,6 +85,8 @@
     "test:e2e:build": "NODE_OPTIONS=--no-warnings=ExperimentalWarning vite build --config vite.config.e2e.mts",
     "test:e2e:execute": "playwright test --pass-with-no-tests",
     "preview-e2e": "NODE_OPTIONS=--no-warnings=ExperimentalWarning vite preview --config vite.config.e2e.mts --strictPort --port 3000",
-    "sort-versions": "semver"
+    "sort-versions": "semver",
+    "trusted-postinstall": "npm-run-all --parallel trusted-postinstall:*",
+    "trusted-postinstall:esbuild": "npm explore esbuild -- npm run postinstall"
   }
 }
