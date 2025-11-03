@@ -78,13 +78,14 @@
     "es5check": "NODE_OPTIONS=--no-warnings=ExperimentalWarning eslint 'src/**/*' --ignore-pattern 'src/**/*.spec.*' --no-warn-ignored --config eslint.config.es5.js",
     "typecheck": "npm-run-all --sequential declare typecheck:execute",
     "typecheck:execute": "tsc --noEmit",
-    "test": "npm-run-all --parallel test:*",
+    "test": "npm-run-all --sequential install-esbuild --parallel test:*",
     "test:unit": "vitest run",
     "test:e2e": "npm-run-all --parallel test:e2e:install build --sequential test:e2e:build test:e2e:execute",
     "test:e2e:install": "playwright install --with-deps",
     "test:e2e:build": "NODE_OPTIONS=--no-warnings=ExperimentalWarning vite build --config vite.config.e2e.mts",
     "test:e2e:execute": "playwright test --pass-with-no-tests",
     "preview-e2e": "NODE_OPTIONS=--no-warnings=ExperimentalWarning vite preview --config vite.config.e2e.mts --strictPort --port 3000",
-    "sort-versions": "semver"
+    "sort-versions": "semver",
+    "install-esbuild": "npm explore esbuild -- npm run postinstall"
   }
 }
