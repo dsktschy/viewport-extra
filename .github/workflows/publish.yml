@@ -40,14 +40,14 @@ jobs:
           if [[ $version == *-* ]]; then
             next_tagged_version=$(npm view viewport-extra dist-tags.next)
             echo "next_tagged_version: $next_tagged_version"
-            greater_version=$(npx semver "$version" "$next_tagged_version" | tail -n 1)
+            greater_version=$(npm run sort-versions -- "$version" "$next_tagged_version" | tail -n 1)
             if [[ $version == $greater_version ]]; then
               dist_tag=next
             fi
           else
             latest_tagged_version=$(npm view viewport-extra dist-tags.latest)
             echo "latest_tagged_version: $latest_tagged_version"
-            greater_version=$(npx semver "$version" "$latest_tagged_version" | tail -n 1)
+            greater_version=$(npm run sort-versions -- "$version" "$latest_tagged_version" | tail -n 1)
             if [[ $version == $greater_version ]]; then
               dist_tag=latest
             fi
