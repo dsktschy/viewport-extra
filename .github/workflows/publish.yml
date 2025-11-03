@@ -28,7 +28,7 @@ jobs:
 
       - name: Install packages
         shell: bash
-        run: npm ci
+        run: npm ci --before $(node scripts/print-one-week-ago.ts)
 
       - name: Define variables
         id: define_variables
@@ -77,7 +77,7 @@ jobs:
 
       - name: Install packages
         shell: bash
-        run: npm ci
+        run: npm ci --before $(node scripts/print-one-week-ago.ts)
 
       - name: Build
         shell: bash
@@ -120,7 +120,7 @@ jobs:
 
       - name: Install packages
         shell: bash
-        run: npm ci
+        run: npm ci --before $(node scripts/print-one-week-ago.ts)
 
       - name: Build
         shell: bash
