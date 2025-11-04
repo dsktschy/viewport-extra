@@ -10,14 +10,12 @@ on:
         default: true
         type: boolean
 
-permissions:
-  contents: read
-  id-token: write
-
 jobs:
   define_variables_to_publish:
     timeout-minutes: 15
     runs-on: ubuntu-24.04
+    permissions:
+      contents: read
     steps:
       - name: Checkout repository
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
@@ -64,6 +62,9 @@ jobs:
     if: inputs.dry_run == false
     timeout-minutes: 15
     runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
@@ -104,6 +105,9 @@ jobs:
     if: inputs.dry_run == true
     timeout-minutes: 15
     runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
