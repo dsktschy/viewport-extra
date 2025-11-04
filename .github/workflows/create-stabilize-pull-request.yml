@@ -7,12 +7,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-permissions:
-  contents: write
-  pull-requests: write
-
 jobs:
   define_variables_to_stabilize:
+    permissions:
+      contents: read
     timeout-minutes: 15
     runs-on: ubuntu-24.04
     steps:
@@ -40,6 +38,9 @@ jobs:
   create_stabilize_pull_request:
     needs: define_variables_to_stabilize
     if: needs.define_variables_to_stabilize.outputs.stabilizable == 'yes'
+    permissions:
+      contents: write
+      pull-requests: write
     timeout-minutes: 15
     runs-on: ubuntu-24.04
     steps:

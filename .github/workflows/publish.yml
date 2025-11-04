@@ -10,12 +10,10 @@ on:
         default: true
         type: boolean
 
-permissions:
-  contents: read
-  id-token: write
-
 jobs:
   define_variables_to_publish:
+    permissions:
+      contents: read
     timeout-minutes: 15
     runs-on: ubuntu-24.04
     steps:
@@ -62,6 +60,9 @@ jobs:
   publish:
     needs: define_variables_to_publish
     if: inputs.dry_run == false
+    permissions:
+      contents: read
+      id-token: write
     timeout-minutes: 15
     runs-on: ubuntu-24.04
     steps:
@@ -102,6 +103,9 @@ jobs:
   dry_publish:
     needs: define_variables_to_publish
     if: inputs.dry_run == true
+    permissions:
+      contents: read
+      id-token: write
     timeout-minutes: 15
     runs-on: ubuntu-24.04
     steps:

@@ -9,12 +9,10 @@ on:
     types:
       - completed
 
-permissions:
-  contents: write
-  pull-requests: write
-
 jobs:
   define_variables_to_update_example_lockfile:
+    permissions:
+      contents: read
     timeout-minutes: 15
     runs-on: ubuntu-24.04
     steps:
@@ -47,6 +45,9 @@ jobs:
   create_example_lockfile_update_pull_request:
     needs: define_variables_to_update_example_lockfile
     if: needs.define_variables_to_update_example_lockfile.outputs.updatable == 'yes'
+    permissions:
+      contents: write
+      pull-requests: write
     timeout-minutes: 15
     runs-on: ubuntu-24.04
     steps:
