@@ -1,4 +1,0 @@
-npm run declare && \
-npx --no-install lint-staged --config=.lintstagedrc.mjs && \
-npm run typecheck && \
-npm t

@@ -1,0 +1,16 @@
+commit-msg:
+  jobs:
+    - run: npx commitlint --edit {1}
+
+pre-commit:
+  piped: true
+  jobs:
+    - run: npm run spellcheck -- {staged_files}
+    - run: npm run stylecheck:code -- --write {staged_files}
+      stage_fixed: true
+    - run: npm run stylecheck:docs -- --write {staged_files}
+      glob: "*.md"
+      stage_fixed: true
+    - run: npm run es5check
+    - run: npm run typecheck
+    - run: npm run test

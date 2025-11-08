@@ -1,5 +1,5 @@
-import type { FunctionComponent } from 'react'
-import Link from 'next/link'
+import Link from "next/link";
+import type { FunctionComponent } from "react";
 
 const Index: FunctionComponent = () => (
   <>
@@ -7,6 +7,6 @@ const Index: FunctionComponent = () => (
     <p>-------------- 412px wide text --------------</p>
     <Link href="/another">Go to another page</Link>
   </>
-)
+);
 
-export default Index
+export default Index;

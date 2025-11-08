@@ -8,12 +8,8 @@
     "esModuleInterop": true,
     "paths": {
       "@@/*": ["./*"],
-      // To avoid errors when type checking
-      // https://github.com/rollup/rollup/issues/5199
       "rollup/parseAst": ["./node_modules/rollup/dist/parseAst"]
     },
-    // This target setting is used by tsc to avoid errors when type checking
-    // @rollup/plugin-typescript use target setting in rollup.config.build.mjs
     "target": "esnext"
   },
   "exclude": ["**/node_modules", "examples", "**/dist", "types", ".types"],
