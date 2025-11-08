@@ -10,8 +10,8 @@
     ".": {
       "release-type": "node",
       "extra-files": [
-        "README.md",
         "README.ja.md",
+        "README.md",
         "docs/en/migration-from-v1.md",
         "docs/en/migration-from-v2.md",
         "docs/ja/migration-from-v1.md",
