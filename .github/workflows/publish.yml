@@ -10,14 +10,12 @@ on:
         default: true
         type: boolean
 
-permissions:
-  contents: read
-  id-token: write
-
 jobs:
   define_variables_to_publish:
     timeout-minutes: 15
     runs-on: ubuntu-24.04
+    permissions:
+      contents: read
     steps:
       - name: Checkout repository
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
@@ -30,7 +28,11 @@ jobs:
 
       - name: Install packages
         shell: bash
-        run: npm ci
+        run: npm ci --before $(node scripts/print-one-week-ago.ts)
+
+      - name: Run trusted postinstall scripts
+        shell: bash
+        run: npm run trusted-postinstall
 
       - name: Define variables
         id: define_variables
@@ -42,14 +44,14 @@ jobs:
           if [[ $version == *-* ]]; then
             next_tagged_version=$(npm view viewport-extra dist-tags.next)
             echo "next_tagged_version: $next_tagged_version"
-            greater_version=$(npx semver "$version" "$next_tagged_version" | tail -n 1)
+            greater_version=$(npm run sort-versions -- "$version" "$next_tagged_version" | tail -n 1)
             if [[ $version == $greater_version ]]; then
               dist_tag=next
             fi
           else
             latest_tagged_version=$(npm view viewport-extra dist-tags.latest)
             echo "latest_tagged_version: $latest_tagged_version"
-            greater_version=$(npx semver "$version" "$latest_tagged_version" | tail -n 1)
+            greater_version=$(npm run sort-versions -- "$version" "$latest_tagged_version" | tail -n 1)
             if [[ $version == $greater_version ]]; then
               dist_tag=latest
             fi
@@ -64,6 +66,9 @@ jobs:
     if: inputs.dry_run == false
     timeout-minutes: 15
     runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
@@ -76,7 +81,11 @@ jobs:
 
       - name: Install packages
         shell: bash
-        run: npm ci
+        run: npm ci --before $(node scripts/print-one-week-ago.ts)
+
+      - name: Run trusted postinstall scripts
+        shell: bash
+        run: npm run trusted-postinstall
 
       - name: Build
         shell: bash
@@ -104,6 +113,9 @@ jobs:
     if: inputs.dry_run == true
     timeout-minutes: 15
     runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
@@ -116,7 +128,11 @@ jobs:
 
       - name: Install packages
         shell: bash
-        run: npm ci
+        run: npm ci --before $(node scripts/print-one-week-ago.ts)
+
+      - name: Run trusted postinstall scripts
+        shell: bash
+        run: npm run trusted-postinstall
 
       - name: Build
         shell: bash

@@ -16,6 +16,8 @@ jobs:
   check:
     timeout-minutes: 15
     runs-on: ubuntu-24.04
+    permissions:
+      contents: read
     steps:
       - name: Checkout repository
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
@@ -28,7 +30,11 @@ jobs:
 
       - name: Install packages
         shell: bash
-        run: npm ci
+        run: npm ci --before $(node scripts/print-one-week-ago.ts)
+
+      - name: Run trusted postinstall scripts
+        shell: bash
+        run: npm run trusted-postinstall
 
       - name: Check spelling
         shell: bash

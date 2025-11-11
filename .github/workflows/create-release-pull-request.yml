@@ -16,15 +16,14 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-permissions:
-  contents: write
-  pull-requests: write
-
 jobs:
   create_release_pull_request:
     if: inputs.versioning_strategy == 'default'
     timeout-minutes: 15
     runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: Bump version and create pull request
         # Temporary fork until googleapis/release-please-action's release-please is updated to v17.1.0
@@ -38,6 +37,9 @@ jobs:
     if: inputs.versioning_strategy == 'prerelease'
     timeout-minutes: 15
     runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: Bump version and create pull request
         # Temporary fork until googleapis/release-please-action's release-please is updated to v17.1.0
