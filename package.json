@@ -159,7 +159,7 @@
     "build": "rollup --config rollup.config.build.js --environment NODE_ENV:production",
     "declare": "npm-run-all --sequential declare:clean declare:execute declare:bundle declare:clean",
     "declare:clean": "rimraf .types",
-    "declare:execute": "tsx --no-warnings=ExperimentalWarning scripts/create-declaration-with-dts.ts 'src/entries/**/*.ts' --output-directory .types",
+    "declare:execute": "tsx scripts/create-declaration-with-dts.ts \"src/entries/**/*.ts\" --output-directory .types",
     "declare:bundle": "rollup --config rollup.config.declare.js --environment NODE_ENV:production",
     "commitcheck": "commitlint --edit",
     "spellcheck": "cspell lint --no-must-find-files",
