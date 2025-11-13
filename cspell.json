@@ -27,6 +27,7 @@
     "unobserve",
     "lefthook",
     "srcset",
+    "commitcheck",
     "nodenext"
   ]
 }

@@ -1,6 +1,6 @@
 commit-msg:
   jobs:
-    - run: npx commitlint --edit {1}
+    - run: npm run commitcheck -- {1}
 
 pre-commit:
   piped: true
