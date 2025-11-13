@@ -1,7 +1,7 @@
 {
   "name": "viewport-extra",
   "version": "2.5.0",
-  "description": "Enable to set min-width and max-width to viewport",
+  "description": "Enable setting minimum and maximum viewport width",
   "author": "dsktschy (https://github.com/dsktschy)",
   "license": "MIT",
   "homepage": "https://github.com/dsktschy/viewport-extra#readme",
@@ -54,7 +54,7 @@
     "jsdom": "26.1.0",
     "lefthook": "1.11.0",
     "npm-run-all2": "7.0.2",
-    "prettier": "3.3.3",
+    "prettier": "3.6.2",
     "rimraf": "6.0.1",
     "rollup": "4.24.0",
     "rollup-plugin-delete": "3.0.1",
