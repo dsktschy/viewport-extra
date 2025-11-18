@@ -28,7 +28,7 @@ jobs:
 
       - name: Install packages
         shell: bash
-        run: npm ci --before $(node scripts/print-one-week-ago.ts)
+        run: npm ci --before $(node scripts/print-latest-safe-release-date.ts)
 
       - name: Run trusted postinstall scripts
         shell: bash
@@ -81,7 +81,7 @@ jobs:
 
       - name: Install packages
         shell: bash
-        run: npm ci --before $(node scripts/print-one-week-ago.ts)
+        run: npm ci --before $(node scripts/print-latest-safe-release-date.ts)
 
       - name: Run trusted postinstall scripts
         shell: bash
@@ -128,7 +128,7 @@ jobs:
 
       - name: Install packages
         shell: bash
-        run: npm ci --before $(node scripts/print-one-week-ago.ts)
+        run: npm ci --before $(node scripts/print-latest-safe-release-date.ts)
 
       - name: Run trusted postinstall scripts
         shell: bash
