@@ -40,8 +40,9 @@ jobs:
         run: |
           version=$(jq -r .version package.json)
           echo "version: $version"
-          dist_tag=temporary
+          dist_tag=
           if [[ $version == *-* ]]; then
+            dist_tag="next-v${version%%.*}"
             next_tagged_version=$(npm view viewport-extra dist-tags.next)
             echo "next_tagged_version: $next_tagged_version"
             greater_version=$(npm run sort-versions -- "$version" "$next_tagged_version" | tail -n 1)
@@ -49,6 +50,7 @@ jobs:
               dist_tag=next
             fi
           else
+            dist_tag="latest-v${version%%.*}"
             latest_tagged_version=$(npm view viewport-extra dist-tags.latest)
             echo "latest_tagged_version: $latest_tagged_version"
             greater_version=$(npm run sort-versions -- "$version" "$latest_tagged_version" | tail -n 1)
@@ -97,16 +99,7 @@ jobs:
 
       - name: Publish to npm
         shell: bash
-        run: npm publish --tag ${{ needs.define_variables_to_publish.outputs.dist_tag }} --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
-
-      - name: Remove temporary dist-tag
-        if: needs.define_variables_to_publish.outputs.dist_tag == 'temporary'
-        shell: bash
-        run: npm dist-tag rm viewport-extra temporary
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+        run: npm publish --tag ${{ needs.define_variables_to_publish.outputs.dist_tag }}
 
   dry_publish:
     needs: define_variables_to_publish
@@ -115,7 +108,6 @@ jobs:
     runs-on: ubuntu-24.04
     permissions:
       contents: read
-      id-token: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
@@ -144,6 +136,4 @@ jobs:
 
       - name: Publish to npm
         shell: bash
-        run: npm publish --tag ${{ needs.define_variables_to_publish.outputs.dist_tag }} --provenance --dry-run
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+        run: npm publish --tag ${{ needs.define_variables_to_publish.outputs.dist_tag }} --dry-run
