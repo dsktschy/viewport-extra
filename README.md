@@ -1,13 +1,13 @@
 # Viewport Extra [![](https://data.jsdelivr.com/v1/package/npm/viewport-extra/badge)](https://www.jsdelivr.com/package/npm/viewport-extra) [![npm version](https://img.shields.io/npm/v/viewport-extra.svg?style=flat-square)](https://www.npmjs.com/package/viewport-extra) [![GitHub license](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](https://github.com/dsktschy/viewport-extra/blob/master/LICENSE.txt)
 
-**English** | [日本語](/README.ja.md)
+**English** | [日本語](https://github.com/dsktschy/viewport-extra/blob/master/README.ja.md)
 
 > [!IMPORTANT]
 >
 > **_v3 includes BREAKING CHANGES._**
 >
-> - Reference: [Migration Guide from v2 to v3](/docs/en/migration-from-v2.md)
-> - Reference: [Migration Guide from v1 to v3](/docs/en/migration-from-v1.md)
+> - Reference: [Migration Guide from v2 to v3](https://github.com/dsktschy/viewport-extra/blob/master/docs/en/migration-from-v2.md)
+> - Reference: [Migration Guide from v1 to v3](https://github.com/dsktschy/viewport-extra/blob/master/docs/en/migration-from-v1.md)
 >
 > v2 and v1 will continue to be maintained and remain available for use.
 
@@ -288,7 +288,7 @@ import("viewport-extra").then(({ apply }) => {
 
 ### Scale Page Even in Legacy Environments
 
-The standard build used above includes ES2021 syntax and features in the Widely Available stage of the [Web Platform Baseline](https://web.dev/baseline) as of the release of Viewport Extra v3.0.0. To ensure compatibility with environments that do not support these (e.g., iOS Safari < 16, Android Chrome < 108), the ES5 build can be used [(Reference)](/docs/en/migration-from-v2.md#build-selection).
+The standard build used above includes ES2021 syntax and features in the Widely Available stage of the [Web Platform Baseline](https://web.dev/baseline) as of the release of Viewport Extra v3.0.0. To ensure compatibility with environments that do not support these (e.g., iOS Safari < 16, Android Chrome < 108), the ES5 build can be used [(Reference)](https://github.com/dsktschy/viewport-extra/blob/master/docs/en/migration-from-v2.md#build-selection).
 
 #### Implementation
 
