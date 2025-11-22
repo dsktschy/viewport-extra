@@ -1,13 +1,13 @@
 # Viewport Extra [![](https://data.jsdelivr.com/v1/package/npm/viewport-extra/badge)](https://www.jsdelivr.com/package/npm/viewport-extra) [![npm version](https://img.shields.io/npm/v/viewport-extra.svg?style=flat-square)](https://www.npmjs.com/package/viewport-extra) [![GitHub license](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](https://github.com/dsktschy/viewport-extra/blob/master/LICENSE.txt)
 
-[English](/README.md) | **日本語**
+[English](https://github.com/dsktschy/viewport-extra/blob/master/README.md) | **日本語**
 
 > [!IMPORTANT]
 >
 > **_v3 には破壊的変更が含まれます。_**
 >
-> - 参考: [v2 から v3 への移行ガイド](/docs/ja/migration-from-v2.md)
-> - 参考: [v1 から v3 への移行ガイド](/docs/ja/migration-from-v1.md)
+> - 参考: [v2 から v3 への移行ガイド](https://github.com/dsktschy/viewport-extra/blob/master/docs/ja/migration-from-v2.md)
+> - 参考: [v1 から v3 への移行ガイド](https://github.com/dsktschy/viewport-extra/blob/master/docs/ja/migration-from-v1.md)
 >
 > v2 および v1 もメンテナンスが継続されるため、引き続き使用可能です。
 
@@ -285,7 +285,7 @@ import("viewport-extra").then(({ apply }) => {
 
 ### レガシーな環境でもページを拡大・縮小する
 
-ここまでに使用している標準的なビルドには、ES2021 の構文、および Viewport Extra v3.0.0 公開時点で [Web Platform Baseline](https://web.dev/baseline?hl=ja) の Widely Available ステージにある機能が含まれます。これらをサポートしない環境 (例: iOS Safari < 16, Android Chrome < 108) でも Viewport Extra を動作させるためには、es5 ビルドを使用します [(参考)](/docs/ja/migration-from-v2.md#ビルドの選択) 。
+ここまでに使用している標準的なビルドには、ES2021 の構文、および Viewport Extra v3.0.0 公開時点で [Web Platform Baseline](https://web.dev/baseline?hl=ja) の Widely Available ステージにある機能が含まれます。これらをサポートしない環境 (例: iOS Safari < 16, Android Chrome < 108) でも Viewport Extra を動作させるためには、es5 ビルドを使用します [(参考)](https://github.com/dsktschy/viewport-extra/blob/master/docs/ja/migration-from-v2.md#ビルドの選択) 。
 
 #### 実装
 
