@@ -9,7 +9,6 @@
     "dsktschy",
     "autorelease",
     "kebabize",
-    "viewports",
     "stabilizable",
     "pids",
     "jscoverage",
@@ -28,6 +27,7 @@
     "unobserve",
     "lefthook",
     "srcset",
-    "commitcheck"
+    "commitcheck",
+    "nodenext"
   ]
 }

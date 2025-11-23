@@ -45,6 +45,9 @@
       }
     }
   },
+  "javascript": {
+    "globals": ["__TYPESCRIPT_TARGET__"]
+  },
   "html": {
     "formatter": {
       "enabled": true

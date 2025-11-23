@@ -12,7 +12,10 @@
       "extra-files": [
         "README.ja.md",
         "README.md",
-        "src/index.ts",
+        "docs/en/migration-from-v1.md",
+        "docs/en/migration-from-v2.md",
+        "docs/ja/migration-from-v1.md",
+        "docs/ja/migration-from-v2.md",
         "examples/no-framework/another.html",
         "examples/no-framework/index.html",
         {

@@ -1,12 +1,15 @@
 # Viewport Extra [![](https://data.jsdelivr.com/v1/package/npm/viewport-extra/badge)](https://www.jsdelivr.com/package/npm/viewport-extra) [![npm version](https://img.shields.io/npm/v/viewport-extra.svg?style=flat-square)](https://www.npmjs.com/package/viewport-extra) [![GitHub license](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](https://github.com/dsktschy/viewport-extra/blob/master/LICENSE.txt)
 
-[English](/README.md) | **日本語**
+[English](https://github.com/dsktschy/viewport-extra/blob/master/README.md) | **日本語**
 
 > [!IMPORTANT]
 >
-> **_次期メジャーバージョン v3 には、破壊的変更が含まれます。_**
+> **_v3 には破壊的変更が含まれます。_**
 >
-> 詳細: [次期メジャーバージョンへの対応方法](#次期メジャーバージョンへの対応方法)
+> - 参考: [v2 から v3 への移行ガイド](https://github.com/dsktschy/viewport-extra/blob/master/docs/ja/migration-from-v2.md)
+> - 参考: [v1 から v3 への移行ガイド](https://github.com/dsktschy/viewport-extra/blob/master/docs/ja/migration-from-v1.md)
+>
+> v2 および v1 もメンテナンスが継続されるため、引き続き使用可能です。
 
 Viewport Extra は、ビューポートの最小幅および最大幅の設定を可能にするライブラリです。これにより、スタイリング時に考慮すべきビューポートの範囲を狭めることができます。
 
@@ -48,12 +51,16 @@ Display images on following pages with as much spacing as possible
 
 ページの拡大・縮小は、`<meta name="viewport">` 要素の `content` 属性の書き換えにより行われます。
 
+Viewport Extra は、`<script async>` 要素や `import()` 構文による非同期の読み込みに対応し、ページ内の他の処理を妨げません。また、他のパッケージに依存せず、標準的なビルドで 1KB 未満 (Brotli 圧縮時) と非常に軽量です。
+
 ## ユースケース
 
 - [小さなビューポート幅でページを縮小する](#小さなビューポート幅でページを縮小する)
 - [大きなビューポート幅でページを拡大する](#大きなビューポート幅でページを拡大する)
 - [メディアクエリごとに異なる最小幅・最大幅を設定する](#メディアクエリごとに異なる最小幅最大幅を設定する)
 - [ビューポート幅が変わるときにもページを拡大・縮小する](#ビューポート幅が変わるときにもページを拡大縮小する)
+- [レガシーな環境でもページを拡大・縮小する](#レガシーな環境でもページを拡大縮小する)
+- [`<meta name="viewport-extra">` 要素を使わずにページを拡大・縮小する](#meta-nameviewport-extra-要素を使わずにページを拡大縮小する)
 
 ### 小さなビューポート幅でページを縮小する
 
@@ -67,9 +74,9 @@ Display images on following pages with as much spacing as possible
 
 ```html
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="viewport-extra" content="min-width=412">
+<meta name="viewport-extra" content="minimum-width=412">
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.5/dist/immediate/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end -->
@@ -77,8 +84,8 @@ Display images on following pages with as much spacing as possible
 ##### モジュールを使用する場合
 
 ```js
-import("viewport-extra").then(({ setContent }) => {
-  setContent({ minWidth: 412 })
+import("viewport-extra").then(({ apply }) => {
+  apply([{ content: { minimumWidth: 412 } }])
 })
 ```
 
@@ -116,9 +123,9 @@ import("viewport-extra").then(({ setContent }) => {
 
 ```html
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="viewport-extra" content="max-width=393">
+<meta name="viewport-extra" content="maximum-width=393">
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.5/dist/immediate/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end -->
@@ -126,8 +133,8 @@ import("viewport-extra").then(({ setContent }) => {
 ##### モジュールを使用する場合
 
 ```js
-import("viewport-extra").then(({ setContent }) => {
-  setContent({ maxWidth: 393 })
+import("viewport-extra").then(({ apply }) => {
+  apply([{ content: { maximumWidth: 393 } }])
 })
 ```
 
@@ -165,10 +172,10 @@ import("viewport-extra").then(({ setContent }) => {
 
 ```html
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="viewport-extra" content="min-width=412">
-<meta name="viewport-extra" content="min-width=1024" data-media="(min-width: 744px)">
+<meta name="viewport-extra" content="minimum-width=412">
+<meta name="viewport-extra" content="minimum-width=1024" data-media="(min-width: 744px)">
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.5/dist/immediate/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end -->
@@ -176,10 +183,10 @@ import("viewport-extra").then(({ setContent }) => {
 ##### モジュールを使用する場合
 
 ```js
-import("viewport-extra").then(({ setParameters }) => {
-  setParameters([
-    { content: { minWidth: 412 } },
-    { content: { minWidth: 1024 }, media: "(min-width: 744px)" },
+import("viewport-extra").then(({ apply }) => {
+  apply([
+    { content: { minimumWidth: 412 } },
+    { content: { minimumWidth: 1024 }, media: "(min-width: 744px)" },
   ])
 })
 ```
@@ -213,15 +220,11 @@ import("viewport-extra").then(({ setParameters }) => {
 <!-- x-release-please-start-version -->
 
 ```html
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1"
-  data-extra-unscaled-computing
->
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
 <script
   async
-  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"
+  src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.5/dist/immediate/viewport-extra.min.js"
   id="viewport-extra-script"
 ></script>
 
@@ -233,9 +236,9 @@ import("viewport-extra").then(({ setParameters }) => {
       window.addEventListener("resize", updateViewportMetaEl, { once: true })
     }).observe(document.documentElement)
 
-    ViewportExtra.setParameters([
-      { content: { minWidth: 412 } },
-      { content: { minWidth: 744 }, media: "(min-width: 640px)" },
+    ViewportExtra.apply([
+      { content: { minimumWidth: 412 } },
+      { content: { minimumWidth: 744 }, media: "(min-width: 640px)" },
     ])
   }
   if (window.ViewportExtra) {
@@ -253,7 +256,7 @@ import("viewport-extra").then(({ setParameters }) => {
 ##### モジュールを使用する場合
 
 ```js
-import("viewport-extra").then(({ setParameters }) => {
+import("viewport-extra").then(({ apply }) => {
   const updateViewportMetaEl = () => {
     // 無限リサイズを回避する
     new ResizeObserver((_, observer) => {
@@ -261,9 +264,9 @@ import("viewport-extra").then(({ setParameters }) => {
       window.addEventListener("resize", updateViewportMetaEl, { once: true })
     }).observe(document.documentElement)
 
-    setParameters([
-      { content: { minWidth: 412 } },
-      { content: { minWidth: 744 }, media: "(min-width: 640px)" },
+    apply([
+      { content: { minimumWidth: 412 } },
+      { content: { minimumWidth: 744 }, media: "(min-width: 640px)" },
     ])
   }
   updateViewportMetaEl()
@@ -280,38 +283,92 @@ import("viewport-extra").then(({ setParameters }) => {
 
 `initial-scale=0.9865591397849462,width=744`
 
-## 次期メジャーバージョンへの対応方法
+### レガシーな環境でもページを拡大・縮小する
 
-[English](/README.md#how-to-handle-the-upcoming-major-version) | **日本語**
+ここまでに使用している標準的なビルドには、ES2021 の構文、および Viewport Extra v3.0.0 公開時点で [Web Platform Baseline](https://web.dev/baseline?hl=ja) の Widely Available ステージにある機能が含まれます。これらをサポートしない環境 (例: iOS Safari < 16, Android Chrome < 108) でも Viewport Extra を動作させるためには、es5 ビルドを使用します [(参考)](https://github.com/dsktschy/viewport-extra/blob/master/docs/ja/migration-from-v2.md#ビルドの選択) 。
 
-破壊的変更を含む次期メジャーバージョン v3 の公開が予定されています。対応方法として、v2 および v1 の使用継続、または v3 リリース候補版 (RC) への移行を選択できます。
+#### 実装
 
-### v2 および v1 の使用を継続する
+##### スクリプトを使用する場合
 
-v2 および v1 は、v3 の公開後もメンテナンスが継続されるため、引き続き使用できます。
-
-#### コンソールのメッセージを抑制する
-
-v2.5 では、v3 公開前後の期間、Web ブラウザのコンソールに v3 に関するメッセージが表示されます。次のコードを使用して、メッセージを抑制できます。
+<!-- x-release-please-start-version -->
 
 ```html
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1"
-  data-extra-no-migration-message
->
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport-extra" content="minimum-width=412">
+
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.5/dist/immediate/es5/viewport-extra.min.js"></script>
 ```
 
-### v3 リリース候補版 (RC) へ移行する
+<!-- x-release-please-end -->
 
-v3 安定版に先行して、[v3 リリース候補版 (RC)](https://github.com/dsktschy/viewport-extra/releases/tag/v3.0.0-rc.3) と、v3 への移行ガイドを公開しています。
+##### モジュールを使用する場合
 
-- 参考: [v2 から v3 への移行ガイド](https://github.com/dsktschy/viewport-extra/blob/v3.0.0-rc.3/docs/ja/migration-from-v2.md)
-- 参考: [v1 から v3 への移行ガイド](https://github.com/dsktschy/viewport-extra/blob/v3.0.0-rc.3/docs/ja/migration-from-v1.md)
+```js
+import("viewport-extra/immediate/es5").then(({ apply }) => {
+  apply([{ content: { minimumWidth: 412 } }])
+})
+```
 
-リリース候補版 (RC) には、v3.0.0-rc.2 以降、安定版公開まで破壊的変更の予定がないため、これを使用して v3 へ移行できます。
+#### `<meta name="viewport">` 要素の `content` 属性の書き換え結果
+
+##### iPhone 7 縦向き Safari (375px)
+
+`initial-scale=0.9101941747572816,width=412`
+
+##### iPhone 7 横向き Safari (667px)
+
+`initial-scale=1,width=device-width`
+
+### `<meta name="viewport-extra">` 要素を使わずにページを拡大・縮小する
+
+次のコードを含むページは、[`<meta name="viewport-extra">` 要素を使用した実装](#スクリプトを使用する場合-2)と同様に動作します。
+
+#### 実装
+
+<!-- x-release-please-start-version -->
+
+```html
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" data-extra-content="minimum-width=412">
+<meta name="viewport" data-extra-content="minimum-width=1024" data-extra-media="(min-width: 744px)">
+
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0-rc.5/dist/immediate/viewport-extra.min.js"></script>
+```
+
+<!-- x-release-please-end -->
+
+#### `<meta name="viewport">` 要素の `content` 属性の書き換え結果
+
+##### Galaxy S24 縦向き Chrome (360px)
+
+`initial-scale=0.8737864077669902,width=412`
+
+##### Google Pixel 8 縦向き Chrome (412px)
+
+`initial-scale=1,width=device-width`
+
+##### iPad mini 第6世代 縦向き Safari (744px)
+
+`initial-scale=0.7265625,width=1024`
+
+##### iPad Pro 12.9" 縦向き Safari (1024px)
+
+`initial-scale=1,width=device-width`
 
 ## 補足
+
+- `minimum-width` / `maximum-width` の代わりに、`min-width` / `max-width` を使用できます。ただし、両方が混在する場合の動作は保証されないため、どちらか一方に統一する必要があります。
+
+  ```html
+  <meta name="viewport-extra" content="min-width=412,max-width=640">
+  ```
+
+  同様に、`minimumWidth` / `maximumWidth` の代わりに、`minWidth` / `maxWidth` を使用できます。これらも、両方が混在する場合の動作は保証されないため、どちらか一方に統一する必要があります。
+
+  ```js
+  apply([{ content: { minWidth: 412, maxWidth: 640 } }])
+  ```
 
 - 次のスタイルを併用することを推奨します。小さなモバイル端末における、ブラウザによる意図しないテキストサイズの調整を防ぎます [(参考)](https://stackoverflow.com/q/6210788) 。
 

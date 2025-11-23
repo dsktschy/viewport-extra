@@ -2,9 +2,9 @@ import { usePathname } from "next/navigation";
 import { Fragment, type FunctionComponent, useEffect, useRef } from "react";
 
 const ViewportExtra: FunctionComponent<{
-  minWidth?: number;
-  maxWidth?: number;
-}> = ({ minWidth, maxWidth }) => {
+  minimumWidth?: number;
+  maximumWidth?: number;
+}> = ({ minimumWidth, maximumWidth }) => {
   const pathname = usePathname();
 
   const previousPathname = useRef("");
@@ -12,15 +12,16 @@ const ViewportExtra: FunctionComponent<{
   useEffect(() => {
     if (pathname !== previousPathname.current) {
       previousPathname.current = pathname;
-      import("viewport-extra").then(({ setContent, updateReference }) => {
-        updateReference();
-        const content: Parameters<typeof setContent>[0] = {};
-        if (typeof minWidth === "number") content.minWidth = minWidth;
-        if (typeof maxWidth === "number") content.maxWidth = maxWidth;
-        setContent(content);
+      import("viewport-extra").then(({ apply }) => {
+        const content: Parameters<typeof apply>[0][number]["content"] = {};
+        if (typeof minimumWidth === "number")
+          content.minimumWidth = minimumWidth;
+        if (typeof maximumWidth === "number")
+          content.maximumWidth = maximumWidth;
+        apply([{ content }]);
       });
     }
-  }, [pathname, minWidth, maxWidth]);
+  }, [pathname, minimumWidth, maximumWidth]);
 
   return <Fragment />;
 };

@@ -1,18 +1,17 @@
 {
   "compilerOptions": {
-    "module": "esnext",
-    "lib": ["es2020", "dom"],
+    "module": "nodenext",
+    "lib": ["esnext", "dom"],
     "strict": true,
-    "moduleResolution": "node10",
+    "moduleResolution": "nodenext",
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "exactOptionalPropertyTypes": true,
     "paths": {
-      "@@/*": ["./*"],
-      "rollup/parseAst": ["./node_modules/rollup/dist/parseAst"]
-    },
-    "target": "esnext"
+      "@@/*": ["./*"]
+    }
   },
-  "exclude": ["**/node_modules", "examples", "**/dist", "types", ".types"],
+  "exclude": ["**/node_modules", "examples", "**/dist", ".types"],
   "include": [
     "**/*.ts",
     "**/*.mts",
