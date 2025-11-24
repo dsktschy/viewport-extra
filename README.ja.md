@@ -13,7 +13,7 @@ Viewport Extra は、ビューポートの最小幅および最大幅の設定�
 <!--
 Display images on following pages with as much spacing as possible
 
-- https://github.com/dsktschy/viewport-extra/blob/master/README.ja.md
+- https://github.com/dsktschy/viewport-extra/blob/2.x/README.ja.md
 -->
 <div align="center">
   <img
@@ -22,19 +22,19 @@ Display images on following pages with as much spacing as possible
   >
   <picture>
     <source
-      srcset="https://raw.githubusercontent.com/dsktschy/viewport-extra/master/docs/images/spacer-100x0.svg"
+      srcset="https://raw.githubusercontent.com/dsktschy/viewport-extra/2.x/docs/images/spacer-100x0.svg"
       media="(min-width: 1054px)"
     >
     <source
-      srcset="https://raw.githubusercontent.com/dsktschy/viewport-extra/master/docs/images/spacer-0x0.svg"
+      srcset="https://raw.githubusercontent.com/dsktschy/viewport-extra/2.x/docs/images/spacer-0x0.svg"
       media="(min-width: 768px)"
     >
     <source
-      srcset="https://raw.githubusercontent.com/dsktschy/viewport-extra/master/docs/images/spacer-100x0.svg"
+      srcset="https://raw.githubusercontent.com/dsktschy/viewport-extra/2.x/docs/images/spacer-100x0.svg"
       media="(min-width: 702px)"
     >
     <img
-      src="https://raw.githubusercontent.com/dsktschy/viewport-extra/master/docs/images/spacer-0x0.svg"
+      src="https://raw.githubusercontent.com/dsktschy/viewport-extra/2.x/docs/images/spacer-0x0.svg"
       alt=""
     >
   </picture>

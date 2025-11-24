@@ -13,10 +13,10 @@ Viewport Extra is a library that enables setting the minimum / maximum width of 
 <!--
 Display images on following pages with as much spacing as possible
 
-- https://github.com/dsktschy/viewport-extra#readme
-- https://github.com/dsktschy/viewport-extra/blob/master/README.md
-- https://www.npmjs.com/package/viewport-extra#readme
-- https://www.jsdelivr.com/package/npm/viewport-extra#tabRouteReadme
+- https://github.com/dsktschy/viewport-extra/tree/2.x#readme
+- https://github.com/dsktschy/viewport-extra/blob/2.x/README.md
+- https://www.npmjs.com/package/viewport-extra/v/2.5.0#readme # x-release-please-version
+- https://www.jsdelivr.com/package/npm/viewport-extra?version=2.5.0#tabRouteReadme # x-release-please-version
 -->
 <div align="center">
   <img
@@ -25,19 +25,19 @@ Display images on following pages with as much spacing as possible
   >
   <picture>
     <source
-      srcset="https://raw.githubusercontent.com/dsktschy/viewport-extra/master/docs/images/spacer-100x0.svg"
+      srcset="https://raw.githubusercontent.com/dsktschy/viewport-extra/2.x/docs/images/spacer-100x0.svg"
       media="(min-width: 1054px)"
     >
     <source
-      srcset="https://raw.githubusercontent.com/dsktschy/viewport-extra/master/docs/images/spacer-0x0.svg"
+      srcset="https://raw.githubusercontent.com/dsktschy/viewport-extra/2.x/docs/images/spacer-0x0.svg"
       media="(min-width: 768px)"
     >
     <source
-      srcset="https://raw.githubusercontent.com/dsktschy/viewport-extra/master/docs/images/spacer-100x0.svg"
+      srcset="https://raw.githubusercontent.com/dsktschy/viewport-extra/2.x/docs/images/spacer-100x0.svg"
       media="(min-width: 702px)"
     >
     <img
-      src="https://raw.githubusercontent.com/dsktschy/viewport-extra/master/docs/images/spacer-0x0.svg"
+      src="https://raw.githubusercontent.com/dsktschy/viewport-extra/2.x/docs/images/spacer-0x0.svg"
       alt=""
     >
   </picture>
