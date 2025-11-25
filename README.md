@@ -2,12 +2,6 @@
 
 **English** | [日本語](https://github.com/dsktschy/viewport-extra/blob/2.x/README.ja.md)
 
-> [!IMPORTANT]
->
-> **_The upcoming major version v3 includes BREAKING CHANGES._**
->
-> More info: [How to Handle the Upcoming Major Version](#how-to-handle-the-upcoming-major-version)
-
 Viewport Extra is a library that enables setting the minimum / maximum width of the viewport. It reduces the range of the viewport that needs to be considered when styling.
 
 <!--
@@ -283,11 +277,11 @@ import("viewport-extra").then(({ setParameters }) => {
 
 `initial-scale=0.9865591397849462,width=744`
 
-## How to Handle the Upcoming Major Version
+## How to Handle v3
 
-**English** | [日本語](https://github.com/dsktschy/viewport-extra/blob/2.x/README.ja.md#次期メジャーバージョンへの対応方法)
+**English** | [日本語](https://github.com/dsktschy/viewport-extra/blob/2.x/README.ja.md#v3-への対応方法)
 
-The upcoming major version v3, which includes breaking changes, is scheduled for release. To handle this, continuation of using v2 and v1 or migration to v3 release candidate (RC) are available.
+v3 includes breaking changes. To handle this, continuation of using v2 and v1 or migration to v3 are available.
 
 ### Continue Using v2 and v1
 
@@ -305,14 +299,12 @@ In v2.5, during the period before and after the release of v3, a message about v
 >
 ```
 
-### Migrate to v3 Release Candidate (RC)
+### Migrate to v3
 
-Ahead of the v3 stable release, the [v3 release candidate (RC)](https://github.com/dsktschy/viewport-extra/releases/tag/v3.0.0-rc.3) and the migration guides to v3 have been published.
+Migration to v3 is possible with reference to the guides.
 
-- Reference: [Migration Guide from v2 to v3](https://github.com/dsktschy/viewport-extra/blob/v3.0.0-rc.3/docs/en/migration-from-v2.md)
-- Reference: [Migration Guide from v1 to v3](https://github.com/dsktschy/viewport-extra/blob/v3.0.0-rc.3/docs/en/migration-from-v1.md)
-
-The release candidate (RC) can be used to migrate to v3, as no breaking changes are planned from v3.0.0-rc.2 until the stable release.
+- Reference: [Migration Guide from v2 to v3](https://github.com/dsktschy/viewport-extra/blob/master/docs/en/migration-from-v2.md)
+- Reference: [Migration Guide from v1 to v3](https://github.com/dsktschy/viewport-extra/blob/master/docs/en/migration-from-v1.md)
 
 ## Notes
 

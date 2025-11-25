@@ -2,12 +2,6 @@
 
 [English](https://github.com/dsktschy/viewport-extra/blob/2.x/README.md) | **日本語**
 
-> [!IMPORTANT]
->
-> **_次期メジャーバージョン v3 には、破壊的変更が含まれます。_**
->
-> 詳細: [次期メジャーバージョンへの対応方法](#次期メジャーバージョンへの対応方法)
-
 Viewport Extra は、ビューポートの最小幅および最大幅の設定を可能にするライブラリです。これにより、スタイリング時に考慮すべきビューポートの範囲を狭めることができます。
 
 <!--
@@ -280,11 +274,11 @@ import("viewport-extra").then(({ setParameters }) => {
 
 `initial-scale=0.9865591397849462,width=744`
 
-## 次期メジャーバージョンへの対応方法
+## v3 への対応方法
 
-[English](https://github.com/dsktschy/viewport-extra/blob/2.x/README.md#how-to-handle-the-upcoming-major-version) | **日本語**
+[English](https://github.com/dsktschy/viewport-extra/blob/2.x/README.md#how-to-handle-v3) | **日本語**
 
-破壊的変更を含む次期メジャーバージョン v3 の公開が予定されています。対応方法として、v2 および v1 の使用継続、または v3 リリース候補版 (RC) への移行を選択できます。
+v3 には破壊的変更が含まれます。対応方法として、v2 および v1 の使用継続、または v3 への移行を選択できます。
 
 ### v2 および v1 の使用を継続する
 
@@ -302,14 +296,12 @@ v2.5 では、v3 公開前後の期間、Web ブラウザのコンソールに v
 >
 ```
 
-### v3 リリース候補版 (RC) へ移行する
+### v3 へ移行する
 
-v3 安定版に先行して、[v3 リリース候補版 (RC)](https://github.com/dsktschy/viewport-extra/releases/tag/v3.0.0-rc.3) と、v3 への移行ガイドを公開しています。
+v3 へは、ガイドを参考に移行できます。
 
-- 参考: [v2 から v3 への移行ガイド](https://github.com/dsktschy/viewport-extra/blob/v3.0.0-rc.3/docs/ja/migration-from-v2.md)
-- 参考: [v1 から v3 への移行ガイド](https://github.com/dsktschy/viewport-extra/blob/v3.0.0-rc.3/docs/ja/migration-from-v1.md)
-
-リリース候補版 (RC) には、v3.0.0-rc.2 以降、安定版公開まで破壊的変更の予定がないため、これを使用して v3 へ移行できます。
+- 参考: [v2 から v3 への移行ガイド](https://github.com/dsktschy/viewport-extra/blob/master/docs/ja/migration-from-v2.md)
+- 参考: [v1 から v3 への移行ガイド](https://github.com/dsktschy/viewport-extra/blob/master/docs/ja/migration-from-v1.md)
 
 ## 補足
 
