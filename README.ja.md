@@ -1,6 +1,6 @@
 # Viewport Extra [![](https://data.jsdelivr.com/v1/package/npm/viewport-extra/badge)](https://www.jsdelivr.com/package/npm/viewport-extra) [![npm version](https://img.shields.io/npm/v/viewport-extra.svg?style=flat-square)](https://www.npmjs.com/package/viewport-extra) [![GitHub license](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](https://github.com/dsktschy/viewport-extra/blob/master/LICENSE.txt)
 
-[English](/README.md) | **日本語**
+[English](https://github.com/dsktschy/viewport-extra/blob/2.x/README.md) | **日本語**
 
 > [!IMPORTANT]
 >
@@ -282,7 +282,7 @@ import("viewport-extra").then(({ setParameters }) => {
 
 ## 次期メジャーバージョンへの対応方法
 
-[English](/README.md#how-to-handle-the-upcoming-major-version) | **日本語**
+[English](https://github.com/dsktschy/viewport-extra/blob/2.x/README.md#how-to-handle-the-upcoming-major-version) | **日本語**
 
 破壊的変更を含む次期メジャーバージョン v3 の公開が予定されています。対応方法として、v2 および v1 の使用継続、または v3 リリース候補版 (RC) への移行を選択できます。
 

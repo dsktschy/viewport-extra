@@ -1,6 +1,6 @@
 # Viewport Extra [![](https://data.jsdelivr.com/v1/package/npm/viewport-extra/badge)](https://www.jsdelivr.com/package/npm/viewport-extra) [![npm version](https://img.shields.io/npm/v/viewport-extra.svg?style=flat-square)](https://www.npmjs.com/package/viewport-extra) [![GitHub license](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](https://github.com/dsktschy/viewport-extra/blob/master/LICENSE.txt)
 
-**English** | [日本語](/README.ja.md)
+**English** | [日本語](https://github.com/dsktschy/viewport-extra/blob/2.x/README.ja.md)
 
 > [!IMPORTANT]
 >
@@ -285,7 +285,7 @@ import("viewport-extra").then(({ setParameters }) => {
 
 ## How to Handle the Upcoming Major Version
 
-**English** | [日本語](/README.ja.md#次期メジャーバージョンへの対応方法)
+**English** | [日本語](https://github.com/dsktschy/viewport-extra/blob/2.x/README.ja.md#次期メジャーバージョンへの対応方法)
 
 The upcoming major version v3, which includes breaking changes, is scheduled for release. To handle this, continuation of using v2 and v1 or migration to v3 release candidate (RC) are available.
 
