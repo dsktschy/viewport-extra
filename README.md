@@ -9,8 +9,8 @@ Display images on following pages with as much spacing as possible
 
 - https://github.com/dsktschy/viewport-extra/tree/2.x#readme
 - https://github.com/dsktschy/viewport-extra/blob/2.x/README.md
-- https://www.npmjs.com/package/viewport-extra/v/2.5.0#readme # x-release-please-version
-- https://www.jsdelivr.com/package/npm/viewport-extra?version=2.5.0#tabRouteReadme # x-release-please-version
+- https://www.npmjs.com/package/viewport-extra/v/2.5.1-rc.0#readme # x-release-please-version
+- https://www.jsdelivr.com/package/npm/viewport-extra?version=2.5.1-rc.0#tabRouteReadme # x-release-please-version
 -->
 <div align="center">
   <img
@@ -66,7 +66,7 @@ Pages containing the following code are scaled down on mobile browsers with view
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="viewport-extra" content="min-width=412">
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.1-rc.0/dist/iife/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end -->
@@ -115,7 +115,7 @@ Pages containing the following code are scaled up on mobile browsers with viewpo
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="viewport-extra" content="max-width=393">
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.1-rc.0/dist/iife/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end -->
@@ -165,7 +165,7 @@ Pages containing the following code are scaled down on mobile browsers with view
 <meta name="viewport-extra" content="min-width=412">
 <meta name="viewport-extra" content="min-width=1024" data-media="(min-width: 744px)">
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.1-rc.0/dist/iife/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end -->
@@ -218,7 +218,7 @@ Pages containing the following code determine whether to scale up or down not on
 
 <script
   async
-  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"
+  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.1-rc.0/dist/iife/viewport-extra.min.js"
   id="viewport-extra-script"
 ></script>
 
