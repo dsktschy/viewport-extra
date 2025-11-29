@@ -77,7 +77,7 @@ if (typeof window !== "undefined") {
     console.info(
       "[Viewport Extra]\n\n" +
         "v3 includes breaking changes.\n\n" +
-        "More info: https://github.com/dsktschy/viewport-extra/blob/v2.5.1-rc.0/README.md#how-to-handle-v3\n\n" +
+        "More info: https://github.com/dsktschy/viewport-extra/blob/v2.5.1/README.md#how-to-handle-v3\n\n" +
         'To suppress this message, add the `data-extra-no-migration-message` attribute to the `<meta name="viewport">` element.',
     );
     // x-release-please-end
