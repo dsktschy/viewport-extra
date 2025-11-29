@@ -1,6 +1,6 @@
 {
   "name": "viewport-extra",
-  "version": "2.5.0",
+  "version": "2.5.1-rc.0",
   "description": "Enable setting minimum and maximum viewport width",
   "author": "dsktschy (https://github.com/dsktschy)",
   "license": "MIT",
@@ -43,7 +43,7 @@
     "@commitlint/cli": "19.4.0",
     "@commitlint/config-conventional": "19.2.2",
     "@eslint/compat": "1.2.8",
-    "@playwright/test": "1.46.1",
+    "@playwright/test": "1.56.1",
     "@rollup/plugin-terser": "0.4.4",
     "@rollup/plugin-typescript": "12.1.0",
     "@types/node": "22.5.2",
@@ -62,7 +62,7 @@
     "semver": "7.7.2",
     "tslib": "2.6.3",
     "typescript": "5.5.4",
-    "vite": "6.3.5",
+    "vite": "6.4.1",
     "vitest": "3.0.8"
   },
   "scripts": {

@@ -18,8 +18,7 @@ jobs:
       pull-requests: write
     steps:
       - name: Publish tag and release
-        # Temporary fork until googleapis/release-please-action's release-please is updated to v17.1.0
-        uses: dsktschy/release-please-action@42bc9866c4337dde1006a52a1e1d0a463277f068
+        uses: googleapis/release-please-action@16a9c90856f42705d54a6fda1823352bdc62cf38 # 4.4.0
         with:
           config-file: release-please-config.default.json
           skip-github-pull-request: true
@@ -37,8 +36,7 @@ jobs:
       pull-requests: write
     steps:
       - name: Publish tag and release
-        # Temporary fork until googleapis/release-please-action's release-please is updated to v17.1.0
-        uses: dsktschy/release-please-action@42bc9866c4337dde1006a52a1e1d0a463277f068
+        uses: googleapis/release-please-action@16a9c90856f42705d54a6fda1823352bdc62cf38 # 4.4.0
         with:
           config-file: release-please-config.prerelease.json
           skip-github-pull-request: true

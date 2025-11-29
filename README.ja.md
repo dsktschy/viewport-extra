@@ -1,19 +1,13 @@
 # Viewport Extra [![](https://data.jsdelivr.com/v1/package/npm/viewport-extra/badge)](https://www.jsdelivr.com/package/npm/viewport-extra) [![npm version](https://img.shields.io/npm/v/viewport-extra.svg?style=flat-square)](https://www.npmjs.com/package/viewport-extra) [![GitHub license](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](https://github.com/dsktschy/viewport-extra/blob/master/LICENSE.txt)
 
-[English](/README.md) | **日本語**
-
-> [!IMPORTANT]
->
-> **_次期メジャーバージョン v3 には、破壊的変更が含まれます。_**
->
-> 詳細: [次期メジャーバージョンへの対応方法](#次期メジャーバージョンへの対応方法)
+[English](https://github.com/dsktschy/viewport-extra/blob/2.x/README.md) | **日本語**
 
 Viewport Extra は、ビューポートの最小幅および最大幅の設定を可能にするライブラリです。これにより、スタイリング時に考慮すべきビューポートの範囲を狭めることができます。
 
 <!--
 Display images on following pages with as much spacing as possible
 
-- https://github.com/dsktschy/viewport-extra/blob/master/README.ja.md
+- https://github.com/dsktschy/viewport-extra/blob/2.x/README.ja.md
 -->
 <div align="center">
   <img
@@ -22,19 +16,19 @@ Display images on following pages with as much spacing as possible
   >
   <picture>
     <source
-      srcset="https://raw.githubusercontent.com/dsktschy/viewport-extra/master/docs/images/spacer-100x0.svg"
+      srcset="https://raw.githubusercontent.com/dsktschy/viewport-extra/2.x/docs/images/spacer-100x0.svg"
       media="(min-width: 1054px)"
     >
     <source
-      srcset="https://raw.githubusercontent.com/dsktschy/viewport-extra/master/docs/images/spacer-0x0.svg"
+      srcset="https://raw.githubusercontent.com/dsktschy/viewport-extra/2.x/docs/images/spacer-0x0.svg"
       media="(min-width: 768px)"
     >
     <source
-      srcset="https://raw.githubusercontent.com/dsktschy/viewport-extra/master/docs/images/spacer-100x0.svg"
+      srcset="https://raw.githubusercontent.com/dsktschy/viewport-extra/2.x/docs/images/spacer-100x0.svg"
       media="(min-width: 702px)"
     >
     <img
-      src="https://raw.githubusercontent.com/dsktschy/viewport-extra/master/docs/images/spacer-0x0.svg"
+      src="https://raw.githubusercontent.com/dsktschy/viewport-extra/2.x/docs/images/spacer-0x0.svg"
       alt=""
     >
   </picture>
@@ -69,7 +63,7 @@ Display images on following pages with as much spacing as possible
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="viewport-extra" content="min-width=412">
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.1-rc.0/dist/iife/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end -->
@@ -118,7 +112,7 @@ import("viewport-extra").then(({ setContent }) => {
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="viewport-extra" content="max-width=393">
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.1-rc.0/dist/iife/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end -->
@@ -168,7 +162,7 @@ import("viewport-extra").then(({ setContent }) => {
 <meta name="viewport-extra" content="min-width=412">
 <meta name="viewport-extra" content="min-width=1024" data-media="(min-width: 744px)">
 
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.1-rc.0/dist/iife/viewport-extra.min.js"></script>
 ```
 
 <!-- x-release-please-end -->
@@ -221,7 +215,7 @@ import("viewport-extra").then(({ setParameters }) => {
 
 <script
   async
-  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"
+  src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.1-rc.0/dist/iife/viewport-extra.min.js"
   id="viewport-extra-script"
 ></script>
 
@@ -280,11 +274,11 @@ import("viewport-extra").then(({ setParameters }) => {
 
 `initial-scale=0.9865591397849462,width=744`
 
-## 次期メジャーバージョンへの対応方法
+## v3 への対応方法
 
-[English](/README.md#how-to-handle-the-upcoming-major-version) | **日本語**
+[English](https://github.com/dsktschy/viewport-extra/blob/2.x/README.md#how-to-handle-v3) | **日本語**
 
-破壊的変更を含む次期メジャーバージョン v3 の公開が予定されています。対応方法として、v2 および v1 の使用継続、または v3 リリース候補版 (RC) への移行を選択できます。
+v3 には破壊的変更が含まれます。対応方法として、v2 および v1 の使用継続、または v3 への移行を選択できます。
 
 ### v2 および v1 の使用を継続する
 
@@ -302,14 +296,12 @@ v2.5 では、v3 公開前後の期間、Web ブラウザのコンソールに v
 >
 ```
 
-### v3 リリース候補版 (RC) へ移行する
+### v3 へ移行する
 
-v3 安定版に先行して、[v3 リリース候補版 (RC)](https://github.com/dsktschy/viewport-extra/releases/tag/v3.0.0-rc.3) と、v3 への移行ガイドを公開しています。
+v3 へは、ガイドを参考に移行できます。
 
-- 参考: [v2 から v3 への移行ガイド](https://github.com/dsktschy/viewport-extra/blob/v3.0.0-rc.3/docs/ja/migration-from-v2.md)
-- 参考: [v1 から v3 への移行ガイド](https://github.com/dsktschy/viewport-extra/blob/v3.0.0-rc.3/docs/ja/migration-from-v1.md)
-
-リリース候補版 (RC) には、v3.0.0-rc.2 以降、安定版公開まで破壊的変更の予定がないため、これを使用して v3 へ移行できます。
+- 参考: [v2 から v3 への移行ガイド](https://github.com/dsktschy/viewport-extra/blob/master/docs/ja/migration-from-v2.md)
+- 参考: [v1 から v3 への移行ガイド](https://github.com/dsktschy/viewport-extra/blob/master/docs/ja/migration-from-v1.md)
 
 ## 補足
 

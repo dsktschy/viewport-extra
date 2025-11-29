@@ -393,7 +393,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
       });
 
       test.describe("case where viewport-extra meta element does not have data-extra-no-migration-message attribute", () => {
-        test.describe("case where date and time is before 2026-03-01 00:00:00 UTC", () => {
+        test.describe("case where date and time is before 2026-02-23 00:00:00 UTC", () => {
           test("message is displayed in console", async ({ page }, {
             config: { projects },
           }) => {
@@ -403,7 +403,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
             page.on("console", (consoleMessage) => {
               consoleMessages.push(consoleMessage.text());
             });
-            await page.clock.setFixedTime(new Date("2026-02-28T23:59:59Z"));
+            await page.clock.setFixedTime(new Date("2026-02-22T23:59:59Z"));
             await page.setContent(`
               <!doctype html>
               <html lang="en">
@@ -429,7 +429,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
           });
         });
 
-        test.describe("case where date and time is not before 2026-03-01 00:00:00 UTC", () => {
+        test.describe("case where date and time is not before 2026-02-23 00:00:00 UTC", () => {
           test("message is not displayed in console", async ({ page }, {
             config: { projects },
           }) => {
@@ -439,7 +439,7 @@ import { getViewportContentString } from "../modules/PlaywrightPage.js";
             page.on("console", (consoleMessage) => {
               consoleMessages.push(consoleMessage.text());
             });
-            await page.clock.setFixedTime(new Date("2026-03-01T00:00:00Z"));
+            await page.clock.setFixedTime(new Date("2026-02-23T00:00:00Z"));
             await page.setContent(`
               <!doctype html>
               <html lang="en">
