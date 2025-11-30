@@ -2,6 +2,12 @@
 
 **English** | [日本語](https://github.com/dsktschy/viewport-extra/blob/2.x/README.ja.md)
 
+> [!NOTE]
+>
+> The latest major version is v3.
+>
+> More info: [How to Handle v3](#how-to-handle-v3)
+
 Viewport Extra is a library that enables setting the minimum / maximum width of the viewport. It reduces the range of the viewport that needs to be considered when styling.
 
 <!--
@@ -281,11 +287,11 @@ import("viewport-extra").then(({ setParameters }) => {
 
 **English** | [日本語](https://github.com/dsktschy/viewport-extra/blob/2.x/README.ja.md#v3-への対応方法)
 
-v3 includes breaking changes. To handle this, continuation of using v2 and v1 or migration to v3 are available.
+v3 includes breaking changes. To handle this, continuation of using v2 or migration to v3 are available.
 
-### Continue Using v2 and v1
+### Continue Using v2
 
-v2 and v1 will continue to be maintained and remain available for use even after the release of v3.
+v2 will continue to be maintained and remain available for use even after the release of v3.
 
 #### Suppress Console Message
 
@@ -304,7 +310,6 @@ In v2.5, during the period before and after the release of v3, a message about v
 Migration to v3 is possible with reference to the guides.
 
 - Reference: [Migration Guide from v2 to v3](https://github.com/dsktschy/viewport-extra/blob/master/docs/en/migration-from-v2.md)
-- Reference: [Migration Guide from v1 to v3](https://github.com/dsktschy/viewport-extra/blob/master/docs/en/migration-from-v1.md)
 
 ## Notes
 
