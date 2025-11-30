@@ -2,6 +2,12 @@
 
 [English](https://github.com/dsktschy/viewport-extra/blob/2.x/README.md) | **日本語**
 
+> [!NOTE]
+>
+> 最新のメジャーバージョンは v3 です。
+>
+> 詳細: [v3 への対応方法](#v3-への対応方法)
+
 Viewport Extra は、ビューポートの最小幅および最大幅の設定を可能にするライブラリです。これにより、スタイリング時に考慮すべきビューポートの範囲を狭めることができます。
 
 <!--
@@ -278,11 +284,11 @@ import("viewport-extra").then(({ setParameters }) => {
 
 [English](https://github.com/dsktschy/viewport-extra/blob/2.x/README.md#how-to-handle-v3) | **日本語**
 
-v3 には破壊的変更が含まれます。対応方法として、v2 および v1 の使用継続、または v3 への移行を選択できます。
+v3 には破壊的変更が含まれます。対応方法として、v2 の使用継続、または v3 への移行を選択できます。
 
-### v2 および v1 の使用を継続する
+### v2 の使用を継続する
 
-v2 および v1 は、v3 の公開後もメンテナンスが継続されるため、引き続き使用できます。
+v2 は、v3 の公開後もメンテナンスが継続されるため、引き続き使用できます。
 
 #### コンソールのメッセージを抑制する
 
@@ -301,7 +307,6 @@ v2.5 では、v3 公開前後の期間、Web ブラウザのコンソールに v
 v3 へは、ガイドを参考に移行できます。
 
 - 参考: [v2 から v3 への移行ガイド](https://github.com/dsktschy/viewport-extra/blob/master/docs/ja/migration-from-v2.md)
-- 参考: [v1 から v3 への移行ガイド](https://github.com/dsktschy/viewport-extra/blob/master/docs/ja/migration-from-v1.md)
 
 ## 補足
 
