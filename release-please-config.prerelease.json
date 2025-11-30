@@ -12,7 +12,6 @@
       "extra-files": [
         "README.ja.md",
         "README.md",
-        "src/index.ts",
         "examples/no-framework/another.html",
         "examples/no-framework/index.html",
         {

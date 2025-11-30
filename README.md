@@ -293,18 +293,6 @@ v3 includes breaking changes. To handle this, continuation of using v2 or migrat
 
 v2 will continue to be maintained and remain available for use even after the release of v3.
 
-#### Suppress Console Message
-
-In v2.5, during the period before and after the release of v3, a message about v3 is displayed in the web browser console. The following code can suppress the message.
-
-```html
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1"
-  data-extra-no-migration-message
->
-```
-
 ### Migrate to v3
 
 Migration to v3 is possible with reference to the guides.
