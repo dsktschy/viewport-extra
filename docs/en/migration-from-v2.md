@@ -20,27 +20,27 @@ This guide explains the differences between Viewport Extra v2 and v3. While v2 c
   <meta name="viewport-extra" content="min-width=412,max-width=640">
   <script
     async
--   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"
+-   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.1/dist/iife/viewport-extra.min.js"
 +   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0/dist/immediate/viewport-extra.min.js"
   ></script>
 
   <!-- For environments that do not support ES2015+ -->
   <script
     async
--   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"
+-   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.1/dist/iife/viewport-extra.min.js"
 +   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0/dist/immediate/es5/viewport-extra.min.js"
   ></script>
 
   <!-- If using the data-(extra-)decimal-places attribute -->
   <script
     async
--   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"
+-   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.1/dist/iife/viewport-extra.min.js"
 +   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0/dist/immediate/extended/viewport-extra.min.js"
   ></script>
 
   <!-- If not using meta element parsing and immediate application and only using API calls -->
   <script
--   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"
+-   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.1/dist/iife/viewport-extra.min.js"
 +   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0/dist/viewport-extra.min.js"
   ></script>
   <script>
@@ -59,7 +59,7 @@ This guide explains the differences between Viewport Extra v2 and v3. While v2 c
   >
 + <!-- Deprecated: data-(extra-)unscaled-computing attribute -->
   <script
--   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"
+-   src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.1/dist/iife/viewport-extra.min.js"
 +   src="https://cdn.jsdelivr.net/npm/viewport-extra@3.0.0/dist/viewport-extra.min.js"
   ></script>
   <script>
@@ -157,7 +157,7 @@ In v3, multiple builds with varying scopes of included features are provided. Th
 Only a single build can be selected.
 
 ```html
-<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.1/dist/iife/viewport-extra.min.js"></script>
 ```
 
 ##### v3 Syntax
@@ -359,7 +359,7 @@ If `setContent()` function and `setParameters()` function are to be called multi
   data-extra-content="min-width=412"
   data-extra-unscaled-computing
 >
-<script src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.1/dist/iife/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener("awesome-event", () => {
@@ -376,7 +376,7 @@ If `setContent()` function and `setParameters()` function are to be called multi
   content="width=device-width,initial-scale=1,min-width=412"
   data-unscaled-computing
 >
-<script src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.1/dist/iife/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener("awesome-event", () => {
@@ -456,7 +456,7 @@ In multiple calls to `setContent()` function and `setParameters()` function, if 
   data-extra-unscaled-computing
   data-extra-content="min-width=412"
 >
-<script src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.1/dist/iife/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener(
@@ -473,7 +473,7 @@ In multiple calls to `setContent()` function and `setParameters()` function, if 
   data-extra-unscaled-computing
   data-extra-content="min-width=412"
 >
-<script src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.0/dist/iife/viewport-extra.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/viewport-extra@2.5.1/dist/iife/viewport-extra.min.js"></script>
 
 <script>
   window.addEventListener(
