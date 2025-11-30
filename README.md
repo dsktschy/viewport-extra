@@ -1,5 +1,11 @@
 # Viewport Extra [![](https://data.jsdelivr.com/v1/package/npm/viewport-extra/badge)](https://www.jsdelivr.com/package/npm/viewport-extra)
 
+> [!NOTE]
+>
+> The latest major version is v3.
+>
+> More info: [How to Handle v3](#how-to-handle-v3)
+
 Viewport Extra enables to set min-width and max-width of viewport, by overriding the content attribute of the viewport meta element. It will reduce the range of viewport that have to be considered when styling.
 
 For example, on devices with a display width of less than 375px (e.g. iPhone SE 1st generation), if a page with a width of 375px or more is displayed, there will usually be horizontal scrolling. In such a case, you can set the min-width of viewport to 375px with Viewport Extra, which will shrink the page to fit perfectly into the 375px display width and remove horizontal scrolling.
@@ -82,6 +88,20 @@ new ViewportExtra(isTablet ? 1280 : 375)
  */
 new ViewportExtra({ minWidth: null, maxWidth: 320 })
 ```
+
+## How to Handle v3
+
+v3 includes breaking changes. To handle this, continuation of using v1 or migration to v3 are available.
+
+### Continue Using v1
+
+v1 will continue to be maintained and remain available for use even after the release of v3.
+
+### Migrate to v3
+
+Migration to v3 is possible with reference to the guides.
+
+- Reference: [Migration Guide from v1 to v3](https://github.com/dsktschy/viewport-extra/blob/master/docs/en/migration-from-v1.md)
 
 ## Note
 
